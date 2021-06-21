@@ -1,0 +1,20 @@
+{
+  "label": "Grass Base (1)",
+
+  "strips": [
+    {
+      "x": 0, "y": 0, "z": 0, "numPoints": 4, "spacing": 10,
+      "direction": { "x": 1, "y": 0, "z": 0 }
+    }
+  ],
+
+  "outputs": [
+    {
+      "protocol": "artnet",
+      "host": "192.168.0.60",
+      "universe": 0,
+      "byteOrder":"rgb",
+      "start": 1, "num": 4
+    },
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "label": "Child Test",
+
+  "strips":[
+    {"x":0, "y":60, "numPoints":7,"spacing":120}
+  ],
+
+  "children":[
+      { "type":"7-pixel-base", "x":60 },
+      { "type":"7-pixel-base", "x":180 },
+      { "type":"7-pixel-base", "x":300 },
+      { "type":"7-pixel-base", "x":420 }
+  ],
+
+  "outputs": [
+    {
+      "protocol": "artnet",
+      "host": "192.168.1.60",
+      "universe": 0,
+      "segments":[
+        {
+          "byteOrder":"gbr",
+          "start":0,"num":7
+        },
+        {
+          "byteOrder":"rgb",
+          "start":7,"num":28
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "label": "Custom strip",
+
+  "strips": [
+    {
+      "x": 0, "y": 0, "z": 0, "numPoints": 165, "spacing": 10,
+      "direction": { "x": 1, "y": 0, "z": 0 }
+    },
+    {
+      "x": 1650, "y": 0, "z": 0, "numPoints": 81, "spacing": 10,
+      "direction": { "x": 0, "y": 1, "z": 0 }
+    },
+    {
+      "x": 1650, "y": 810, "z": 0, "numPoints": 54, "spacing": 10,
+      "direction": { "x": -1, "y": 0, "z": 0 }
+    },
+    {
+      "x": 1110, "y": 810, "z": 0, "numPoints": 111, "spacing": 10,
+      "direction": { "x": -1, "y": 0, "z": 0 }
+    },
+    {
+      "x": 0, "y": 810, "z": 0, "numPoints": 79, "spacing": 10,
+      "direction": { "x": 0, "y": -1, "z": 0 }
+    },    
+
+  ],
+
+  "outputs": [
+    {
+      "protocol": "artnet",
+      "host": "192.168.0.60",
+      "universe": 0,
+      "byteOrder":"rgb",
+      "start": 0, "num": 170
+    },
+    {
+      "protocol": "artnet",
+      "host": "192.168.0.60",
+      "universe": 1,
+      "byteOrder":"rgb",
+      "start": 170, "num": 170
+    },
+    {
+      "protocol": "artnet",
+      "host": "192.168.0.60",
+      "universe": 2,
+      "byteOrder":"rgb",
+      "start": 340, "num": 150
+    }
+
+  ]
+}
