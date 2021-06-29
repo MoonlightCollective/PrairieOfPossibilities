@@ -216,7 +216,7 @@ public static class DonutPattern extends LXPattern {
 public static class ChasePattern extends LXPattern {
   
   public enum Mode {
-    Solo,Add
+    Solo,Add,Tail
   };
   
   public final EnumParameter<Mode> mode =
@@ -238,6 +238,16 @@ public static class ChasePattern extends LXPattern {
     
     for (LXPoint p : model.points) {
       switch (this.mode.getEnum()) {
+      case Tail:
+        if (p.index == head-1)
+          colors[p.index] = LXColor.gray(100);
+        else if (p.index == head-2)
+          colors[p.index] = LXColor.gray(50);
+        else if (p.index == head-3)
+          colors[p.index] = LXColor.gray(25);
+        else
+          colors[p.index] = LXColor.BLACK;
+        break;
       case Solo:
         if (p.index == head-1)
           colors[p.index] = LXColor.gray(100);
