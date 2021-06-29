@@ -1,0 +1,4148 @@
+{
+  "version": "0.2.1",
+  "timestamp": 1624863104444,
+  "model": {
+    "id": 2,
+    "class": "heronarts.lx.structure.LXStructure",
+    "internal": {
+      "modulationColor": 0
+    },
+    "parameters": {
+      "label": "LX",
+      "syncModelFile": false
+    },
+    "children": {},
+    "output": {
+      "id": 3,
+      "class": "heronarts.lx.structure.LXStructure$Output",
+      "internal": {
+        "modulationColor": 0
+      },
+      "parameters": {
+        "label": "Output",
+        "enabled": true,
+        "brightness": 1.0,
+        "fps": 0.0,
+        "gamma": 1.0,
+        "gammaMode": 1
+      },
+      "children": {}
+    },
+    "fixtures": [
+      {
+        "jsonFixtureType": "Yard1",
+        "jsonParameters": {},
+        "id": 1548,
+        "class": "heronarts.lx.structure.JsonFixture",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Front yard 1",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "yaw": 0.0,
+          "pitch": 0.0,
+          "roll": 0.0,
+          "selected": true,
+          "enabled": true,
+          "brightness": 1.0,
+          "identify": false,
+          "mute": false,
+          "solo": false,
+          "fixtureType": "Yard1",
+          "scale": 1.0
+        },
+        "children": {}
+      }
+    ]
+  },
+  "engine": {
+    "id": 1,
+    "class": "heronarts.lx.LXEngine",
+    "internal": {
+      "modulationColor": 0
+    },
+    "parameters": {
+      "label": "Engine",
+      "multithreaded": true,
+      "channelMultithreaded": false,
+      "networkMultithreaded": false,
+      "framesPerSecond": 60.0,
+      "speed": 1.0
+    },
+    "children": {
+      "palette": {
+        "id": 5,
+        "class": "heronarts.lx.color.LXPalette",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Color Palette",
+          "transitionEnabled": false,
+          "transitionTimeSecs": 5.0,
+          "transitionMode": 1,
+          "autoCycleEnabled": false,
+          "autoCycleMode": 0,
+          "autoCycleTimeSecs": 60.0,
+          "autoCycleCursor": -1,
+          "triggerSwatchCycle": false
+        },
+        "children": {
+          "swatch": {
+            "id": 6,
+            "class": "heronarts.lx.color.LXSwatch",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Swatch",
+              "recall": false,
+              "autoCycleEligible": true
+            },
+            "children": {},
+            "colors": [
+              {
+                "id": 7,
+                "class": "heronarts.lx.color.LXDynamicColor",
+                "internal": {
+                  "modulationColor": 0
+                },
+                "parameters": {
+                  "label": "LX",
+                  "mode": 0,
+                  "period": 30.0,
+                  "primary/brightness": 100.0,
+                  "primary/saturation": 100.0,
+                  "primary/hue": 0.0,
+                  "secondary/brightness": 100.0,
+                  "secondary/saturation": 100.0,
+                  "secondary/hue": 120.0
+                },
+                "children": {}
+              }
+            ]
+          }
+        },
+        "swatches": []
+      },
+      "tempo": {
+        "id": 9,
+        "class": "heronarts.lx.Tempo",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Tempo",
+          "clockSource": 0,
+          "period": 500.0,
+          "bpm": 120.0,
+          "tap": false,
+          "nudgeUp": false,
+          "nudgeDown": false,
+          "beatsPerMeasure": 4,
+          "trigger": false,
+          "enabled": false
+        },
+        "children": {
+          "nudge": {
+            "id": 10,
+            "class": "heronarts.lx.modulator.LinearEnvelope",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "LENV",
+              "running": false,
+              "trigger": false,
+              "loop": false,
+              "tempoSync": false,
+              "tempoMultiplier": 5,
+              "tempoLock": true
+            },
+            "children": {},
+            "basis": 0.0
+          }
+        }
+      },
+      "clips": {
+        "id": 11,
+        "class": "heronarts.lx.clip.LXClipEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "LX",
+          "focusedClip": 0.0
+        },
+        "children": {}
+      },
+      "mixer": {
+        "id": 12,
+        "class": "heronarts.lx.mixer.LXMixerEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Mixer",
+          "scene-1": false,
+          "scene-2": false,
+          "scene-3": false,
+          "scene-4": false,
+          "scene-5": false,
+          "crossfader": 0.10169491544365883,
+          "crossfaderBlendMode": 0,
+          "focusedChannel": 1,
+          "cueA": false,
+          "cueB": false,
+          "viewCondensed": false
+        },
+        "children": {
+          "master": {
+            "id": 20,
+            "class": "heronarts.lx.mixer.LXMasterBus",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Master",
+              "arm": false,
+              "selected": false
+            },
+            "children": {},
+            "effects": [],
+            "clips": []
+          }
+        },
+        "channels": [
+          {
+            "id": 1522,
+            "class": "heronarts.lx.mixer.LXChannel",
+            "internal": {
+              "modulationColor": 0,
+              "controlsExpanded": true
+            },
+            "parameters": {
+              "label": "Channel-1",
+              "arm": false,
+              "selected": false,
+              "enabled": true,
+              "cue": false,
+              "fader": 0.18571428768336773,
+              "crossfadeGroup": 1,
+              "blendMode": 0,
+              "midiMonitor": false,
+              "midiChannel": 16,
+              "autoCycleEnabled": true,
+              "autoCycleMode": 0,
+              "autoCycleTimeSecs": 5.0,
+              "transitionEnabled": false,
+              "transitionTimeSecs": 5.0,
+              "transitionBlendMode": 0,
+              "focusedPattern": 0,
+              "triggerPatternCycle": false
+            },
+            "children": {},
+            "effects": [
+              {
+                "id": 1583,
+                "class": "heronarts.lx.effect.color.ColorizeEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Colorize",
+                  "enabled": true,
+                  "source": 0,
+                  "gradientHue": 0.0,
+                  "gradientSaturation": 0.0,
+                  "gradientBrightness": 0.0,
+                  "colorMode": 0,
+                  "blendMode": 0,
+                  "color1/brightness": 69.9999771118164,
+                  "color1/saturation": 100.0,
+                  "color1/hue": 233.09525367245078,
+                  "color2/brightness": 100.0,
+                  "color2/saturation": 97.5,
+                  "color2/hue": 227.71428475901482,
+                  "paletteIndex": 1,
+                  "paletteStops": 5
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1584,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1594,
+                "class": "heronarts.lx.effect.StrobeEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Strobe",
+                  "enabled": false,
+                  "speed": 0.061061764548692964,
+                  "depth": 1.0,
+                  "bias": 0.0,
+                  "waveshape": 0,
+                  "tempoSync": false,
+                  "tempoDivision": 5,
+                  "tempoPhaseOffset": 0.42999999038875103,
+                  "minFrequency": 0.5,
+                  "maxFrequency": 5.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1595,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              }
+            ],
+            "clips": [
+              {
+                "id": 1608,
+                "class": "heronarts.lx.clip.LXChannelClip",
+                "internal": {
+                  "modulationColor": 0
+                },
+                "parameters": {
+                  "label": "Clip-1",
+                  "running": false,
+                  "trigger": false,
+                  "length": 27296.0,
+                  "loop": false
+                },
+                "children": {},
+                "index": 0,
+                "parameterLanes": [
+                  {
+                    "laneType": "midiNote",
+                    "events": []
+                  },
+                  {
+                    "laneType": "pattern",
+                    "events": [
+                      {
+                        "cursor": 0.0,
+                        "patternIndex": 2
+                      },
+                      {
+                        "cursor": 16.0,
+                        "patternIndex": 3
+                      },
+                      {
+                        "cursor": 5023.0,
+                        "patternIndex": 0
+                      },
+                      {
+                        "cursor": 10032.0,
+                        "patternIndex": 1
+                      },
+                      {
+                        "cursor": 15040.0,
+                        "patternIndex": 2
+                      },
+                      {
+                        "cursor": 20047.0,
+                        "patternIndex": 3
+                      },
+                      {
+                        "cursor": 25055.0,
+                        "patternIndex": 0
+                      }
+                    ]
+                  },
+                  {
+                    "laneType": "parameter",
+                    "events": [
+                      {
+                        "cursor": 3135.0,
+                        "normalized": 0.8099999818950891
+                      },
+                      {
+                        "cursor": 3168.0,
+                        "normalized": 0.7999999821186066
+                      },
+                      {
+                        "cursor": 3168.0,
+                        "normalized": 0.789999982342124
+                      },
+                      {
+                        "cursor": 3232.0,
+                        "normalized": 0.7799999825656414
+                      },
+                      {
+                        "cursor": 3264.0,
+                        "normalized": 0.7699999827891588
+                      },
+                      {
+                        "cursor": 3296.0,
+                        "normalized": 0.7599999830126762
+                      },
+                      {
+                        "cursor": 3327.0,
+                        "normalized": 0.7499999832361937
+                      },
+                      {
+                        "cursor": 3392.0,
+                        "normalized": 0.7399999834597111
+                      },
+                      {
+                        "cursor": 3424.0,
+                        "normalized": 0.7299999836832285
+                      },
+                      {
+                        "cursor": 3488.0,
+                        "normalized": 0.7199999839067459
+                      },
+                      {
+                        "cursor": 3519.0,
+                        "normalized": 0.7099999841302633
+                      },
+                      {
+                        "cursor": 3552.0,
+                        "normalized": 0.6999999843537807
+                      },
+                      {
+                        "cursor": 3647.0,
+                        "normalized": 0.6899999845772982
+                      },
+                      {
+                        "cursor": 3712.0,
+                        "normalized": 0.6799999848008156
+                      },
+                      {
+                        "cursor": 3744.0,
+                        "normalized": 0.669999985024333
+                      },
+                      {
+                        "cursor": 3744.0,
+                        "normalized": 0.6599999852478504
+                      },
+                      {
+                        "cursor": 3807.0,
+                        "normalized": 0.6499999854713678
+                      },
+                      {
+                        "cursor": 3840.0,
+                        "normalized": 0.6399999856948853
+                      },
+                      {
+                        "cursor": 3872.0,
+                        "normalized": 0.6299999859184027
+                      },
+                      {
+                        "cursor": 3904.0,
+                        "normalized": 0.6199999861419201
+                      },
+                      {
+                        "cursor": 3904.0,
+                        "normalized": 0.6099999863654375
+                      },
+                      {
+                        "cursor": 3935.0,
+                        "normalized": 0.5999999865889549
+                      },
+                      {
+                        "cursor": 3967.0,
+                        "normalized": 0.5899999868124723
+                      },
+                      {
+                        "cursor": 4000.0,
+                        "normalized": 0.5799999870359898
+                      },
+                      {
+                        "cursor": 4032.0,
+                        "normalized": 0.5699999872595072
+                      },
+                      {
+                        "cursor": 4063.0,
+                        "normalized": 0.5599999874830246
+                      },
+                      {
+                        "cursor": 4159.0,
+                        "normalized": 0.549999987706542
+                      },
+                      {
+                        "cursor": 4159.0,
+                        "normalized": 0.5399999879300594
+                      },
+                      {
+                        "cursor": 4191.0,
+                        "normalized": 0.5299999881535769
+                      },
+                      {
+                        "cursor": 4224.0,
+                        "normalized": 0.5199999883770943
+                      },
+                      {
+                        "cursor": 4320.0,
+                        "normalized": 0.4999999888241291
+                      },
+                      {
+                        "cursor": 4320.0,
+                        "normalized": 0.4899999890476465
+                      },
+                      {
+                        "cursor": 4384.0,
+                        "normalized": 0.47999998927116394
+                      },
+                      {
+                        "cursor": 4447.0,
+                        "normalized": 0.46999998949468136
+                      },
+                      {
+                        "cursor": 4480.0,
+                        "normalized": 0.4599999897181988
+                      },
+                      {
+                        "cursor": 4512.0,
+                        "normalized": 0.4499999899417162
+                      },
+                      {
+                        "cursor": 4576.0,
+                        "normalized": 0.4399999901652336
+                      },
+                      {
+                        "cursor": 4607.0,
+                        "normalized": 0.42999999038875103
+                      },
+                      {
+                        "cursor": 4607.0,
+                        "normalized": 0.41999999061226845
+                      },
+                      {
+                        "cursor": 4704.0,
+                        "normalized": 0.40999999083578587
+                      },
+                      {
+                        "cursor": 6047.0,
+                        "normalized": 0.41999999061226845
+                      },
+                      {
+                        "cursor": 6080.0,
+                        "normalized": 0.42999999038875103
+                      },
+                      {
+                        "cursor": 6080.0,
+                        "normalized": 0.4499999899417162
+                      },
+                      {
+                        "cursor": 6112.0,
+                        "normalized": 0.46999998949468136
+                      },
+                      {
+                        "cursor": 6143.0,
+                        "normalized": 0.4899999890476465
+                      },
+                      {
+                        "cursor": 6143.0,
+                        "normalized": 0.4999999888241291
+                      },
+                      {
+                        "cursor": 6143.0,
+                        "normalized": 0.5099999886006117
+                      },
+                      {
+                        "cursor": 6176.0,
+                        "normalized": 0.5199999883770943
+                      },
+                      {
+                        "cursor": 6207.0,
+                        "normalized": 0.5399999879300594
+                      },
+                      {
+                        "cursor": 6207.0,
+                        "normalized": 0.549999987706542
+                      },
+                      {
+                        "cursor": 6240.0,
+                        "normalized": 0.5599999874830246
+                      },
+                      {
+                        "cursor": 6240.0,
+                        "normalized": 0.5699999872595072
+                      },
+                      {
+                        "cursor": 6271.0,
+                        "normalized": 0.5799999870359898
+                      },
+                      {
+                        "cursor": 6304.0,
+                        "normalized": 0.5899999868124723
+                      },
+                      {
+                        "cursor": 6304.0,
+                        "normalized": 0.6099999863654375
+                      },
+                      {
+                        "cursor": 6368.0,
+                        "normalized": 0.6199999861419201
+                      },
+                      {
+                        "cursor": 6368.0,
+                        "normalized": 0.6299999859184027
+                      },
+                      {
+                        "cursor": 6400.0,
+                        "normalized": 0.6399999856948853
+                      },
+                      {
+                        "cursor": 6431.0,
+                        "normalized": 0.6499999854713678
+                      },
+                      {
+                        "cursor": 6431.0,
+                        "normalized": 0.6599999852478504
+                      },
+                      {
+                        "cursor": 6464.0,
+                        "normalized": 0.669999985024333
+                      },
+                      {
+                        "cursor": 6464.0,
+                        "normalized": 0.6899999845772982
+                      },
+                      {
+                        "cursor": 6496.0,
+                        "normalized": 0.7099999841302633
+                      },
+                      {
+                        "cursor": 6528.0,
+                        "normalized": 0.7199999839067459
+                      },
+                      {
+                        "cursor": 6560.0,
+                        "normalized": 0.7299999836832285
+                      },
+                      {
+                        "cursor": 6560.0,
+                        "normalized": 0.7499999832361937
+                      },
+                      {
+                        "cursor": 6592.0,
+                        "normalized": 0.7699999827891588
+                      },
+                      {
+                        "cursor": 6592.0,
+                        "normalized": 0.7799999825656414
+                      },
+                      {
+                        "cursor": 6624.0,
+                        "normalized": 0.7999999821186066
+                      },
+                      {
+                        "cursor": 6624.0,
+                        "normalized": 0.8199999816715717
+                      },
+                      {
+                        "cursor": 6655.0,
+                        "normalized": 0.8399999812245369
+                      },
+                      {
+                        "cursor": 6687.0,
+                        "normalized": 0.8499999810010195
+                      },
+                      {
+                        "cursor": 6687.0,
+                        "normalized": 0.8599999807775021
+                      },
+                      {
+                        "cursor": 6687.0,
+                        "normalized": 0.8699999805539846
+                      },
+                      {
+                        "cursor": 6720.0,
+                        "normalized": 0.8799999803304672
+                      },
+                      {
+                        "cursor": 6752.0,
+                        "normalized": 0.8899999801069498
+                      },
+                      {
+                        "cursor": 6752.0,
+                        "normalized": 0.8999999798834324
+                      },
+                      {
+                        "cursor": 6784.0,
+                        "normalized": 0.909999979659915
+                      },
+                      {
+                        "cursor": 6816.0,
+                        "normalized": 0.9199999794363976
+                      },
+                      {
+                        "cursor": 6816.0,
+                        "normalized": 0.9299999792128801
+                      },
+                      {
+                        "cursor": 6816.0,
+                        "normalized": 0.9399999789893627
+                      },
+                      {
+                        "cursor": 6848.0,
+                        "normalized": 0.9499999787658453
+                      },
+                      {
+                        "cursor": 6879.0,
+                        "normalized": 0.9599999785423279
+                      },
+                      {
+                        "cursor": 6879.0,
+                        "normalized": 0.9699999783188105
+                      },
+                      {
+                        "cursor": 6911.0,
+                        "normalized": 0.979999978095293
+                      },
+                      {
+                        "cursor": 6944.0,
+                        "normalized": 0.9899999778717756
+                      },
+                      {
+                        "cursor": 6944.0,
+                        "normalized": 0.9999999776482582
+                      },
+                      {
+                        "cursor": 6944.0,
+                        "normalized": 1.0
+                      }
+                    ],
+                    "path": "/effect/2/depth",
+                    "componentId": 1594,
+                    "parameterPath": "depth"
+                  },
+                  {
+                    "laneType": "parameter",
+                    "events": [
+                      {
+                        "cursor": 17311.0,
+                        "normalized": 0.014285714365541935
+                      },
+                      {
+                        "cursor": 17311.0,
+                        "normalized": 0.042857143096625805
+                      },
+                      {
+                        "cursor": 17311.0,
+                        "normalized": 0.05714285746216774
+                      },
+                      {
+                        "cursor": 17344.0,
+                        "normalized": 0.07142857182770967
+                      },
+                      {
+                        "cursor": 17344.0,
+                        "normalized": 0.08571428619325161
+                      },
+                      {
+                        "cursor": 17344.0,
+                        "normalized": 0.10000000055879354
+                      },
+                      {
+                        "cursor": 17376.0,
+                        "normalized": 0.11428571492433548
+                      },
+                      {
+                        "cursor": 17376.0,
+                        "normalized": 0.12857142928987741
+                      },
+                      {
+                        "cursor": 17376.0,
+                        "normalized": 0.15714285802096128
+                      },
+                      {
+                        "cursor": 17407.0,
+                        "normalized": 0.20000000204890966
+                      },
+                      {
+                        "cursor": 17440.0,
+                        "normalized": 0.2142857164144516
+                      },
+                      {
+                        "cursor": 17471.0,
+                        "normalized": 0.24285714514553547
+                      },
+                      {
+                        "cursor": 17471.0,
+                        "normalized": 0.27142857387661934
+                      },
+                      {
+                        "cursor": 17504.0,
+                        "normalized": 0.2857142882421613
+                      },
+                      {
+                        "cursor": 17504.0,
+                        "normalized": 0.3000000026077032
+                      },
+                      {
+                        "cursor": 17504.0,
+                        "normalized": 0.3285714313387871
+                      },
+                      {
+                        "cursor": 17536.0,
+                        "normalized": 0.342857145704329
+                      },
+                      {
+                        "cursor": 17567.0,
+                        "normalized": 0.3714285744354129
+                      },
+                      {
+                        "cursor": 17567.0,
+                        "normalized": 0.3857142888009548
+                      },
+                      {
+                        "cursor": 17599.0,
+                        "normalized": 0.4142857175320387
+                      },
+                      {
+                        "cursor": 17599.0,
+                        "normalized": 0.44285714626312256
+                      },
+                      {
+                        "cursor": 17631.0,
+                        "normalized": 0.4571428606286645
+                      },
+                      {
+                        "cursor": 17631.0,
+                        "normalized": 0.47142857499420643
+                      },
+                      {
+                        "cursor": 17664.0,
+                        "normalized": 0.48571428935974836
+                      },
+                      {
+                        "cursor": 17664.0,
+                        "normalized": 0.5000000037252903
+                      },
+                      {
+                        "cursor": 17695.0,
+                        "normalized": 0.5285714324563742
+                      },
+                      {
+                        "cursor": 17695.0,
+                        "normalized": 0.5428571468219161
+                      },
+                      {
+                        "cursor": 17728.0,
+                        "normalized": 0.557142861187458
+                      },
+                      {
+                        "cursor": 17728.0,
+                        "normalized": 0.5857142899185419
+                      },
+                      {
+                        "cursor": 17759.0,
+                        "normalized": 0.6000000042840838
+                      },
+                      {
+                        "cursor": 17759.0,
+                        "normalized": 0.6142857186496258
+                      },
+                      {
+                        "cursor": 17759.0,
+                        "normalized": 0.6285714330151677
+                      },
+                      {
+                        "cursor": 17791.0,
+                        "normalized": 0.6428571473807096
+                      },
+                      {
+                        "cursor": 17791.0,
+                        "normalized": 0.6571428617462516
+                      },
+                      {
+                        "cursor": 17823.0,
+                        "normalized": 0.6714285761117935
+                      },
+                      {
+                        "cursor": 17823.0,
+                        "normalized": 0.6857142904773355
+                      },
+                      {
+                        "cursor": 17856.0,
+                        "normalized": 0.7000000048428774
+                      },
+                      {
+                        "cursor": 17888.0,
+                        "normalized": 0.7142857192084193
+                      },
+                      {
+                        "cursor": 17888.0,
+                        "normalized": 0.7285714335739613
+                      },
+                      {
+                        "cursor": 17919.0,
+                        "normalized": 0.7428571479395032
+                      },
+                      {
+                        "cursor": 17919.0,
+                        "normalized": 0.7571428623050451
+                      },
+                      {
+                        "cursor": 17952.0,
+                        "normalized": 0.7714285766705871
+                      },
+                      {
+                        "cursor": 17984.0,
+                        "normalized": 0.785714291036129
+                      },
+                      {
+                        "cursor": 17984.0,
+                        "normalized": 0.8000000054016709
+                      },
+                      {
+                        "cursor": 18016.0,
+                        "normalized": 0.8142857197672129
+                      },
+                      {
+                        "cursor": 18048.0,
+                        "normalized": 0.8285714341327548
+                      },
+                      {
+                        "cursor": 18048.0,
+                        "normalized": 0.8428571484982967
+                      },
+                      {
+                        "cursor": 18080.0,
+                        "normalized": 0.8571428628638387
+                      },
+                      {
+                        "cursor": 18111.0,
+                        "normalized": 0.8714285772293806
+                      },
+                      {
+                        "cursor": 18111.0,
+                        "normalized": 0.8857142915949225
+                      },
+                      {
+                        "cursor": 18143.0,
+                        "normalized": 0.9000000059604645
+                      },
+                      {
+                        "cursor": 18143.0,
+                        "normalized": 0.9285714346915483
+                      },
+                      {
+                        "cursor": 18176.0,
+                        "normalized": 0.9428571490570903
+                      },
+                      {
+                        "cursor": 18208.0,
+                        "normalized": 0.9571428634226322
+                      },
+                      {
+                        "cursor": 18208.0,
+                        "normalized": 0.9714285777881742
+                      },
+                      {
+                        "cursor": 18208.0,
+                        "normalized": 0.9857142921537161
+                      },
+                      {
+                        "cursor": 18240.0,
+                        "normalized": 1.0
+                      },
+                      {
+                        "cursor": 19360.0,
+                        "normalized": 0.9857142856344581
+                      },
+                      {
+                        "cursor": 19392.0,
+                        "normalized": 0.9428571416065097
+                      },
+                      {
+                        "cursor": 19392.0,
+                        "normalized": 0.9285714272409678
+                      },
+                      {
+                        "cursor": 19424.0,
+                        "normalized": 0.8999999985098839
+                      },
+                      {
+                        "cursor": 19424.0,
+                        "normalized": 0.8714285697788
+                      },
+                      {
+                        "cursor": 19424.0,
+                        "normalized": 0.8571428554132581
+                      },
+                      {
+                        "cursor": 19456.0,
+                        "normalized": 0.7999999979510903
+                      },
+                      {
+                        "cursor": 19456.0,
+                        "normalized": 0.7857142835855484
+                      },
+                      {
+                        "cursor": 19487.0,
+                        "normalized": 0.7428571395576
+                      },
+                      {
+                        "cursor": 19487.0,
+                        "normalized": 0.7285714251920581
+                      },
+                      {
+                        "cursor": 19487.0,
+                        "normalized": 0.7142857108265162
+                      },
+                      {
+                        "cursor": 19519.0,
+                        "normalized": 0.6999999964609742
+                      },
+                      {
+                        "cursor": 19519.0,
+                        "normalized": 0.6857142820954323
+                      },
+                      {
+                        "cursor": 19552.0,
+                        "normalized": 0.6714285677298903
+                      },
+                      {
+                        "cursor": 19552.0,
+                        "normalized": 0.6428571389988065
+                      },
+                      {
+                        "cursor": 19584.0,
+                        "normalized": 0.6285714246332645
+                      },
+                      {
+                        "cursor": 19584.0,
+                        "normalized": 0.6142857102677226
+                      },
+                      {
+                        "cursor": 19584.0,
+                        "normalized": 0.5999999959021807
+                      },
+                      {
+                        "cursor": 19584.0,
+                        "normalized": 0.5857142815366387
+                      },
+                      {
+                        "cursor": 19616.0,
+                        "normalized": 0.5428571375086904
+                      },
+                      {
+                        "cursor": 19648.0,
+                        "normalized": 0.5142857087776065
+                      },
+                      {
+                        "cursor": 19648.0,
+                        "normalized": 0.49999999441206455
+                      },
+                      {
+                        "cursor": 19679.0,
+                        "normalized": 0.4714285656809807
+                      },
+                      {
+                        "cursor": 19679.0,
+                        "normalized": 0.45714285131543875
+                      },
+                      {
+                        "cursor": 19679.0,
+                        "normalized": 0.4428571369498968
+                      },
+                      {
+                        "cursor": 19712.0,
+                        "normalized": 0.4285714225843549
+                      },
+                      {
+                        "cursor": 19712.0,
+                        "normalized": 0.41428570821881294
+                      },
+                      {
+                        "cursor": 19712.0,
+                        "normalized": 0.399999993853271
+                      },
+                      {
+                        "cursor": 19744.0,
+                        "normalized": 0.3857142794877291
+                      },
+                      {
+                        "cursor": 19744.0,
+                        "normalized": 0.3571428507566452
+                      },
+                      {
+                        "cursor": 19744.0,
+                        "normalized": 0.34285713639110327
+                      },
+                      {
+                        "cursor": 19775.0,
+                        "normalized": 0.2999999923631549
+                      },
+                      {
+                        "cursor": 19775.0,
+                        "normalized": 0.28571427799761295
+                      },
+                      {
+                        "cursor": 19775.0,
+                        "normalized": 0.2285714205354452
+                      },
+                      {
+                        "cursor": 19808.0,
+                        "normalized": 0.17142856307327747
+                      },
+                      {
+                        "cursor": 19840.0,
+                        "normalized": 0.15714284870773554
+                      },
+                      {
+                        "cursor": 19840.0,
+                        "normalized": 0.11428570467978716
+                      },
+                      {
+                        "cursor": 19840.0,
+                        "normalized": 0.09999999031424522
+                      },
+                      {
+                        "cursor": 19840.0,
+                        "normalized": 0.07142856158316135
+                      },
+                      {
+                        "cursor": 19871.0,
+                        "normalized": 0.05714284721761942
+                      },
+                      {
+                        "cursor": 19904.0,
+                        "normalized": 0.042857132852077484
+                      },
+                      {
+                        "cursor": 19904.0,
+                        "normalized": 0.014285704120993614
+                      },
+                      {
+                        "cursor": 19936.0,
+                        "normalized": 0.0
+                      },
+                      {
+                        "cursor": 20191.0,
+                        "normalized": 0.02857142873108387
+                      },
+                      {
+                        "cursor": 20191.0,
+                        "normalized": 0.042857143096625805
+                      },
+                      {
+                        "cursor": 20191.0,
+                        "normalized": 0.05714285746216774
+                      },
+                      {
+                        "cursor": 20191.0,
+                        "normalized": 0.08571428619325161
+                      },
+                      {
+                        "cursor": 20224.0,
+                        "normalized": 0.11428571492433548
+                      },
+                      {
+                        "cursor": 20224.0,
+                        "normalized": 0.14285714365541935
+                      },
+                      {
+                        "cursor": 20224.0,
+                        "normalized": 0.17142857238650322
+                      },
+                      {
+                        "cursor": 20224.0,
+                        "normalized": 0.2142857164144516
+                      },
+                      {
+                        "cursor": 20256.0,
+                        "normalized": 0.22857143077999353
+                      },
+                      {
+                        "cursor": 20287.0,
+                        "normalized": 0.24285714514553547
+                      },
+                      {
+                        "cursor": 20287.0,
+                        "normalized": 0.27142857387661934
+                      },
+                      {
+                        "cursor": 20287.0,
+                        "normalized": 0.3000000026077032
+                      },
+                      {
+                        "cursor": 20287.0,
+                        "normalized": 0.3428571466356516
+                      },
+                      {
+                        "cursor": 20320.0,
+                        "normalized": 0.3571428610011935
+                      },
+                      {
+                        "cursor": 20320.0,
+                        "normalized": 0.37142857536673546
+                      },
+                      {
+                        "cursor": 20320.0,
+                        "normalized": 0.41428571939468384
+                      },
+                      {
+                        "cursor": 20320.0,
+                        "normalized": 0.4285714337602258
+                      },
+                      {
+                        "cursor": 20352.0,
+                        "normalized": 0.4428571481257677
+                      },
+                      {
+                        "cursor": 20352.0,
+                        "normalized": 0.4714285768568516
+                      },
+                      {
+                        "cursor": 20352.0,
+                        "normalized": 0.4857142912223935
+                      },
+                      {
+                        "cursor": 20384.0,
+                        "normalized": 0.5000000055879354
+                      },
+                      {
+                        "cursor": 20384.0,
+                        "normalized": 0.5428571496158838
+                      },
+                      {
+                        "cursor": 20384.0,
+                        "normalized": 0.5571428639814258
+                      },
+                      {
+                        "cursor": 20416.0,
+                        "normalized": 0.5857142927125096
+                      },
+                      {
+                        "cursor": 20448.0,
+                        "normalized": 0.628571436740458
+                      },
+                      {
+                        "cursor": 20448.0,
+                        "normalized": 0.642857151106
+                      },
+                      {
+                        "cursor": 20448.0,
+                        "normalized": 0.6571428654715419
+                      },
+                      {
+                        "cursor": 20479.0,
+                        "normalized": 0.6714285798370838
+                      },
+                      {
+                        "cursor": 20479.0,
+                        "normalized": 0.6857142942026258
+                      },
+                      {
+                        "cursor": 20511.0,
+                        "normalized": 0.7000000085681677
+                      },
+                      {
+                        "cursor": 20511.0,
+                        "normalized": 0.7142857229337096
+                      },
+                      {
+                        "cursor": 20544.0,
+                        "normalized": 0.7285714372992516
+                      },
+                      {
+                        "cursor": 20544.0,
+                        "normalized": 0.7428571516647935
+                      },
+                      {
+                        "cursor": 20639.0,
+                        "normalized": 0.7285714372992516
+                      },
+                      {
+                        "cursor": 20671.0,
+                        "normalized": 0.7000000085681677
+                      },
+                      {
+                        "cursor": 20671.0,
+                        "normalized": 0.6857142942026258
+                      },
+                      {
+                        "cursor": 20704.0,
+                        "normalized": 0.6571428654715419
+                      },
+                      {
+                        "cursor": 20704.0,
+                        "normalized": 0.642857151106
+                      },
+                      {
+                        "cursor": 20735.0,
+                        "normalized": 0.6000000070780516
+                      },
+                      {
+                        "cursor": 20735.0,
+                        "normalized": 0.5714285783469677
+                      },
+                      {
+                        "cursor": 20735.0,
+                        "normalized": 0.5000000037252903
+                      },
+                      {
+                        "cursor": 20767.0,
+                        "normalized": 0.4285714291036129
+                      },
+                      {
+                        "cursor": 20767.0,
+                        "normalized": 0.3857142850756645
+                      },
+                      {
+                        "cursor": 20799.0,
+                        "normalized": 0.3714285707101226
+                      },
+                      {
+                        "cursor": 20799.0,
+                        "normalized": 0.3428571419790387
+                      },
+                      {
+                        "cursor": 20799.0,
+                        "normalized": 0.31428571324795485
+                      },
+                      {
+                        "cursor": 20832.0,
+                        "normalized": 0.285714284516871
+                      },
+                      {
+                        "cursor": 20832.0,
+                        "normalized": 0.27142857015132904
+                      },
+                      {
+                        "cursor": 20832.0,
+                        "normalized": 0.22857142612338066
+                      },
+                      {
+                        "cursor": 20864.0,
+                        "normalized": 0.1999999973922968
+                      },
+                      {
+                        "cursor": 20864.0,
+                        "normalized": 0.18571428302675486
+                      },
+                      {
+                        "cursor": 20896.0,
+                        "normalized": 0.17142856866121292
+                      },
+                      {
+                        "cursor": 20896.0,
+                        "normalized": 0.157142854295671
+                      },
+                      {
+                        "cursor": 20927.0,
+                        "normalized": 0.14285713993012905
+                      },
+                      {
+                        "cursor": 21151.0,
+                        "normalized": 0.2285714279860258
+                      },
+                      {
+                        "cursor": 21183.0,
+                        "normalized": 0.3000000026077032
+                      },
+                      {
+                        "cursor": 21215.0,
+                        "normalized": 0.35714286006987095
+                      },
+                      {
+                        "cursor": 21215.0,
+                        "normalized": 0.3857142888009548
+                      },
+                      {
+                        "cursor": 21215.0,
+                        "normalized": 0.4142857175320387
+                      },
+                      {
+                        "cursor": 21248.0,
+                        "normalized": 0.44285714626312256
+                      },
+                      {
+                        "cursor": 21248.0,
+                        "normalized": 0.4571428606286645
+                      },
+                      {
+                        "cursor": 21248.0,
+                        "normalized": 0.47142857499420643
+                      },
+                      {
+                        "cursor": 21280.0,
+                        "normalized": 0.5000000037252903
+                      },
+                      {
+                        "cursor": 21280.0,
+                        "normalized": 0.5142857180908322
+                      },
+                      {
+                        "cursor": 21280.0,
+                        "normalized": 0.5428571468219161
+                      },
+                      {
+                        "cursor": 21311.0,
+                        "normalized": 0.571428575553
+                      },
+                      {
+                        "cursor": 21311.0,
+                        "normalized": 0.6000000042840838
+                      },
+                      {
+                        "cursor": 21311.0,
+                        "normalized": 0.6285714330151677
+                      },
+                      {
+                        "cursor": 21344.0,
+                        "normalized": 0.6571428617462516
+                      },
+                      {
+                        "cursor": 21344.0,
+                        "normalized": 0.6714285761117935
+                      },
+                      {
+                        "cursor": 21344.0,
+                        "normalized": 0.6857142904773355
+                      },
+                      {
+                        "cursor": 21375.0,
+                        "normalized": 0.7428571479395032
+                      },
+                      {
+                        "cursor": 21375.0,
+                        "normalized": 0.7571428623050451
+                      },
+                      {
+                        "cursor": 21375.0,
+                        "normalized": 0.8285714369267225
+                      },
+                      {
+                        "cursor": 21407.0,
+                        "normalized": 0.8428571512922645
+                      },
+                      {
+                        "cursor": 21407.0,
+                        "normalized": 0.8857142953202128
+                      },
+                      {
+                        "cursor": 21407.0,
+                        "normalized": 0.9000000096857548
+                      },
+                      {
+                        "cursor": 21439.0,
+                        "normalized": 0.9142857240512967
+                      },
+                      {
+                        "cursor": 21439.0,
+                        "normalized": 0.9428571527823806
+                      },
+                      {
+                        "cursor": 21439.0,
+                        "normalized": 0.9714285815134645
+                      },
+                      {
+                        "cursor": 21472.0,
+                        "normalized": 0.9857142958790064
+                      },
+                      {
+                        "cursor": 21472.0,
+                        "normalized": 1.0
+                      },
+                      {
+                        "cursor": 22495.0,
+                        "normalized": 0.9571428559720516
+                      },
+                      {
+                        "cursor": 22495.0,
+                        "normalized": 0.8999999985098839
+                      },
+                      {
+                        "cursor": 22528.0,
+                        "normalized": 0.8714285697788
+                      },
+                      {
+                        "cursor": 22528.0,
+                        "normalized": 0.8142857123166323
+                      },
+                      {
+                        "cursor": 22528.0,
+                        "normalized": 0.7714285682886839
+                      },
+                      {
+                        "cursor": 22560.0,
+                        "normalized": 0.6999999936670065
+                      },
+                      {
+                        "cursor": 22560.0,
+                        "normalized": 0.6285714190453291
+                      },
+                      {
+                        "cursor": 22560.0,
+                        "normalized": 0.5999999903142452
+                      },
+                      {
+                        "cursor": 22591.0,
+                        "normalized": 0.5714285615831614
+                      },
+                      {
+                        "cursor": 22624.0,
+                        "normalized": 0.4857142735272646
+                      },
+                      {
+                        "cursor": 22624.0,
+                        "normalized": 0.39999998547136784
+                      },
+                      {
+                        "cursor": 22624.0,
+                        "normalized": 0.3142856974154711
+                      },
+                      {
+                        "cursor": 22624.0,
+                        "normalized": 0.2714285533875227
+                      },
+                      {
+                        "cursor": 22655.0,
+                        "normalized": 0.24285712465643883
+                      },
+                      {
+                        "cursor": 22655.0,
+                        "normalized": 0.17142855003476143
+                      },
+                      {
+                        "cursor": 22687.0,
+                        "normalized": 0.09999997541308403
+                      },
+                      {
+                        "cursor": 22687.0,
+                        "normalized": 0.0857142610475421
+                      },
+                      {
+                        "cursor": 22720.0,
+                        "normalized": 0.057142832316458225
+                      },
+                      {
+                        "cursor": 22720.0,
+                        "normalized": 0.04285711795091629
+                      },
+                      {
+                        "cursor": 22720.0,
+                        "normalized": 0.028571403585374355
+                      },
+                      {
+                        "cursor": 22720.0,
+                        "normalized": 0.01428568921983242
+                      },
+                      {
+                        "cursor": 22752.0,
+                        "normalized": 0.0
+                      },
+                      {
+                        "cursor": 23391.0,
+                        "normalized": 0.02857142873108387
+                      },
+                      {
+                        "cursor": 23424.0,
+                        "normalized": 0.08571428619325161
+                      },
+                      {
+                        "cursor": 23424.0,
+                        "normalized": 0.11428571492433548
+                      },
+                      {
+                        "cursor": 23424.0,
+                        "normalized": 0.14285714365541935
+                      },
+                      {
+                        "cursor": 23424.0,
+                        "normalized": 0.15714285802096128
+                      },
+                      {
+                        "cursor": 23456.0,
+                        "normalized": 0.18571428675204515
+                      },
+                      {
+                        "cursor": 23456.0,
+                        "normalized": 0.22857143077999353
+                      },
+                      {
+                        "cursor": 23488.0,
+                        "normalized": 0.24285714514553547
+                      },
+                      {
+                        "cursor": 23488.0,
+                        "normalized": 0.28571428917348385
+                      },
+                      {
+                        "cursor": 23488.0,
+                        "normalized": 0.3000000035390258
+                      },
+                      {
+                        "cursor": 23488.0,
+                        "normalized": 0.34285714756697416
+                      },
+                      {
+                        "cursor": 23520.0,
+                        "normalized": 0.4285714356228709
+                      },
+                      {
+                        "cursor": 23552.0,
+                        "normalized": 0.44285714998841286
+                      },
+                      {
+                        "cursor": 23552.0,
+                        "normalized": 0.48571429401636124
+                      },
+                      {
+                        "cursor": 23552.0,
+                        "normalized": 0.5000000083819032
+                      },
+                      {
+                        "cursor": 23552.0,
+                        "normalized": 0.5428571524098516
+                      },
+                      {
+                        "cursor": 23583.0,
+                        "normalized": 0.5714285811409354
+                      },
+                      {
+                        "cursor": 23583.0,
+                        "normalized": 0.6000000098720193
+                      },
+                      {
+                        "cursor": 23583.0,
+                        "normalized": 0.6142857242375612
+                      },
+                      {
+                        "cursor": 23616.0,
+                        "normalized": 0.6285714386031032
+                      },
+                      {
+                        "cursor": 23616.0,
+                        "normalized": 0.6428571529686451
+                      },
+                      {
+                        "cursor": 23616.0,
+                        "normalized": 0.671428581699729
+                      },
+                      {
+                        "cursor": 23648.0,
+                        "normalized": 0.6857142960652709
+                      },
+                      {
+                        "cursor": 23679.0,
+                        "normalized": 0.7000000104308128
+                      },
+                      {
+                        "cursor": 23679.0,
+                        "normalized": 0.7142857247963548
+                      },
+                      {
+                        "cursor": 23840.0,
+                        "normalized": 0.7000000104308128
+                      },
+                      {
+                        "cursor": 23840.0,
+                        "normalized": 0.6857142960652709
+                      },
+                      {
+                        "cursor": 23840.0,
+                        "normalized": 0.671428581699729
+                      },
+                      {
+                        "cursor": 23872.0,
+                        "normalized": 0.657142867334187
+                      },
+                      {
+                        "cursor": 23872.0,
+                        "normalized": 0.6428571529686451
+                      },
+                      {
+                        "cursor": 23872.0,
+                        "normalized": 0.6285714386031032
+                      },
+                      {
+                        "cursor": 23904.0,
+                        "normalized": 0.6000000098720193
+                      },
+                      {
+                        "cursor": 23936.0,
+                        "normalized": 0.5857142955064774
+                      },
+                      {
+                        "cursor": 23936.0,
+                        "normalized": 0.5571428667753935
+                      },
+                      {
+                        "cursor": 23968.0,
+                        "normalized": 0.5285714380443096
+                      },
+                      {
+                        "cursor": 23968.0,
+                        "normalized": 0.5000000093132257
+                      },
+                      {
+                        "cursor": 24000.0,
+                        "normalized": 0.4714285805821419
+                      },
+                      {
+                        "cursor": 24000.0,
+                        "normalized": 0.45714286621659994
+                      },
+                      {
+                        "cursor": 24000.0,
+                        "normalized": 0.42857143748551607
+                      },
+                      {
+                        "cursor": 24031.0,
+                        "normalized": 0.41428572311997414
+                      },
+                      {
+                        "cursor": 24031.0,
+                        "normalized": 0.37142857909202576
+                      },
+                      {
+                        "cursor": 24031.0,
+                        "normalized": 0.3571428647264838
+                      },
+                      {
+                        "cursor": 24063.0,
+                        "normalized": 0.32857143599539995
+                      },
+                      {
+                        "cursor": 24063.0,
+                        "normalized": 0.314285721629858
+                      },
+                      {
+                        "cursor": 24096.0,
+                        "normalized": 0.3000000072643161
+                      },
+                      {
+                        "cursor": 24096.0,
+                        "normalized": 0.28571429289877415
+                      },
+                      {
+                        "cursor": 24127.0,
+                        "normalized": 0.2714285785332322
+                      },
+                      {
+                        "cursor": 24256.0,
+                        "normalized": 0.28571429289877415
+                      },
+                      {
+                        "cursor": 24288.0,
+                        "normalized": 0.3000000072643161
+                      },
+                      {
+                        "cursor": 24288.0,
+                        "normalized": 0.314285721629858
+                      },
+                      {
+                        "cursor": 24288.0,
+                        "normalized": 0.32857143599539995
+                      },
+                      {
+                        "cursor": 24288.0,
+                        "normalized": 0.3571428647264838
+                      },
+                      {
+                        "cursor": 24320.0,
+                        "normalized": 0.3857142934575677
+                      },
+                      {
+                        "cursor": 24352.0,
+                        "normalized": 0.4000000078231096
+                      },
+                      {
+                        "cursor": 24352.0,
+                        "normalized": 0.442857151851058
+                      },
+                      {
+                        "cursor": 24352.0,
+                        "normalized": 0.45714286621659994
+                      },
+                      {
+                        "cursor": 24352.0,
+                        "normalized": 0.4714285805821419
+                      },
+                      {
+                        "cursor": 24383.0,
+                        "normalized": 0.4857142949476838
+                      },
+                      {
+                        "cursor": 24383.0,
+                        "normalized": 0.5142857236787677
+                      },
+                      {
+                        "cursor": 24415.0,
+                        "normalized": 0.5285714380443096
+                      },
+                      {
+                        "cursor": 24415.0,
+                        "normalized": 0.5428571524098516
+                      },
+                      {
+                        "cursor": 24415.0,
+                        "normalized": 0.5571428667753935
+                      },
+                      {
+                        "cursor": 24447.0,
+                        "normalized": 0.5714285811409354
+                      },
+                      {
+                        "cursor": 24447.0,
+                        "normalized": 0.5857142955064774
+                      },
+                      {
+                        "cursor": 24481.0,
+                        "normalized": 0.6142857242375612
+                      },
+                      {
+                        "cursor": 24736.0,
+                        "normalized": 0.6000000098720193
+                      },
+                      {
+                        "cursor": 24768.0,
+                        "normalized": 0.5857142955064774
+                      },
+                      {
+                        "cursor": 24768.0,
+                        "normalized": 0.5714285811409354
+                      },
+                      {
+                        "cursor": 24800.0,
+                        "normalized": 0.5571428667753935
+                      },
+                      {
+                        "cursor": 24800.0,
+                        "normalized": 0.5428571524098516
+                      },
+                      {
+                        "cursor": 24831.0,
+                        "normalized": 0.5285714380443096
+                      },
+                      {
+                        "cursor": 24863.0,
+                        "normalized": 0.5142857236787677
+                      },
+                      {
+                        "cursor": 24863.0,
+                        "normalized": 0.4857142949476838
+                      },
+                      {
+                        "cursor": 24895.0,
+                        "normalized": 0.4714285805821419
+                      },
+                      {
+                        "cursor": 24895.0,
+                        "normalized": 0.442857151851058
+                      },
+                      {
+                        "cursor": 24927.0,
+                        "normalized": 0.41428572311997414
+                      },
+                      {
+                        "cursor": 24927.0,
+                        "normalized": 0.4000000087544322
+                      },
+                      {
+                        "cursor": 24927.0,
+                        "normalized": 0.37142858002334833
+                      },
+                      {
+                        "cursor": 24960.0,
+                        "normalized": 0.3571428656578064
+                      },
+                      {
+                        "cursor": 24960.0,
+                        "normalized": 0.34285715129226446
+                      },
+                      {
+                        "cursor": 24991.0,
+                        "normalized": 0.3285714369267225
+                      },
+                      {
+                        "cursor": 25344.0,
+                        "normalized": 0.3571428656578064
+                      },
+                      {
+                        "cursor": 25344.0,
+                        "normalized": 0.38571429438889027
+                      },
+                      {
+                        "cursor": 25376.0,
+                        "normalized": 0.442857151851058
+                      },
+                      {
+                        "cursor": 25376.0,
+                        "normalized": 0.4857142958790064
+                      },
+                      {
+                        "cursor": 25408.0,
+                        "normalized": 0.5428571533411741
+                      },
+                      {
+                        "cursor": 25408.0,
+                        "normalized": 0.5857142973691225
+                      },
+                      {
+                        "cursor": 25439.0,
+                        "normalized": 0.6285714413970709
+                      },
+                      {
+                        "cursor": 25439.0,
+                        "normalized": 0.6571428701281548
+                      },
+                      {
+                        "cursor": 25439.0,
+                        "normalized": 0.6857142988592386
+                      },
+                      {
+                        "cursor": 25472.0,
+                        "normalized": 0.7000000132247806
+                      },
+                      {
+                        "cursor": 25472.0,
+                        "normalized": 0.7142857275903225
+                      },
+                      {
+                        "cursor": 25472.0,
+                        "normalized": 0.7428571563214064
+                      },
+                      {
+                        "cursor": 25504.0,
+                        "normalized": 0.7714285850524902
+                      },
+                      {
+                        "cursor": 25536.0,
+                        "normalized": 0.7857142994180322
+                      },
+                      {
+                        "cursor": 25536.0,
+                        "normalized": 0.8000000137835741
+                      },
+                      {
+                        "cursor": 25536.0,
+                        "normalized": 0.814285728149116
+                      },
+                      {
+                        "cursor": 25568.0,
+                        "normalized": 0.828571442514658
+                      },
+                      {
+                        "cursor": 25568.0,
+                        "normalized": 0.8714285865426064
+                      },
+                      {
+                        "cursor": 25599.0,
+                        "normalized": 0.8857143009081483
+                      },
+                      {
+                        "cursor": 25599.0,
+                        "normalized": 0.9000000152736902
+                      },
+                      {
+                        "cursor": 25599.0,
+                        "normalized": 0.9142857296392322
+                      },
+                      {
+                        "cursor": 25599.0,
+                        "normalized": 0.9285714440047741
+                      },
+                      {
+                        "cursor": 25631.0,
+                        "normalized": 0.957142872735858
+                      },
+                      {
+                        "cursor": 25631.0,
+                        "normalized": 0.9714285871013999
+                      },
+                      {
+                        "cursor": 25664.0,
+                        "normalized": 1.0
+                      }
+                    ],
+                    "path": "/fader",
+                    "componentId": 1522,
+                    "parameterPath": "fader"
+                  }
+                ]
+              }
+            ],
+            "patternIndex": 3,
+            "patterns": [
+              {
+                "id": 1579,
+                "class": "heronarts.lx.pattern.color.GradientPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Gradient",
+                  "xAmount": 1.0,
+                  "yAmount": 0.0,
+                  "zAmount": 0.0,
+                  "xOffset": 0.0,
+                  "yOffset": 0.0,
+                  "zOffset": 0.0,
+                  "colorMode": 0,
+                  "blendMode": 0,
+                  "gradient": 0.8095238246023655,
+                  "fixedColor/brightness": 100.0,
+                  "fixedColor/saturation": 84.16666412353516,
+                  "fixedColor/hue": 222.0,
+                  "xMode": 0,
+                  "yMode": 0,
+                  "zMode": 0,
+                  "paletteIndex": 1,
+                  "paletteStops": 5,
+                  "gradientRange": 360.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1580,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1581,
+                "class": "LXStudio$LighthousePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Lighthouse",
+                  "speed": 0.5899999868124723,
+                  "width": 0.5199999995529652
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1582,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1586,
+                "class": "heronarts.lx.pattern.texture.NoisePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Noise",
+                  "midpoint": 50.0,
+                  "contrast": 100.0,
+                  "xOffset": 0.0476190485060215,
+                  "yOffset": 0.0,
+                  "zOffset": 0.0,
+                  "scale": 0.5,
+                  "minScale": 1.0,
+                  "maxScale": 10.0,
+                  "xScale": 1.0,
+                  "yScale": 1.0,
+                  "zScale": 1.0,
+                  "motion": true,
+                  "motionSpeed": 0.43396227061748505,
+                  "motionSpeedRange": 128.0,
+                  "xMotion": 0.571428582072258,
+                  "yMotion": 0.0,
+                  "zMotion": 1.0,
+                  "algorithm": 2,
+                  "seed": 0,
+                  "octaves": 3,
+                  "lacunarity": 2.0,
+                  "gain": 0.5,
+                  "ridgeOffset": 0.9,
+                  "xMode": 0,
+                  "yMode": 0,
+                  "zMode": 0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1587,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1592,
+                "class": "heronarts.lx.pattern.texture.SparklePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Sparkle",
+                  "density": 50.0,
+                  "speed": 0.5,
+                  "variation": 25.0,
+                  "duration": 100.0,
+                  "sharp": 0.0,
+                  "waveshape": 0,
+                  "minInterval": 1.0,
+                  "maxInterval": 1.0,
+                  "baseLevel": 0.0,
+                  "minLevel": 75.0,
+                  "maxLevel": 100.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1593,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              }
+            ]
+          },
+          {
+            "id": 1536,
+            "class": "heronarts.lx.mixer.LXChannel",
+            "internal": {
+              "modulationColor": 0,
+              "controlsExpanded": true
+            },
+            "parameters": {
+              "label": "Channel-2",
+              "arm": false,
+              "selected": true,
+              "enabled": true,
+              "cue": false,
+              "fader": 1.0,
+              "crossfadeGroup": 1,
+              "blendMode": 0,
+              "midiMonitor": false,
+              "midiChannel": 16,
+              "autoCycleEnabled": false,
+              "autoCycleMode": 0,
+              "autoCycleTimeSecs": 60.0,
+              "transitionEnabled": false,
+              "transitionTimeSecs": 5.0,
+              "transitionBlendMode": 0,
+              "focusedPattern": 4,
+              "triggerPatternCycle": false
+            },
+            "children": {},
+            "effects": [
+              {
+                "id": 1600,
+                "class": "heronarts.lx.effect.HueSaturationEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Hue + Saturation",
+                  "enabled": false,
+                  "hue": 215.99999584257603,
+                  "saturation": 61.8181798607111,
+                  "brightness": 0.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1601,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1603,
+                "class": "heronarts.lx.effect.color.ColorizeEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Colorize",
+                  "enabled": false,
+                  "source": 0,
+                  "gradientHue": 0.0,
+                  "gradientSaturation": 0.0,
+                  "gradientBrightness": 0.0,
+                  "colorMode": 0,
+                  "blendMode": 0,
+                  "color1/brightness": 80.8333511352539,
+                  "color1/saturation": 85.83333587646484,
+                  "color1/hue": 300.0,
+                  "color2/brightness": 100.0,
+                  "color2/saturation": 100.0,
+                  "color2/hue": 359.0,
+                  "paletteIndex": 1,
+                  "paletteStops": 5
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1604,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              }
+            ],
+            "clips": [],
+            "patternIndex": 4,
+            "patterns": [
+              {
+                "id": 1534,
+                "class": "heronarts.lx.pattern.color.SolidPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Solid",
+                  "color/brightness": 100.0,
+                  "color/saturation": 88.33333587646484,
+                  "color/hue": 255.0,
+                  "colorMode": 0,
+                  "paletteIndex": 1
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1535,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1555,
+                "class": "heronarts.lx.pattern.color.GradientPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Gradient",
+                  "xAmount": 1.0,
+                  "yAmount": -0.03333330154418945,
+                  "zAmount": 0.0,
+                  "xOffset": 0.0,
+                  "yOffset": 0.0,
+                  "zOffset": 0.0,
+                  "colorMode": 0,
+                  "blendMode": 0,
+                  "gradient": 0.6190476305782795,
+                  "fixedColor/brightness": 100.0,
+                  "fixedColor/saturation": 79.16667175292969,
+                  "fixedColor/hue": 45.904761586338275,
+                  "xMode": 0,
+                  "yMode": 0,
+                  "zMode": 0,
+                  "paletteIndex": 1,
+                  "paletteStops": 5,
+                  "gradientRange": 360.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1556,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1560,
+                "class": "LXStudio$PlanePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Plane",
+                  "axis": 1,
+                  "pos": 0.05999999865889549,
+                  "width": 0.4000000059604645
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1561,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1562,
+                "class": "LXStudio$BloomPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Bloom",
+                  "Inside/brightness": 100.0,
+                  "Inside/saturation": 100.0,
+                  "Inside/hue": 100.52000577747822,
+                  "Outside/brightness": 100.0,
+                  "Outside/saturation": 100.0,
+                  "Outside/hue": 197.4500036109239
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1563,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1564,
+                "class": "LXStudio$ChasePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Chase",
+                  "mode": 0,
+                  "pos": 0.09999999776482582
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1565,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1566,
+                "class": "LXStudio$RadiusPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Radius",
+                  "min": 0.24999999441206455,
+                  "max": 1.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1567,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1571,
+                "class": "heronarts.lx.pattern.texture.SparklePattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": false
+                },
+                "parameters": {
+                  "label": "Sparkle",
+                  "density": 50.0,
+                  "speed": 0.5,
+                  "variation": 25.0,
+                  "duration": 100.0,
+                  "sharp": 0.0,
+                  "waveshape": 0,
+                  "minInterval": 1.0,
+                  "maxInterval": 1.0,
+                  "baseLevel": 0.0,
+                  "minLevel": 75.0,
+                  "maxLevel": 100.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1572,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 1598,
+                "class": "LXStudio$SpinPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Spin",
+                  "speed": 0.7099999841302633,
+                  "width": 0.20000001043081284
+                },
+                "children": {
+                  "modulation": {
+                    "id": 1599,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              }
+            ]
+          }
+        ]
+      },
+      "modulation": {
+        "id": 21,
+        "class": "heronarts.lx.modulation.LXModulationEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Modulation"
+        },
+        "children": {},
+        "modulators": [
+          {
+            "id": 1606,
+            "class": "heronarts.lx.modulator.VariableLFO",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "LFO",
+              "running": false,
+              "trigger": false,
+              "loop": true,
+              "tempoSync": false,
+              "tempoMultiplier": 5,
+              "tempoLock": true,
+              "clockMode": 0,
+              "periodFast": 37682.59899885362,
+              "periodSlow": 10000.0,
+              "wave": 0,
+              "skew": 0.0,
+              "shape": 0.0,
+              "bias": 0.0,
+              "phase": 0.0,
+              "exp": 0.0
+            },
+            "children": {},
+            "basis": 0.2039790919301439
+          }
+        ],
+        "modulations": [
+          {
+            "source": {
+              "id": 1606,
+              "path": "/modulation/modulator/1"
+            },
+            "target": {
+              "componentId": 1564,
+              "parameterPath": "pos",
+              "path": "/mixer/channel/2/pattern/5/pos"
+            },
+            "id": 1607,
+            "class": "heronarts.lx.modulation.LXCompoundModulation",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "LX",
+              "enabled": true,
+              "Polarity": 0,
+              "Range": 0.0374999837949872
+            },
+            "children": {}
+          }
+        ],
+        "triggers": []
+      },
+      "output": {
+        "id": 22,
+        "class": "heronarts.lx.LXEngine$Output",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Output",
+          "enabled": true,
+          "brightness": 1.0,
+          "fps": 0.0,
+          "gamma": 1.0,
+          "gammaMode": 1
+        },
+        "children": {}
+      },
+      "snapshots": {
+        "id": 24,
+        "class": "heronarts.lx.snapshot.LXSnapshotEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Snapshots",
+          "recallMixer": true,
+          "recallModulation": true,
+          "recallPattern": true,
+          "recallEffect": true,
+          "channelMode": 0,
+          "missingChannelMode": 0,
+          "transitionEnabled": false,
+          "transitionTimeSecs": 5.0,
+          "autoCycleEnabled": false,
+          "autoCycleMode": 0,
+          "autoCycleTimeSecs": 65.0,
+          "autoCycleCursor": -1,
+          "triggerSnapshotCycle": false
+        },
+        "children": {},
+        "snapshots": [
+          {
+            "id": 1609,
+            "class": "heronarts.lx.snapshot.LXSnapshot",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Snapshot-1",
+              "recall": false,
+              "autoCycleEligible": true
+            },
+            "children": {},
+            "views": [
+              {
+                "scope": "OUTPUT",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/output/brightness",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/crossfader",
+                "value": 0.10169491544365883,
+                "normalizedValue": 0.10169491544365883
+              },
+              {
+                "scope": "MIXER",
+                "type": "CHANNEL_FADER",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/1",
+                "channelEnabled": true,
+                "channelFader": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/crossfadeGroup",
+                "value": 1,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "ACTIVE_PATTERN",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/1",
+                "activePatternIndex": 2
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/midpoint",
+                "value": 50.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/contrast",
+                "value": 100.0,
+                "normalizedValue": 0.4472135954999579
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/xOffset",
+                "value": 0.0476190485060215,
+                "normalizedValue": 0.5238095242530107
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/yOffset",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/zOffset",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/scale",
+                "value": 0.5,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/minScale",
+                "value": 1.0,
+                "normalizedValue": 0.0949157995752499
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/maxScale",
+                "value": 10.0,
+                "normalizedValue": 0.0949157995752499
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/xScale",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/yScale",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/zScale",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/motion",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/motionSpeed",
+                "value": 0.43396227061748505,
+                "normalizedValue": 0.7169811353087425
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/motionSpeedRange",
+                "value": 128.0,
+                "normalizedValue": 0.4980392156862745
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/xMotion",
+                "value": 0.571428582072258,
+                "normalizedValue": 0.785714291036129
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/yMotion",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/zMotion",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/algorithm",
+                "value": 2,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/seed",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/octaves",
+                "value": 3,
+                "normalizedValue": 0.2857142857142857
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/lacunarity",
+                "value": 2.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/gain",
+                "value": 0.5,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/ridgeOffset",
+                "value": 0.9,
+                "normalizedValue": 0.45
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/xMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/yMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/3/zMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/enabled",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/source",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientHue",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientSaturation",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientBrightness",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/colorMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/blendMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/brightness",
+                "value": 69.9999771118164,
+                "normalizedValue": 0.699999771118164
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/hue",
+                "value": 216.00001525878906,
+                "normalizedValue": 0.6016713516957912
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/brightness",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/hue",
+                "value": 174.0,
+                "normalizedValue": 0.48467966573816157
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/paletteIndex",
+                "value": 1,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/paletteStops",
+                "value": 5,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/2/enabled",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "CHANNEL_FADER",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/2",
+                "channelEnabled": true,
+                "channelFader": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/crossfadeGroup",
+                "value": 2,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "ACTIVE_PATTERN",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/2",
+                "activePatternIndex": 4
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/pattern/5/mode",
+                "value": 1,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/pattern/5/pos",
+                "value": 0.009999999776482582,
+                "normalizedValue": 0.009999999776482582
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/1/enabled",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/enabled",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/source",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientHue",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientSaturation",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientBrightness",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/colorMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/blendMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/brightness",
+                "value": 80.8333511352539,
+                "normalizedValue": 0.8083335113525391
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/saturation",
+                "value": 85.83333587646484,
+                "normalizedValue": 0.8583333587646484
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/hue",
+                "value": 300.0,
+                "normalizedValue": 0.8356545961002786
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/brightness",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/hue",
+                "value": 359.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/paletteIndex",
+                "value": 1,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/paletteStops",
+                "value": 5,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/label",
+                "value": "LFO",
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/running",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/trigger",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/loop",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoSync",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoMultiplier",
+                "value": 5,
+                "normalizedValue": 0.3333333333333333
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoLock",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/clockMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/periodFast",
+                "value": 20083.941637296288,
+                "normalizedValue": 0.7599999830126762
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/periodSlow",
+                "value": 10000.0,
+                "normalizedValue": 0.3163156681145601
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/wave",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/skew",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/shape",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/bias",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/phase",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/exp",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              }
+            ]
+          },
+          {
+            "id": 1610,
+            "class": "heronarts.lx.snapshot.LXSnapshot",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Snapshot-2",
+              "recall": false,
+              "autoCycleEligible": true
+            },
+            "children": {},
+            "views": [
+              {
+                "scope": "OUTPUT",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/output/brightness",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/crossfader",
+                "value": 0.10169491544365883,
+                "normalizedValue": 0.10169491544365883
+              },
+              {
+                "scope": "MIXER",
+                "type": "CHANNEL_FADER",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/1",
+                "channelEnabled": true,
+                "channelFader": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/crossfadeGroup",
+                "value": 1,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "ACTIVE_PATTERN",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/1",
+                "activePatternIndex": 3
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/density",
+                "value": 50.0,
+                "normalizedValue": 0.3535533905932738
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/speed",
+                "value": 0.5,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/variation",
+                "value": 25.0,
+                "normalizedValue": 0.25
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/duration",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/sharp",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/waveshape",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/minInterval",
+                "value": 1.0,
+                "normalizedValue": 0.015025041736227046
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/maxInterval",
+                "value": 1.0,
+                "normalizedValue": 0.015025041736227046
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/baseLevel",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/minLevel",
+                "value": 75.0,
+                "normalizedValue": 0.75
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/pattern/4/maxLevel",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/enabled",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/source",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientHue",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientSaturation",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/gradientBrightness",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/colorMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/blendMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/brightness",
+                "value": 69.9999771118164,
+                "normalizedValue": 0.699999771118164
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color1/hue",
+                "value": 216.00001525878906,
+                "normalizedValue": 0.6016713516957912
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/brightness",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/color2/hue",
+                "value": 174.0,
+                "normalizedValue": 0.48467966573816157
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/paletteIndex",
+                "value": 1,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/1/paletteStops",
+                "value": 5,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/1/effect/2/enabled",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "CHANNEL_FADER",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/2",
+                "channelEnabled": true,
+                "channelFader": 1.0
+              },
+              {
+                "scope": "MIXER",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/crossfadeGroup",
+                "value": 2,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "ACTIVE_PATTERN",
+                "enabled": true,
+                "channelPath": "/lx/mixer/channel/2",
+                "activePatternIndex": 4
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/pattern/5/mode",
+                "value": 1,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "PATTERNS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/pattern/5/pos",
+                "value": 0.009999999776482582,
+                "normalizedValue": 0.009999999776482582
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/1/enabled",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/enabled",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/source",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientHue",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientSaturation",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/gradientBrightness",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/colorMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/blendMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/brightness",
+                "value": 80.8333511352539,
+                "normalizedValue": 0.8083335113525391
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/saturation",
+                "value": 85.83333587646484,
+                "normalizedValue": 0.8583333587646484
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color1/hue",
+                "value": 300.0,
+                "normalizedValue": 0.8356545961002786
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/brightness",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/saturation",
+                "value": 100.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/color2/hue",
+                "value": 359.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/paletteIndex",
+                "value": 1,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "EFFECTS",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/mixer/channel/2/effect/2/paletteStops",
+                "value": 5,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/label",
+                "value": "LFO",
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/running",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/trigger",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/loop",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoSync",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoMultiplier",
+                "value": 5,
+                "normalizedValue": 0.3333333333333333
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/tempoLock",
+                "value": 1.0,
+                "normalizedValue": 1.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/clockMode",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/periodFast",
+                "value": 20083.941637296288,
+                "normalizedValue": 0.7599999830126762
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/periodSlow",
+                "value": 10000.0,
+                "normalizedValue": 0.3163156681145601
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/wave",
+                "value": 0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/skew",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/shape",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/bias",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/phase",
+                "value": 0.0,
+                "normalizedValue": 0.0
+              },
+              {
+                "scope": "MODULATION",
+                "type": "PARAMETER",
+                "enabled": true,
+                "parameterPath": "/lx/modulation/modulator/1/exp",
+                "value": 0.0,
+                "normalizedValue": 0.5
+              }
+            ]
+          }
+        ]
+      },
+      "midi": {
+        "id": 25,
+        "class": "heronarts.lx.midi.LXMidiEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "LX",
+          "computerKeyboardEnabled": false
+        },
+        "children": {},
+        "inputs": [],
+        "surfaces": [],
+        "mapping": []
+      },
+      "audio": {
+        "id": 26,
+        "class": "heronarts.lx.audio.LXAudioEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "Audio",
+          "enabled": true,
+          "mode": 0
+        },
+        "children": {
+          "input": {
+            "id": 27,
+            "class": "heronarts.lx.audio.LXAudioInput",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Input",
+              "device": 0
+            },
+            "children": {}
+          },
+          "output": {
+            "id": 28,
+            "class": "heronarts.lx.audio.LXAudioOutput",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Output",
+              "file": "",
+              "trigger": false,
+              "looping": false,
+              "play": false
+            },
+            "children": {}
+          },
+          "meter": {
+            "id": 29,
+            "class": "heronarts.lx.audio.GraphicMeter",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "Meter",
+              "running": true,
+              "trigger": false,
+              "gain": 24.000000536441803,
+              "range": 48.0,
+              "attack": 28.999999575316902,
+              "release": 152.10001063495892,
+              "slope": 4.5,
+              "band-1": 0.1293883604264865,
+              "band-2": 0.2902938451350451,
+              "band-3": 0.4062241105567058,
+              "band-4": 0.508921338462742,
+              "band-5": 0.700088721793471,
+              "band-6": 0.8466806868830304,
+              "band-7": 0.749979182345103,
+              "band-8": 0.5740809556468294,
+              "band-9": 0.4056074718594074,
+              "band-10": 0.6263734860258616,
+              "band-11": 0.4883479964356928,
+              "band-12": 0.5649572397215199,
+              "band-13": 0.15936705140455343,
+              "band-14": 0.449906064608772,
+              "band-15": 0.2667140357907586,
+              "band-16": 0.09787776503435541
+            },
+            "children": {}
+          }
+        }
+      },
+      "osc": {
+        "id": 30,
+        "class": "heronarts.lx.osc.LXOscEngine",
+        "internal": {
+          "modulationColor": 0
+        },
+        "parameters": {
+          "label": "OSC",
+          "receiveHost": "0.0.0.0",
+          "receivePort": 3030,
+          "receiveActive": false,
+          "transmitHost": "localhost",
+          "transmitPort": 3131,
+          "transmitActive": false
+        },
+        "children": {}
+      }
+    }
+  },
+  "externals": {
+    "ui": {
+      "audioExpanded": true,
+      "paletteExpanded": true,
+      "cameraExpanded": true,
+      "clipViewVisible": true,
+      "modulatorExpanded": {
+        "1606": true
+      },
+      "preview": {
+        "mode": 0,
+        "animation": false,
+        "animationTime": 1000.0,
+        "projection": 0,
+        "perspective": 60.0,
+        "depth": 1.0,
+        "phiLock": true,
+        "centerPoint": false,
+        "camera": {
+          "active": false,
+          "radius": 404.775,
+          "theta": 0.6923843184486032,
+          "phi": 0.2496196129359305,
+          "x": -1.5,
+          "y": 8.5,
+          "z": 0.0
+        },
+        "cue": [
+          {
+            "active": false,
+            "radius": 404.775,
+            "theta": 0.6923843184486032,
+            "phi": 0.2496196129359305,
+            "x": -1.5,
+            "y": 8.5,
+            "z": 0.0
+          },
+          {
+            "active": false,
+            "radius": 120.0,
+            "theta": 0.0,
+            "phi": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          {
+            "active": false,
+            "radius": 120.0,
+            "theta": 0.0,
+            "phi": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          {
+            "active": false,
+            "radius": 120.0,
+            "theta": 0.0,
+            "phi": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          {
+            "active": false,
+            "radius": 120.0,
+            "theta": 0.0,
+            "phi": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          {
+            "active": false,
+            "radius": 120.0,
+            "theta": 0.0,
+            "phi": 0.0,
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        ],
+        "focus": 0,
+        "pointCloud": {
+          "pointSize": 3.0
+        },
+        "grid": {
+          "visible": false,
+          "spacing": 100.0,
+          "planes": 1,
+          "size": 10,
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    }
+  }
+}
