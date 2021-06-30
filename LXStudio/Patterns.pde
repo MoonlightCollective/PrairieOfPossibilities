@@ -263,3 +263,34 @@ public static class ChasePattern extends LXPattern {
     }
   }
 }
+
+
+@LXCategory("Form")
+public static class GrowPattern extends LXPattern {
+  
+  public enum Mode {
+    Build
+  };
+  
+  public final EnumParameter<Mode> mode =
+    new EnumParameter<Mode>("Mode", Mode.Build)
+    .setDescription("What mode to use for the build effect");
+  
+  public final CompoundParameter count = new CompoundParameter("Count", 0, 1)
+    .setDescription("How many lights per base are on");
+    
+  public GrowPattern(LX lx) {
+    super(lx);
+    addParameter("mode", this.mode);
+    addParameter("count", this.count);
+  }
+  
+  public void run(double deltaMs) {
+    float count = 700*this.count.getValuef();
+    float n = 0;
+    for (LXPoint p : model.points) {
+      n = (p.index % 7) * 100.0;
+      colors[p.index] = LXColor.gray(min(100,max(count-n,0)));
+    }
+  }
+}
