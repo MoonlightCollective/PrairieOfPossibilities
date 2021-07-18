@@ -48,7 +48,21 @@ void initializeUI(final heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXS
 
 void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI ui) {
   // Add custom UI components here
+  ui.preview.addComponent(new UI3dComponent() {
+    public void onDraw(UI ui, PGraphics pg) {
+      LXEngine.Frame frame = ui.lx.getUIFrame();
+      int[] colors = frame.getColors();
+      for (LXPoint p : frame.getModel().points) {
+        pg.stroke(colors[p.index]);
+        pg.beginShape(LINES);
+        pg.vertex(p.x, p.y, p.z);
+        pg.vertex(p.x, p.y, p.z + 140);
+        pg.endShape();
+      }
+    }
+  });
 }
+
 
 void draw() {
   // Nothing needs to happen here, this method just needs to exist for Processing
