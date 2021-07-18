@@ -23,6 +23,9 @@
 // Reference to top-level LX instance
 heronarts.lx.studio.LXStudio lx;
 
+final static String FIXTURES_FILE = "LightFieldWithBases-1.json";
+
+
 void settings() {
   size(960, 800, P3D);
 }
