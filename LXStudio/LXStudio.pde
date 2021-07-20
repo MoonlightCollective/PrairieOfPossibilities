@@ -47,6 +47,16 @@ void initializeUI(final heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXS
 }
 
 void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI ui) {
+
+  ui.preview.setRadius(80*FEET).setPhi(-PI/18).setTheta(PI/12);
+  ui.preview.setCenter(0, 0, 0);
+
+  // Narrow angle lens, for a fuller visualization
+  ui.preview.perspective.setValue(30);
+
+  ui.preview.addComponent(new UISimulation());
+
+/*
   // Add custom UI components here
   ui.preview.addComponent(new UI3dComponent() {
     public void onDraw(UI ui, PGraphics pg) {
@@ -54,13 +64,16 @@ void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI 
       int[] colors = frame.getColors();
       for (LXPoint p : frame.getModel().points) {
         pg.stroke(colors[p.index]);
-        pg.beginShape(LINES);
-        pg.vertex(p.x, p.y, p.z);
-        pg.vertex(p.x, p.y, p.z + 140);
+        pg.fill(colors[p.index]);
+        pg.beginShape();
+        pg.curveVertex(p.x, p.y, p.z);
+        pg.curveVertex(p.x, p.y+30, p.z);
+        pg.curveVertex(p.x, p.y+60, p.z+20);
+        pg.curveVertex(p.x, p.y+90, p.z+40);
         pg.endShape();
       }
     }
-  });
+  });*/
 }
 
 

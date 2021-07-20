@@ -68,9 +68,46 @@ public static class Field extends LXStructure {
     }
   }
 }
-  
-public static class LightBase extends LXModel {
-  
+
+
+// note:  a dmx512 universe can handle 512 channels
+//       thats 24 bases.  (24*21 = 504)
+
+/*
+ * a base has 21 channels 
+ * 7-stems , each with 3 channels (r,g,b)
+ */ 
+public class LightBase extends LXModel {
+
+  // coordinates in global space
+  public final float x;
+  public final float y;
+  public final float z;
+
   public static final int NUM_FIBERSTEMS = 7;
+
+  LightBase(float x, float y, float z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+}
+
+public class LightStem extends LXModel {
+
+  // coordinates in global space
+  public float x;
+  public float y;
+  public float z;
+  public float azimuth;
+  public int rgb;
+
+  LightStem(float x, float y, float z, float azimuth, int rgb) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.azimuth = azimuth;
+    this.rgb = rgb;
+  }
 
 }
