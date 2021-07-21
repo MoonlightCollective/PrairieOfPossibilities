@@ -1,5 +1,6 @@
 // In this file you can define your own custom patterns
 
+
 // Here is a fairly basic example pattern that renders a plane that can be moved
 // across one of the axes.
 @LXCategory("Form")
@@ -292,5 +293,23 @@ public static class GrowPattern extends LXPattern {
       n = (p.index % 7) * 100.0;
       colors[p.index] = LXColor.gray(min(100,max(count-n,0)));
     }
+  }
+}
+
+public class SolidPattern extends LXPattern {
+
+  public final CompoundParameter h = new CompoundParameter("Hue", 0, 360);
+  public final CompoundParameter s = new CompoundParameter("Sat", 0, 100);
+  public final CompoundParameter b = new CompoundParameter("Brt", 100, 100);
+
+  public SolidPattern(LX lx) {
+    super(lx);
+    addParameter("h", this.h);
+    addParameter("s", this.s);
+    addParameter("b", this.b);
+  }
+
+  public void run(double deltaMs) {
+    setColors(LXColor.hsb(this.h.getValue(), this.s.getValue(), this.b.getValue()));
   }
 }

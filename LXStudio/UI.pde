@@ -45,20 +45,12 @@ public class UIFloor extends UI3dComponent {
 
 public class UISimulation extends UI3dComponent {
 
-  public static final float CENTER_RADIUS = 10*FEET;
-
-  UISimulation() {
+  UISimulation(Field field) {
     addChild(new UIFloor());
-    int layers = 4;
-    float radius = CENTER_RADIUS;
-    int bases = 10;
-    for (int l = 0; l < layers; ++l) {
-        for (int i = 0 ; i < bases; ++i) {
-            float angle = i * TWO_PI / bases;
-            addChild(new UILightBase(new LightBase(radius * cos(angle), 0, radius * sin(angle))));
+    for (DmxLightController controller : field.controllers) {
+        for (LightBase base : controller.bases) {
+            addChild(new UILightBase(base));
         }
-        radius += 8*FEET;
-        bases *= 2;
     }
   }
   
@@ -75,10 +67,12 @@ public class UISimulation extends UI3dComponent {
 }
 
 public class UILightStem extends UI3dComponent {
-    public final LightStem model;
+    public final LightBase model;
+    public final int stem;
 
-    UILightStem(LightStem model) {
+    UILightStem(LightBase model, int stem) {
         this.model = model;
+        this.stem = stem;
     }
 }
 
@@ -89,8 +83,8 @@ public class UILightStemTrio extends UILightStem {
 
   public final UICylinder[][] lightStems = new UICylinder[3][6];
 
-  UILightStemTrio(LightStem model) {
-    super(model);
+  UILightStemTrio(LightBase model, int stem) {
+    super(model, stem);
     float  r = DIAMETER/2;
     float  h = HEIGHT;
     // 3 stems
@@ -106,15 +100,18 @@ public class UILightStemTrio extends UILightStem {
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.x, this.model.y, this.model.z);
+    pg.translate(this.model.lightStems[this.stem].x, this.model.lightStems[this.stem].y, this.model.lightStems[this.stem].z);
   }
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+    LXEngine.Frame frame = ui.lx.getUIFrame();
+    int[] colors = frame.getColors();
     pg.noStroke();
 
-    pg.rotateY(this.model.azimuth);
+    pg.rotateY(this.model.lightStems[this.stem].azimuth);
 
+    // start with a larger bend angle for the longest stem
     float bendAngle = 6;
     // 3 stems
     for (int i = 0; i < 3; ++i) {
@@ -123,7 +120,11 @@ public class UILightStemTrio extends UILightStem {
         float angle = -PI/bendAngle;
         float k = 1.0;
         for (int j = 0; j < 6; j++) {
-            pg.fill(this.model.rgb);
+            LXPoint p = this.model.points.get(this.stem);
+            if (colors.length > p.index) {
+                pg.fill(colors[p.index]);
+            }
+            pg.fill(this.model.lightStems[this.stem].rgb);
             this.lightStems[i][j].onDraw(ui, pg);
             pg.translate(0.125*INCHES, this.lightStems[i][j].len, 0);
             angle *= k;
@@ -155,20 +156,26 @@ public class UILightStemSingle extends UILightStem {
   public static final float HEIGHT = 49*INCHES;
   public static final int  DETAIL = 8;
 
-  UILightStemSingle(LightStem model) {
-    super(model);
+  UILightStemSingle(LightBase model, int stem) {
+    super(model, stem);
     addChild(new UICylinder(DIAMETER/2, HEIGHT, DETAIL));
   }
 
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.x, this.model.y, this.model.z);
+    pg.translate(this.model.lightStems[this.stem].x, this.model.lightStems[this.stem].y, this.model.lightStems[this.stem].z);
   }
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
-    pg.fill(this.model.rgb);
+    LXEngine.Frame frame = ui.lx.getUIFrame();
+    int[] colors = frame.getColors();
+    LXPoint p = this.model.points.get(this.stem);
+    if (colors.length > p.index) {
+        pg.fill(colors[p.index]);
+    } 
+    pg.fill(this.model.lightStems[this.stem].rgb);
     pg.noStroke();
   }
 
@@ -199,13 +206,13 @@ public class UILightBase extends UI3dComponent {
       this.model = model;
       addChild(new UICylinder(DIAMETER/2, HEIGHT, 5));
       lightStems = new ArrayList<UILightStem>();
-      lightStems.add(new UILightStemSingle(new LightStem(1,    3,  1, 0.0,     #154FF0)));      // 3
-      lightStems.add(new UILightStemSingle(new LightStem(1,    3, -1, 0.0,     #E8F015)));      // 4
-      lightStems.add(new UILightStemTrio(  new LightStem(3,    3,  2, -3*PI/4, #29FD10)));      // 1
-      lightStems.add(new UILightStemTrio(  new LightStem(2.5,  3, -3, -PI/4,   #10FDE8)));      // 6
-      lightStems.add(new UILightStemTrio(  new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10)));      // 0
-      lightStems.add(new UILightStemTrio(  new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD)));      // 5
-      lightStems.add(new UILightStemTrio(  new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD)));      // 2
+      lightStems.add(new UILightStemSingle(model, 3));   // 3
+      lightStems.add(new UILightStemSingle(model, 4));   // 4
+      lightStems.add(new UILightStemTrio(model, 1));     // 1
+      lightStems.add(new UILightStemTrio(model, 6));     // 6
+      lightStems.add(new UILightStemTrio(model, 0));     // 0
+      lightStems.add(new UILightStemTrio(model, 5));     // 5
+      lightStems.add(new UILightStemTrio(model, 2));     // 2
       for (UILightStem stem : lightStems) {
           addChild(stem);
       }      

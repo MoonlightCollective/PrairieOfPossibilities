@@ -1,0 +1,43 @@
+{
+  "label": "DmxLightController",
+
+  "strips":[
+    {"x":0, "y":60, "numPoints":7,"spacing":120}
+  ],
+
+  "children":[
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"},
+      { "type":"7-pixel-base"}
+  ],
+
+  "outputs": [
+    {
+      "protocol": "artnet",
+      "host.james": "192.168.1.60",
+      "host.paul": "192.168.254.29",
+      "host": "192.168.254.29",
+      "universe": 0
+    }
+  ]
+}

@@ -20,22 +20,25 @@
 // 
 // ---------------------------------------------------------------------------
 
-// Reference to top-level LX instance
+// Our engine and our model
 heronarts.lx.studio.LXStudio lx;
+processing.core.PApplet applet;
+
+Field field;
 
 final static String FIXTURES_FILE = "LightFieldWithBases-1.json";
 
-
-void settings() {
-  size(960, 800, P3D);
-}
-
 void setup() {
+
+  size(1200, 960, P3D);
+
   heronarts.lx.studio.LXStudio.Flags flags = new heronarts.lx.studio.LXStudio.Flags(this);
   flags.useGLPointCloud = true;
   flags.startMultiThreaded = true;
   flags.resizable = true;
+  applet = this;
   lx = new heronarts.lx.studio.LXStudio(this, flags);
+
 }
 
 void initialize(LX lx) {
@@ -48,13 +51,16 @@ void initializeUI(final heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXS
 
 void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI ui) {
 
+  field = buildField(lx);
+
   ui.preview.setRadius(80*FEET).setPhi(-PI/18).setTheta(PI/12);
   ui.preview.setCenter(0, 0, 0);
 
   // Narrow angle lens, for a fuller visualization
   ui.preview.perspective.setValue(30);
 
-  ui.preview.addComponent(new UISimulation());
+  // add the main simulation
+  ui.preview.addComponent(new UISimulation(field));
 
 /*
   // Add custom UI components here
