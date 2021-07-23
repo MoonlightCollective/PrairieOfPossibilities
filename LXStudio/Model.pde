@@ -92,11 +92,12 @@ public class Field  {
     this.controllers.add(controller);
     lx.structure.addFixture(controller);
 
-    int bases = 200;
+    int bases = NUM_BASES;
     float radius = CENTER_RADIUS;
     float angle = 0;
 
-    for (int i = 0 ; i < bases; ++i) {
+    int i = 0;
+    while (bases > 0) {
         float perimeter = TWO_PI * radius;
         int ring_bases = (int)(perimeter / BASE_SPACING);
         float radius_add = BASE_SPACING/ring_bases;
@@ -110,9 +111,24 @@ public class Field  {
           this.controllers.add(controller);
           lx.structure.addFixture(controller);
         }
-        controller.addBase(radius * cos(angle), 0, radius * sin(angle));
+        
+        boolean skip = false;
+        
+        for (int j = 0; j < 20; ++j) {        // logic to add curving aisles through the lights... removes key lights to create aisle
+          if (i == j*(11+(3*j)) || i == 3 + j*(13+(3*j)) || i == 6 + j*(14+(3*j)) || i == 10 + j*(16+(3*j)) ) {
+            skip = true;
+            break;
+          }
+        }
+
+        if (!skip) {
+          controller.addBase(radius * cos(angle), 0, radius * sin(angle));
+          bases--;
+        }
+        
         angle += TWO_PI / ring_bases;
         radius += radius_add;
+        i++;
     }
   }
 
