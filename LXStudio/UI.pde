@@ -223,7 +223,7 @@ public class UILightBase extends UI3dComponent {
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.x, this.model.y, this.model.z);
+    pg.translate(this.model._x, this.model._y, this.model._z);
   }
 
   @Override

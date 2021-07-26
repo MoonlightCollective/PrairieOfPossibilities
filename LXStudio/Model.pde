@@ -163,6 +163,8 @@ public class DmxLightController extends JsonFixture {
     LightBase base = new LightBase(this, x, y, z);
     this.bases.add(base);
     this.addChild(base);
+    lx.structure.selectFixture(this);
+    lx.structure.translateSelectedFixtures(x,y,z);
   }
 }
 
@@ -173,9 +175,9 @@ public class DmxLightController extends JsonFixture {
 public class LightBase extends JsonFixture {
 
   // coordinates in global space
-  public final float x;
-  public final float y;
-  public final float z;
+  public final float _x;
+  public final float _y;
+  public final float _z;
 
   public static final int NUM_FIBERSTEMS = 7;
   public DmxLightController controller;
@@ -193,9 +195,11 @@ public class LightBase extends JsonFixture {
   LightBase(DmxLightController controller, float x, float y, float z) {
     super(controller.getLX(), "7-pixel-base");
     this.controller = controller;
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this._x = x;
+    this._y = y;
+    this._z = z;
+
+    
 
     this.lightStems = new LightStem[7];
     this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
