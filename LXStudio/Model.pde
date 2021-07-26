@@ -207,6 +207,11 @@ public class LightBase extends JsonFixture {
     this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
   }
 
+  @Override
+  protected LXPoint constructPoint(int localIndex) {
+    return this.lightStems[localIndex];
+  }
+
 /*
   protected void buildOutputs() {
     int universe = this.controller.outputObject.getInt("universe"); //<>//

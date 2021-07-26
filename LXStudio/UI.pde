@@ -124,7 +124,7 @@ public class UILightStemTrio extends UILightStem {
             if (colors.length > p.index) {
                 pg.fill(colors[p.index]);
             }
-            pg.fill(this.model.lightStems[this.stem].rgb);
+            //pg.fill(this.model.lightStems[this.stem].rgb);
             this.lightStems[i][j].onDraw(ui, pg);
             pg.translate(0.125*INCHES, this.lightStems[i][j].len, 0);
             angle *= k;
@@ -171,11 +171,13 @@ public class UILightStemSingle extends UILightStem {
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();
+
+
     LXPoint p = this.model.points.get(this.stem);
     if (colors.length > p.index) {
         pg.fill(colors[p.index]);
     } 
-    pg.fill(this.model.lightStems[this.stem].rgb);
+    //pg.fill(this.model.lightStems[this.stem].rgb);
     pg.noStroke();
   }
 

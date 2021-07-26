@@ -155,6 +155,36 @@ public static class LighthousePattern extends LXPattern {
   }
 }
 
+
+// Sets brightness based on distance from the center
+@LXCategory("Form")
+public static class OnePointEachPattern extends LXPattern {
+
+  int index = 0;
+
+  public final CompoundParameter min = new CompoundParameter("Min", 0, 1)
+    .setDescription("Minimum value of the brightness");
+  
+  public final CompoundParameter max = new CompoundParameter("Max", 1.0, 0, 1)
+    .setDescription("Maximum value of the brightness");
+  
+  public OnePointEachPattern(LX lx) {
+    super(lx);
+    addParameter("min", this.min);
+    addParameter("max", this.max);
+  }
+  
+  public void run(double deltaMs) {    
+    colors[this.index] = LXColor.rgb(0,0,0); 
+    this.index += 1;
+    if (this.index >= this.model.points.length) {
+      this.index = 0;
+    }
+    colors[this.index] = LXColor.rgb(103,250,5);
+  }
+}
+
+
 // Sets brightness based on distance from the center
 @LXCategory("Form")
 public static class RadiusPattern extends LXPattern {
