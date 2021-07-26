@@ -53,7 +53,7 @@ public class Field  {
     DmxLightController controller = new DmxLightController(lx);
     //controller.load(lx, parser.parse(outputs.getJSONObject(currentOutput).toString()).getAsJsonObject());
     this.controllers.add(controller);
-    lx.structure.addFixture(controller);
+    //lx.structure.addFixture(controller);
 
     int layers = 7;
     float radius = CENTER_RADIUS;
@@ -72,7 +72,7 @@ public class Field  {
               controller = new DmxLightController(lx);
               //controller.load(lx, parser.parse(outputs.getJSONObject(currentOutput).toString()).getAsJsonObject());
               this.controllers.add(controller);
-              lx.structure.addFixture(controller);
+              //lx.structure.addFixture(controller);
             }
             controller.addBase(radius * cos(angle), 0, radius * sin(angle));
         }
@@ -90,7 +90,7 @@ public class Field  {
     DmxLightController controller = new DmxLightController(lx);
     //controller.load(lx, parser.parse(outputs.getJSONObject(currentOutput).toString()).getAsJsonObject());
     this.controllers.add(controller);
-    lx.structure.addFixture(controller);
+    //lx.structure.addFixture(controller);
 
     int bases = NUM_BASES;
     float radius = CENTER_RADIUS;
@@ -109,7 +109,7 @@ public class Field  {
           controller = new DmxLightController(lx);
           //controller.load(lx, parser.parse(outputs.getJSONObject(currentOutput).toString()).getAsJsonObject());
           this.controllers.add(controller);
-          lx.structure.addFixture(controller);
+          //lx.structure.addFixture(controller);
         }
         
         boolean skip = false;
@@ -162,8 +162,9 @@ public class DmxLightController extends JsonFixture {
   public void addBase(float x, float y, float z) {
     LightBase base = new LightBase(this, x, y, z);
     this.bases.add(base);
-    this.addChild(base);
-    lx.structure.selectFixture(this);
+    //this.addChild(base);
+    lx.structure.addFixture(base);
+    lx.structure.selectFixture(base);
     lx.structure.translateSelectedFixtures(x,y,z);
   }
 }
