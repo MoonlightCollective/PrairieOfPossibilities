@@ -122,6 +122,14 @@ public static class LighthousePattern extends LXPattern {
 
   private float angle = 0; // go between 0 and 1
   private static final double MOTION = .0005;
+
+  public enum Axis {
+    Y,Z
+  };
+  
+  public final EnumParameter<Axis> axis =
+    new EnumParameter<Axis>("Axis", Axis.Y)
+    .setDescription("What axis should the lighthouse beam revolve around");
   
   public final CompoundParameter speed = new CompoundParameter("Speed", 0, 1)
     .setDescription("Speed of the rotation");
@@ -133,6 +141,7 @@ public static class LighthousePattern extends LXPattern {
     super(lx);
     addParameter("speed", this.speed);
     addParameter("width", this.wth);
+    addParameter("axis", this.axis);
   }
   
   public void run(double deltaMs) {    
@@ -147,7 +156,15 @@ public static class LighthousePattern extends LXPattern {
     float pAngle = 0;
     float dist = 0;
     for (LXPoint p : model.points) {
-      pAngle = p.theta / (2*PI); // angle between 0 and 1
+      switch (this.axis.getEnum()) 
+      {
+        case Y:
+          pAngle = p.azimuth / (2*PI);
+          break;
+        case Z:
+          pAngle = p.theta / (2*PI); // angle between 0 and 1
+          break;
+      }
       dist = LXUtils.wrapdistf(pAngle,angle,1.0);
 //      dist = min(min(abs(pAngle - angle), abs(pAngle+1-angle)), abs(pAngle-1-angle));
       colors[p.index] = LXColor.gray(max(0, 100 - falloff*dist)); 
