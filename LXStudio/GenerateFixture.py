@@ -8,18 +8,30 @@ class BaseFixture(object):
     self.x = x
     self.z = z
 
+class Protocol(object):
+  def __init__(self, host:str, universe:int, start:int, num:int):
+    self.host = host
+    self.protocol = "artnet"
+    self.byteOrder = "rgb"
+    self.universe = universe
+    self.start = start
+    self.num = num
+
 class Fixture(object):
-  def __init__(self, label:str, children:List[BaseFixture]):
+  def __init__(self, label:str, children:List[BaseFixture], outputs:List[Protocol]):
     self.label = label
     self.children = children
+    self.outputs = outputs
 
 bases = []
 
 FEET = 304 #304 mm in a foot
 NUM_BASES = 200
+POINTS_PER_BASE = 7
 CENTER_DIAMETER = 30*FEET
 BASE_SPACING = 8*FEET
 CENTER_RADIUS = CENTER_DIAMETER/2
+IP = "192.168.0.60"
 
 i = 0
 numbases = NUM_BASES
@@ -44,7 +56,21 @@ while numbases > 0:
   angle = angle + math.pi * 2 / ring_bases
   radius = radius + radius_add
   i = i +1
-  
-spiral = Fixture(label="Light Spiral", children=bases)
+
+numpoints = NUM_BASES * POINTS_PER_BASE
+universe = 0
+start = 0
+BASES_PER_UNIVERSE = int(512 / (POINTS_PER_BASE * 3)) # 3 channels per point = RGB
+
+outputs = []
+while numpoints > 0:
+  points = min(numpoints,BASES_PER_UNIVERSE * POINTS_PER_BASE)
+  output = Protocol(IP, universe, start, points)
+  universe = universe + 1
+  numpoints = numpoints - points
+  start = start + points
+  outputs.append (output)
+
+spiral = Fixture(label="Light Spiral", children=bases, outputs=outputs)
 json_data = json.dumps(spiral, default=lambda o:o.__dict__, indent=4)
 print(json_data)
