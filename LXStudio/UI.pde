@@ -43,17 +43,34 @@ public class UIFloor extends UI3dComponent {
   }
 }
 
-public class UISimulation extends UI3dComponent {
+public class UISimulation extends UI3dComponent implements LXStructure.Listener {
 
-  UISimulation(Field field) {
+  protected LX lx;
+
+  UISimulation(LX lx) {
+    this.lx = lx;
     addChild(new UIFloor());
-    for (DmxLightController controller : field.controllers) {
-        for (LightBase base : controller.bases) {
-            addChild(new UILightBase(base));
-        }
+    lx.structure.addListener(this);
+  }
+
+  public void fixtureAdded(LXFixture fixture) {
+    if (fixture instanceof LightBase) {
+        addChild(new UILightBase((LightBase)fixture));
     }
   }
-  
+
+  public void fixtureRemoved(LXFixture fixture) {
+    if (fixture instanceof LightBase) {
+        // TODO
+    }
+  }
+
+  public void fixtureMoved(LXFixture fixture, int index) {
+    if (fixture instanceof LightBase) {
+        // TODO
+    }
+  }
+
   protected void beginDraw(UI ui, PGraphics pg) {
     float level = 255;
     pg.pointLight(level, level, level, -10*FEET, 30*FEET, -30*FEET);
@@ -223,7 +240,7 @@ public class UILightBase extends UI3dComponent {
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model._x, this.model._y, this.model._z);
+    pg.translate((float)this.model.x.getValue(), (float)this.model.y.getValue(), (float)this.model.z.getValue());
   }
 
   @Override

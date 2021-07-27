@@ -175,11 +175,6 @@ public class DmxLightController extends JsonFixture {
  */ 
 public class LightBase extends JsonFixture {
 
-  // coordinates in global space
-  public final float _x;
-  public final float _y;
-  public final float _z;
-
   public static final int NUM_FIBERSTEMS = 7;
   public DmxLightController controller;
 
@@ -193,14 +188,22 @@ public class LightBase extends JsonFixture {
   *          5     6
   */      
 
-  LightBase(DmxLightController controller, float x, float y, float z) {
+  public LightBase(LX lx) {
+    super(lx);
+    this.lightStems = new LightStem[7];
+    this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
+    this.lightStems[4] = new LightStem(1,    3, -1, 0.0,     #E8F015); // 4
+    this.lightStems[1] = new LightStem(3,    3,  2, -3*PI/4, #29FD10); // 1
+    this.lightStems[6] = new LightStem(2.5,  3, -3, -PI/4,   #10FDE8); // 6
+    this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
+    this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
+    this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
+  }
+
+
+  public LightBase(DmxLightController controller, float x, float y, float z) {
     super(controller.getLX(), "7-pixel-base");
     this.controller = controller;
-    this._x = x;
-    this._y = y;
-    this._z = z;
-
-    
 
     this.lightStems = new LightStem[7];
     this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
@@ -210,6 +213,7 @@ public class LightBase extends JsonFixture {
     this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
     this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
     this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
+
   }
 
   @Override
@@ -239,19 +243,15 @@ public class LightBase extends JsonFixture {
 
 public class LightStem extends LXPoint {
 
-  // coordinates in global space
-  public float x;
-  public float y;
-  public float z;
   public float azimuth;
-  public int rgb;
+
+  LightStem() {
+    super();
+  }
 
   LightStem(float x, float y, float z, float azimuth, int rgb) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    super(x,y,z);
     this.azimuth = azimuth;
-    this.rgb = rgb;
   }
 
 }
