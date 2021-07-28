@@ -25,7 +25,7 @@ class Fixture(object):
 
 bases = []
 
-FEET = 304 #304 mm in a foot
+FEET = 12 #using 1 = 1 inch
 NUM_BASES = 200
 POINTS_PER_BASE = 7
 CENTER_DIAMETER = 30*FEET
