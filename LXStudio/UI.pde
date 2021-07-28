@@ -206,6 +206,14 @@ public class UILightStemSingle extends UILightStem {
 
 
 /*
+ *         0     1
+ *            3
+ *       2
+ *             4
+ *          5     6
+ */      
+
+/*
  *         5     6
  *            2
  *       4    1
