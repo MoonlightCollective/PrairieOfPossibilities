@@ -29,7 +29,7 @@ public static class LightBaseFixtureConfig {
 *
 **/
 
-public class Field  {
+public class Field  extends JsonFixture {
   
   public final float CENTER_DIAMETER = 30*FEET;
   public final float BASE_SPACING = 8*FEET;
@@ -37,10 +37,15 @@ public class Field  {
   public final float CENTER_RADIUS = CENTER_DIAMETER/2;
 
   public final List<DmxLightController> controllers = new ArrayList<DmxLightController>();
+
+  public List<LXFixture> getChildren() {
+    return this.children;
+  }
   
   public Field(LX lx) {
+    super(lx);
     //buildRings(lx);
-    buildSpiral(lx);
+    //buildSpiral(lx);
   }
 
   private void buildRings(LX lx)
@@ -131,7 +136,6 @@ public class Field  {
         i++;
     }
   }
-
 }
 
 
@@ -191,13 +195,13 @@ public class LightBase extends JsonFixture {
   public LightBase(LX lx) {
     super(lx);
     this.lightStems = new LightStem[7];
-    this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
-    this.lightStems[4] = new LightStem(1,    3, -1, 0.0,     #E8F015); // 4
-    this.lightStems[1] = new LightStem(3,    3,  2, -3*PI/4, #29FD10); // 1
-    this.lightStems[6] = new LightStem(2.5,  3, -3, -PI/4,   #10FDE8); // 6
-    this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
-    this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
-    this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
+//    this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
+//    this.lightStems[4] = new LightStem(1,    3, -1, 0.0,     #E8F015); // 4
+//    this.lightStems[1] = new LightStem(3,    3,  2, -3*PI/4, #29FD10); // 1
+//    this.lightStems[6] = new LightStem(2.5,  3, -3, -PI/4,   #10FDE8); // 6
+//    this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
+//    this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
+//    this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
   }
 
 
@@ -206,13 +210,13 @@ public class LightBase extends JsonFixture {
     this.controller = controller;
 
     this.lightStems = new LightStem[7];
-    this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
-    this.lightStems[4] = new LightStem(1,    3, -1, 0.0,     #E8F015); // 4
-    this.lightStems[1] = new LightStem(3,    3,  2, -3*PI/4, #29FD10); // 1
-    this.lightStems[6] = new LightStem(2.5,  3, -3, -PI/4,   #10FDE8); // 6
-    this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
-    this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
-    this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
+//    this.lightStems[3] = new LightStem(1,    3,  1, 0.0,     #154FF0); // 3
+//    this.lightStems[4] = new LightStem(1,    3, -1, 0.0,     #E8F015); // 4
+//    this.lightStems[1] = new LightStem(3,    3,  2, -3*PI/4, #29FD10); // 1
+//    this.lightStems[6] = new LightStem(2.5,  3, -3, -PI/4,   #10FDE8); // 6
+//    this.lightStems[0] = new LightStem(-2.5, 3,  2, -5*PI/4, #F8FD10); // 0
+//    this.lightStems[5] = new LightStem(-2.5, 3, -3, -7*PI/4, #1040FD); // 5
+//    this.lightStems[2] = new LightStem(-3.5, 3,  0, -3*PI/2, #A010FD); // 2
 
   }
 
@@ -243,15 +247,24 @@ public class LightBase extends JsonFixture {
 
 public class LightStem extends LXPoint {
 
+  public float dx;
+  public float dy;
+  public float dz;
+  public LXFixture fixture;
+  public int index;
   public float azimuth;
 
-  LightStem() {
-    super();
-  }
-
-  LightStem(float x, float y, float z, float azimuth, int rgb) {
-    super(x,y,z);
+  LightStem(LXFixture f, LXPoint p, int index, float azimuth) {
+    super(p);
+    this.dx = (float)f.x.getValue() - this.x;
+    this.dy = (float)f.y.getValue() - this.y;
+    this.dz = (float)f.z.getValue() - this.z;
+    this.index = index;
+    this.fixture = f;
     this.azimuth = azimuth;
   }
 
+  LXPoint getPoint() {
+    return this.fixture.points.get(this.index);
+  }
 }

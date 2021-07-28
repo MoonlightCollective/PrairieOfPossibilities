@@ -54,8 +54,11 @@ public class UISimulation extends UI3dComponent implements LXStructure.Listener 
   }
 
   public void fixtureAdded(LXFixture fixture) {
-    if (fixture instanceof LightBase) {
-        addChild(new UILightBase((LightBase)fixture));
+    if (fixture instanceof Field) {
+      Field f = (Field)fixture;
+      for (LXFixture child : f.getChildren()) {
+        addChild(new UILightBase(child));
+      }
     }
   }
 
@@ -84,12 +87,10 @@ public class UISimulation extends UI3dComponent implements LXStructure.Listener 
 }
 
 public class UILightStem extends UI3dComponent {
-    public final LightBase model;
-    public final int stem;
+    public final LightStem model;
 
-    UILightStem(LightBase model, int stem) {
+    UILightStem(LightStem model) {
         this.model = model;
-        this.stem = stem;
     }
 }
 
@@ -100,8 +101,8 @@ public class UILightStemTrio extends UILightStem {
 
   public final UICylinder[][] lightStems = new UICylinder[3][6];
 
-  UILightStemTrio(LightBase model, int stem) {
-    super(model, stem);
+  UILightStemTrio(LightStem model) {
+    super(model);
     float  r = DIAMETER/2;
     float  h = HEIGHT;
     // 3 stems
@@ -117,7 +118,7 @@ public class UILightStemTrio extends UILightStem {
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.lightStems[this.stem].x, this.model.lightStems[this.stem].y, this.model.lightStems[this.stem].z);
+    pg.translate(this.model.x, this.model.y, this.model.z);
   }
 
   @Override
@@ -126,7 +127,7 @@ public class UILightStemTrio extends UILightStem {
     int[] colors = frame.getColors();
     pg.noStroke();
 
-    pg.rotateY(this.model.lightStems[this.stem].azimuth);
+    pg.rotateY(this.model.azimuth);
 
     // start with a larger bend angle for the longest stem
     float bendAngle = 6;
@@ -137,7 +138,7 @@ public class UILightStemTrio extends UILightStem {
         float angle = -PI/bendAngle;
         float k = 1.0;
         for (int j = 0; j < 6; j++) {
-            LXPoint p = this.model.points.get(this.stem);
+            LXPoint p = this.model;
             if (colors.length > p.index) {
                 pg.fill(colors[p.index]);
             }
@@ -173,15 +174,15 @@ public class UILightStemSingle extends UILightStem {
   public static final float HEIGHT = 49*INCHES;
   public static final int  DETAIL = 8;
 
-  UILightStemSingle(LightBase model, int stem) {
-    super(model, stem);
+  UILightStemSingle(LightStem model) {
+    super(model);
     addChild(new UICylinder(DIAMETER/2, HEIGHT, DETAIL));
   }
 
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.lightStems[this.stem].x, this.model.lightStems[this.stem].y, this.model.lightStems[this.stem].z);
+    pg.translate(this.model.dx, this.model.dy, this.model.dz);
   }
 
   @Override
@@ -189,9 +190,8 @@ public class UILightStemSingle extends UILightStem {
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();
 
-
-    LXPoint p = this.model.points.get(this.stem);
-    if (colors.length > p.index) {
+    LXPoint p = this.model.getPoint();
+    if (p.index < colors.length) {
         pg.fill(colors[p.index]);
     } 
     //pg.fill(this.model.lightStems[this.stem].rgb);
@@ -203,7 +203,6 @@ public class UILightStemSingle extends UILightStem {
     pg.popMatrix();
   }
 }
-
 
 
 /*
@@ -218,23 +217,15 @@ public class UILightBase extends UI3dComponent {
   public static final float DIAMETER = 10.5*INCHES;
   public static final float HEIGHT = 3.5*INCHES;
  
-  public final List<UILightStem> lightStems;
-  public final LightBase model;
+  public final LXFixture model;
 
-  UILightBase(LightBase model) {
-      this.model = model;
-      addChild(new UICylinder(DIAMETER/2, HEIGHT, 5));
-      lightStems = new ArrayList<UILightStem>();
-      lightStems.add(new UILightStemSingle(model, 3));   // 3
-      lightStems.add(new UILightStemSingle(model, 4));   // 4
-      lightStems.add(new UILightStemTrio(model, 1));     // 1
-      lightStems.add(new UILightStemTrio(model, 6));     // 6
-      lightStems.add(new UILightStemTrio(model, 0));     // 0
-      lightStems.add(new UILightStemTrio(model, 5));     // 5
-      lightStems.add(new UILightStemTrio(model, 2));     // 2
-      for (UILightStem stem : lightStems) {
-          addChild(stem);
-      }      
+  UILightBase(LXFixture model) {
+    this.model = model;
+    addChild(new UICylinder(DIAMETER/2, HEIGHT, 5));
+    int i = 0;
+    for (LXPoint p : model.points) {
+        addChild(new UILightStemSingle(new LightStem(this.model, p, i++, 0)));
+    }
   }
 
   @Override
