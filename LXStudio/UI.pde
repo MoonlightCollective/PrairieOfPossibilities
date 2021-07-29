@@ -14,13 +14,14 @@ public class UIFloor extends UI3dComponent {
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
     pg.tint(DUST_FILL);
     pg.textureMode(NORMAL);
+    pg.textureWrap(REPEAT);
     pg.beginShape();
     pg.texture(dust);
     // x,y,z,u,v
     pg.vertex(-100*FEET, 0, -100*FEET, 0, 0);
-    pg.vertex(100*FEET, 0, -100*FEET, 0, 1);
-    pg.vertex(100*FEET, 0, 100*FEET, 1, 1);
-    pg.vertex(-100*FEET, 0, 100*FEET, 1, 0);
+    pg.vertex(100*FEET, 0, -100*FEET, 0, 10);
+    pg.vertex(100*FEET, 0, 100*FEET, 10, 10);
+    pg.vertex(-100*FEET, 0, 100*FEET, 10, 0);
     pg.endShape(CLOSE);
     
     float personY = 0;
@@ -76,9 +77,9 @@ public class UISimulation extends UI3dComponent implements LXStructure.Listener 
 
   protected void beginDraw(UI ui, PGraphics pg) {
     float level = 255;
-//    pg.pointLight(level, level, level, -10*FEET, 30*FEET, -30*FEET);
-//    pg.pointLight(level, level, level, 30*FEET, 20*FEET, -20*FEET);
-//    pg.pointLight(level, level, level, 0, 0, 30*FEET);
+    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
+    pg.pointLight(level, level, level, 0, 0, 30*FEET);
 //    pg.ambientLight(255,255,255);
   }
   
@@ -193,9 +194,9 @@ public class UILightStemSingle extends UILightStem {
 
     LXPoint p = this.model.getPoint();
     if (p.index < colors.length) {
-        //pg.emissive(colors[p.index]);
+        pg.emissive(colors[p.index]);
         pg.fill(colors[p.index]);
-        //pg.emissive(0);
+        pg.emissive(0);
     } 
     //pg.fill(this.model.lightStems[this.stem].rgb);
     pg.noStroke();
