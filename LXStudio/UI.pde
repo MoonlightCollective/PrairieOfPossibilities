@@ -14,13 +14,14 @@ public class UIFloor extends UI3dComponent {
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
     pg.tint(DUST_FILL);
     pg.textureMode(NORMAL);
+    pg.textureWrap(REPEAT);
     pg.beginShape();
     pg.texture(dust);
     // x,y,z,u,v
     pg.vertex(-100*FEET, 0, -100*FEET, 0, 0);
-    pg.vertex(100*FEET, 0, -100*FEET, 0, 1);
-    pg.vertex(100*FEET, 0, 100*FEET, 1, 1);
-    pg.vertex(-100*FEET, 0, 100*FEET, 1, 0);
+    pg.vertex(100*FEET, 0, -100*FEET, 0, 10);
+    pg.vertex(100*FEET, 0, 100*FEET, 10, 10);
+    pg.vertex(-100*FEET, 0, 100*FEET, 10, 0);
     pg.endShape(CLOSE);
     
     float personY = 0;
@@ -76,9 +77,10 @@ public class UISimulation extends UI3dComponent implements LXStructure.Listener 
 
   protected void beginDraw(UI ui, PGraphics pg) {
     float level = 255;
-    pg.pointLight(level, level, level, -10*FEET, 30*FEET, -30*FEET);
-    pg.pointLight(level, level, level, 30*FEET, 20*FEET, -20*FEET);
+    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
     pg.pointLight(level, level, level, 0, 0, 30*FEET);
+//    pg.ambientLight(255,255,255);
   }
   
   protected void endDraw(UI ui, PGraphics pg) {
@@ -192,7 +194,9 @@ public class UILightStemSingle extends UILightStem {
 
     LXPoint p = this.model.getPoint();
     if (p.index < colors.length) {
+        pg.emissive(colors[p.index]);
         pg.fill(colors[p.index]);
+        pg.emissive(0);
     } 
     //pg.fill(this.model.lightStems[this.stem].rgb);
     pg.noStroke();
@@ -204,14 +208,6 @@ public class UILightStemSingle extends UILightStem {
   }
 }
 
-
-/*
- *         0     1
- *            3
- *       2
- *             4
- *          5     6
- */      
 
 /*
  *         5     6
@@ -253,7 +249,7 @@ public class UILightBase extends UI3dComponent {
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
-    pg.fill(#F01529);
+    pg.fill(#101010);
     pg.noStroke();
   }
 
@@ -296,12 +292,21 @@ public static class UICylinder extends UI3dComponent {
   }
   
   public void onDraw(UI ui, PGraphics pg) {
-    pg.beginShape(TRIANGLE_STRIP);
+    pg.beginShape(QUAD_STRIP);
     for (int i = 0; i <= this.detail; ++i) {
-      int ii = i % this.detail;
+      int ii = i % detail;
       pg.vertex(this.base[ii].x, this.base[ii].y, this.base[ii].z);
       pg.vertex(this.top[ii].x, this.top[ii].y, this.top[ii].z);
     }
-    pg.endShape(CLOSE);
+    pg.endShape();
+    
+    // now draw the top cap
+    pg.beginShape(TRIANGLE_FAN);
+    pg.vertex(0,this.top[0].y, 0);
+    for (int i=0; i<= this.detail; ++i) {
+      int ii = i % detail;
+      pg.vertex(this.top[ii].x, this.top[ii].y, this.top[ii].z);
+    }
+    pg.endShape();
   }
 }
