@@ -220,6 +220,16 @@ public class UILightStemSingle extends UILightStem {
  *          3     7
  */      
 
+
+//1: 57 in
+//2: 60 in
+//3: 47, 56, 61 inches
+//4: 48, 58, 62 inches
+//5: 49, 59, 63 inches
+//6: 47, 56, 61 inches
+//7: 48, 58, 62 inches
+
+
 public class UILightBase extends UI3dComponent {
   public static final float DIAMETER = 10.5*INCHES;
   public static final float HEIGHT = 3.5*INCHES;
