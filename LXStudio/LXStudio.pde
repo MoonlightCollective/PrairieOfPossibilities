@@ -27,8 +27,6 @@ processing.core.PApplet applet;
 Field field;
 UISimulation simulation;
 
-final static String FIXTURES_FILE = "LightFieldWithBases-1.json";
-
 void setup() {
 
   size(1200, 960, P3D);
@@ -62,25 +60,6 @@ void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI 
   // add the main simulation
   simulation = new UISimulation(lx);
   ui.preview.addComponent(simulation);
-
-/*
-  // Add custom UI components here
-  ui.preview.addComponent(new UI3dComponent() {
-    public void onDraw(UI ui, PGraphics pg) {
-      LXEngine.Frame frame = ui.lx.getUIFrame();
-      int[] colors = frame.getColors();
-      for (LXPoint p : frame.getModel().points) {
-        pg.stroke(colors[p.index]);
-        pg.fill(colors[p.index]);
-        pg.beginShape();
-        pg.curveVertex(p.x, p.y, p.z);
-        pg.curveVertex(p.x, p.y+30, p.z);
-        pg.curveVertex(p.x, p.y+60, p.z+20);
-        pg.curveVertex(p.x, p.y+90, p.z+40);
-        pg.endShape();
-      }
-    }
-  });*/
 }
 
 

@@ -64,13 +64,13 @@ public class UISimulation extends UI3dComponent implements LXStructure.Listener 
   }
 
   public void fixtureRemoved(LXFixture fixture) {
-    if (fixture instanceof LightBase) {
+    if (fixture instanceof Field) {
         // TODO
     }
   }
 
   public void fixtureMoved(LXFixture fixture, int index) {
-    if (fixture instanceof LightBase) {
+    if (fixture instanceof Field) {
         // TODO
     }
   }
@@ -120,14 +120,20 @@ public class UILightStemTrio extends UILightStem {
   @Override
   protected void beginDraw(UI ui, PGraphics pg) {
     pg.pushMatrix();
-    pg.translate(this.model.x, this.model.y, this.model.z);
+    pg.translate(this.model.dx, this.model.dy, this.model.dz);
   }
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
     LXEngine.Frame frame = ui.lx.getUIFrame();
-    int[] colors = frame.getColors();
-    pg.noStroke();
+    int[] colors = frame.getColors();    
+    LXPoint p = this.model.getPoint();
+
+    if (p.index < colors.length) {
+        pg.emissive(colors[p.index]);
+        pg.fill(colors[p.index]);
+        pg.emissive(0);
+    } 
 
     pg.rotateY(this.model.azimuth);
 
@@ -140,11 +146,6 @@ public class UILightStemTrio extends UILightStem {
         float angle = -PI/bendAngle;
         float k = 1.0;
         for (int j = 0; j < 6; j++) {
-            LXPoint p = this.model;
-            if (colors.length > p.index) {
-                pg.fill(colors[p.index]);
-            }
-            //pg.fill(this.model.lightStems[this.stem].rgb);
             this.lightStems[i][j].onDraw(ui, pg);
             pg.translate(0.125*INCHES, this.lightStems[i][j].len, 0);
             angle *= k;
@@ -162,6 +163,7 @@ public class UILightStemTrio extends UILightStem {
             pg.rotateY(-2*PI/6);
         }
     }
+    pg.noStroke();
   }
 
   @Override
@@ -191,14 +193,12 @@ public class UILightStemSingle extends UILightStem {
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();
-
     LXPoint p = this.model.getPoint();
     if (p.index < colors.length) {
         pg.emissive(colors[p.index]);
         pg.fill(colors[p.index]);
         pg.emissive(0);
     } 
-    //pg.fill(this.model.lightStems[this.stem].rgb);
     pg.noStroke();
   }
 
@@ -225,7 +225,6 @@ public class UILightStemSingle extends UILightStem {
 //6: 47, 56, 61 inches
 //7: 48, 58, 62 inches
 
-
 public class UILightBase extends UI3dComponent {
   public static final float DIAMETER = 10.5*INCHES;
   public static final float HEIGHT = 3.5*INCHES;
@@ -237,7 +236,28 @@ public class UILightBase extends UI3dComponent {
     addChild(new UICylinder(DIAMETER/2, HEIGHT, 5));
     int i = 0;
     for (LXPoint p : model.points) {
-        addChild(new UILightStemSingle(new LightStem(this.model, p, i++, 0)));
+      switch (i){
+        case 0:
+        case 1:
+          addChild(new UILightStemSingle(new LightStem(this.model, p, i, 0)));
+          break;
+        case 2:
+          addChild(new UILightStemTrio(new LightStem(this.model, p, i, -3*PI/4))); 
+          break;
+        case 3:
+          addChild(new UILightStemTrio(new LightStem(this.model, p, i, -2*PI/4))); 
+          break;
+        case 4:
+          addChild(new UILightStemTrio(new LightStem(this.model, p, i, -1*PI/4))); 
+          break;
+        case 5:
+          addChild(new UILightStemTrio(new LightStem(this.model, p, i, 1*PI/4))); 
+          break;
+        case 6:
+          addChild(new UILightStemTrio(new LightStem(this.model, p, i, 3*PI/4))); 
+          break;
+      }
+      i++;
     }
   }
 
