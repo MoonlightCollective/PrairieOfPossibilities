@@ -64,12 +64,12 @@ public static class BloomPattern extends LXPattern {
   public void run(double deltaMs) {    
     for (LXPoint p : model.points) {
       switch (p.index % 7) {
-      case 0: colors[p.index] = this.colOutside.getColor(); break;
+      case 0: colors[p.index] = this.colInside.getColor(); break;
       case 1: colors[p.index] = this.colInside.getColor(); break;
       case 2: colors[p.index] = this.colOutside.getColor(); break;
       case 3: colors[p.index] = this.colOutside.getColor(); break;
       case 4: colors[p.index] = this.colOutside.getColor(); break;
-      case 5: colors[p.index] = this.colInside.getColor(); break;
+      case 5: colors[p.index] = this.colOutside.getColor(); break;
       case 6: colors[p.index] = this.colOutside.getColor(); break;
       }
     }

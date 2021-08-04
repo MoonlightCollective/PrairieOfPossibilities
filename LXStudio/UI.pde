@@ -1,34 +1,61 @@
 final static int DUST_FILL = #523D29;
+final static int GROUND_SIZE = 300;
 
 public class UIFloor extends UI3dComponent {
 
   private final PImage dust;
   private final PImage person;
+  private final PImage stars;
+
+  int numPointsW;
+  int numPointsH_2pi; 
+  int numPointsH;
+
+  float[] coorX;
+  float[] coorY;
+  float[] coorZ;
+  float[] multXZ;
 
   public UIFloor() {
     this.dust = loadImage("dust.png");
     this.person = loadImage("person.png");
-  }
+    this.stars = loadImage("spacebg.jpg");
+
+    initializeSphere (30, 30);  // set up for sky dome
+}
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+
+
+    float level = 255;
+    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
+    pg.pointLight(level, level, level, 0, 0, 30*FEET);
+//    pg.ambientLight(255,255,255);
+    
+    //pg.perspective();
+    //pg.perspective(PI/3.0, 4.0/3.0, 0, 10000);
+    textureSphere(5000, 5000, 5000, this.stars, pg);
+    
     pg.tint(DUST_FILL);
     pg.textureMode(NORMAL);
     pg.textureWrap(REPEAT);
     pg.beginShape();
     pg.texture(dust);
-    // x,y,z,u,v
-    pg.vertex(-100*FEET, 0, -100*FEET, 0, 0);
-    pg.vertex(100*FEET, 0, -100*FEET, 0, 10);
-    pg.vertex(100*FEET, 0, 100*FEET, 10, 10);
-    pg.vertex(-100*FEET, 0, 100*FEET, 10, 0);
+
+  // x,y,z,u,v
+    pg.vertex(-GROUND_SIZE*FEET, 0, -GROUND_SIZE*FEET, 0, 0);
+    pg.vertex(GROUND_SIZE*FEET, 0, -GROUND_SIZE*FEET, 0, 10);
+    pg.vertex(GROUND_SIZE*FEET, 0, GROUND_SIZE*FEET, 10, 10);
+    pg.vertex(-GROUND_SIZE*FEET, 0, GROUND_SIZE*FEET, 10, 0);
     pg.endShape(CLOSE);
     
     float personY = 0;
     drawPerson(pg, -10*FEET, personY, 10*FEET, 1.5*FEET, 1.5*FEET);
     drawPerson(pg, 8*FEET, personY, 12*FEET, -1.5*FEET, 1.5*FEET);
     drawPerson(pg, 2*FEET, personY, 8*FEET, -2*FEET, 1*FEET);
-    
+
     pg.noStroke();
   }
   
@@ -42,6 +69,77 @@ public class UIFloor extends UI3dComponent {
     pg.vertex(personX, personY + 5*FEET, personZ, 0, 0);
     pg.endShape(CLOSE);
   }
+  
+  void initializeSphere(int numPtsW, int numPtsH_2pi) {
+
+    // The number of points around the width and height
+    numPointsW=numPtsW+1;
+    numPointsH_2pi=numPtsH_2pi;  // How many actual pts around the sphere (not just from top to bottom)
+    numPointsH=ceil((float)numPointsH_2pi/2)+1;  // How many pts from top to bottom (abs(....) b/c of the possibility of an odd numPointsH_2pi)
+  
+    coorX=new float[numPointsW];   // All the x-coor in a horizontal circle radius 1
+    coorY=new float[numPointsH];   // All the y-coor in a vertical circle radius 1
+    coorZ=new float[numPointsW];   // All the z-coor in a horizontal circle radius 1
+    multXZ=new float[numPointsH];  // The radius of each horizontal circle (that you will multiply with coorX and coorZ)
+  
+    for (int i=0; i<numPointsW ;i++) {  // For all the points around the width
+      float thetaW=i*2*PI/(numPointsW-1);
+      coorX[i]=sin(thetaW);
+      coorZ[i]=cos(thetaW);
+    }
+    
+    for (int i=0; i<numPointsH; i++) {  // For all points from top to bottom
+      if (int(numPointsH_2pi/2) != (float)numPointsH_2pi/2 && i==numPointsH-1) {  // If the numPointsH_2pi is odd and it is at the last pt
+        float thetaH=(i-1)*2*PI/(numPointsH_2pi);
+        coorY[i]=cos(PI+thetaH); 
+        multXZ[i]=0;
+      } 
+      else {
+        //The numPointsH_2pi and 2 below allows there to be a flat bottom if the numPointsH is odd
+        float thetaH=i*2*PI/(numPointsH_2pi);
+  
+        //PI+ below makes the top always the point instead of the bottom.
+        coorY[i]=cos(PI+thetaH); 
+        multXZ[i]=sin(thetaH);
+      }
+    }
+  }
+
+  void textureSphere(float rx, float ry, float rz, PImage t, PGraphics pg) { 
+    // These are so we can map certain parts of the image on to the shape 
+    float changeU=t.width/(float)(numPointsW-1)*3;    // added scaling factors 
+    float changeV=t.height/(float)(numPointsH-1)*3;   // added scaling factors
+    float u=0;  // Width variable for the texture
+    float v=0;  // Height variable for the texture
+  
+    pg.beginShape(TRIANGLE_STRIP);
+    pg.textureWrap(REPEAT);
+    pg.textureMode(IMAGE);
+    pg.pointLight(255,255,255,0,0,0);
+    pg.texture(t);
+    
+    for (int i=0; i<(numPointsH-1); i++) {  // For all the rings but top and bottom
+      // Goes into the array here instead of loop to save time
+      float coory=coorY[i];
+      float cooryPlus=coorY[i+1];
+  
+      float multxz=multXZ[i];
+      float multxzPlus=multXZ[i+1];
+  
+      for (int j=0; j<numPointsW; j++) { // For all the pts in the ring
+        pg.normal(-coorX[j]*multxz, -coory, -coorZ[j]*multxz);                    // normals point inward
+        pg.vertex(coorX[j]*multxz*rx, coory*ry, coorZ[j]*multxz*rz, u, v);
+        pg.normal(-coorX[j]*multxzPlus, -cooryPlus, -coorZ[j]*multxzPlus);        // normals point inward
+        pg.vertex(coorX[j]*multxzPlus*rx, cooryPlus*ry, coorZ[j]*multxzPlus*rz, u, v+changeV);
+        u+=changeU;
+      }
+      v+=changeV;
+      u=0;
+    }
+    pg.endShape();
+  }
+  
+  
 }
 
 public class UISimulation extends UI3dComponent implements LXStructure.Listener {
