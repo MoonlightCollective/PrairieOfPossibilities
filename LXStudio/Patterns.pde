@@ -173,6 +173,8 @@ public static class LighthousePattern extends LXPattern {
 }
 
 
+
+
 // Sets brightness based on distance from the center
 @LXCategory("Form")
 public static class OnePointEachPattern extends LXPattern {
@@ -341,6 +343,59 @@ public static class GrowPattern extends LXPattern {
       colors[p.index] = LXColor.gray(min(100,max(count-n,0)));
     }
   }
+}
+
+
+// LocalPing - meant to be mixed on top of other base patterns. Creates a circular
+// pattern of set Brightness, centered around a normalized x,y position. Alpha
+// controls what percentage of the circle is visible, so animate Alpha to see 
+// the circle radiate outwards.  Also, brightness will fade at tail end of alpha
+// to make it a little softer while animating.
+@LXCategory("Form")
+public class LocalPing extends LXPattern
+{
+  public final CompoundParameter posX = new CompoundParameter("PosX", 0, 1)
+    .setDescription("X Position of ping center");
+
+  public final CompoundParameter posY = new CompoundParameter("PosY",0,1)
+    .setDescription("Y Position of ping center");
+    
+  public final CompoundParameter size = new CompoundParameter("Size",0,1).setDescription("Max size of ping (1 = full size of model)");
+  public final CompoundParameter brightness = new CompoundParameter("Brightness",0,255).setDescription("Max brightness of ping");
+  public final CompoundParameter alpha = new CompoundParameter("Alpha",0,1).setDescription("Alpha value to modulate to make the ping animate");
+  
+  public LocalPing(LX lx)
+  {
+      super(lx);
+      addParameter("PosX",this.posX);
+      addParameter("PosY",this.posY);
+      addParameter("Size",this.size);
+      addParameter("Alpha",this.alpha);
+      addParameter("Brightness",this.brightness);
+  }
+  
+  public void run(double deltaMs)
+  {
+    float fPosX = posX.getValuef(); //<>//
+    float fPosY = posY.getValuef();
+    float fAlpha = alpha.getValuef();
+    float fAlphaBright = LXUtils.sinf(fAlpha*3.14);
+    float fCurRadius = size.getValuef() * fAlpha;
+    
+    for (LXPoint p : model.points)
+    {
+      double dist = LXUtils.distance(p.xn,p.zn,fPosX,fPosY);
+      if (dist <= fCurRadius)
+      {
+        colors[p.index] = LXColor.rgb((int)(fAlphaBright * 255),(int)(fAlphaBright * 255), (int)(fAlphaBright*255));
+      }
+      else
+      {
+        colors[p.index] = LXColor.gray(0);
+      }
+    }
+  }
+  
 }
 
 public class SolidPattern extends LXPattern {
