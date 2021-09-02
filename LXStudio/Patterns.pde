@@ -236,28 +236,44 @@ public static class RadiusPattern extends LXPattern {
 @LXCategory("Form")
 public static class DonutPattern extends LXPattern {
   
-  public final CompoundParameter size = new CompoundParameter("Size", 0, 1)
+  public final CompoundParameter size = new CompoundParameter("Size", 0, 2)
     .setDescription("Size of the donut");
   
   public final CompoundParameter wth = new CompoundParameter("Width", .4, 0, 1)
     .setDescription("Width of the donut");
   
+  public final CompoundParameter dist = new CompoundParameter("Dist", 0, 0, 1)
+    .setDescription("Distance of origin from the center");
+  
+  public final CompoundParameter theta  = new CompoundParameter("Theta", 0, 0, 1)
+    .setDescription("Angle of origin");
+ 
   public DonutPattern(LX lx) {
     super(lx);
     addParameter("Size", this.size);
     addParameter("Width", this.wth);
+    addParameter("Dist", this.dist);
+    addParameter("Theta", this.theta);
   }
   
-  public void run(double deltaMs) {    
+  public void run(double deltaMs) {
+
+    float dist = this.dist.getValuef();
+    float theta = this.theta.getValuef() * 2 * PI;
+    float originX = dist * LXUtils.cosf(theta);
+    float originZ = dist * LXUtils.sinf(theta);
+    
     float falloff = 100 / this.wth.getValuef();    
     float start = -this.wth.getValuef();
     float range = 1 + (2*this.wth.getValuef());
     float pos = start + (this.size.getValuef() * range);
     
+    //float fade = min(1.0, ((1.0 - this.size.getValuef()) * 10.0)); 
+    
     float n = 0;
     for (LXPoint p : model.points) {
-      n = p.rcn;
-      colors[p.index] = LXColor.gray(max(0, 100 - falloff*abs(n - pos))); 
+      n = (float)LXUtils.distance ((p.xn*2.0)-1.0, (p.zn*2.0)-1.0, originX, originZ); // xn gives [0,1] so transform to [-1,1] 
+      colors[p.index] = LXColor.gray(max(0, (100 - falloff*abs(n - pos)))); 
     }    
   }
 }
