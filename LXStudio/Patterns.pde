@@ -366,7 +366,7 @@ public static class GrowPattern extends LXPattern {
 // pattern of set Brightness, centered around a normalized x,y position. Alpha
 // controls what percentage of the circle is visible, so animate Alpha to see 
 // the circle radiate outwards.  Also, brightness will fade at tail end of alpha
-// to make it a little softer while animating.
+// to make it a little softer while animating. (ed)
 @LXCategory("Form")
 public class LocalPing extends LXPattern
 {
