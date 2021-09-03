@@ -392,7 +392,7 @@ public class LocalPing extends LXPattern
   
   public void run(double deltaMs)
   {
-    float fPosX = posX.getValuef(); //<>//
+    float fPosX = posX.getValuef(); //<>// //<>//
     float fPosY = posY.getValuef();
     float fAlpha = alpha.getValuef();
     float fAlphaBright = LXUtils.sinf(fAlpha*3.14);
@@ -429,5 +429,150 @@ public class SolidPattern extends LXPattern {
 
   public void run(double deltaMs) {
     setColors(LXColor.hsb(this.h.getValue(), this.s.getValue(), this.b.getValue()));
+  }
+}
+
+
+//
+// MultiDonutRanom classes
+//
+
+
+@LXCategory("Form")
+public static class MultiDonutRandomPattern extends LXPattern {
+  
+  public final CompoundParameter size = new CompoundParameter("Size", 0, 2)
+    .setDescription("Size of the donut");
+  
+  public final CompoundParameter wth = new CompoundParameter("Width", .4, 0, 1)
+    .setDescription("Width of the donut");
+  
+  public final CompoundParameter distMin = new CompoundParameter("DistMin", .5, 0, 1)
+    .setDescription("Min distance of origin from the center");
+
+  public final CompoundParameter distMax = new CompoundParameter("DistMax", 1, 0, 1)
+    .setDescription("Max distance of origin from the center");
+  
+  public final CompoundParameter thetaMin  = new CompoundParameter("ThetaMin", 0, 0, 1)
+    .setDescription("Angle of origin min");
+    
+  public final CompoundParameter thetaMax  = new CompoundParameter("ThetaMax", 1, 0, 1)
+    .setDescription("Angle of origin max");
+
+  
+  
+  public final CompoundParameter duration = new CompoundParameter("Duration", 0.1,2.0);
+ 
+  public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false);
+
+  public class RingInfo
+  {
+    public boolean isOn;
+    public float originTheta;
+    public float thetaAngle;
+    public float originDist;
+    public float originX;
+    public float originZ;
+    
+    public float falloff;
+    public float start;
+    public float range;
+    
+    public float curAlpha;
+  
+    private float duration;
+    
+    public void StartRandomRing(float minTheta,float maxTheta, float minDist, float maxDist, float ringDuration, float width)
+    {
+      isOn = true;
+      originTheta = (float)LXUtils.random(minTheta,maxTheta);
+      originDist = (float)LXUtils.random(minDist,maxDist);
+      thetaAngle = originTheta * 2 * PI;
+      originX = originDist * LXUtils.cosf(thetaAngle);
+      originZ = originDist * LXUtils.sinf(thetaAngle);
+
+
+      falloff = 100 / width;
+      start = -width;
+      range = 1 + (2*width);
+      
+      curAlpha = 0;
+      duration = ringDuration;
+    }
+    
+    public void UpdateRing(float deltaSec)
+    {
+      if (isOn)
+      {
+        curAlpha = min(1.0,(curAlpha + (float)deltaSec/duration));
+        if (curAlpha >= 1.0)
+        {
+          isOn = false;
+          curAlpha = 0.0f;    
+        }
+      }
+    } 
+  }
+  private RingInfo ring = new RingInfo();
+  private RingInfo[] rings = new RingInfo[4];
+ 
+  public MultiDonutRandomPattern(LX lx) {
+    super(lx);
+    addParameter("Size", this.size);
+    addParameter("Width", this.wth);
+    addParameter("DistRangeMin", this.distMin);
+    addParameter("ThetaRangeMin", this.thetaMin);
+    addParameter("DistRangeMax", this.distMax);
+    addParameter("ThetaRangeMax", this.thetaMax);
+    addParameter("Duration",this.duration);
+    triggerBool.setMode(BooleanParameter.Mode.TOGGLE);
+    addParameter("Trigger",this.triggerBool);
+    for (int i = 0; i < 4; i++)
+    {
+      rings[i] = new RingInfo();
+    }
+  }
+  
+  public void triggerNewRing()
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      if (!rings[i].isOn)
+      {
+        rings[i].StartRandomRing(thetaMin.getValuef(),thetaMax.getValuef(),distMin.getValuef(),distMax.getValuef(),duration.getValuef(),wth.getValuef());
+        triggerBool.setValue(false);
+        return;
+      }
+    }
+  }
+  
+  
+  public void run(double deltaMs) 
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      rings[i].UpdateRing((float)deltaMs/1000.0);
+    }
+    
+    if (triggerBool.getValueb())
+    {
+      triggerNewRing();
+    }
+    
+    float n = 0;
+    for (LXPoint p : model.points) 
+    {
+      colors[p.index] = LXColor.gray(0);
+      for (int i = 0; i < 4; i++)
+      {
+        RingInfo ring = rings[i];
+        if (ring.isOn)
+        {
+          float pos = ring.start + (this.size.getValuef() * ring.range * ring.curAlpha);
+          n = (float)LXUtils.distance ((p.xn*2.0)-1.0, (p.zn*2.0)-1.0, ring.originX, ring.originZ); 
+          colors[p.index]=LXColor.add(colors[p.index],LXColor.gray(max(0, (100 - ring.falloff*abs(n - pos)))));
+        }
+      }
+    }    
   }
 }
