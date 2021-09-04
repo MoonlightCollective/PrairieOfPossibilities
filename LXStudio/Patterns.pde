@@ -434,10 +434,96 @@ public class SolidPattern extends LXPattern {
 
 
 //
-// MultiDonutRanom classes
+// SpinEachBlade - a pattern where you can set a rotation time for a brightness "spinning" effect
+//   that just runs on the blades.  Center stalk is it's own paramterized brightness. (still needs work)
+// 
+@LXCategory("Individual Plants")
+public static class SpinEachBladePattern extends LXPattern {
+    public final CompoundParameter rotTimeSec = new CompoundParameter("Rot Time", 1, 0.1, 5);
+    public final CompoundParameter brightnessMax = new CompoundParameter("Max Bright", 100, 0, 100);
+    public final CompoundParameter brightnessMin = new CompoundParameter("Min Bright", 0, 0, 100);
+    public final CompoundParameter brightnessCenter = new CompoundParameter("Center Bright", 50, 0, 100);
+    public final DiscreteParameter spinType = new DiscreteParameter("Spin Type",1, 0,3);
+
+    private double timerMs = 0; // timer for the rotation animation
+    private double rotTimeMs = 0; // cached value of sec->ms
+    private final static int kNumRingLights = 5; // constant count of lights in base.
+    private float[] brightPerLight = new float[kNumRingLights]; // array of brightness values for each light - to be applied to each base (rather than computing it for each base as we iterate)
+    
+    public SpinEachBladePattern(LX lx) {
+        super(lx);
+        addParameter("Rot Time",this.rotTimeSec);
+        addParameter("Max Bright", this.brightnessMax);
+        addParameter("Min Bright", this.brightnessMin);
+        addParameter("Center Bright", this.brightnessCenter);
+        addParameter("Spin Type", this.spinType);
+    }
+
+    void run(double deltaMs)
+    {
+        // update my timer
+        timerMs += deltaMs;
+
+        // convert my desired rotation time to ms
+        rotTimeMs = rotTimeSec.getValuef() * 1000.0;
+        
+        // handle wrapping of timer
+        while (timerMs >= rotTimeMs) {
+            timerMs-= rotTimeMs;
+        }
+
+        // alpha = percentage of rotation (0->1)
+        float alpha = (float)(timerMs / rotTimeMs);
+        float fBrightMax = brightnessMax.getValuef(); // cache value we're going to use a lot
+        float fBrightDelta = fBrightMax - brightnessMin.getValuef(); // cache value we use multiple times
+        
+        // figure out lighting levels for a single plant, depending on which algorithm is chosen by "spin type"
+        for (int i = 0; i < kNumRingLights; i++)
+        {
+            switch ((int)spinType.getValue())
+            {
+                case 0:
+                    //linear ramp, sharp edge
+                    float offsetAlpha = (alpha + (float)i/(float)(kNumRingLights));
+                    if (offsetAlpha > 1)
+                        offsetAlpha -= 1;
+                    brightPerLight[i] = fBrightMax - (offsetAlpha * fBrightDelta);
+                    break;
+                case 1:
+                    // softer, with cos
+                    float offsetAngle = (alpha + (float)i/kNumRingLights) * 2 * PI;
+                    brightPerLight[i] = max(brightnessMin.getValuef(), fBrightMax * (1 + LXUtils.cosf(offsetAngle)) / 2);
+                    break;
+                case 2:
+                    // only one light on at a time
+                    int headDex = (int) (alpha * kNumRingLights);
+                    if (i == headDex)
+                        brightPerLight[i] = fBrightMax;
+                    else
+                        brightPerLight[i] = brightnessMin.getValuef();
+            }
+        }
+
+        // apply the values computed above to all the plants in the layout.
+        for (LXPoint p : model.points)
+        {
+            int lightDex = p.index % (kNumRingLights + 2);
+            if (lightDex < 2)
+            {
+                colors[p.index] = LXColor.gray(brightnessCenter.getValuef());
+            }
+            else
+            {
+                colors[p.index] = LXColor.gray((int)brightPerLight[lightDex-2]);
+            }
+        }
+    }
+}
+
+
 //
-
-
+// MultiDonutRanom classes - also an example of a "triggered" effect using exposed boolean that can be modulated
+//
 @LXCategory("Form")
 public static class MultiDonutRandomPattern extends LXPattern {
   
@@ -490,7 +576,6 @@ public static class MultiDonutRandomPattern extends LXPattern {
       thetaAngle = originTheta * 2 * PI;
       originX = originDist * LXUtils.cosf(thetaAngle);
       originZ = originDist * LXUtils.sinf(thetaAngle);
-
 
       falloff = 100 / width;
       start = -width;
