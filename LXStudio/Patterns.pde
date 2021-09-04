@@ -434,7 +434,7 @@ public class SolidPattern extends LXPattern {
 
 
 //
-// MultiDonutRanom classes
+// MultiDonutRanom classes - also an example of a "triggered" effect using exposed boolean that can be modulated
 //
 
 
