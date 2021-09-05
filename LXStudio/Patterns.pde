@@ -726,7 +726,13 @@ public static class FireballPattern extends LXPattern {
 
       // otherwise the point is inside the range of this particle and will get a color contribution
       else
-        return LXColor.gray(100); //<>//
+      {
+        dist = dist / (size / 2.0);   // normalize dist to be 0-1 from center out to edge of fireball
+        if (dist <= softness)
+          return LXColor.gray(100);   // below the softness threshold, full bright
+        else
+          return LXColor.gray( 100 * ( 1.0 - ((dist - softness) / (1.0 - softness))));    // between softness and the edge, slope from full bright to zero
+      }
     }
 
     boolean isDead() {    // check if this particle is out of bounds
