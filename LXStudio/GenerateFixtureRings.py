@@ -3,10 +3,12 @@ import json
 import math
 
 class BaseFixture(object):
-  def __init__(self, x:int, z:int):
+  def __init__(self, x:int, z:int, tag:str, modelKey:str ):
     self.type = "7-pixel-base"
     self.x = x
     self.z = z
+    self.tag = tag
+    self.modelKey = modelKey
 
 class Protocol(object):
   def __init__(self, host:str, universe:int, start:int, num:int):
@@ -53,7 +55,11 @@ while numbases > 0:
         base_angle = ((perimeter / NUM_AISLES) - AISLE_WIDTH) / perimeter * 2 * math.pi / ring_bases
 
         for j in range(ring_bases):
-            base = BaseFixture(x=radius * math.cos(angle), z=radius*math.sin(angle))
+            if (ring == 0 or j==0 or j==(ring_bases-1) or numbases <= (NUM_AISLES*ring_bases)):     # figure out if light is on an edge (inner circle, outer circle, start or end of a run between aisles)
+              tag = "path"
+            else:
+              tag = "area"
+            base = BaseFixture(x=radius * math.cos(angle), z=radius*math.sin(angle), tag=tag, modelKey=tag)
             bases.append (base)
             numbases = numbases-1
             i = i + 1

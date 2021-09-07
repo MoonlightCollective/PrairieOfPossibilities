@@ -48,6 +48,30 @@ public static class PlanePattern extends LXPattern {
   }
 }
 
+// solid color pattern that only affects the edges
+@LXCategory("Form")
+public static class SolidEdgePattern extends LXPattern {
+  
+  public final ColorParameter col = new ColorParameter("Color")
+    .setDescription("Solid color");
+    
+  public SolidEdgePattern(LX lx) {
+    super(lx);
+    addParameter("Color", this.col);
+  }
+  
+  public void run(double deltaMs) {
+    int edgeColor = LXColor.hsb( this.col.hue.getValuef(), this.col.saturation.getValuef(), this.col.brightness.getValuef() );
+    
+    for (LXModel m : model.sub("path")) {
+      for (LXPoint p : m.points) {
+        colors[p.index] = edgeColor;
+      }
+    }
+  }
+}
+
+
 // Creating a pattern to make grasses seem to bloom
 @LXCategory("Form")
 public static class BloomPattern extends LXPattern {
