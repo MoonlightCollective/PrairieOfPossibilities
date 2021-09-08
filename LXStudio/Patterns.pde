@@ -11,36 +11,41 @@ public static class PlanePattern extends LXPattern {
     X, Y, Z
   };
   
-  public final EnumParameter<Axis> axis =
-    new EnumParameter<Axis>("Axis", Axis.X)
-    .setDescription("Which axis the plane is drawn across");
-  
   public final CompoundParameter pos = new CompoundParameter("Pos", 0, 1)
     .setDescription("Position of the center of the plane");
   
   public final CompoundParameter wth = new CompoundParameter("Width", .4, 0, 1)
     .setDescription("Thickness of the plane");
+
+  public final CompoundParameter theta = new CompoundParameter("Theta", 0)
+    .setDescription("Angle along which the plane moves");
   
+  public final CompoundParameter origin = new CompoundParameter("Origin", 0)
+    .setDescription("Origin where the planes converge");
+
   public PlanePattern(LX lx) {
     super(lx);
-    addParameter("axis", this.axis);
     addParameter("pos", this.pos);
     addParameter("width", this.wth);
+    addParameter("theta", this.theta);
+    addParameter("origin", this.origin);
   }
   
   public void run(double deltaMs) {
     float falloff = 100 / this.wth.getValuef();
     float start = -this.wth.getValuef();
     float range = 1 + (2*this.wth.getValuef());
-    float pos = start + (this.pos.getValuef() * range);
-    
-    float n = 0;
+    float pos = start + ((this.pos.getValuef() * (1.0f + this.origin.getValuef())) * range);
+    float angle = theta.getValuef() * PI - (PI / 2.0f); // figure out angle of line perpindicular to theta
+    float n, x, y, x1, y1;
+
     for (LXPoint p : model.points) {
-      switch (this.axis.getEnum()) {
-      case X: n = p.xn; break;
-      case Y: n = p.yn; break;
-      case Z: n = p.zn; break;
-      }
+      x = p.xn * 2.0 - 1.0f;      // shift to circle centered at origin
+      y = p.zn * 2.0 - 1.0f;
+      x1 = LXUtils.cosf(angle);
+      y1 = LXUtils.sinf(angle);
+
+      n = abs(y1 * x + x1 * y + origin.getValuef()) / sqrt(y1*y1 + x1 * x1);   // get distance from point to the line perindicular to theta going throug origin
       colors[p.index] = LXColor.gray(max(0, 100 - falloff*abs(n - pos))); 
     }
   }
@@ -414,10 +419,10 @@ public class LocalPing extends LXPattern
       addParameter("PosX",this.posX);
       addParameter("PosY",this.posY);
       addParameter("Size",this.size);
-      addParameter("Alpha",this.alpha);
+      addParameter("Alpha",this.alpha); //<>//
       addParameter("Brightness",this.brightness);
   }
-   //<>// //<>//
+   //<>// //<>// //<>//
   public void run(double deltaMs)
   {
     float fPosX = posX.getValuef(); //<>// //<>// //<>//
@@ -735,7 +740,7 @@ public static class FireballPattern extends LXPattern {
     }
     
     public void UpdateParticle(float deltaSec)
-    {
+    { //<>//
       pos.x = pos.x + (vel.x * deltaSec);
       pos.z = pos.z + (vel.z * deltaSec);
     } //<>//
@@ -743,7 +748,7 @@ public static class FireballPattern extends LXPattern {
     // pass in a point, get back the color contribution from this particle to that point
     public int getColorValue(LXPoint pt)
     {
-      LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space
+      LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space //<>//
       float dist = pos.dist(p);
 
       if (dist > size / 2.0)      // quick out if this point is too far away from this particle //<>//
@@ -886,4 +891,3 @@ public static class TriggeredFlashesPattern extends LXPattern
 		}
 	}
 }
-

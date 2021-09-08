@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1630609793590,
+  "timestamp": 1631120980820,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -194,7 +194,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 0,
+          "focusedChannel": 1,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -227,7 +227,7 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 1.0,
@@ -583,7 +583,7 @@
             "parameters": {
               "label": "Channel-2",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 1.0,
@@ -597,7 +597,7 @@
               "transitionEnabled": false,
               "transitionTimeSecs": 5.0,
               "transitionBlendMode": 0,
-              "focusedPattern": 1,
+              "focusedPattern": 0,
               "triggerPatternCycle": false
             },
             "children": {},
@@ -612,7 +612,7 @@
                 },
                 "parameters": {
                   "label": "Colorize",
-                  "enabled": true,
+                  "enabled": false,
                   "source": 0,
                   "gradientHue": 0.0,
                   "gradientSaturation": 0.0,
@@ -648,7 +648,7 @@
               }
             ],
             "clips": [],
-            "patternIndex": 1,
+            "patternIndex": 0,
             "patterns": [
               {
                 "id": 1647,
@@ -661,9 +661,10 @@
                 },
                 "parameters": {
                   "label": "Plane",
-                  "axis": 0,
-                  "pos": 0.5599999912083149,
-                  "width": 0.4000000059604645
+                  "pos": 0.4599999915808439,
+                  "width": 0.18000001087784767,
+                  "theta": 0.6399999875575304,
+                  "origin": 0.0
                 },
                 "children": {
                   "modulation": {
@@ -1167,19 +1168,19 @@
         "centerPoint": false,
         "camera": {
           "active": false,
-          "radius": 1637.1381501162373,
-          "theta": -1.1338397639337927,
-          "phi": 0.3726659808307886,
+          "radius": 3573.6672655593457,
+          "theta": -1.096120533766225,
+          "phi": 1.2552959485910833,
           "x": -62.25777867436409,
           "y": -143.72734916210175,
           "z": -2.2285836189985275
         },
         "cue": [
           {
-            "active": false,
-            "radius": 1637.1381501162373,
-            "theta": -1.1338397639337927,
-            "phi": 0.3726659808307886,
+            "active": true,
+            "radius": 3573.6672655593457,
+            "theta": -1.096120533766225,
+            "phi": 1.2552959485910833,
             "x": -62.25777867436409,
             "y": -143.72734916210175,
             "z": -2.2285836189985275
