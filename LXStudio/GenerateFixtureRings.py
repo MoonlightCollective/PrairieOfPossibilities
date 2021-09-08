@@ -3,12 +3,12 @@ import json
 import math
 
 class BaseFixture(object):
-  def __init__(self, x:int, z:int, tag:str, modelKey:str ):
+  def __init__(self, x:int, z:int, tags:str, modelKeys:str ):
     self.type = "7-pixel-base"
     self.x = x
     self.z = z
-    self.tag = tag
-    self.modelKey = modelKey
+    self.tags = tags
+    self.modelKeys = modelKeys
 
 class Protocol(object):
   def __init__(self, host:str, universe:int, start:int, num:int):
@@ -44,22 +44,28 @@ numbases = NUM_BASES
 radius = CENTER_RADIUS
 angle_offset = 0
 ring = 0
+last_ring = False
 
 while numbases > 0:
     perimeter = math.pi * 2 * radius
     angle = angle_offset
+    ring_bases = int(((perimeter / NUM_AISLES) - AISLE_WIDTH) / BASE_SPACING)
+    if (numbases <= (NUM_AISLES*ring_bases)):
+      last_ring = True
 
     for k in range(NUM_AISLES):
         angle += AISLE_WIDTH  / perimeter * 2 * math.pi
-        ring_bases = int(((perimeter / NUM_AISLES) - AISLE_WIDTH) / BASE_SPACING)
         base_angle = ((perimeter / NUM_AISLES) - AISLE_WIDTH) / perimeter * 2 * math.pi / ring_bases
-
         for j in range(ring_bases):
-            if (ring == 0 or j==0 or j==(ring_bases-1) or numbases <= (NUM_AISLES*ring_bases)):     # figure out if light is on an edge (inner circle, outer circle, start or end of a run between aisles)
-              tag = "path"
+            if (j==0 or j==(ring_bases-1)):     # figure out if light is on an edge (inner circle, outer circle, start or end of a run between aisles)
+              tags = ["path","edge"]
+            elif (ring == 0):
+              tags = ["inner","edge"]
+            elif (last_ring):
+              tags = ["outer","edge"]
             else:
-              tag = "area"
-            base = BaseFixture(x=radius * math.cos(angle), z=radius*math.sin(angle), tag=tag, modelKey=tag)
+              tags = ["area"]
+            base = BaseFixture(x=radius * math.cos(angle), z=radius*math.sin(angle), tags=tags, modelKeys=tags)
             bases.append (base)
             numbases = numbases-1
             i = i + 1
