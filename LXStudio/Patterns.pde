@@ -3,12 +3,10 @@ import java.util.Iterator;
 
 // In this file you can define your own custom patterns
 
-
 // Here is a fairly basic example pattern that renders a plane that can be moved
 // across one of the axes.
 @LXCategory("Form")
 public static class PlanePattern extends LXPattern {
-  
   public enum Axis {
     X, Y, Z
   };
@@ -815,3 +813,77 @@ public static class FireballPattern extends LXPattern {
     }    
   }
 }
+
+
+// A pattern that lets you flash either the inner or outer lights with triggers inputs. Attack and Decay for each flash can be
+// tweaked or modulated with parmaters. Pairs well with TargetColorize effects
+@LXCategory("Form")
+public static class TriggeredFlashesPattern extends LXPattern 
+{
+	public final CompoundParameter outsideBrightMin = new CompoundParameter("OB Min",50,0,100).setDescription("Min brightness of outer lights (when not triggered)");
+	public final CompoundParameter outsideBrightMax = new CompoundParameter("OB Max",100,0,100).setDescription("Max brightness of outer lights (when triggered)");
+	public final CompoundParameter outsideAttack = new CompoundParameter("O Atk",0,0,3).setDescription("Attack time of outer light flash");
+	public final CompoundParameter outsideDecay = new CompoundParameter("O Dcy",.5,0,3).setDescription("Decay time of outer light flash");
+
+	public final CompoundParameter insideBrightMin = new CompoundParameter("IB Min",50, 0, 100).setDescription("Min brightness of inner lights (not triggered)");
+	public final CompoundParameter insideBrightMax = new CompoundParameter("IB Max",100, 0, 100).setDescription("Max brightness of inner lights (triggered)");
+	public final CompoundParameter insideAttack = new CompoundParameter("I Atk",0,0,3).setDescription("Attack time of inner light flash (sec)");
+	public final CompoundParameter insideDecay = new CompoundParameter("I Dcy",.5,0,3).setDescription("Decay time of inner light flash (sec");
+
+	public final BooleanParameter  triggerInside = new BooleanParameter("I Trg", false).setDescription("Set to TRUE to trigger one flash of inner lights.");
+	public final BooleanParameter  triggerOutside = new BooleanParameter("O Trg",false).setDescription("Set to TRUE to trigger one flash of outer lights.");
+
+	private final PrairieEnvAD outerEnv;
+	private final PrairieEnvAD innerEnv;
+
+	public TriggeredFlashesPattern(LX lx) {
+    	super(lx);
+		addParameter("OB Min",outsideBrightMin);
+		addParameter("OB Max",outsideBrightMax);
+		addParameter("O Atk",outsideAttack);
+		addParameter("O Dcy",outsideDecay);
+		
+		addParameter("IB Min",insideBrightMin);
+		addParameter("IB Max",insideBrightMax);
+		addParameter("I Atk",insideAttack);
+		addParameter("I Dcy",insideDecay);
+
+		addParameter("I Trg", triggerInside);
+		addParameter("O Trg",triggerOutside);
+
+		outerEnv = new PrairieEnvAD(outsideAttack.getValuef() * 100,outsideDecay.getValuef() * 1000);
+		innerEnv = new PrairieEnvAD(insideAttack.getValuef() * 100,insideDecay.getValuef() * 1000);
+	}
+  
+	public void run(double deltaMs)
+	{
+		if (triggerInside.getValueb()) {
+			innerEnv.AttackTimeMs = insideAttack.getValuef() * 1000;
+			innerEnv.DecayTimeMs  = insideDecay.getValuef() * 1000;
+			innerEnv.Trigger(true);
+			triggerInside.setValue(false);
+		}
+		if (triggerOutside.getValueb()) {
+			outerEnv.AttackTimeMs = outsideAttack.getValuef() * 1000;
+			outerEnv.DecayTimeMs  = outsideDecay.getValuef() * 1000;
+			outerEnv.Trigger(true);
+			triggerOutside.setValue(false);
+		}
+
+		innerEnv.Update(deltaMs);
+		outerEnv.Update(deltaMs);
+		
+		float outerB = outsideBrightMin.getValuef() + (outerEnv.CurVal * (outsideBrightMax.getValuef()-outsideBrightMin.getValuef()));
+		float innerB = insideBrightMin.getValuef() + (innerEnv.CurVal * (insideBrightMax.getValuef()-insideBrightMin.getValuef()));
+
+		for (LXPoint p : model.points) {
+			if (PrarieUtils.IsInner(p.index)) {
+				colors[p.index] = LXColor.gray((int)innerB);
+			}
+			else {
+				colors[p.index] = LXColor.gray((int)outerB);
+			}
+		}
+	}
+}
+
