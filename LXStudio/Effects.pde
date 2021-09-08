@@ -49,3 +49,87 @@ public static class TargetedColorizeEffect extends LXEffect
 		}
 	}
 }
+
+@LXCategory("PrairieEffects")
+public static class FilterEffect extends LXEffect
+{
+	public enum FilterType
+	{
+		Path,
+		Edge,
+		Inner,
+		Outer,
+		Area
+	};
+
+	private String[] filters = {"path","edge","inner","outer","area"};
+
+	private boolean[] mask;
+
+	public final EnumParameter<FilterType> targetType = new EnumParameter<FilterType> ("Filter", FilterType.Edge)
+		.setDescription("Which subset of lights to keep");
+
+	public FilterEffect(LX lx)
+	{
+		super(lx);
+		addParameter("Filter", this.targetType);
+		rebuildMask();
+	}
+
+    @Override
+	public void onModelChanged(LXModel model)
+	{
+		rebuildMask();
+	}
+	
+	@Override
+	public void onParameterChanged(LXParameter parameter)
+	{
+		rebuildMask();
+	}
+
+	private void rebuildMask()
+	{
+		mask = new boolean[model.size];
+		for (int i=0; i<mask.length; ++i)
+		{
+			mask[i] = false;
+		}
+
+		int iEnum = 0;
+		switch (this.targetType.getEnum())
+		{
+			case Path:
+				iEnum = 0;
+				break;
+			case Edge:
+				iEnum = 1;
+				break;
+			case Inner:
+				iEnum = 2;
+				break;
+			case Outer:
+				iEnum = 3;
+				break;
+			case Area:
+				iEnum = 4;
+				break;
+		}
+
+		String strFilter = filters[iEnum];
+
+		for (LXModel m : model.sub(strFilter)) {
+			for (LXPoint p : m.points) {
+				mask[p.index] = true;
+			}
+		}
+	}
+
+	public void run(double deltaMs, double enabledAmount) {
+		for (int i=0; i<colors.length; i++)
+		{
+			if (!mask[i])
+				colors[i] = 0x00000000;
+		}		
+	}
+}

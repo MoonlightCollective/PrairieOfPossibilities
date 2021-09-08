@@ -419,10 +419,10 @@ public class LocalPing extends LXPattern
       addParameter("PosX",this.posX);
       addParameter("PosY",this.posY);
       addParameter("Size",this.size);
-      addParameter("Alpha",this.alpha); //<>//
+      addParameter("Alpha",this.alpha);
       addParameter("Brightness",this.brightness);
   }
-   //<>// //<>// //<>//
+   //<>// //<>//
   public void run(double deltaMs)
   {
     float fPosX = posX.getValuef(); //<>// //<>// //<>//
