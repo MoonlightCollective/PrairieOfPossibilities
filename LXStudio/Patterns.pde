@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 // In this file you can define your own custom patterns
 
@@ -818,11 +819,127 @@ public static class FireballPattern extends LXPattern {
     }    
   }
 }
+@LXCategory("Triggered")
+public static class MultiFlashesPattern extends LXPattern 
+{
+	public CompoundParameter brightnessMin = new CompoundParameter("B Min",20,0,100).setDescription("Min brightness of outer lights (when not triggered)");
+	public CompoundParameter brightnessMax = new CompoundParameter("B Max",100,0,100).setDescription("Max brightness of outer lights (when triggered)");
+	public CompoundParameter envAttack = new CompoundParameter("Atk",0,0,3).setDescription("Attack time of light flash (sec)");
+	public CompoundParameter envDecay = new CompoundParameter("Dcy",.5,0,3).setDescription("Decay time of light flash (sec");
+	public EnumParameter<EPlantPart> targetPart = new EnumParameter<EPlantPart>("Target",EPlantPart.Both);
+	public BooleanParameter triggerIn = new BooleanParameter("Trig",false);
+
+	private Stack<SingleFlashInstance> flashPool;
+	private ArrayList<SingleFlashInstance> activeFlashes;
+
+	public enum EPlantPart
+	{
+		Outer,
+		Inner,
+		Both,
+	}
+
+	public class SingleFlashInstance
+	{
+		public PrairieEnvAD env;
+		public int plantDex;
+		public EPlantPart plantPart;
+		
+		public SingleFlashInstance()
+		{
+			env = new PrairieEnvAD(.1,1);
+			plantDex = -1;
+			plantPart = EPlantPart.Both;
+		}
+		
+		public boolean UpdateFlash(double deltaMs)
+		{
+			env.Update(deltaMs);
+			return (env.IsActive);
+		}
+	}
+
+	public MultiFlashesPattern(LX lx)
+	{
+		super(lx);
+		addParameter("B Min",brightnessMin);
+		addParameter("B Max",brightnessMax);
+		addParameter("Atk",envAttack);
+		addParameter("Dcy",envDecay);
+		addParameter("Target",targetPart);
+		addParameter("Trig",triggerIn);
+		buildPool();
+	}
+
+	private static final int kPoolSize = 30;
+	private void buildPool()
+	{
+		flashPool = new Stack<SingleFlashInstance>();
+		for (int i = 0; i < kPoolSize; i++)
+		{
+			flashPool.push(new SingleFlashInstance());
+		}
+
+		activeFlashes = new ArrayList<SingleFlashInstance>();
+	}
+
+	public void triggerNewFlash()
+	{
+		if (flashPool.size() > 0)
+		{
+			SingleFlashInstance sf = flashPool.pop();
+			sf.plantDex = PrairieUtils.RandomPlantDex(model.size);
+			sf.plantPart = targetPart.getEnum();
+			sf.env.AttackTimeMs = envAttack.getValuef() * 1000;
+			sf.env.DecayTimeMs = envDecay.getValuef() * 1000;
+			sf.env.Trigger(true);
+			activeFlashes.add(sf);
+		}
+	}
+
+	public void run(double deltaMs)
+	{
+		if (triggerIn.getValueb()) {
+			triggerNewFlash();
+			triggerIn.setValue(false);
+		}
+
+		setColors(LXColor.gray(brightnessMin.getValuef()));
+		float brightMinF = brightnessMin.getValuef();
+		float brightMaxF = brightnessMax.getValuef();
+
+		Iterator<SingleFlashInstance> iter = activeFlashes.iterator();
+		while(iter.hasNext()) {
+			SingleFlashInstance flash = iter.next();
+			if (!flash.UpdateFlash(deltaMs))
+			{
+				iter.remove();
+				flashPool.push(flash);
+			}
+			else
+			{
+				int baseDex = flash.plantDex * 7;
+				float bright = brightMinF + flash.env.CurVal * (brightMaxF-brightMinF);
+				int c = LXColor.gray((int)bright);
+				if (flash.plantPart == EPlantPart.Inner || flash.plantPart == EPlantPart.Both) 
+				{
+					colors[baseDex]	= c;
+					colors[baseDex + 1] = c;
+				}
+				if (flash.plantPart == EPlantPart.Outer || flash.plantPart == EPlantPart.Both)
+				{
+					for (int i = 2; i < 7; i++)
+						colors[baseDex + i] = c;
+				}
+			}
+		}
+	}
+}
 
 
 // A pattern that lets you flash either the inner or outer lights with triggers inputs. Attack and Decay for each flash can be
 // tweaked or modulated with parmaters. Pairs well with TargetColorize effects
-@LXCategory("Form")
+@LXCategory("Triggered")
 public static class TriggeredFlashesPattern extends LXPattern 
 {
 	public final CompoundParameter outsideBrightMin = new CompoundParameter("OB Min",50,0,100).setDescription("Min brightness of outer lights (when not triggered)");
@@ -882,7 +999,7 @@ public static class TriggeredFlashesPattern extends LXPattern
 		float innerB = insideBrightMin.getValuef() + (innerEnv.CurVal * (insideBrightMax.getValuef()-insideBrightMin.getValuef()));
 
 		for (LXPoint p : model.points) {
-			if (PrarieUtils.IsInner(p.index)) {
+			if (PrairieUtils.IsInner(p.index)) {
 				colors[p.index] = LXColor.gray((int)innerB);
 			}
 			else {

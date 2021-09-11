@@ -1,9 +1,18 @@
 
 import java.lang.Math;
+import java.util.Random;
+
 // class to capture a bunch of simple functions we use a lot.
-public static class PrarieUtils {
+public static class PrairieUtils {
+	public static Random rand = new Random();
 	public static boolean IsInner(int pointDex) { return(pointDex%7 < 2); }
 	public static boolean IsOuter(int pointDex) { return(pointDex%7 > 1); }
+
+	public static int RandomPlantDex(int modelSize)
+	{
+	    return rand.nextInt(modelSize/7);
+	}
+	
 }
 
 public static class PrairieEnvAD

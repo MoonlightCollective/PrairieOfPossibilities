@@ -29,9 +29,9 @@ public static class TargetedColorizeEffect extends LXEffect
 	protected boolean shouldColor(int lightDex)
 	{
 		if (targetType.getEnum() == ETargetType.Inner)
-			return (PrarieUtils.IsInner(lightDex));
+			return (PrairieUtils.IsInner(lightDex));
 		else
-			return (PrarieUtils.IsOuter(lightDex));
+			return (PrairieUtils.IsOuter(lightDex));
 
 	}
 
