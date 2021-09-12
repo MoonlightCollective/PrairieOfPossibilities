@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1631423703865,
+  "timestamp": 1631424144741,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -362,7 +362,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 4,
+          "focusedChannel": 0,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -395,10 +395,10 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
-              "fader": 1.0,
+              "fader": 0.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": false,
@@ -469,7 +469,8 @@
                 "parameters": {
                   "label": "Filter",
                   "enabled": true,
-                  "Filter": 0
+                  "Filter": 0,
+                  "Invert": false
                 },
                 "children": {
                   "modulation": {
@@ -718,7 +719,7 @@
               "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 1.0,
+              "fader": 0.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": true,
@@ -745,7 +746,8 @@
                 "parameters": {
                   "label": "Filter",
                   "enabled": true,
-                  "Filter": 4
+                  "Filter": 0,
+                  "Invert": true
                 },
                 "children": {
                   "modulation": {
@@ -1044,7 +1046,7 @@
               "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 1.0,
+              "fader": 0.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": false,
@@ -1292,7 +1294,8 @@
                 "parameters": {
                   "label": "Filter",
                   "enabled": true,
-                  "Filter": 3
+                  "Filter": 3,
+                  "Invert": false
                 },
                 "children": {
                   "modulation": {
@@ -1472,10 +1475,10 @@
             "parameters": {
               "label": "Channel-5",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 0.7571428557857871,
+              "fader": 0.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": false,
@@ -1868,10 +1871,10 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.0,
-              "macro2": 0.0,
+              "macro1": 0.8110236220472441,
+              "macro2": 0.9448818897637795,
               "macro3": 0.0,
-              "macro4": 0.5354330708661418,
+              "macro4": 0.0,
               "macro5": 0.0
             },
             "children": {}
@@ -1880,17 +1883,17 @@
             "id": 4306,
             "class": "heronarts.lx.modulator.MacroKnobs",
             "internal": {
-              "modulationColor": 0
+              "modulationColor": 4
             },
             "parameters": {
               "label": "Macro 2",
               "running": true,
               "trigger": false,
               "macro1": 1.0,
-              "macro2": 0.5900000091642141,
-              "macro3": 0.9448818897637795,
+              "macro2": 1.0,
+              "macro3": 1.0,
               "macro4": 0.0,
-              "macro5": 0.1889763779527559
+              "macro5": 1.0
             },
             "children": {}
           },
@@ -2103,6 +2106,30 @@
               "enabled": true,
               "Polarity": 0,
               "Range": 0.2875000024214387
+            },
+            "children": {}
+          },
+          {
+            "source": {
+              "componentId": 4306,
+              "parameterPath": "macro5",
+              "path": "/modulation/modulator/2/macro5"
+            },
+            "target": {
+              "componentId": 4444,
+              "parameterPath": "fader",
+              "path": "/mixer/channel/5/fader"
+            },
+            "id": 5651,
+            "class": "heronarts.lx.modulation.LXCompoundModulation",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "LX",
+              "enabled": true,
+              "Polarity": 0,
+              "Range": 1.0
             },
             "children": {}
           }
@@ -2399,7 +2426,7 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 1815.8664322216505,
+          "radius": 2248.978212216234,
           "theta": -17.294768235413358,
           "phi": 0.3280656533315778,
           "x": -88.11259612441063,
@@ -2427,7 +2454,7 @@
           },
           {
             "active": true,
-            "radius": 1815.8664322216505,
+            "radius": 2248.978212216234,
             "theta": -17.294768235413358,
             "phi": 0.3280656533315778,
             "x": -88.11259612441063,
