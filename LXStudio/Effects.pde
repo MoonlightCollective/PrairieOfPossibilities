@@ -61,20 +61,25 @@ public static class FilterEffect extends LXEffect
 		Edge,
 		Inner,
 		Outer,
-		Area
+		Area,
+		Yinyang
 	};
 
-	private String[] filters = {"path","edge","inner","outer","area"};
+	private String[] filters = {"path","edge","inner","outer","area","yinyang"};
 
 	private boolean[] mask;
 
 	public final EnumParameter<FilterType> targetType = new EnumParameter<FilterType> ("Filter", FilterType.Edge)
 		.setDescription("Which subset of lights to keep");
 
+	public final BooleanParameter invert = new BooleanParameter ("Invert", false)
+		.setDescription("Whether to invert the filter");
+
 	public FilterEffect(LX lx)
 	{
 		super(lx);
 		addParameter("Filter", this.targetType);
+		addParameter("Invert", this.invert);
 		rebuildMask();
 	}
 
@@ -116,6 +121,9 @@ public static class FilterEffect extends LXEffect
 			case Area:
 				iEnum = 4;
 				break;
+			case Yinyang:
+				iEnum = 5;
+				break;
 		}
 
 		String strFilter = filters[iEnum];
@@ -130,7 +138,7 @@ public static class FilterEffect extends LXEffect
 	public void run(double deltaMs, double enabledAmount) {
 		for (int i=0; i<colors.length; i++)
 		{
-			if (!mask[i])
+			if ((mask[i] && invert.getValueb()) || (!mask[i] && !invert.getValueb()))
 				colors[i] = 0x00000000;
 		}		
 	}

@@ -741,7 +741,7 @@ public static class FireballPattern extends LXPattern {
     }
     
     public void UpdateParticle(float deltaSec)
-    { //<>//
+    {
       pos.x = pos.x + (vel.x * deltaSec);
       pos.z = pos.z + (vel.z * deltaSec);
     } //<>//
@@ -749,7 +749,7 @@ public static class FireballPattern extends LXPattern {
     // pass in a point, get back the color contribution from this particle to that point
     public int getColorValue(LXPoint pt)
     {
-      LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space //<>//
+      LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space
       float dist = pos.dist(p);
 
       if (dist > size / 2.0)      // quick out if this point is too far away from this particle //<>//

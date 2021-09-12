@@ -38,6 +38,9 @@ IP = "192.168.0.60"
 AISLE_CURVE = 10 / 360 * 2 * math.pi    #how many degress to offset each ring from the previous; this will create the aisle curving
 NUM_AISLES = 2
 AISLE_WIDTH = 16*FEET
+EYE_CENTER_X = -10 * FEET
+EYE_CENTER_Z = 45 * FEET
+EYE_SIZE = 14*FEET
 
 i = 0
 numbases = NUM_BASES
@@ -65,7 +68,18 @@ while numbases > 0:
               tags = ["outer","edge"]
             else:
               tags = ["area"]
-            base = BaseFixture(x=radius * math.cos(angle), z=radius*math.sin(angle), tags=tags, modelKeys=tags)
+            
+            x = radius * math.cos(angle)
+            z = radius*math.sin(angle)
+
+            if (k==0):
+              if (math.sqrt((x-EYE_CENTER_X)*(x-EYE_CENTER_X) + (z-EYE_CENTER_Z)*(z-EYE_CENTER_Z)) >= EYE_SIZE):
+                tags.append("yinyang")
+            else:
+              if (math.sqrt((x+EYE_CENTER_X)*(x+EYE_CENTER_X) + (z+EYE_CENTER_Z)*(z+EYE_CENTER_Z)) < EYE_SIZE or j==0 or j==(ring_bases-1) or ring==0 or last_ring):
+                tags.append("yinyang")
+
+            base = BaseFixture(x=x, z=z, tags=tags, modelKeys=tags)
             bases.append (base)
             numbases = numbases-1
             i = i + 1
