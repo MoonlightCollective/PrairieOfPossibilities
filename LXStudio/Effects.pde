@@ -8,6 +8,7 @@ public static class TargetedColorizeEffect extends LXEffect
 	{
 		Inner,
 		Outer,
+		Both,
 	}
 
 	public final EnumParameter targetType = new EnumParameter<ETargetType>("Target",ETargetType.Inner);
@@ -30,9 +31,10 @@ public static class TargetedColorizeEffect extends LXEffect
 	{
 		if (targetType.getEnum() == ETargetType.Inner)
 			return (PrairieUtils.IsInner(lightDex));
-		else
+		else if (targetType.getEnum() == ETargetType.Outer)
 			return (PrairieUtils.IsOuter(lightDex));
 
+		return true;
 	}
 
 	@Override
