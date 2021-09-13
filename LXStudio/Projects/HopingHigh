@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1631424144741,
+  "timestamp": 1631515894458,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -362,7 +362,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 0,
+          "focusedChannel": 1,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -395,13 +395,13 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
-              "midiMonitor": false,
+              "midiMonitor": true,
               "midiChannel": 16,
               "autoCycleEnabled": false,
               "autoCycleMode": 0,
@@ -716,7 +716,7 @@
             "parameters": {
               "label": "Channel-2",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -1646,11 +1646,11 @@
                 "parameters": {
                   "label": "TriggeredFlashes",
                   "OB Min": 0.0,
-                  "OB Max": 20.000001788139343,
+                  "OB Max": 15.000001899898052,
                   "O Atk": 0.0,
-                  "O Dcy": 0.8299999926239251,
+                  "O Dcy": 0.889999996870756,
                   "IB Min": 0.0,
-                  "IB Max": 26.000001654028893,
+                  "IB Max": 19.000001810491085,
                   "I Atk": 0.05999999865889549,
                   "I Dcy": 0.9499999899417161,
                   "I Trg": false,
@@ -1871,8 +1871,8 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.8110236220472441,
-              "macro2": 0.9448818897637795,
+              "macro1": 0.0,
+              "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
               "macro5": 0.0
@@ -1889,11 +1889,11 @@
               "label": "Macro 2",
               "running": true,
               "trigger": false,
-              "macro1": 1.0,
-              "macro2": 1.0,
-              "macro3": 1.0,
+              "macro1": 0.0,
+              "macro2": 0.007874015748031496,
+              "macro3": 0.0,
               "macro4": 0.0,
-              "macro5": 1.0
+              "macro5": 0.015748031496062992
             },
             "children": {}
           },
@@ -1907,9 +1907,9 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.09999999962747097,
-              "macro2": 0.08999999798834324,
-              "macro3": 0.5399999879300594,
+              "macro1": 0.0,
+              "macro2": 0.0,
+              "macro3": 0.0,
               "macro4": 0.0,
               "macro5": 0.0
             },
@@ -2194,96 +2194,10 @@
             "channel": true,
             "control": true,
             "sync": false
-          },
-          {
-            "name": "Arturia BeatStep Pro",
-            "channel": true,
-            "control": true,
-            "sync": false
           }
         ],
         "surfaces": [],
         "mapping": [
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/1/macro1",
-            "componentId": 4305,
-            "parameterPath": "macro1",
-            "cc": 10
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/1/macro2",
-            "componentId": 4305,
-            "parameterPath": "macro2",
-            "cc": 74
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/1/macro3",
-            "componentId": 4305,
-            "parameterPath": "macro3",
-            "cc": 71
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/1/macro4",
-            "componentId": 4305,
-            "parameterPath": "macro4",
-            "cc": 76
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/1/macro5",
-            "componentId": 4305,
-            "parameterPath": "macro5",
-            "cc": 77
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/2/macro1",
-            "componentId": 4306,
-            "parameterPath": "macro1",
-            "cc": 114
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/2/macro2",
-            "componentId": 4306,
-            "parameterPath": "macro2",
-            "cc": 18
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/2/macro3",
-            "componentId": 4306,
-            "parameterPath": "macro3",
-            "cc": 19
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/2/macro4",
-            "componentId": 4306,
-            "parameterPath": "macro4",
-            "cc": 16
-          },
-          {
-            "channel": 0,
-            "type": "CONTROL_CHANGE",
-            "path": "/lx/modulation/modulator/2/macro5",
-            "componentId": 4306,
-            "parameterPath": "macro5",
-            "cc": 17
-          },
           {
             "channel": 0,
             "type": "NOTE",
@@ -2307,6 +2221,126 @@
             "componentId": 4458,
             "parameterPath": "O Trg",
             "pitch": 37
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/1/macro1",
+            "componentId": 4305,
+            "parameterPath": "macro1",
+            "cc": 16
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/1/macro2",
+            "componentId": 4305,
+            "parameterPath": "macro2",
+            "cc": 17
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/1/macro3",
+            "componentId": 4305,
+            "parameterPath": "macro3",
+            "cc": 18
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/1/macro4",
+            "componentId": 4305,
+            "parameterPath": "macro4",
+            "cc": 19
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/1/macro5",
+            "componentId": 4305,
+            "parameterPath": "macro5",
+            "cc": 20
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/2/macro1",
+            "componentId": 4306,
+            "parameterPath": "macro1",
+            "cc": 24
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/2/macro2",
+            "componentId": 4306,
+            "parameterPath": "macro2",
+            "cc": 25
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/2/macro3",
+            "componentId": 4306,
+            "parameterPath": "macro3",
+            "cc": 26
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/2/macro4",
+            "componentId": 4306,
+            "parameterPath": "macro4",
+            "cc": 27
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/2/macro5",
+            "componentId": 4306,
+            "parameterPath": "macro5",
+            "cc": 28
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/3/macro1",
+            "componentId": 4318,
+            "parameterPath": "macro1",
+            "cc": 21
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/3/macro2",
+            "componentId": 4318,
+            "parameterPath": "macro2",
+            "cc": 22
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/3/macro3",
+            "componentId": 4318,
+            "parameterPath": "macro3",
+            "cc": 23
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/3/macro4",
+            "componentId": 4318,
+            "parameterPath": "macro4",
+            "cc": 29
+          },
+          {
+            "channel": 0,
+            "type": "CONTROL_CHANGE",
+            "path": "/lx/modulation/modulator/3/macro5",
+            "componentId": 4318,
+            "parameterPath": "macro5",
+            "cc": 30
           }
         ]
       },
@@ -2426,28 +2460,28 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 2248.978212216234,
-          "theta": -17.294768235413358,
-          "phi": 0.3280656533315778,
-          "x": -88.11259612441063,
-          "y": -74.54644613713026,
-          "z": -29.822212296363432
+          "radius": 240.85271685265684,
+          "theta": -22.83206247515045,
+          "phi": 0.20006313361227512,
+          "x": 51.76210746448487,
+          "y": 42.66601589694619,
+          "z": -31.529738885117695
         },
         "cue": [
           {
             "active": true,
-            "radius": 2961.574156133913,
-            "theta": -6.560289240209386,
-            "phi": 1.0202274257317185,
+            "radius": 1843.3151010788085,
+            "theta": -6.565030076308176,
+            "phi": 0.9301515752449632,
             "x": -55.670331835746765,
             "y": 58.963796734809875,
             "z": -2.2113849548622966
           },
           {
             "active": true,
-            "radius": 245.00614983780528,
-            "theta": -20.262530410429463,
-            "phi": 0.10998728964477777,
+            "radius": 240.85271685265678,
+            "theta": -22.83206247515045,
+            "phi": 0.20006313361227512,
             "x": 51.76210746448487,
             "y": 42.66601589694619,
             "z": -31.529738885117695
@@ -2463,12 +2497,12 @@
           },
           {
             "active": true,
-            "radius": 3422.0949705779854,
-            "theta": -6.536585069028661,
-            "phi": 1.3994941711425781,
-            "x": -39.804018914699554,
-            "y": 68.71807590126991,
-            "z": 51.923632827587426
+            "radius": 2615.017540131371,
+            "theta": -6.555548405973241,
+            "phi": 1.4137166738510132,
+            "x": -65.61135017871857,
+            "y": 56.19399043917656,
+            "z": -22.96862009447068
           },
           {
             "active": false,
@@ -2489,7 +2523,7 @@
             "z": 0.0
           }
         ],
-        "focus": 2,
+        "focus": 1,
         "pointCloud": {
           "pointSize": 3.0
         },
