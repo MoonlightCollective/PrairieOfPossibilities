@@ -47,7 +47,8 @@ public static class PlanePattern extends LXPattern {
       y1 = LXUtils.sinf(angle);
 
       n = abs(y1 * x + x1 * y + origin.getValuef()) / sqrt(y1*y1 + x1 * x1);   // get distance from point to the line perindicular to theta going throug origin
-      colors[p.index] = LXColor.gray(max(0, 100 - falloff*abs(n - pos))); 
+      int b = (int) (max (0, (100 - falloff*abs(n - pos))) * 2.559f);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }
   }
 }
@@ -144,7 +145,8 @@ public static class SpinPattern extends LXPattern {
       n = (p.index % 7) / 7.0;
       dist = LXUtils.wrapdistf(n,pos,1.0);
       // dist = min(min(abs(n - pos), abs(n+1-pos)), abs(n-1-pos));
-      colors[p.index] = LXColor.gray(max(0, 100 - falloff*dist)); 
+      int b = (int) (max (0, (100 - falloff*dist)) * 2.559f);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }
   }
 }
@@ -200,8 +202,8 @@ public static class LighthousePattern extends LXPattern {
           break;
       }
       dist = LXUtils.wrapdistf(pAngle,angle,1.0);
-//      dist = min(min(abs(pAngle - angle), abs(pAngle+1-angle)), abs(pAngle-1-angle));
-      colors[p.index] = LXColor.gray(max(0, 100 - falloff*dist)); 
+      int b = (int) (max (0, (100 - falloff*dist)) * 2.559f);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }
   }
 }
@@ -261,7 +263,9 @@ public static class RadiusPattern extends LXPattern {
     float val = 0;
     for (LXPoint p : model.points) {
       val = minf + (maxf-minf)*p.rcn; // set value based on normalized distance from center of the model
-      colors[p.index] = LXColor.gray(100.0 * val); 
+      int b = (int) (255 * val);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
+
     }
   }
 }
@@ -307,7 +311,8 @@ public static class DonutPattern extends LXPattern {
     float n = 0;
     for (LXPoint p : model.points) {
       n = (float)LXUtils.distance ((p.xn*2.0)-1.0, (p.zn*2.0)-1.0, originX, originZ); // xn gives [0,1] so transform to [-1,1] 
-      colors[p.index] = LXColor.gray(max(0, (100 - falloff*abs(n - pos)))); 
+      int b = (int) (max (0, (100 - falloff*abs(n - pos))) * 2.559f);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }    
   }
 }
@@ -335,31 +340,33 @@ public static class ChasePattern extends LXPattern {
   public void run(double deltaMs) {
     float pos = this.pos.getValuef();
     int head = int(model.points.length * pos);
+    int b = 0;
     
     for (LXPoint p : model.points) {
       switch (this.mode.getEnum()) {
       case Tail:
         if (p.index == head-1)
-          colors[p.index] = LXColor.gray(100);
+          b = 255;
         else if (p.index == head-2)
-          colors[p.index] = LXColor.gray(50);
+          b = 128;
         else if (p.index == head-3)
-          colors[p.index] = LXColor.gray(25);
+          b = 64;
         else
-          colors[p.index] = LXColor.BLACK;
+          b = 0;
         break;
       case Solo:
         if (p.index == head-1)
-          colors[p.index] = LXColor.gray(100);
+          b = 255;
         else
-          colors[p.index] = LXColor.BLACK;
+          b = 0;
         break;
       case Add:
         if (p.index <= head-1)
-          colors[p.index] = LXColor.gray(100);
+          b = 255;
         else
-          colors[p.index] = LXColor.BLACK;
+          b = 0;
       }
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }
   }
 }
@@ -390,7 +397,8 @@ public static class GrowPattern extends LXPattern {
     float n = 0;
     for (LXPoint p : model.points) {
       n = (p.index % 7) * 100.0;
-      colors[p.index] = LXColor.gray(min(100,max(count-n,0)));
+      int b = (int) (min(100,max(count-n,0)) * 2.559f);
+      colors[p.index] = LXColor.rgba(b, b, b, b);
     }
   }
 }
@@ -437,11 +445,11 @@ public class LocalPing extends LXPattern
       double dist = LXUtils.distance(p.xn,p.zn,fPosX,fPosY);
       if (dist <= fCurRadius)
       {
-        colors[p.index] = LXColor.rgb((int)(fAlphaBright * 255),(int)(fAlphaBright * 255), (int)(fAlphaBright*255));
+        colors[p.index] = LXColor.rgba((int)(fAlphaBright * 255), (int)(fAlphaBright * 255),(int)(fAlphaBright * 255), (int)(fAlphaBright*255));
       }
       else
       {
-        colors[p.index] = LXColor.gray(0);
+        colors[p.index] = 0;
       }
     }
   }
@@ -544,11 +552,13 @@ public static class SpinEachBladePattern extends LXPattern {
             int lightDex = p.index % (kNumRingLights + 2);
             if (lightDex < 2)
             {
-                colors[p.index] = LXColor.gray(brightnessCenter.getValuef());
+                int b = (int) (brightnessCenter.getValuef() * 2.559f);
+                colors[p.index] = LXColor.rgba(b,b,b,b);
             }
             else
             {
-                colors[p.index] = LXColor.gray((int)brightPerLight[lightDex-2]);
+                int b = (int) (brightPerLight[lightDex-2] * 2.559f);
+                colors[p.index] = LXColor.rgba(b,b,b,b);
             }
         }
     }
@@ -681,7 +691,7 @@ public static class MultiDonutRandomPattern extends LXPattern {
     float n = 0;
     for (LXPoint p : model.points) 
     {
-      colors[p.index] = LXColor.gray(0);
+      int b = 0;
       for (int i = 0; i < 4; i++)
       {
         RingInfo ring = rings[i];
@@ -689,9 +699,10 @@ public static class MultiDonutRandomPattern extends LXPattern {
         {
           float pos = ring.start + (this.size.getValuef() * ring.range * ring.curAlpha);
           n = (float)LXUtils.distance ((p.xn*2.0)-1.0, (p.zn*2.0)-1.0, ring.originX, ring.originZ); 
-          colors[p.index]=LXColor.add(colors[p.index],LXColor.gray(max(0, (100 - ring.falloff*abs(n - pos)))));
+          b = max (b, (int)(max(0, (100 - ring.falloff*abs(n - pos)))));
         }
       }
+      colors[p.index] = LXColor.rgba(b,b,b,b);
     }    
   }
 }
@@ -751,19 +762,21 @@ public static class FireballPattern extends LXPattern {
     {
       LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space
       float dist = pos.dist(p);
+      int b = 0;
 
       if (dist > size / 2.0)      // quick out if this point is too far away from this particle //<>//
-        return LXColor.BLACK;
+        b = 0;
 
       // otherwise the point is inside the range of this particle and will get a color contribution
       else
       {
         dist = dist / (size / 2.0);   // normalize dist to be 0-1 from center out to edge of fireball
         if (dist <= softness)
-          return LXColor.gray(100);   // below the softness threshold, full bright
+          b = 255;
         else
-          return LXColor.gray( 100 * ( 1.0 - ((dist - softness) / (1.0 - softness))));    // between softness and the edge, slope from full bright to zero
+          b = (int)(255.0f * ( 1.0 - ((dist - softness) / (1.0 - softness))));
       }
+      return LXColor.rgba(b,b,b,b);
     }
 
     boolean isDead() {    // check if this particle is out of bounds
@@ -810,7 +823,7 @@ public static class FireballPattern extends LXPattern {
         
     for (LXPoint p : model.points) 
     {
-      colors[p.index] = LXColor.gray(0);
+      colors[p.index] = 0;
       for (ParticleInfo particle : particles)
       {
         int col = particle.getColorValue(p);
@@ -819,6 +832,143 @@ public static class FireballPattern extends LXPattern {
     }    
   }
 }
+
+//
+// Infinity pattern -- Creates the effect of a ball of light tracing out an infinity symbol across the field
+//
+@LXCategory("Form")
+public static class InfinityPattern extends LXPattern {
+  
+  public final CompoundParameter size = new CompoundParameter("Size", 0.1)
+    .setDescription("Size of the fireball");
+      
+  public final CompoundParameter duration  = new CompoundParameter("Duration", 3, 10)
+    .setDescription("Time to make one circuit");
+
+  public final CompoundParameter fuzzy  = new CompoundParameter("Fuzzy", 0)
+    .setDescription("How soft the edge of the ball should be");
+
+  public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false)
+    .setDescription("Triggers a new fireball to make a circuit");
+
+  public class ParticleInfo
+  {
+    public LXVector pos;
+    public LXVector vel;
+    public float radians;
+    
+    public float size;      // from 0 to 1 representing size of the head of this fireball
+    public float softness;     // how soft the edge should be. 0 = crisp edge; 1 = totally fuzzy
+    private LXVector origin;
+    
+    ParticleInfo(float duration, float size, float fuzzy)
+    {
+      this.size = size;
+      this.softness = fuzzy;
+
+      float theta = 0;    // pick random direction to start
+      float radius = 0.5;                       // put origin on edge of the model
+      pos = new LXVector(0, 0.5, 0.5);
+
+      float distToTravel = 2.0;                         // ball has to travel from one side to the other and back
+      float speed = distToTravel / duration;
+      float radian_speed = 4 * PI / duration;
+      
+      vel = new LXVector(speed, 0, radian_speed);  // set vel opposite to the initial vector
+      radians = 0;
+      origin = new LXVector(0.5, 0.5, 0.5);
+    }
+    
+    public void UpdateParticle(float deltaSec)
+    {
+      radians = radians + (vel.z * deltaSec);
+      pos.x = pos.x + (vel.x * deltaSec);
+      pos.z = 0.5f + (LXUtils.sinf(radians) / 4.0f);
+
+      if (pos.x > 1)
+      {
+        pos.x = pos.x - (2.0f * (pos.x - 1.0f));    // bounce off the wall when it hits
+        vel.x = -vel.x;   // reverse direction
+      }
+    }
+
+    // pass in a point, get back the color contribution from this particle to that point
+    public int getColorValue(LXPoint pt)
+    {
+      LXVector p = new LXVector(pt.xn, pt.yn, pt.zn);   // do all math in normalized space
+      float dist = pos.dist(p);
+      int b = 0;
+
+      if (dist > size / 2.0)      // quick out if this point is too far away from this particle //<>//
+        b = 0;
+
+      // otherwise the point is inside the range of this particle and will get a color contribution
+      else
+      {
+        dist = dist / (size / 2.0);   // normalize dist to be 0-1 from center out to edge of fireball
+        if (dist <= softness)
+          b = 255;   // below the softness threshold, full bright
+        else
+          b = (int)( 255.0f * ( 1.0 - ((dist - softness) / (1.0 - softness))));    // between softness and the edge, slope from full bright to zero
+      }
+      return LXColor.rgba(b,b,b,b);
+    }
+
+    boolean isDead() {    // check if this particle is out of bounds
+      if (radians > 4.0f * PI)
+        return true;
+      else
+        return false;
+    }
+
+  }
+
+  private ArrayList<ParticleInfo> particles = new ArrayList<ParticleInfo> ();
+ 
+  public InfinityPattern(LX lx) {
+    super(lx);
+    addParameter("Size", this.size);
+    this.duration.setUnits(LXParameter.Units.SECONDS);
+    addParameter("Duration", this.duration);
+    addParameter("Fuzzy", this.fuzzy);
+    triggerBool.setMode(BooleanParameter.Mode.TOGGLE);
+    addParameter("Trigger",this.triggerBool);
+  }
+  
+  public void triggerNewParticle()
+  {
+    particles.add(new ParticleInfo(duration.getValuef(), size.getValuef(), fuzzy.getValuef()));
+    triggerBool.setValue(false);
+  }  
+  
+  public void run(double deltaMs) 
+  {
+    for (int i = particles.size() - 1; i >= 0; i--)
+    {
+      ParticleInfo particle = particles.get(i);
+      particle.UpdateParticle((float)deltaMs/1000.0);
+      if (particle.isDead())
+        particles.remove(i);
+    }
+
+    if (triggerBool.getValueb())
+    {
+      triggerNewParticle();
+    }
+        
+    for (LXPoint p : model.points) 
+    {
+      colors[p.index] = 0;
+      for (ParticleInfo particle : particles)
+      {
+        int col = particle.getColorValue(p);
+        colors[p.index] = LXColor.add(colors[p.index], col);
+      }
+    }    
+  }
+}
+
+
 @LXCategory("Triggered")
 public static class MultiFlashesPattern extends LXPattern 
 {
@@ -904,7 +1054,9 @@ public static class MultiFlashesPattern extends LXPattern
 			triggerIn.setValue(false);
 		}
 
-		setColors(LXColor.gray(brightnessMin.getValuef()));
+    int b = (int)(brightnessMin.getValuef() * 2.559f);
+		setColors(LXColor.rgba(b,b,b,b));
+
 		float brightMinF = brightnessMin.getValuef();
 		float brightMaxF = brightnessMax.getValuef();
 
@@ -920,7 +1072,8 @@ public static class MultiFlashesPattern extends LXPattern
 			{
 				int baseDex = flash.plantDex * 7;
 				float bright = brightMinF + flash.env.CurVal * (brightMaxF-brightMinF);
-				int c = LXColor.gray((int)bright);
+        b = (int)(bright * 2.559f);
+				int c = LXColor.rgba(b,b,b,b);
 				if (flash.plantPart == EPlantPart.Inner || flash.plantPart == EPlantPart.Both) 
 				{
 					colors[baseDex]	= c;
@@ -995,15 +1148,15 @@ public static class TriggeredFlashesPattern extends LXPattern
 		innerEnv.Update(deltaMs);
 		outerEnv.Update(deltaMs);
 		
-		float outerB = outsideBrightMin.getValuef() + (outerEnv.CurVal * (outsideBrightMax.getValuef()-outsideBrightMin.getValuef()));
-		float innerB = insideBrightMin.getValuef() + (innerEnv.CurVal * (insideBrightMax.getValuef()-insideBrightMin.getValuef()));
+		int outerB = (int)(outsideBrightMin.getValuef() + (outerEnv.CurVal * (outsideBrightMax.getValuef()-outsideBrightMin.getValuef())) * 2.559f);
+		int innerB = (int)(insideBrightMin.getValuef() + (innerEnv.CurVal * (insideBrightMax.getValuef()-insideBrightMin.getValuef())) * 2.559f);
 
 		for (LXPoint p : model.points) {
 			if (PrairieUtils.IsInner(p.index)) {
-				colors[p.index] = LXColor.gray((int)innerB);
+				colors[p.index] = LXColor.rgba(outerB, outerB, outerB, outerB);
 			}
 			else {
-				colors[p.index] = LXColor.gray((int)outerB);
+				colors[p.index] = LXColor.rgba(innerB, innerB, innerB, innerB);
 			}
 		}
 	}
