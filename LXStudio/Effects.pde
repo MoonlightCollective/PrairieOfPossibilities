@@ -53,6 +53,73 @@ public static class TargetedColorizeEffect extends LXEffect
 }
 
 @LXCategory("PrairieEffects")
+public static class TargetedColorizeEffect2 extends LXEffect implements UIDeviceControls<TargetedColorizeEffect2>
+{
+	public enum ETargetType
+	{
+		Inner,
+		Outer,
+		Both,
+	}
+
+	public final DiscreteParameter targetType = new DiscreteParameter("Target",new String[]{"None","Inner","Outer","Both"},3);
+	public final ColorParameter c1 = new ColorParameter("Color 1",0xFFFF0000).setDescription("Color for darkest LED's (brightness ignored)");
+	public final ColorParameter c2 = new ColorParameter("Color 2",0xFF00FF00).setDescription("Color for darkest LED's (brightness ignored)");
+
+	public TargetedColorizeEffect2(LX lx) {
+		super(lx);
+		addParameter("Target",this.targetType);
+		addParameter("C1",this.c1);
+		addParameter("C2",this.c2);
+	}
+
+	protected boolean shouldColor(int lightDex)
+	{
+		int targetTypeI = (int)targetType.getValue();
+		switch (targetTypeI)
+		{
+			case 0:
+				return false;
+			case 1:
+				return PrairieUtils.IsInner(lightDex);
+			case 2:
+				return PrairieUtils.IsOuter(lightDex);
+			case 3:
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	protected void run(double deltaMs, double enabledAmount) {
+		for (LXPoint p : model.points) {
+			if (shouldColor(p.index))
+			{
+				float b = LXColor.b(colors[p.index]);
+				int fromColor = LXColor.hsb(c1.hue.getValuef(),c1.saturation.getValuef(),b);
+				int toColor = LXColor.hsb(c2.hue.getValuef(),c2.saturation.getValuef(),b);
+				double alpha = b/100;
+				colors[p.index] = LXColor.lerp(fromColor,toColor,alpha);
+			}
+		}
+	}
+
+	public void buildDeviceControls(heronarts.lx.studio.LXStudio.UI ui, UIDevice uiDevice, TargetedColorizeEffect2 tc2Effect) {
+    	uiDevice.setContentWidth(150);
+
+		UI2dComponent dropbox = newDropMenu(tc2Effect.targetType);
+	    UIColorPicker c1Picker = new UIColorPicker(25,20,tc2Effect.c1);
+	    UIColorPicker c2Picker = new UIColorPicker(25,20,tc2Effect.c2);
+		c1Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c2Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		UI2dContainer row1 = UI2dContainer.newHorizontalContainer(150,10,dropbox,c1Picker,c2Picker);
+		addColumn(uiDevice,150,row1);
+  	}
+
+}
+
+
+@LXCategory("PrairieEffects")
 public static class FilterEffect extends LXEffect
 {
 	public enum FilterType
