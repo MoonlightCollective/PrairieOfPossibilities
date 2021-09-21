@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1631083764804,
+  "timestamp": 1632204543880,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -39,9 +39,9 @@
         },
         "parameters": {
           "label": "Rings 1",
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0,
+          "x": 63.66143709421158,
+          "y": -201.06921935081482,
+          "z": -254.4542120695114,
           "yaw": 0.0,
           "pitch": 0.0,
           "roll": 0.0,
@@ -910,9 +910,10 @@
                 },
                 "parameters": {
                   "label": "Plane",
-                  "axis": 0,
                   "pos": 0.5599999912083149,
-                  "width": 0.4000000059604645
+                  "width": 0.4000000059604645,
+                  "theta": 0.0,
+                  "origin": 0.0
                 },
                 "children": {
                   "modulation": {
@@ -1021,10 +1022,10 @@
               "arm": false,
               "selected": true,
               "enabled": true,
-              "cue": false,
+              "cue": true,
               "fader": 1.0,
               "crossfadeGroup": 0,
-              "blendMode": 3,
+              "blendMode": 0,
               "midiMonitor": true,
               "midiChannel": 16,
               "autoCycleEnabled": false,
@@ -1048,7 +1049,7 @@
                 },
                 "parameters": {
                   "label": "TargetedColorize",
-                  "enabled": true,
+                  "enabled": false,
                   "Target": 1,
                   "H1": 50.0,
                   "S1": 8.000002056360245,
@@ -1083,7 +1084,7 @@
                 },
                 "parameters": {
                   "label": "TargetedColorize",
-                  "enabled": true,
+                  "enabled": false,
                   "Target": 0,
                   "H1": 35.999999195337296,
                   "S1": 100.0,
@@ -1093,6 +1094,41 @@
                 "children": {
                   "modulation": {
                     "id": 6736,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 7056,
+                "class": "LXStudio$TwinkleEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Twinkle",
+                  "enabled": true,
+                  "MinTime": 0.009999999776482582,
+                  "MaxTime": 0.14929999667853117,
+                  "Intensity": 100.0,
+                  "DecayTime": 0.40000003576278687,
+                  "AttackTimeMs": 247.99999892711634
+                },
+                "children": {
+                  "modulation": {
+                    "id": 7057,
                     "class": "heronarts.lx.modulation.LXModulationEngine",
                     "internal": {
                       "modulationColor": 0
@@ -1157,11 +1193,11 @@
                 },
                 "parameters": {
                   "label": "TriggeredFlashes",
-                  "OB Min": 8.999999798834324,
+                  "OB Min": 9.999999776482582,
                   "OB Max": 100.0,
                   "O Atk": 0.08999999798834324,
                   "O Dcy": 0.7999999932944774,
-                  "IB Min": 3.000001050531864,
+                  "IB Min": 13.999999687075615,
                   "IB Max": 100.0,
                   "I Atk": 0.0,
                   "I Dcy": 0.5,
@@ -1433,6 +1469,12 @@
         "children": {},
         "inputs": [
           {
+            "name": "loopMIDI Port",
+            "channel": true,
+            "control": true,
+            "sync": true
+          },
+          {
             "name": "Arturia BeatStep Pro",
             "channel": true,
             "control": true,
@@ -1615,40 +1657,40 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 1371.6505838103508,
-          "theta": -6.719503504456952,
-          "phi": 0.42879439517855644,
-          "x": -33.17978118546307,
-          "y": -56.944549936801195,
-          "z": -44.64973752270453
+          "radius": 3311.3512884615643,
+          "theta": -6.861922375624999,
+          "phi": 1.3969615120440722,
+          "x": 113.19695247523487,
+          "y": -38.25575317814946,
+          "z": -13.161423013312742
         },
         "cue": [
           {
-            "active": false,
-            "radius": 389.29763315481307,
-            "theta": -0.10057835676707327,
-            "phi": 0.3905725316144526,
-            "x": 39.58883664174937,
-            "y": 38.444265611469746,
-            "z": 32.48607098637149
-          },
-          {
-            "active": false,
-            "radius": 120.0,
-            "theta": 0.0,
-            "phi": 0.0,
-            "x": 0.0,
-            "y": 0.0,
-            "z": 0.0
+            "active": true,
+            "radius": 1990.4672570499342,
+            "theta": -6.32156839244999,
+            "phi": -0.006283238530158997,
+            "x": 34.74849492886278,
+            "y": 70.59416699409485,
+            "z": 1731.3345815378125
           },
           {
             "active": true,
-            "radius": 1371.6505838103508,
-            "theta": -6.719503504456952,
-            "phi": 0.42879439517855644,
+            "radius": 2871.290063433024,
+            "theta": -6.832600842462853,
+            "phi": 0.2821867289021611,
             "x": -33.17978118546307,
             "y": -56.944549936801195,
             "z": -44.64973752270453
+          },
+          {
+            "active": true,
+            "radius": 3311.3512884615643,
+            "theta": -6.861922375624999,
+            "phi": 1.3969615120440722,
+            "x": 113.19695247523487,
+            "y": -38.25575317814946,
+            "z": -13.161423013312742
           },
           {
             "active": false,
