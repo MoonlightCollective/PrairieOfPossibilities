@@ -8,9 +8,11 @@ public static class PrairieUtils {
 	public static boolean IsInner(int pointDex) { return(pointDex%7 < 2); }
 	public static boolean IsOuter(int pointDex) { return(pointDex%7 > 1); }
 
+	public static final int kNumLightsPerPlant = 7;
+
 	public static int RandomPlantDex(int modelSize)
 	{
-	    return rand.nextInt(modelSize/7);
+	    return rand.nextInt(modelSize/kNumLightsPerPlant);
 	}
 	
 }
