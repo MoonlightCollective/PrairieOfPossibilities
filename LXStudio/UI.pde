@@ -22,11 +22,10 @@ public class UIFloor extends UI3dComponent {
     this.stars = loadImage("spacebg.jpg");
 
     initializeSphere (30, 30);  // set up for sky dome
-}
+  }
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
-
 
     float level = 255;
     pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
@@ -195,7 +194,7 @@ public class UILightStem extends UI3dComponent {
 }
 
 public class UILightStemTrio extends UILightStem {
-  public static final float DIAMETER = 0.125*INCHES;
+  public static final float DIAMETER = 0.2*INCHES;
   public static final float HEIGHT = 60*INCHES;
   public static final int  DETAIL = 8;
 
@@ -226,6 +225,9 @@ public class UILightStemTrio extends UILightStem {
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();    
     LXPoint p = this.model.getPoint();
+
+    pg.noStroke();
+    pg.lights();
 
     if (p.index < colors.length) {
         pg.emissive(colors[p.index]);
@@ -261,7 +263,6 @@ public class UILightStemTrio extends UILightStem {
             pg.rotateY(-2*PI/6);
         }
     }
-    pg.noStroke();
   }
 
   @Override
@@ -272,7 +273,7 @@ public class UILightStemTrio extends UILightStem {
 }
 
 public class UILightStemSingle extends UILightStem {
-  public static final float DIAMETER = 0.25*INCHES;
+  public static final float DIAMETER = 0.4*INCHES;
   public static final float HEIGHT = 49*INCHES;
   public static final int  DETAIL = 8;
 
@@ -289,6 +290,8 @@ public class UILightStemSingle extends UILightStem {
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+    pg.noStroke();
+    pg.lights();
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();
     LXPoint p = this.model.getPoint();
@@ -297,7 +300,6 @@ public class UILightStemSingle extends UILightStem {
         pg.fill(colors[p.index]);
         pg.emissive(0);
     } 
-    pg.noStroke();
   }
 
   @Override
@@ -367,8 +369,8 @@ public class UILightBase extends UI3dComponent {
 
   @Override
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
-    pg.fill(#101010);
     pg.noStroke();
+    pg.fill(#101010);
   }
 
   @Override
