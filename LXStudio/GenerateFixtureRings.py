@@ -37,7 +37,7 @@ CENTER_RADIUS = CENTER_DIAMETER/2
 IP = "192.168.0.60"
 AISLE_CURVE = 10 / 360 * 2 * math.pi    #how many degress to offset each ring from the previous; this will create the aisle curving
 NUM_AISLES = 2
-AISLE_WIDTH = 16*FEET
+AISLE_WIDTH = 24*FEET
 EYE_CENTER_X = -10 * FEET
 EYE_CENTER_Z = 45 * FEET
 EYE_SIZE = 14*FEET
@@ -50,44 +50,49 @@ ring = 0
 last_ring = False
 
 while numbases > 0:
-    perimeter = math.pi * 2 * radius
-    angle = angle_offset
-    ring_bases = int(((perimeter / NUM_AISLES) - AISLE_WIDTH) / BASE_SPACING)
-    if (numbases <= (NUM_AISLES*ring_bases)):
-      last_ring = True
+  perimeter = math.pi * 2 * radius
+  angle = angle_offset
+  light_run = ((perimeter / NUM_AISLES) - AISLE_WIDTH)       # distance covered by this consecutive run of lights
+  ring_bases = int(light_run / BASE_SPACING) + 1             # number of bases used in this run -- with one base at start and finish of each run -- err on side of more density than less if not a perfect multiple
+  aisle_angle = (AISLE_WIDTH  / perimeter) * 2 * math.pi     # angle of each aisle
+  base_angle = ((light_run / (ring_bases - 1)) / perimeter) * 2 * math.pi   # figure out angle between bases on this particular stretch
+  if (numbases <= (NUM_AISLES*ring_bases)):
+    last_ring = True
 
-    for k in range(NUM_AISLES):
-        angle += AISLE_WIDTH  / perimeter * 2 * math.pi
-        base_angle = ((perimeter / NUM_AISLES) - AISLE_WIDTH) / perimeter * 2 * math.pi / ring_bases
-        for j in range(ring_bases):
-            if (j==0 or j==(ring_bases-1)):     # figure out if light is on an edge (inner circle, outer circle, start or end of a run between aisles)
-              tags = ["path","edge"]
-            elif (ring == 0):
-              tags = ["inner","edge"]
-            elif (last_ring):
-              tags = ["outer","edge"]
-            else:
-              tags = ["area"]
-            
-            x = radius * math.cos(angle)
-            z = radius*math.sin(angle)
+  for k in range(NUM_AISLES):
+    angle += aisle_angle                        # first take up the aisle width    
 
-            if (k==0):
-              if (math.sqrt((x-EYE_CENTER_X)*(x-EYE_CENTER_X) + (z-EYE_CENTER_Z)*(z-EYE_CENTER_Z)) >= EYE_SIZE):
-                tags.append("yinyang")
-            else:
-              if (math.sqrt((x+EYE_CENTER_X)*(x+EYE_CENTER_X) + (z+EYE_CENTER_Z)*(z+EYE_CENTER_Z)) < EYE_SIZE or j==0 or j==(ring_bases-1) or ring==0 or last_ring):
-                tags.append("yinyang")
+    for j in range(ring_bases):
+      if (j==0 or j==(ring_bases-1)):     # figure out if light is on an edge (inner circle, outer circle, start or end of a run between aisles)
+        tags = ["path","edge"]
+      elif (ring == 0):
+        tags = ["inner","edge"]
+      elif (last_ring):
+        tags = ["outer","edge"]
+      else:
+        tags = ["area"]
+      
+      x = radius * math.cos(angle)
+      z = radius*math.sin(angle)
 
-            base = BaseFixture(x=x, z=z, tags=tags, modelKeys=tags)
-            bases.append (base)
-            numbases = numbases-1
-            i = i + 1
-            angle = angle + base_angle
+      if (k==0):
+        if (math.sqrt((x-EYE_CENTER_X)*(x-EYE_CENTER_X) + (z-EYE_CENTER_Z)*(z-EYE_CENTER_Z)) >= EYE_SIZE):
+          tags.append("yinyang")
+      else:
+        if (math.sqrt((x+EYE_CENTER_X)*(x+EYE_CENTER_X) + (z+EYE_CENTER_Z)*(z+EYE_CENTER_Z)) < EYE_SIZE or j==0 or j==(ring_bases-1) or ring==0 or last_ring):
+          tags.append("yinyang")
 
-    radius = radius + BASE_SPACING
-    angle_offset = angle_offset + AISLE_CURVE
-    ring = ring + 1
+      base = BaseFixture(x=x, z=z, tags=tags, modelKeys=tags)
+      bases.append (base)
+      numbases = numbases-1
+      i = i + 1
+      angle += base_angle    # advance to the next base
+
+    angle -= base_angle             # now move back when we get to the next aisle
+
+  radius = radius + BASE_SPACING
+  angle_offset += AISLE_CURVE       # each iteration, shift a little over so the aisle curves
+  ring = ring + 1
 
 numpoints = i * POINTS_PER_BASE
 universe = 0
