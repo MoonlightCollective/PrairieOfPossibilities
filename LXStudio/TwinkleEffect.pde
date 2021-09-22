@@ -6,7 +6,7 @@ import java.util.Stack;
 public static class TwinkleEffect extends LXEffect {
 	public final CompoundParameter blinkTimeMin = new CompoundParameter("MinTime",1,0.01,2).setDescription("Min time between twinkles");
 	public final CompoundParameter blinkTimeMax = new CompoundParameter("MaxTime",1,0.01,2).setDescription("Max time between twinkles");
-	public final CompoundParameter intensity = new CompoundParameter("Intensity",80,0,255).setDescription("Max brightness of a twinkle");
+	public final CompoundParameter intensity = new CompoundParameter("Intensity",80,0,100).setDescription("Max brightness of a twinkle");
 	public final CompoundParameter decayTimeS = new CompoundParameter("DecayTime",.5,0,2);
 	public final CompoundParameter elementStartOffsetMs = new CompoundParameter("AttackTimeMs",40,0,600);
 	
@@ -152,7 +152,7 @@ public static class TwinkleEffect extends LXEffect {
 				for (int i = 0; i < PrairieUtils.kNumLightsPerPlant; i++) {
 					float brightAdd = twink.ValForEnv(i) * intensity.getValuef();
 					// println("updateLight("+i+")" + twink.ValForEnv(i));
-					float bright = brightAdd + LXColor.b(colors[baseDex+i]);
+					float bright = min(brightAdd + LXColor.b(colors[baseDex+i]),100);
 					int c = colors[baseDex + i];
 					colors[baseDex + i] = LXColor.hsb(LXColor.h(c),LXColor.s(c),(int)bright);
 				}
