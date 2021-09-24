@@ -593,7 +593,7 @@ public static class MultiDonutRandomPattern extends LXPattern {
   
   public final CompoundParameter duration = new CompoundParameter("Duration", 0.1,2.0);
  
-  public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false);
+  public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false).setMode(BooleanParameter.Mode.MOMENTARY);
 
   public class RingInfo
   {
@@ -1150,13 +1150,13 @@ public static class TriggeredFlashesPattern extends LXPattern
 		
 		int outerB = (int)(outsideBrightMin.getValuef() + (outerEnv.CurVal * (outsideBrightMax.getValuef()-outsideBrightMin.getValuef())) * 2.559f);
 		int innerB = (int)(insideBrightMin.getValuef() + (innerEnv.CurVal * (insideBrightMax.getValuef()-insideBrightMin.getValuef())) * 2.559f);
-
+		
 		for (LXPoint p : model.points) {
 			if (PrairieUtils.IsInner(p.index)) {
-				colors[p.index] = LXColor.rgba(outerB, outerB, outerB, outerB);
+				colors[p.index] = LXColor.rgba(innerB, innerB, innerB, innerB);
 			}
 			else {
-				colors[p.index] = LXColor.rgba(innerB, innerB, innerB, innerB);
+				colors[p.index] = LXColor.rgba(outerB, outerB, outerB, outerB);
 			}
 		}
 	}
