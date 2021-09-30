@@ -26,8 +26,6 @@ public static class PrairieEnvAD
 
 	private double envTimer;
 	private double totalTimeMs;
-	private double attackTimeMs;
-	private double decayTimeMs;
 
 	public PrairieEnvAD(double attackTimeMs, double decayTimeMs)
 	{
@@ -39,8 +37,10 @@ public static class PrairieEnvAD
 	public void Update(double updateMs)
 	{
 		totalTimeMs = AttackTimeMs + DecayTimeMs; // compute this each update since it might have changed.  Could be more efficient with dirty bits.
+		// println("envUpdateA:" + envTimer + "/" + totalTimeMs+ "(" + updateMs + ")");
 		if (IsActive) {
 			envTimer = Math.min(envTimer + updateMs,totalTimeMs);
+			// println("envUpdateB:" + envTimer + "/" + totalTimeMs);
 
 			if (envTimer >= totalTimeMs) {
 				IsActive = false;
@@ -63,10 +63,12 @@ public static class PrairieEnvAD
 		{
 			IsActive = true;
 			
-			if (IsActive) // if we are in the middle of an envelope, then we don't want to reset
+			if (IsActive && !retrig) // if we are in the middle of an envelope, then we don't want to reset
 				envTimer = CurVal * AttackTimeMs; // fast forward in the envelope to catch up to our current (normalized) value
 			else
-				CurVal = 0;
+				envTimer = 0;
+			
+			CurVal = 0;
 		}
 	}
 
