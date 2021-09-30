@@ -181,7 +181,7 @@ public static class RainPattern extends LXPattern
 			SingleDrop drop = dropPool.pop();
 			int baseDex = PrairieUtils.RandomPlantDex(model.size) * PrairieUtils.kNumLightsPerPlant;
 			drop.StartDrop((double)maxIntensity.getValuef(),(double)dropAttack.getValuef()*1000,(double)dropDecay.getValuef()*1000,size.getValuef(),dropDecay.getValuef()*1000,model.points[baseDex].xn,model.points[baseDex].zn);
-			println("Triggered new:" + (double)maxIntensity.getValuef()+ "," + (double)dropAttack.getValuef() + "," + (double)dropDecay.getValuef() + "at" + model.points[baseDex].xn + "," + model.points[baseDex].zn);
+			//println("Triggered new:" + (double)maxIntensity.getValuef()+ "," + (double)dropAttack.getValuef() + "," + (double)dropDecay.getValuef() + "at" + model.points[baseDex].xn + "," + model.points[baseDex].zn);
 			activeDrops.add(drop);
 		}
 	}
@@ -220,4 +220,3 @@ public static class RainPattern extends LXPattern
 		}
 	}
 }
-
