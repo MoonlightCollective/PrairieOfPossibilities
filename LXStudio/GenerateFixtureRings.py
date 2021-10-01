@@ -79,6 +79,7 @@ while numbases > 0:
               if (math.sqrt((x+EYE_CENTER_X)*(x+EYE_CENTER_X) + (z+EYE_CENTER_Z)*(z+EYE_CENTER_Z)) < EYE_SIZE or j==0 or j==(ring_bases-1) or ring==0 or last_ring):
                 tags.append("yinyang")
 
+            tags.append("section"+str(k));
             base = BaseFixture(x=x, z=z, tags=tags, modelKeys=tags)
             bases.append (base)
             numbases = numbases-1
