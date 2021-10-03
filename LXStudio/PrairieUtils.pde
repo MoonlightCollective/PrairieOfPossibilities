@@ -19,19 +19,22 @@ public static class PrairieUtils {
 
 public static class PrairieEnvAD
 {
-	public boolean IsActive = false;
-	public double AttackTimeMs = 0.1f;
-	public double DecayTimeMs = 0.3f;
-	public float CurVal = 0;
+	public boolean IsActive;
+	public double AttackTimeMs;
+	public double DecayTimeMs;
+	public float CurVal;
 
 	private double envTimer;
 	private double totalTimeMs;
 
 	public PrairieEnvAD(double attackTimeMs, double decayTimeMs)
 	{
+		CurVal = 0;
+		IsActive = false;
 		AttackTimeMs = attackTimeMs;
 		DecayTimeMs = decayTimeMs;
-		totalTimeMs = AttackTimeMs + DecayTimeMs; // compute this each update since it might have changed.  Could be more efficient with dirty bits.
+		envTimer = 0;
+		totalTimeMs = AttackTimeMs + DecayTimeMs;
 	}
 
 	public void Update(double updateMs)
