@@ -14,7 +14,11 @@ public static class PrairieUtils {
 	{
 	    return rand.nextInt(modelSize/kNumLightsPerPlant);
 	}
-	
+
+	public static int RandomInRange(int lower, int upper)
+	{
+		return rand.nextInt((upper - lower) + 1) + lower;
+	}
 }
 
 public static class PrairieEnvAD
