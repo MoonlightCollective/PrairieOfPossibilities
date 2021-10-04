@@ -18,12 +18,17 @@ public static class MultiPattern extends LXPattern {
   public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false)
     .setDescription("Triggers a new particle");
 
+  public final CompoundParameter decay = new CompoundParameter("Decay", 0.9f, 0.9f, 1.0f)
+    .setDescription("Sets decay for this effect");
+
   protected ArrayList<ParticleInfo> particles = new ArrayList<ParticleInfo> ();
+  protected int[] buffer = new int[model.size]; // use for fading out lights (ie, tail)
  
   protected MultiPattern(LX lx) {
     super(lx);
     triggerBool.setMode(BooleanParameter.Mode.MOMENTARY);
     addParameter("Trigger",this.triggerBool);
+    addParameter("Decay",this.decay);
   }
   
   public void addParticle (ParticleInfo particle)
@@ -39,13 +44,22 @@ public static class MultiPattern extends LXPattern {
 
   public void computeColors()
   {
+    for (int i = 0; i < model.size; i++)
+    {
+        buffer[i] = LXColor.multiply (buffer[i], LXColor.grayn(decay.getValuef()));
+        if (LXColor.b(buffer[i]) <= 10)
+          buffer[i] = 0;
+    }
+
     for (LXPoint p : model.points) 
     {
-      colors[p.index] = 0;
+      colors[p.index] = buffer[p.index];
+
       for (ParticleInfo particle : particles)
       {
         int col = particle.getColorValue(p);
         colors[p.index] = LXColor.add(colors[p.index], col);
+        buffer[p.index] = colors[p.index];
       }
     }
   }
