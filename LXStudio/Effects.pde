@@ -129,10 +129,12 @@ public static class FilterEffect extends LXEffect
 		Inner,
 		Outer,
 		Area,
-		Yinyang
+		Yinyang,
+		Section0,
+		Section1,
 	};
 
-	private String[] filters = {"path","edge","inner","outer","area","yinyang"};
+	private String[] filters = {"path","edge","inner","outer","area","yinyang","section0","section1"};
 
 	private boolean[] mask;
 
@@ -190,6 +192,12 @@ public static class FilterEffect extends LXEffect
 				break;
 			case Yinyang:
 				iEnum = 5;
+				break;
+			case Section0:
+				iEnum = 6;
+				break;
+			case Section1:
+				iEnum = 7;
 				break;
 		}
 

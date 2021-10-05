@@ -8,8 +8,8 @@ public class MidiNoteListenEffect extends LXEffect implements LXTriggerSource {
 	public DiscreteParameter midiNoteMin = new DiscreteParameter("MinNoteVal",0,0,127);
 	public DiscreteParameter midiNoteMax = new DiscreteParameter("MaxNoteVal",127,0,127);
 
-	public DiscreteParameter lastNoteDown = new DiscreteParameter("Pitch",0,0,127);
-	public CompoundParameter lastNoteNorm = new CompoundParameter("PitchNorm",0,0,1);
+	public DiscreteParameter lastNotePitchAbs = new DiscreteParameter("Pitch",0,0,127);
+	public CompoundParameter lastNotePitchNorm = new CompoundParameter("PitchNorm",0,0,1);
 	public CompoundParameter lastNoteVelNorm = new CompoundParameter("VelNorm",0,0,1);
 	public DiscreteParameter noteCount = new DiscreteParameter("NoteCount",0,0,1);
 
@@ -17,15 +17,14 @@ public class MidiNoteListenEffect extends LXEffect implements LXTriggerSource {
 		super(lx);
 		addParameter("MinNote",this.midiNoteMin);
 		addParameter("MaxNote",this.midiNoteMax);
-		addParameter("Pitch",lastNoteDown);
-		addParameter("PitchNorm",lastNoteNorm);
+		addParameter("Pitch",lastNotePitchAbs);
+		addParameter("PitchNorm",lastNotePitchNorm);
 		addParameter("VelNorm",lastNoteVelNorm);
 		addParameter("NoteGateOut",anyNoteOn);
 		addParameter("NoteTrigOut",noteTrig);
 	}
 
 	private ArrayList<MidiNote> notesDown = new ArrayList<MidiNote>();
-
 	public BooleanParameter getTriggerSource() {
 		return this.noteTrig;
 	}
@@ -42,9 +41,6 @@ public class MidiNoteListenEffect extends LXEffect implements LXTriggerSource {
 
 	protected void noNotesDown()
 	{
-		lastNoteVelNorm.setValue(0);
-		lastNoteDown.setValue(0);
-		lastNoteNorm.setValue(0);
 		anyNoteOn.setValue(false);
 	}
 
@@ -73,8 +69,8 @@ public class MidiNoteListenEffect extends LXEffect implements LXTriggerSource {
 			this.noteTrig.setValue(true);
 			int pitch = note.getPitch();
 			int vel = note.getVelocity();
-			lastNoteDown.setValue(pitch);
-			lastNoteNorm.setValue((float)(pitch-midiNoteMin.getValuei())/(float)(midiNoteMax.getValuei() - midiNoteMin.getValuei()));
+			lastNotePitchAbs.setValue(pitch);
+			lastNotePitchNorm.setValue((float)(pitch-midiNoteMin.getValuei())/(float)(midiNoteMax.getValuei() - midiNoteMin.getValuei()));
 			lastNoteVelNorm.setValue((float)vel / (float)128);
 			notesDown.add(note);
 		}

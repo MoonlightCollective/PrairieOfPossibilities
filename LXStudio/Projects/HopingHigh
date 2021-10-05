@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1632683870126,
+  "timestamp": 1632941424302,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -69,7 +69,7 @@
       "multithreaded": true,
       "channelMultithreaded": false,
       "networkMultithreaded": false,
-      "framesPerSecond": 60.0,
+      "framesPerSecond": 133.0,
       "speed": 1.0
     },
     "children": {
@@ -304,7 +304,7 @@
         },
         "parameters": {
           "label": "Tempo",
-          "clockSource": 0,
+          "clockSource": 1,
           "period": 624.0,
           "bpm": 96.15384615384616,
           "tap": false,
@@ -470,7 +470,7 @@
                   "label": "Filter",
                   "enabled": false,
                   "Filter": 0,
-                  "Invert": false
+                  "Invert": true
                 },
                 "children": {
                   "modulation": {
@@ -35399,12 +35399,12 @@
                 "parameters": {
                   "label": "TriggeredFlashes",
                   "OB Min": 0.0,
-                  "OB Max": 20.000001788139343,
+                  "OB Max": 42.000001296401024,
                   "O Atk": 0.0,
                   "O Dcy": 0.889999996870756,
                   "IB Min": 0.0,
-                  "IB Max": 87.00000029057264,
-                  "I Atk": 0.05999999865889549,
+                  "IB Max": 91.00000020116568,
+                  "I Atk": 0.0,
                   "I Dcy": 0.9499999899417161,
                   "I Trg": false,
                   "O Trg": false
@@ -52638,7 +52638,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.33070866141732286,
+              "macro1": 0.984251968503937,
               "macro2": 0.7795275590551181,
               "macro3": 0.0,
               "macro4": 0.9291338582677166,
@@ -52657,7 +52657,7 @@
               "running": true,
               "trigger": false,
               "macro1": 0.7322834645669292,
-              "macro2": 0.9606299212598425,
+              "macro2": 1.0,
               "macro3": 0.7874015748031497,
               "macro4": 0.0,
               "macro5": 1.0
@@ -52674,7 +52674,7 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.0,
+              "macro1": 0.4409448818897638,
               "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
@@ -52699,7 +52699,7 @@
               "period": 1695.992444494506
             },
             "children": {},
-            "basis": 0.6472261815054958,
+            "basis": 0.1725710124128217,
             "stages": [
               {
                 "basis": 0.0,
@@ -53251,8 +53251,20 @@
         "children": {},
         "inputs": [
           {
-            "name": "HomeBoxBlack",
+            "name": "DIN",
+            "channel": false,
+            "control": true,
+            "sync": false
+          },
+          {
+            "name": "USB1",
             "channel": true,
+            "control": true,
+            "sync": false
+          },
+          {
+            "name": "MIDIIN2 (AUDIO4c)",
+            "channel": false,
             "control": true,
             "sync": false
           }
@@ -53619,8 +53631,8 @@
         "camera": {
           "active": true,
           "radius": 2159.404410518641,
-          "theta": -6.5329483260866255,
-          "phi": 0.5461145136505365,
+          "theta": -5.0291726475115865,
+          "phi": 1.4137166738510132,
           "x": 7.331119880080223,
           "y": 17.829961761832237,
           "z": -131.65263079386204
@@ -53629,8 +53641,8 @@
           {
             "active": true,
             "radius": 2159.404410518641,
-            "theta": -6.5329483260866255,
-            "phi": 0.5461145136505365,
+            "theta": -5.0291726475115865,
+            "phi": 1.4137166738510132,
             "x": 7.331119880080223,
             "y": 17.829961761832237,
             "z": -131.65263079386204

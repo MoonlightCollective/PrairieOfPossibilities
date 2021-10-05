@@ -9,38 +9,46 @@ public static class PrairieUtils {
 	public static boolean IsOuter(int pointDex) { return(pointDex%7 > 1); }
 
 	public static final int kNumLightsPerPlant = 7;
+	public static final int kNumRings = 7;
 
 	public static int RandomPlantDex(int modelSize)
 	{
 	    return rand.nextInt(modelSize/kNumLightsPerPlant);
 	}
-	
+
+	public static int RandomInRange(int lower, int upper)
+	{
+		return rand.nextInt((upper - lower) + 1) + lower;
+	}
 }
 
 public static class PrairieEnvAD
 {
-	public boolean IsActive = false;
-	public double AttackTimeMs = 0.1f;
-	public double DecayTimeMs = 0.3f;
-	public float CurVal = 0;
+	public boolean IsActive;
+	public double AttackTimeMs;
+	public double DecayTimeMs;
+	public float CurVal;
 
 	private double envTimer;
 	private double totalTimeMs;
-	private double attackTimeMs;
-	private double decayTimeMs;
 
 	public PrairieEnvAD(double attackTimeMs, double decayTimeMs)
 	{
+		CurVal = 0;
+		IsActive = false;
 		AttackTimeMs = attackTimeMs;
 		DecayTimeMs = decayTimeMs;
-		totalTimeMs = AttackTimeMs + DecayTimeMs; // compute this each update since it might have changed.  Could be more efficient with dirty bits.
+		envTimer = 0;
+		totalTimeMs = AttackTimeMs + DecayTimeMs;
 	}
 
 	public void Update(double updateMs)
 	{
 		totalTimeMs = AttackTimeMs + DecayTimeMs; // compute this each update since it might have changed.  Could be more efficient with dirty bits.
+		// println("envUpdateA:" + envTimer + "/" + totalTimeMs+ "(" + updateMs + ")");
 		if (IsActive) {
 			envTimer = Math.min(envTimer + updateMs,totalTimeMs);
+			// println("envUpdateB:" + envTimer + "/" + totalTimeMs);
 
 			if (envTimer >= totalTimeMs) {
 				IsActive = false;
@@ -63,10 +71,12 @@ public static class PrairieEnvAD
 		{
 			IsActive = true;
 			
-			if (IsActive) // if we are in the middle of an envelope, then we don't want to reset
+			if (IsActive && !retrig) // if we are in the middle of an envelope, then we don't want to reset
 				envTimer = CurVal * AttackTimeMs; // fast forward in the envelope to catch up to our current (normalized) value
 			else
-				CurVal = 0;
+				envTimer = 0;
+			
+			CurVal = 0;
 		}
 	}
 
