@@ -9,6 +9,7 @@ public static class PrairieUtils {
 	public static boolean IsOuter(int pointDex) { return(pointDex%7 > 1); }
 
 	public static final int kNumLightsPerPlant = 7;
+	public static final int kNumRings = 7;
 
 	public static int RandomPlantDex(int modelSize)
 	{

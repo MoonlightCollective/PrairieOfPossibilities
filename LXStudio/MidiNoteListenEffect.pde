@@ -65,9 +65,7 @@ public class MidiNoteListenEffect extends LXEffect implements LXTriggerSource {
 		}
 	}
 	public void noteOnReceived(MidiNoteOn note) {
-		println("Note in");
 		if (noteInRange(note)) {
-			println("Note in range");
 			this.noteTrig.setValue(true);
 			int pitch = note.getPitch();
 			int vel = note.getVelocity();
