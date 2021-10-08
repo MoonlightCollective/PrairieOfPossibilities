@@ -9,7 +9,7 @@ public static class TargetedColorizePaletteEffect extends LXEffect //implements 
 	}
 
 	public final DiscreteParameter targetType = new DiscreteParameter("Target",new String[]{"None","Inner","Outer","Both"},3);
-	public final DiscreteParameter paletteDex = new DiscreteParameter("Index",1,1,LXSwatch.MAX_COLORS);
+	public final DiscreteParameter paletteDex = new DiscreteParameter("Index",1,1,LXSwatch.MAX_COLORS+1);
 	public final BooleanParameter interpNext = new BooleanParameter("Interp",false);
 
 	public TargetedColorizePaletteEffect(LX lx) {
@@ -61,14 +61,14 @@ public static class TargetedColorizePaletteEffect extends LXEffect //implements 
 			{
 				// what's the current brightness? We'l keep the same brightness.
 				float b = LXColor.b(colors[p.index]);
-				
-				fromColor = LXColor.hsb(selectedH,selectedS,b);
-				if (interpNext.getValueb())
-					toColor = LXColor.hsb(nextH,nextS,b);
-				else
-					toColor = LXColor.hsb(selectedH,selectedS,b);
-
 				double alpha = b/100;
+				
+				fromColor = LXColor.hsba(selectedH,selectedS,b,alpha);
+				if (interpNext.getValueb())
+					toColor = LXColor.hsba(nextH,nextS,b,alpha);
+				else
+					toColor = LXColor.hsba(selectedH,selectedS,b,alpha);
+
 				colors[p.index] = LXColor.lerp(fromColor,toColor,alpha);
 			}
 		}
