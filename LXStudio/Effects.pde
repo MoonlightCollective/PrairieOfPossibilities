@@ -147,7 +147,6 @@ public static class RingColorEffect extends LXEffect implements UIDeviceControls
 					float b = LXColor.b(colors[p.index]);
 					float a = (LXColor.alpha(colors[p.index]) / 255.0f); // convert from 0-255 into 0-1
 					colors[p.index] = LXColor.hsba(h, s, b, a);
-					//TODO: need to figure out how to set alpha too
 				}
 			}
 		}
@@ -162,7 +161,6 @@ public static class RingColorEffect extends LXEffect implements UIDeviceControls
 	    UIColorPicker c5Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(4));
 	    UIColorPicker c6Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(5));
 	    UIColorPicker c7Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(6));
-	    UIColorPicker c8Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(7));
 		c1Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
 		c2Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
 		c3Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
@@ -170,9 +168,8 @@ public static class RingColorEffect extends LXEffect implements UIDeviceControls
 		c5Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
 		c6Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
 		c7Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
-		c8Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
 		UI2dContainer row1 = UI2dContainer.newHorizontalContainer(50,10,c1Picker,c2Picker, c3Picker,c4Picker);
-		UI2dContainer row2 = UI2dContainer.newHorizontalContainer(50,10,c5Picker,c6Picker, c7Picker,c8Picker);
+		UI2dContainer row2 = UI2dContainer.newHorizontalContainer(50,10,c5Picker,c6Picker, c7Picker);
 		addColumn(uiDevice,150,row1,row2);
   	}
 }
