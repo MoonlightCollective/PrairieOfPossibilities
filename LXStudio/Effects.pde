@@ -118,6 +118,66 @@ public static class TargetedColorizeEffect2 extends LXEffect implements UIDevice
 
 }
 
+@LXCategory("PrairieEffects")
+public static class RingColorEffect extends LXEffect implements UIDeviceControls<RingColorEffect>
+{
+	public ArrayList<ColorParameter> ringColors = new ArrayList<ColorParameter> ();
+
+	public RingColorEffect(LX lx) {
+		super(lx);
+		for (int i = 0; i<PrairieUtils.kNumRings; i++)
+		{
+			String ringName = "ring " + Integer.toString(i);
+			ColorParameter c = new ColorParameter(ringName, 0xFFFF0000).setDescription("Color for " + ringName);
+			ringColors.add(c);
+			addParameter(ringName, c);
+		}
+	}
+
+	@Override
+	protected void run(double deltaMs, double enabledAmount) {
+		for (int i=0; i<PrairieUtils.kNumRings; i++)
+		{
+			float h = ringColors.get(i).hue.getValuef();
+			float s = ringColors.get(i).saturation.getValuef();
+
+	        String strFilter = "ring" + Integer.toString(i);
+			for (LXModel m : model.sub(strFilter)) {
+				for (LXPoint p : m.points) {
+					float b = LXColor.b(colors[p.index]);
+					float a = (LXColor.alpha(colors[p.index]) / 255.0f); // convert from 0-255 into 0-1
+					colors[p.index] = LXColor.hsba(h, s, b, a);
+					//TODO: need to figure out how to set alpha too
+				}
+			}
+		}
+	}
+
+	public void buildDeviceControls(heronarts.lx.studio.LXStudio.UI ui, UIDevice uiDevice, RingColorEffect ringEffect) {
+    	uiDevice.setContentWidth(150);
+	    UIColorPicker c1Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(0));
+	    UIColorPicker c2Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(1));
+	    UIColorPicker c3Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(2));
+	    UIColorPicker c4Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(3));
+	    UIColorPicker c5Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(4));
+	    UIColorPicker c6Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(5));
+	    UIColorPicker c7Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(6));
+	    UIColorPicker c8Picker = new UIColorPicker(25,20,ringEffect.ringColors.get(7));
+		c1Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c2Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c3Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c4Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c5Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c6Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c7Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		c8Picker.setCorner(UIColorPicker.Corner.TOP_RIGHT);
+		UI2dContainer row1 = UI2dContainer.newHorizontalContainer(50,10,c1Picker,c2Picker, c3Picker,c4Picker);
+		UI2dContainer row2 = UI2dContainer.newHorizontalContainer(50,10,c5Picker,c6Picker, c7Picker,c8Picker);
+		addColumn(uiDevice,150,row1,row2);
+  	}
+}
+
+
 
 @LXCategory("PrairieEffects")
 public static class FilterEffect extends LXEffect
