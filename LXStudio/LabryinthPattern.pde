@@ -8,8 +8,11 @@ import java.util.Stack;
 @LXCategory("Form")
 public static class LabyrinthPattern extends MultiPattern {
   
-    public final CompoundParameter speed  = new CompoundParameter("Speed", 5, 20)
-        .setDescription("Speed of the chase effect in lights per second");
+    public final CompoundParameter speedInner  = new CompoundParameter("Speed Inner", 5, 20)
+        .setDescription("Speed of the chase effect in lights per second for inner ring");
+
+    public final CompoundParameter speedOuter  = new CompoundParameter("Speed Outer", 5, 20)
+        .setDescription("Speed of the chase effect in lights per second for outer ring");
 
     public EnumParameter<Direction> direction = new EnumParameter<Direction>("Direction",Direction.CW);
 
@@ -25,6 +28,7 @@ public static class LabyrinthPattern extends MultiPattern {
       public int rangeEnd;   
       public int length;    // length of wisp in terms of number of lights lit up
 	  public boolean isCW;	// direction of travel
+	  public int iRing;		// which ring is this?
 
       private float pos;         // location within the range of the head of the wisp
     
@@ -33,6 +37,7 @@ public static class LabyrinthPattern extends MultiPattern {
         // must first calculate the start and end positions of the lights on this ring
         rangeStart = 100000; // set absurd upper and lower limits
         rangeEnd = 0;
+		iRing = ring;
 
         String strFilter = "ring" + Integer.toString(ring);
 		for (LXModel m : model.sub(strFilter)) {
@@ -49,7 +54,8 @@ public static class LabyrinthPattern extends MultiPattern {
     
     public void UpdateParticle(float deltaSec)
     {
-		float velocity = speed.getValuef() * PrairieUtils.kNumLightsPerPlant;
+		float velocity = (speedInner.getValuef() + (iRing * (speedOuter.getValuef() - speedInner.getValuef()) / (PrairieUtils.kNumRings - 1))) * PrairieUtils.kNumLightsPerPlant;
+		
 		if (!isCW)
 			velocity = velocity * -1.0f;
         pos = pos + (velocity * deltaSec);	/// use speed directly from knob so it can change at any time
@@ -72,7 +78,7 @@ public static class LabyrinthPattern extends MultiPattern {
     {
         int b = 255;
         int wrap = (int)max(0, ((pos + length) - rangeEnd));
-        int trim = (int)min(length, (rangeEnd - pos));
+        int trim = (int)min(length, (rangeEnd - pos)+1);
 
         if ( (pt.index >= rangeStart && pt.index < (rangeStart + wrap)) || (pt.index >= pos && pt.index < (pos + trim)))
             return LXColor.rgba(b,b,b,255);
@@ -83,7 +89,8 @@ public static class LabyrinthPattern extends MultiPattern {
  
   public LabyrinthPattern(LX lx) {
     super(lx);
-    addParameter("Speed", this.speed);
+    addParameter("Speed Inner", this.speedInner);
+    addParameter("Speed Outer", this.speedOuter);
     addParameter("Direction", this.direction);
 
 	Direction isCW = direction.getEnum();
