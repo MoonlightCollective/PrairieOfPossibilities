@@ -8,16 +8,16 @@ import java.util.Stack;
 @LXCategory("Triggered")
 public static class WispPattern extends MultiPattern {
   
-    public final DiscreteParameter ringMin = new DiscreteParameter("RingMin", 0, 0, 8)
+    public final CompoundParameter ringMin = new CompoundParameter("RingMin", 0, 0, 7)
         .setDescription("Defines lower limit of which rings the wisps travel on");
 
-    public final DiscreteParameter ringMax = new DiscreteParameter("RingMax", 7, 0, 8)
+    public final CompoundParameter ringMax = new CompoundParameter("RingMax", 6.9, 0, 7)
         .setDescription("Defines upper limit of which rings the wisps travel on");
 
-    public final DiscreteParameter lengthMin  = new DiscreteParameter("LengthMin", 5, 0, 10)
+    public final CompoundParameter lengthMin  = new CompoundParameter("LengthMin", 5, 0, 10)
         .setDescription("Length of each Wisp");
 
-    public final DiscreteParameter lengthMax  = new DiscreteParameter("LengthMax", 5, 0, 10)
+    public final CompoundParameter lengthMax  = new CompoundParameter("LengthMax", 5, 0, 10)
         .setDescription("Length of each Wisp");
 
     public final CompoundParameter durationMin  = new CompoundParameter("DurationMin", 1, 10)
@@ -136,8 +136,8 @@ public static class WispPattern extends MultiPattern {
 
     super.triggerNewParticle();
     addParticle(new Wisp(
-                PrairieUtils.RandomInRange (ringMin.getValuei(), ringMax.getValuei()),
-                PrairieUtils.RandomInRange (lengthMin.getValuei(), lengthMax.getValuei()),
+                PrairieUtils.RandomInRange ((int)ringMin.getValuef(), (int)ringMax.getValuef()),
+                PrairieUtils.RandomInRange ((int)lengthMin.getValuef(),(int)lengthMax.getValuef()),
                 (float)LXUtils.random(durationMin.getValuef(), durationMax.getValuef()),
                 (float)LXUtils.random(speedMin.getValuef(), speedMax.getValuef()),
                 direction.getEnum()));

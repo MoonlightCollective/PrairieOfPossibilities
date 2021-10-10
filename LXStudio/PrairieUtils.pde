@@ -18,7 +18,10 @@ public static class PrairieUtils {
 
 	public static int RandomInRange(int lower, int upper)
 	{
-		return rand.nextInt((upper - lower) + 1) + lower;
+		int minVal = min(lower,upper);
+		int maxVal = max(upper,lower);
+		
+		return rand.nextInt(maxVal - minVal+1) + lower;
 	}
 }
 
