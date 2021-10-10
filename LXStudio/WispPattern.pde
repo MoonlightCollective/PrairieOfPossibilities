@@ -50,6 +50,7 @@ public static class WispPattern extends MultiPattern {
       public float speed;       // speed of the wisp... pos = cw, neg = ccw
 
       private float pos;         // location within the range of the head of the wisp
+      private float curLength;   // let the wisp grow when it first starts out
       private float timer;     // how much longer until the Wisp goes away
     
     Wisp(int ring, int size, float duration, float speed, Direction direction)
@@ -71,6 +72,7 @@ public static class WispPattern extends MultiPattern {
         this.timer = duration;
         this.speed = speed * PrairieUtils.kNumLightsPerPlant;
         this.pos = (float)LXUtils.random(rangeStart, rangeEnd);
+        this.curLength = 0;
 
         if (direction == Direction.CCW || (direction == Direction.Both && (int)LXUtils.random(0,2) == 0))
         {
@@ -80,7 +82,9 @@ public static class WispPattern extends MultiPattern {
     
     public void UpdateParticle(float deltaSec)
     {
-        pos = pos + (speed * deltaSec);
+        float dist = (speed * deltaSec);
+        curLength = min(length, curLength + abs(dist));
+        pos = pos + dist;
         if (pos > rangeEnd)
         {
             pos = rangeStart + (pos - rangeEnd);
@@ -100,8 +104,8 @@ public static class WispPattern extends MultiPattern {
     public int getColorValue(LXPoint pt)
     {
         int b = 255;
-        int wrap = (int)max(0, ((pos + length) - rangeEnd));
-        int trim = (int)min(length, (rangeEnd - pos));
+        int wrap = (int)max(0, ((pos + curLength) - rangeEnd));
+        int trim = (int)min(curLength, (rangeEnd - pos + 1));
 
         if ( (pt.index >= rangeStart && pt.index < (rangeStart + wrap)) || (pt.index >= pos && pt.index < (pos + trim)))
             return LXColor.rgba(b,b,b,255);
