@@ -38,15 +38,19 @@ public static class SnakePattern extends MultiPattern {
   public class Snake implements ParticleInfo
   {
       public int length;    // length of snake in terms of number of lights lit up
-      public int start;     // first light lit up
-      public int end;       // last light lit up
-      public float speed;   // how fast the snake moves
+      public float start;     // first light lit up
+      public float end;       // last light lit up
       public float brightness;      // how bright the snake should be
+
+      private float ds;         // delta speed -- how much speed grows as we move
+      private float speed;      // how fast the snake moves -- unit time
     
     Snake(float size, float duration, float brightness, Direction direction)
     {
         length = (int)(model.size * size);       // convert size of 0-1 into fixed number of lights
-        speed = ((model.size + length) / duration);           // how many lights it needs to advance each second
+        speed = 105.0f / duration;                   // starting speed
+        ds = 266.0f / duration;                  // how much speed increases per unit of time
+//        speed = ((model.size + length) / duration);           // how many lights it needs to advance each second
         this.brightness = brightness;
         if (direction == Direction.Out || (direction == Direction.Both && (int)LXUtils.random(0,2) == 0))
         {
@@ -58,14 +62,15 @@ public static class SnakePattern extends MultiPattern {
             start = model.size;
             end = model.size + length;
             speed = -speed;             // advance inward
+            ds = -ds;
         }
     }
     
     public void UpdateParticle(float deltaSec)
     {
-        int numLights = (int)(speed * deltaSec);
-        start += numLights;
-        end += numLights;
+        start += (speed * deltaSec);
+        end += (speed * deltaSec);
+        speed += (ds * deltaSec);
     }
 
     public boolean isDead()
