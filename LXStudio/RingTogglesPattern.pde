@@ -18,7 +18,6 @@ public static class RingTogglesPattern extends LXPattern
 	public BooleanParameter ring4On = new BooleanParameter("R4",false).setMode(BooleanParameter.Mode.MOMENTARY);
 	public BooleanParameter ring5On = new BooleanParameter("R5",false).setMode(BooleanParameter.Mode.MOMENTARY);
 	public BooleanParameter ring6On = new BooleanParameter("R6",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring7On = new BooleanParameter("R7",false).setMode(BooleanParameter.Mode.MOMENTARY);
 
 	public EnumParameter<ETriggerType> triggerType = new EnumParameter<ETriggerType>("TriggerType",ETriggerType.Bools);
 	public DiscreteParameter midiRootNote = new DiscreteParameter("MidiRoot",60,0,127);
@@ -68,7 +67,6 @@ public static class RingTogglesPattern extends LXPattern
 		addParameter("R4",ring4On);
 		addParameter("R5",ring5On);
 		addParameter("R6",ring6On);
-		addParameter("R7",ring7On);
 		addParameter("MidiRoot",midiRootNote);
 		buildRings();
 	}
@@ -109,7 +107,6 @@ public static class RingTogglesPattern extends LXPattern
 		ringState[4] |= ring4On.getValueb();
 		ringState[5] |= ring5On.getValueb();
 		ringState[6] |= ring6On.getValueb();
-		ringState[7] |= ring7On.getValueb();
 	}
 	
 	protected void updateActiveStatesFromMidi()
