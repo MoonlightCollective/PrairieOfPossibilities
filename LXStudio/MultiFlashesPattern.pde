@@ -95,7 +95,7 @@ public static class MultiFlashesPattern extends MultiPattern
 	}
 
     @Override
-    public void computeColors()
+    public void computeColors(double deltaMs)
     {
         float brightMinF = brightnessMin.getValuef();
         int b = (int)(brightMinF * 2.559f);
