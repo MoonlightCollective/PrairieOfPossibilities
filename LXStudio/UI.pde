@@ -28,9 +28,9 @@ public class UIFloor extends UI3dComponent {
   protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
 
     float level = 255;
-    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
-    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
-    pg.pointLight(level, level, level, 0, 0, 30*FEET);
+    // pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    // pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
+    // pg.pointLight(level, level, level, 0, 0, 30*FEET);
 //    pg.ambientLight(255,255,255);
     
     //pg.perspective();
@@ -194,9 +194,9 @@ public class UILightStem extends UI3dComponent {
 }
 
 public class UILightStemTrio extends UILightStem {
-  public static final float DIAMETER = 0.2*INCHES;
+  public static final float DIAMETER =.8*INCHES;
   public static final float HEIGHT = 60*INCHES;
-  public static final int  DETAIL = 8;
+  public static final int  DETAIL = 4;
 
   public final UICylinder[][] lightStems = new UICylinder[3][6];
 
@@ -273,9 +273,9 @@ public class UILightStemTrio extends UILightStem {
 }
 
 public class UILightStemSingle extends UILightStem {
-  public static final float DIAMETER = 0.4*INCHES;
+  public static final float DIAMETER = 0.8*INCHES;
   public static final float HEIGHT = 49*INCHES;
-  public static final int  DETAIL = 8;
+  public static final int  DETAIL = 4;
 
   UILightStemSingle(LightStem model) {
     super(model);

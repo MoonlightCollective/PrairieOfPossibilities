@@ -28,9 +28,9 @@ Field field;
 UISimulation simulation;
 
 void setup() {
-
-  size(1200, 960, P3D);
-
+  size(1920, 1080, P3D);
+  smooth(8);
+  
   heronarts.lx.studio.LXStudio.Flags flags = new heronarts.lx.studio.LXStudio.Flags(this);
   flags.useGLPointCloud = true;
   flags.startMultiThreaded = true;
