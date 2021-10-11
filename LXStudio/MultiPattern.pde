@@ -18,7 +18,7 @@ public static class MultiPattern extends LXPattern {
   public final BooleanParameter triggerBool = new BooleanParameter("Trigger",false)
     .setDescription("Triggers a new particle");
 
-  public final CompoundParameter decay = new CompoundParameter("Decay", 0.9f, 0.9f, 1.0f)
+  public final CompoundParameter decay = new CompoundParameter("Decay", 0.5f, 0, 3.0f)
     .setDescription("Sets decay for this effect");
 
   protected ArrayList<ParticleInfo> particles = new ArrayList<ParticleInfo> ();
@@ -29,6 +29,7 @@ public static class MultiPattern extends LXPattern {
     triggerBool.setMode(BooleanParameter.Mode.MOMENTARY);
     addParameter("Trigger",this.triggerBool);
     addParameter("Decay",this.decay);
+    this.decay.setUnits(LXParameter.Units.SECONDS);
   }
   
   public void addParticle (ParticleInfo particle)
@@ -42,13 +43,18 @@ public static class MultiPattern extends LXPattern {
     triggerBool.setValue(false);
   }  
 
-  public void computeColors()
+  public void computeColors(double deltaMs)
   {
+    double decayTimeMs = decay.getValuef() * 1000.0f;
+    double alpha = deltaMs / decayTimeMs;
+    int decayGray = LXColor.grayn(alpha);
+
     for (int i = 0; i < model.size; i++)
     {
-        buffer[i] = LXColor.multiply (buffer[i], LXColor.grayn(decay.getValuef()));
-        if (LXColor.b(buffer[i]) <= 10)
-          buffer[i] = 0;
+        int c = LXColor.subtract (buffer[i], decayGray);
+        float b = LXColor.b (c);    // from 0-100
+        c = LXColor.rgba((int)LXColor.red(c), (int)LXColor.green(c), (int)LXColor.blue(c), (int)(b * 2.559f));
+        buffer[i] = c;
     }
 
     for (LXPoint p : model.points) 
@@ -79,6 +85,6 @@ public static class MultiPattern extends LXPattern {
       triggerNewParticle();
     }
 
-    computeColors();
+    computeColors(deltaMs);
   }
 }

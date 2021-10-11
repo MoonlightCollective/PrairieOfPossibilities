@@ -470,7 +470,7 @@ public class SolidPattern extends LXPattern {
   }
 
   public void run(double deltaMs) {
-    setColors(LXColor.hsb(this.h.getValue(), this.s.getValue(), this.b.getValue()));
+    setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(), 255));
   }
 }
 

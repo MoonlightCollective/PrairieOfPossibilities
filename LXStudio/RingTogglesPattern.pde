@@ -1,5 +1,5 @@
 
-
+@LXCategory("Gated")
 public static class RingTogglesPattern extends LXPattern 
 {
 	public enum ETriggerType
@@ -67,6 +67,7 @@ public static class RingTogglesPattern extends LXPattern
 		addParameter("R4",ring4On);
 		addParameter("R5",ring5On);
 		addParameter("R6",ring6On);
+		addParameter("MidiRoot",midiRootNote);
 		buildRings();
 	}
 
