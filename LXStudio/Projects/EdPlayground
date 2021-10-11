@@ -1,6 +1,6 @@
 {
   "version": "0.2.1",
-  "timestamp": 1632204543880,
+  "timestamp": 1632254174401,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -194,7 +194,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 2,
+          "focusedChannel": 0,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -227,9 +227,9 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
-              "cue": false,
+              "cue": true,
               "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
@@ -241,7 +241,7 @@
               "transitionEnabled": false,
               "transitionTimeSecs": 5.0,
               "transitionBlendMode": 0,
-              "focusedPattern": 11,
+              "focusedPattern": 5,
               "triggerPatternCycle": false
             },
             "children": {},
@@ -377,7 +377,7 @@
               }
             ],
             "clips": [],
-            "patternIndex": 11,
+            "patternIndex": 5,
             "patterns": [
               {
                 "id": 1634,
@@ -1020,9 +1020,9 @@
             "parameters": {
               "label": "Channel-3",
               "arm": false,
-              "selected": true,
-              "enabled": true,
-              "cue": true,
+              "selected": false,
+              "enabled": false,
+              "cue": false,
               "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
@@ -1197,7 +1197,7 @@
                   "OB Max": 100.0,
                   "O Atk": 0.08999999798834324,
                   "O Dcy": 0.7999999932944774,
-                  "IB Min": 13.999999687075615,
+                  "IB Min": 14.999999664723873,
                   "IB Max": 100.0,
                   "I Atk": 0.0,
                   "I Dcy": 0.5,
@@ -1316,7 +1316,7 @@
               "exp": 0.25999999418854713
             },
             "children": {},
-            "basis": 0.0
+            "basis": 0.5
           }
         ],
         "modulations": [
@@ -1658,8 +1658,8 @@
         "camera": {
           "active": true,
           "radius": 3311.3512884615643,
-          "theta": -6.861922375624999,
-          "phi": 1.3969615120440722,
+          "theta": -7.1341937521938235,
+          "phi": 0.7016223180107772,
           "x": 113.19695247523487,
           "y": -38.25575317814946,
           "z": -13.161423013312742
@@ -1686,8 +1686,8 @@
           {
             "active": true,
             "radius": 3311.3512884615643,
-            "theta": -6.861922375624999,
-            "phi": 1.3969615120440722,
+            "theta": -7.1341937521938235,
+            "phi": 0.7016223180107772,
             "x": 113.19695247523487,
             "y": -38.25575317814946,
             "z": -13.161423013312742
