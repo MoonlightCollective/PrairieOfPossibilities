@@ -53,6 +53,46 @@ public static class TargetedColorizeEffect extends LXEffect
 }
 
 @LXCategory("PrairieEffects")
+public static class SpinEffect extends LXEffect
+{
+  private float pos = 0; // go between 0 and 1
+  private static final double MOTION = .0005;
+  
+  public final CompoundParameter speed = new CompoundParameter("Speed", 0, 1)
+    .setDescription("Speed of the rotation");
+  
+  public final CompoundParameter wth = new CompoundParameter("Width", .4, 0, 1)
+    .setDescription("Width of the pulse");
+  
+  public SpinEffect(LX lx) {
+    super(lx);
+    addParameter("speed", this.speed);
+    addParameter("width", this.wth);
+  }
+  
+  @Override
+  protected void run(double deltaMs, double enabledAmount) {    
+    float falloff = 100 / this.wth.getValuef();
+    float speed = this.speed.getValuef();
+    int posInt;
+    
+    pos += speed * deltaMs * MOTION;
+    posInt = (int)pos;
+    pos = pos - posInt;
+    
+    float n = 0;
+    float dist = 0;
+    for (LXPoint p : model.points) {
+      n = (p.index % 7) / 7.0;
+      dist = LXUtils.wrapdistf(n,pos,1.0);
+      float b = max (0, (100 - falloff*dist));
+	  int gray = LXColor.gray(b);
+      colors[p.index] = LXColor.multiply(colors[p.index], gray);
+    }
+  }
+}
+
+@LXCategory("PrairieEffects")
 public static class TargetedColorizeEffect2 extends LXEffect implements UIDeviceControls<TargetedColorizeEffect2>
 {
 	public enum ETargetType
