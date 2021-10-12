@@ -85,8 +85,9 @@ public static class SpinEffect extends LXEffect
     for (LXPoint p : model.points) {
       n = (p.index % 7) / 7.0;
       dist = LXUtils.wrapdistf(n,pos,1.0);
-      float b = max (0, (100 - falloff*dist));
-	  int gray = LXColor.gray(b);
+      int b = (int)(max (0, (100 - falloff*dist)) * 2.559);
+	  int a  = LXColor.alpha(colors[p.index]);
+	  int gray = LXColor.rgba(b,b,b,a);
       colors[p.index] = LXColor.multiply(colors[p.index], gray);
     }
   }
