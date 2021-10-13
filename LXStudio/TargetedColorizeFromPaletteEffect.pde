@@ -69,7 +69,13 @@ public static class TargetedColorizePaletteEffect extends LXEffect //implements 
 				else
 					toColor = LXColor.hsba(selectedH,selectedS,b,alpha);
 
-				colors[p.index] = LXColor.lerp(fromColor,toColor,alpha);
+				int lerpColor =  LXColor.lerp(fromColor,toColor,alpha);
+
+				byte curAlpha = LXColor.alpha(colors[p.index]);
+				colors[p.index] = LXColor.rgba(LXColor.red(lerpColor),
+												LXColor.green(lerpColor),
+												LXColor.blue(lerpColor),
+												curAlpha);
 			}
 		}
 	}
