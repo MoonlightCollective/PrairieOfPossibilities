@@ -2,7 +2,7 @@ import sys
 import csv
 import colorsys
 
-HELP_MSG = 'USAGE: paletteMaker <input file name>'
+HELP_MSG = 'USAGE: paletteMaker <input file name> <target json name>'
 
 class PaletteEntry:
 	def __init__(self,pName,c1,c2,c3,c4,c5) -> None:
@@ -87,9 +87,23 @@ def hsvFromRGBEntry(rgbEntry):
 
 ### MAIN
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
 	print(f'{HELP_MSG}')
 	exit(-1)
+
+startId = int(0)
+
+with open (sys.argv[2]) as targetFile:
+	for line in targetFile:
+		if '"id":' in line:
+			start = line.find(':')
+			end = line.find(',')
+			numStr = line[start+1:end]
+			testId = int(numStr) + 1
+			if (testId > startId):
+				startId = testId
+
+print(f'=========Using StartId:{startId}')
 
 with open(sys.argv[1]) as csvFile:
 	csvReader = csv.DictReader(csvFile, delimiter=',')
@@ -107,7 +121,6 @@ with open(sys.argv[1]) as csvFile:
 	
 	# for entry in pEntries:
 		# entry.printValues()
-	startId = int(50000)
 	nextId = startId;
 	printSwatchesOpen(nextId)
 	nextId += 1
