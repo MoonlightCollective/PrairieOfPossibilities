@@ -126,7 +126,7 @@ public static class SpotsPattern extends MultiPattern
 }
 
 @LXCategory("Triggered")
-\public class SpotsPatternRandomColor extends SpotsPattern {
+public class SpotsPatternRandomColor extends SpotsPattern {
 	public final DiscreteParameter slotStartParam = new DiscreteParameter("PaletteSlot",1,1,5);
 	public final DiscreteParameter slotCountParam = new DiscreteParameter("NumColors",0,0,5);
 	public final BooleanParameter sequentialSlots = new BooleanParameter("SequentialColors",false).setMode(BooleanParameter.Mode.TOGGLE);
