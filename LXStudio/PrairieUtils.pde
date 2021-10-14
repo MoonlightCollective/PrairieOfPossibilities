@@ -85,3 +85,77 @@ public static class PrairieEnvAD
 
 
 }
+
+
+
+public static class PrairieEnvASR
+{
+	public boolean IsActive;
+	public double AttackTimeMs;
+	public double SustainTimeMs;
+	public double ReleaseTimeMs;
+	public float CurVal;
+
+	private double envTimer;
+	private double totalTimeMs;
+
+	public PrairieEnvASR(double attackTimeMs, double sustainTimeMS, double releaseTimeMs)
+	{
+		CurVal = 0;
+		IsActive = false;
+		AttackTimeMs = attackTimeMs;
+		ReleaseTimeMs = releaseTimeMs;
+		SustainTimeMs = sustainTimeMS;
+		envTimer = 0;
+		totalTimeMs = AttackTimeMs + SustainTimeMs + ReleaseTimeMs;
+	}
+
+	public float TotalEnvFraction()
+	{
+		return (min(1.0,(float)envTimer/(float)totalTimeMs));
+	}
+
+	public void Update(double updateMs)
+	{
+		totalTimeMs = AttackTimeMs + ReleaseTimeMs + SustainTimeMs; // compute this each update since it might have changed.  Could be more efficient with dirty bits.
+		// println("envUpdateA:" + envTimer + "/" + totalTimeMs+ "(" + updateMs + ")");
+		if (IsActive) {
+			envTimer = Math.min(envTimer + updateMs,totalTimeMs);
+			// println("envUpdateB:" + envTimer + "/" + totalTimeMs);
+
+			if (envTimer >= totalTimeMs) {
+				IsActive = false;
+				CurVal = 0;
+			}
+			else {
+				if (envTimer <= AttackTimeMs) {
+					CurVal = (float)(envTimer / AttackTimeMs);
+				}
+				else if (envTimer < AttackTimeMs + SustainTimeMs)
+				{
+					CurVal = 1.0f;
+				}
+				else {
+					CurVal = (float)(1 - (envTimer - AttackTimeMs - SustainTimeMs) / ReleaseTimeMs);
+				}
+			}
+		}
+	}
+
+	public void Trigger(boolean retrig)
+	{
+		if (retrig || !IsActive)
+		{
+			IsActive = true;
+			
+			if (IsActive && !retrig) // if we are in the middle of an envelope, then we don't want to reset
+				envTimer = CurVal * AttackTimeMs; // fast forward in the envelope to catch up to our current (normalized) value
+			else
+				envTimer = 0;
+			
+			CurVal = 0;
+		}
+	}
+
+
+}
