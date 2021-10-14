@@ -8,6 +8,9 @@ public static class PieFilterEffect extends LXEffect
 	public final CompoundParameter rotationOffset = new CompoundParameter("Offset",0,0,360).
 		setDescription("Rotational offset for slicing");
 
+	public final CompoundParameter offsetTrim = new CompoundParameter("OffsetTrim",0,0,360).
+		setDescription("Additional rotational offset for tirmming the Offset (useful when offset is when animated)");
+
 	public final BooleanParameter invert = new BooleanParameter("invert",false);
 	
 	private int[] segId;
@@ -18,13 +21,14 @@ public static class PieFilterEffect extends LXEffect
 		addParameter("SliceCount",sliceCount);
 		addParameter("Invert",invert);
 		addParameter("Offset",rotationOffset);
-	}
+		addParameter("OffsetTrim",offsetTrim);
+	}	
 
     @Override
 	public void run(double deltaMs, double enabledAmount) {
 		int sliceCountInt = (int)sliceCount.getValue();
 		float radPerSlice = 2 * PI / (float) sliceCountInt;
-		float offset = rotationOffset.getValuef() * PI/180;
+		float offset = (rotationOffset.getValuef() + offsetTrim.getValuef()) * PI/180;
 
 		for (int i=0; i<colors.length; i++)
 		{
