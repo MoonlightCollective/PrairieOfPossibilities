@@ -11,13 +11,13 @@ public static class RingTogglesFilterEffect extends LXEffect
 
 	public CompoundParameter attack = new CompoundParameter("Attack",0,0,2);
 	public CompoundParameter decay = new CompoundParameter("Decay",.5,0,3);
-	public BooleanParameter ring0On = new BooleanParameter("R0",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring1On = new BooleanParameter("R1",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring2On = new BooleanParameter("R2",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring3On = new BooleanParameter("R3",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring4On = new BooleanParameter("R4",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring5On = new BooleanParameter("R5",false).setMode(BooleanParameter.Mode.MOMENTARY);
-	public BooleanParameter ring6On = new BooleanParameter("R6",false).setMode(BooleanParameter.Mode.MOMENTARY);
+	public BooleanParameter ring0On = new BooleanParameter("R0",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring1On = new BooleanParameter("R1",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring2On = new BooleanParameter("R2",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring3On = new BooleanParameter("R3",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring4On = new BooleanParameter("R4",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring5On = new BooleanParameter("R5",false).setMode(BooleanParameter.Mode.TOGGLE);
+	public BooleanParameter ring6On = new BooleanParameter("R6",false).setMode(BooleanParameter.Mode.TOGGLE);
 
 	public EnumParameter<ETriggerType> triggerType = new EnumParameter<ETriggerType>("TriggerType",ETriggerType.Bools);
 	public DiscreteParameter midiRootNote = new DiscreteParameter("MidiRoot",60,0,127);
