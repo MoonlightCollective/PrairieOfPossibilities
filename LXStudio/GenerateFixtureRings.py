@@ -3,12 +3,11 @@ import json
 import math
 
 class BaseFixture(object):
-  def __init__(self, x:int, z:int, tags:str, modelKeys:str ):
+  def __init__(self, x:int, z:int, tags:str ):
     self.type = "7-pixel-base"
     self.x = x
     self.z = z
     self.tags = tags
-    self.modelKeys = modelKeys
 
 class Protocol(object):
   def __init__(self, host:str, universe:int, start:int, num:int):
@@ -84,7 +83,7 @@ while numbases > 0:
 
       tags.append("section"+str(k))
       tags.append("ring"+str(ring))
-      base = BaseFixture(x=x, z=z, tags=tags, modelKeys=tags)
+      base = BaseFixture(x=x, z=z, tags=tags)
       bases.append (base)
       numbases = numbases-1
       i = i + 1
