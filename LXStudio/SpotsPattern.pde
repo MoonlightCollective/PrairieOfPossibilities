@@ -15,18 +15,18 @@ public static class SpotsPattern extends MultiPattern
 		public float colorHue = 0;
 		public float colorSat = 0;
 
-		public SpotInfo(float theta,
-						float dist, 
-						float size, 
-						float attackTimeMs, 
-						float sustainTimeMs, 
-						float decayTimeMs, 
-						float brightness,
-						boolean startAcive,
-						float falloff,
-						float growAmt,
-						float hue,
-						float sat)
+		public void ResetSpotInfo (float theta,
+									float dist, 
+									float size, 
+									float attackTimeMs, 
+									float sustainTimeMs, 
+									float decayTimeMs, 
+									float brightness,
+									boolean startAcive,
+									float falloff,
+									float growAmt,
+									float hue,
+									float sat)
 		{
 			float thetaAngle = theta * 2 * PI;
 			originX = dist * LXUtils.cosf(thetaAngle);
@@ -82,6 +82,8 @@ public static class SpotsPattern extends MultiPattern
 	public CompoundParameter softness = new CompoundParameter("Softness",0,0,1);
 	public CompoundParameter growParam = new CompoundParameter("GrowPct",0,0,4);
 
+	protected final int kPoolSize = 30;
+
 	public SpotsPattern(LX lx)
 	{
 		super(lx);
@@ -99,28 +101,52 @@ public static class SpotsPattern extends MultiPattern
 	}
 
 	@Override
+	protected void buildPool()
+	{
+		particlePool = new Stack<ParticleInfo>();
+		for (int i = 0; i < kPoolSize; i++)
+		{
+			SpotInfo info = new SpotInfo();
+			particlePool.push(info);
+		}
+		usePool = true;
+	}
+
+	@Override
 	public void triggerNewParticle()
 	{
 		super.triggerNewParticle();
 		SpotInfo newSpot = newRandomParticle();
 		addParticle(newSpot);
 	}
-	
+
+	protected SpotInfo getParticleFromPool()
+	{
+		if (particlePool == null || particlePool.size() < 1)
+			return null;
+
+		return (SpotInfo)(particlePool.pop());
+	}
+
 	protected SpotInfo newRandomParticle()
 	{
 		float rTheta = (float)LXUtils.random(thetaMin.getValuef(),thetaMax.getValuef());
 		float rDist = (float)LXUtils.random(distMin.getValuef(),distMax.getValuef());
-		SpotInfo newSpot = new SpotInfo(rTheta,rDist,
-										sizeParam.getValuef(),
-										attackTimeParam.getValuef()*1000,
-										sustainTimeParam.getValuef()*1000,
-										decayTimeParam.getValuef()*1000,
-										brightParam.getValuef(),
-										true,
-										softness.getValuef(),
-										growParam.getValuef(),
-										0.0,
-										0.0);
+
+		SpotInfo newSpot = getParticleFromPool();
+		if (newSpot != null)
+		{
+			newSpot.ResetSpotInfo(rTheta,rDist,
+									sizeParam.getValuef(),
+									attackTimeParam.getValuef()*1000,
+									sustainTimeParam.getValuef()*1000,
+									decayTimeParam.getValuef()*1000,
+									brightParam.getValuef(),
+									true,
+									softness.getValuef(),
+									growParam.getValuef(),
+									0.0,0.0);
+		}
 		return newSpot;
 	}
 }
@@ -132,7 +158,7 @@ public class SpotsPatternRandomColor extends SpotsPattern {
 	public final BooleanParameter sequentialSlots = new BooleanParameter("SequentialColors",false).setMode(BooleanParameter.Mode.TOGGLE);
 
 	protected int lastColorDex = 0;
-	
+
 	public SpotsPatternRandomColor(LX lx)
 	{
 		super(lx);
@@ -146,6 +172,7 @@ public class SpotsPatternRandomColor extends SpotsPattern {
 		return ( this.lx.engine.palette.getSwatchColor( min(index,LXSwatch.MAX_COLORS)) );
 	}
 
+	
 
 	@Override
 	protected SpotInfo newRandomParticle()
@@ -157,22 +184,25 @@ public class SpotsPatternRandomColor extends SpotsPattern {
 		int colorDex = (lastColorDex+1)%5;
 		if (!sequentialSlots.getValueb())
 			colorDex = min(PrairieUtils.RandomInRange(startSlotDex,startSlotDex + slotCountParam.getValuei()),4);
-			
+
 		int selectedColor = getSwatchColor(colorDex).getColor();
 		lastColorDex = colorDex;
 
-		SpotInfo newSpot = new SpotInfo(rTheta,rDist,
-										sizeParam.getValuef(),
-										attackTimeParam.getValuef()*1000,
-										sustainTimeParam.getValuef()*1000,
-										decayTimeParam.getValuef()*1000,
-										brightParam.getValuef(),
-										true,
-										softness.getValuef(),
-										growParam.getValuef(),
-										LXColor.h(selectedColor),
-										LXColor.s(selectedColor));
-
+		SpotInfo newSpot = getParticleFromPool();
+		if (newSpot != null)
+		{
+			newSpot.ResetSpotInfo(rTheta,rDist,
+									sizeParam.getValuef(),
+									attackTimeParam.getValuef()*1000,
+									sustainTimeParam.getValuef()*1000,
+									decayTimeParam.getValuef()*1000,
+									brightParam.getValuef(),
+									true,
+									softness.getValuef(),
+									growParam.getValuef(),
+									LXColor.h(selectedColor),
+									LXColor.s(selectedColor));
+		}
 		return newSpot;
 	}
 }

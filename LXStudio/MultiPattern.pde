@@ -22,6 +22,10 @@ public static class MultiPattern extends LXPattern {
     .setDescription("Sets decay for this effect");
 
   protected ArrayList<ParticleInfo> particles = new ArrayList<ParticleInfo> ();
+
+  protected boolean usePool = false;
+  protected Stack<ParticleInfo> particlePool;
+
   protected int[] buffer = new int[model.size]; // use for fading out lights (ie, tail)
  
   protected MultiPattern(LX lx) {
@@ -30,6 +34,7 @@ public static class MultiPattern extends LXPattern {
     addParameter("Trigger",this.triggerBool);
     addParameter("Decay",this.decay);
     this.decay.setUnits(LXParameter.Units.SECONDS);
+    buildPool(); // up to the child classes to implement this or not. See comments in buildPool()
   }
   
   public void addParticle (ParticleInfo particle)
@@ -42,6 +47,16 @@ public static class MultiPattern extends LXPattern {
     // when you override this, be sure to create an instance of your particle and add it to the list of particles
     triggerBool.setValue(false);
   }  
+
+
+  protected void buildPool()
+  {
+    // override to build a particle pool (stack) and fill it with particles to pull off the stack.
+    // if you do this, make sure to set usePool to TRUE and to pop new particles off the stack
+    // rather than allocate new ones.  If usePool is set to true, then particles go back to the
+    // pool when they die rather than getting deleted and GC'd
+    usePool = false;
+  }
 
   public void computeColors(double deltaMs)
   {
@@ -77,7 +92,13 @@ public static class MultiPattern extends LXPattern {
       ParticleInfo particle = particles.get(i);
       particle.UpdateParticle((float)deltaMs/1000.0);
       if (particle.isDead())
+      {
+        if (usePool)
+        {
+          particlePool.push(particle);
+        }
         particles.remove(i);
+      }
     }
 
     if (triggerBool.getValueb())
