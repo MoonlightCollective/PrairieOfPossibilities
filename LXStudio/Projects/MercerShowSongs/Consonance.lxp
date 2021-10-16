@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634325190086,
+  "timestamp": 1634341249831,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -47,7 +47,7 @@
           "roll": 0.0,
           "selected": true,
           "deactivate": false,
-          "enabled": true,
+          "enabled": false,
           "brightness": 1.0,
           "identify": false,
           "mute": false,
@@ -2524,10 +2524,10 @@
                   "enabled": true,
                   "MinNote": 65,
                   "MaxNote": 75,
-                  "Pitch": 72,
-                  "PitchNorm": 0.699999988079071,
-                  "VelNorm": 0.6953125,
-                  "NoteGateOut": false,
+                  "Pitch": 65,
+                  "PitchNorm": 0.0,
+                  "VelNorm": 0.84375,
+                  "NoteGateOut": true,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -2632,10 +2632,10 @@
                   "enabled": true,
                   "MinNote": 90,
                   "MaxNote": 93,
-                  "Pitch": 93,
-                  "PitchNorm": 1.0,
+                  "Pitch": 90,
+                  "PitchNorm": 0.0,
                   "VelNorm": 0.84375,
-                  "NoteGateOut": false,
+                  "NoteGateOut": true,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -2953,7 +2953,7 @@
                   "label": "Filter",
                   "enabled": true,
                   "Filter": 4,
-                  "Invert": false
+                  "Invert": true
                 },
                 "children": {
                   "modulation": {
@@ -3026,7 +3026,7 @@
                   "Pitch": 121,
                   "PitchNorm": 0.7916666865348816,
                   "VelNorm": 0.6875,
-                  "NoteGateOut": false,
+                  "NoteGateOut": true,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -4606,7 +4606,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.3700787401574803,
+              "macro1": 0.3858267716535433,
               "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
@@ -5151,6 +5151,12 @@
         },
         "children": {},
         "inputs": [
+          {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
           {
             "name": "mio MIDI IN",
             "channel": true,

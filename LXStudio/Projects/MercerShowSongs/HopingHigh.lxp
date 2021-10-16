@@ -1,6 +1,6 @@
 {
-  "version": "0.2.1",
-  "timestamp": 1633453726912,
+  "version": "0.2.2-SNAPSHOT",
+  "timestamp": 1634341470101,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -46,6 +46,7 @@
           "pitch": 0.0,
           "roll": 0.0,
           "selected": true,
+          "deactivate": false,
           "enabled": false,
           "brightness": 1.0,
           "identify": false,
@@ -362,7 +363,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 0,
+          "focusedChannel": 1,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -395,7 +396,7 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -18105,6 +18106,27 @@
                         "command": 128,
                         "data1": 89,
                         "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 84,
+                        "data2": 127
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 128,
+                        "data1": 84,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 89,
+                        "data2": 127
                       }
                     ]
                   },
@@ -18277,7 +18299,7 @@
             "parameters": {
               "label": "Channel-2",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -35996,6 +36018,27 @@
                         "command": 128,
                         "data1": 89,
                         "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 84,
+                        "data2": 127
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 128,
+                        "data1": 84,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 89,
+                        "data2": 127
                       }
                     ]
                   },
@@ -36895,6 +36938,27 @@
                         "command": 128,
                         "data1": 89,
                         "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 84,
+                        "data2": 127
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 128,
+                        "data1": 84,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 89,
+                        "data2": 127
                       }
                     ]
                   },
@@ -55059,6 +55123,27 @@
                         "command": 128,
                         "data1": 89,
                         "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 84,
+                        "data2": 127
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 128,
+                        "data1": 84,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 0,
+                        "command": 144,
+                        "data1": 89,
+                        "data2": 127
                       }
                     ]
                   },
@@ -55343,11 +55428,11 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.0,
-              "macro2": 0.0,
+              "macro1": 0.905511811023622,
+              "macro2": 0.7795275590551181,
               "macro3": 0.0,
-              "macro4": 0.9291338582677166,
-              "macro5": 0.952755905511811
+              "macro4": 0.7401574803149606,
+              "macro5": 0.07874015748031496
             },
             "children": {}
           },
@@ -55362,7 +55447,7 @@
               "running": true,
               "trigger": false,
               "macro1": 0.7322834645669292,
-              "macro2": 1.0,
+              "macro2": 0.48031496062992124,
               "macro3": 0.7874015748031497,
               "macro4": 0.0,
               "macro5": 1.0
@@ -55404,7 +55489,7 @@
               "period": 1695.992444494506
             },
             "children": {},
-            "basis": 0.08096882700910908,
+            "basis": 0.4027021759692205,
             "stages": [
               {
                 "basis": 0.0,
@@ -55930,6 +56015,7 @@
           "recallModulation": false,
           "recallPattern": true,
           "recallEffect": true,
+          "recallOutput": true,
           "channelMode": 0,
           "missingChannelMode": 0,
           "transitionEnabled": false,
@@ -55955,6 +56041,12 @@
         },
         "children": {},
         "inputs": [
+          {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
           {
             "name": "mio MIDI IN",
             "channel": true,
@@ -56313,10 +56405,10 @@
       "cameraExpanded": true,
       "clipViewVisible": false,
       "modulatorExpanded": {
-        "4305": true,
-        "4306": true,
-        "4318": true,
-        "8589": true
+        "4305": false,
+        "4306": false,
+        "4318": false,
+        "8589": false
       },
       "preview": {
         "mode": 0,
