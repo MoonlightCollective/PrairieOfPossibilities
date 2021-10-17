@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634339111533,
+  "timestamp": 1634437668186,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -47,7 +47,7 @@
           "roll": 0.0,
           "selected": true,
           "deactivate": false,
-          "enabled": false,
+          "enabled": true,
           "brightness": 1.0,
           "identify": false,
           "mute": false,
@@ -4013,7 +4013,7 @@
                           "exp": 0.0
                         },
                         "children": {},
-                        "basis": 0.6819822521971666
+                        "basis": 0.8151915273764911
                       }
                     ],
                     "modulations": [
@@ -4202,8 +4202,8 @@
                   "enabled": true,
                   "MinNote": 60,
                   "MaxNote": 73,
-                  "Pitch": 68,
-                  "PitchNorm": 0.6153846383094788,
+                  "Pitch": 62,
+                  "PitchNorm": 0.1538461595773697,
                   "VelNorm": 0.6875,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
@@ -4770,7 +4770,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.49606299212598426,
+              "macro1": 0.2440944881889764,
               "macro2": 0.6800000071525574,
               "macro3": 0.3400000147521496,
               "macro4": 0.3464566929133858,
@@ -4806,10 +4806,10 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.07086614173228346,
-              "macro2": 0.25984251968503935,
-              "macro3": 0.0,
-              "macro4": 0.023622047244094488,
+              "macro1": 1.0,
+              "macro2": 0.0,
+              "macro3": 0.015748031496062992,
+              "macro4": 0.0,
               "macro5": 0.0
             },
             "children": {}
@@ -5764,6 +5764,12 @@
         },
         "children": {},
         "inputs": [
+          {
+            "name": "mio",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
           {
             "name": "mio MIDI IN",
             "channel": true,

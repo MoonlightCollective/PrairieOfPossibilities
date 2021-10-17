@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634341249831,
+  "timestamp": 1634443126005,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -47,7 +47,7 @@
           "roll": 0.0,
           "selected": true,
           "deactivate": false,
-          "enabled": false,
+          "enabled": true,
           "brightness": 1.0,
           "identify": false,
           "mute": false,
@@ -88,7 +88,7 @@
           "autoCycleEnabled": false,
           "autoCycleMode": 0,
           "autoCycleTimeSecs": 60.0,
-          "autoCycleCursor": 8,
+          "autoCycleCursor": 1,
           "triggerSwatchCycle": false
         },
         "children": {
@@ -99,7 +99,7 @@
               "modulationColor": 0
             },
             "parameters": {
-              "label": "Firetruck red",
+              "label": "Azure blue",
               "recall": false,
               "autoCycleEligible": true
             },
@@ -115,12 +115,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 80.3921568627451,
+                  "primary/brightness": 100.0,
                   "primary/saturation": 100.0,
-                  "primary/hue": 326.0487804878049,
+                  "primary/hue": 154.35294117647058,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 326.0487804878049
+                  "secondary/hue": 154.35294117647058
                 },
                 "children": {}
               },
@@ -135,11 +135,11 @@
                   "mode": 0,
                   "period": 30.0,
                   "primary/brightness": 100.0,
-                  "primary/saturation": 100.0,
-                  "primary/hue": 0.0,
+                  "primary/saturation": 93.33333333333333,
+                  "primary/hue": 205.96638655462186,
                   "secondary/brightness": 100.0,
-                  "secondary/saturation": 100.0,
-                  "secondary/hue": 0.0
+                  "secondary/saturation": 93.33333333333333,
+                  "secondary/hue": 205.96638655462186
                 },
                 "children": {}
               },
@@ -154,11 +154,11 @@
                   "mode": 0,
                   "period": 30.0,
                   "primary/brightness": 100.0,
-                  "primary/saturation": 100.0,
-                  "primary/hue": 27.294117647058822,
+                  "primary/saturation": 84.70588235294117,
+                  "primary/hue": 240.0,
                   "secondary/brightness": 100.0,
-                  "secondary/saturation": 100.0,
-                  "secondary/hue": 27.294117647058822
+                  "secondary/saturation": 84.70588235294117,
+                  "secondary/hue": 240.0
                 },
                 "children": {}
               },
@@ -172,12 +172,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 80.0,
+                  "primary/brightness": 100.0,
                   "primary/saturation": 100.0,
-                  "primary/hue": 120.0,
+                  "primary/hue": 34.35294117647059,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 120.0
+                  "secondary/hue": 34.35294117647059
                 },
                 "children": {}
               },
@@ -191,12 +191,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 32.549019607843135,
+                  "primary/brightness": 65.88235294117646,
                   "primary/saturation": 100.0,
-                  "primary/hue": 120.0,
+                  "primary/hue": 34.285714285714285,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 120.0
+                  "secondary/hue": 34.285714285714285
                 },
                 "children": {}
               }
@@ -2527,7 +2527,7 @@
                   "Pitch": 65,
                   "PitchNorm": 0.0,
                   "VelNorm": 0.84375,
-                  "NoteGateOut": true,
+                  "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -2635,7 +2635,7 @@
                   "Pitch": 90,
                   "PitchNorm": 0.0,
                   "VelNorm": 0.84375,
-                  "NoteGateOut": true,
+                  "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -2953,7 +2953,7 @@
                   "label": "Filter",
                   "enabled": true,
                   "Filter": 4,
-                  "Invert": true
+                  "Invert": false
                 },
                 "children": {
                   "modulation": {
@@ -3026,7 +3026,7 @@
                   "Pitch": 121,
                   "PitchNorm": 0.7916666865348816,
                   "VelNorm": 0.6875,
-                  "NoteGateOut": true,
+                  "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
                 "children": {
@@ -4606,7 +4606,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.3858267716535433,
+              "macro1": 0.0,
               "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
@@ -4627,8 +4627,8 @@
               "macro1": 0.0,
               "macro2": 0.0,
               "macro3": 0.7952755905511811,
-              "macro4": 0.0,
-              "macro5": 0.007874015748031496
+              "macro4": 0.023622047244094488,
+              "macro5": 0.0
             },
             "children": {}
           },
@@ -5152,6 +5152,12 @@
         "children": {},
         "inputs": [
           {
+            "name": "mio",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
+          {
             "name": "HomeBoxBlack",
             "channel": true,
             "control": true,
@@ -5597,9 +5603,9 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 1342.4380623814343,
-          "theta": -18.244430811842903,
-          "phi": 0.430065268650651,
+          "radius": 803.7672565873602,
+          "theta": -19.703027482843027,
+          "phi": 0.5858982251957059,
           "x": 11.822515921667218,
           "y": -224.8186802789569,
           "z": 16.90584973822115
@@ -5625,9 +5631,9 @@
           },
           {
             "active": true,
-            "radius": 1342.4380623814343,
-            "theta": -18.244430811842903,
-            "phi": 0.430065268650651,
+            "radius": 803.7672565873602,
+            "theta": -19.703027482843027,
+            "phi": 0.5858982251957059,
             "x": 11.822515921667218,
             "y": -224.8186802789569,
             "z": 16.90584973822115
