@@ -461,16 +461,24 @@ public class SolidPattern extends LXPattern {
   public final CompoundParameter h = new CompoundParameter("Hue", 0, 360);
   public final CompoundParameter s = new CompoundParameter("Sat", 0, 100);
   public final CompoundParameter b = new CompoundParameter("Brt", 100, 100);
-
+  public final BooleanParameter mapBtoA = new BooleanParameter("Brt->A").setDescription("Get alpha value from the brightness");
+  
   public SolidPattern(LX lx) {
     super(lx);
     addParameter("h", this.h);
     addParameter("s", this.s);
     addParameter("b", this.b);
+    addParameter("Brt->A",this.mapBtoA);
   }
 
   public void run(double deltaMs) {
-    setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(), 255));
+    if (mapBtoA.getValueb()) {
+      float a = (float)this.b.getValue()/100.0;
+      setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(),(float)a));
+    }
+    else {
+      setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(), 255));
+    }
   }
 }
 
