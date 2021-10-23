@@ -217,6 +217,48 @@ public static class RingColorEffect extends LXEffect implements UIDeviceControls
 
 
 
+public static class RingColorPaletteEffect extends LXEffect
+{
+	public DiscreteParameter[] ringColorIndicies = new DiscreteParameter[PrairieUtils.kNumRings];
+
+	public RingColorPaletteEffect(LX lx) {
+		super(lx);
+		for (int i = 0; i<PrairieUtils.kNumRings; i++)
+		{
+			String ringName = "Ring" + Integer.toString(i);
+			DiscreteParameter d = new DiscreteParameter(ringName,1,1,LXSwatch.MAX_COLORS+1);
+			ringColorIndicies[i] = d;
+			addParameter(ringName, d);
+		}
+	}
+
+	protected LXDynamicColor getSwatchColor(int index)
+	{
+		return ( this.lx.engine.palette.getSwatchColor( min(index-1,LXSwatch.MAX_COLORS)) );
+	}
+
+	@Override
+	protected void run(double deltaMs, double enabledAmount) {
+		for (int i=0; i<PrairieUtils.kNumRings; i++)
+		{
+			int selectedColor = getSwatchColor((ringColorIndicies[i]).getValuei()).getColor();
+			float selectedH = LXColor.h(selectedColor);
+			float selectedS = LXColor.s(selectedColor);
+
+	        String strFilter = "ring" + Integer.toString(i);
+			for (LXModel m : model.sub(strFilter)) {
+				for (LXPoint p : m.points) {
+					float b = LXColor.b(colors[p.index]);
+					float a = (LXColor.alpha(colors[p.index]) / 255.0f); // convert from 0-255 into 0-1
+					colors[p.index] = LXColor.hsba(selectedH, selectedS, b, a);
+				}
+			}
+		}
+	}
+}
+
+
+
 @LXCategory("PrairieEffects")
 public static class FilterEffect extends LXEffect
 {
@@ -230,9 +272,10 @@ public static class FilterEffect extends LXEffect
 		Yinyang,
 		Section0,
 		Section1,
+		PathPlusInner,
 	};
 
-	private String[] filters = {"path","edge","inner","outer","area","yinyang","section0","section1"};
+	private String[] filters = {"path","edge","inner","outer","area","yinyang","section0","section1","path+inner"};
 
 	private boolean[] mask;
 
@@ -297,15 +340,36 @@ public static class FilterEffect extends LXEffect
 			case Section1:
 				iEnum = 7;
 				break;
+			case PathPlusInner:
+				iEnum = 8;
+				break;
 		}
 
-		String strFilter = filters[iEnum];
-
-		for (LXModel m : model.sub(strFilter)) {
-			for (LXPoint p : m.points) {
-				mask[p.index] = true;
+		if (this.targetType.getEnum() == FilterType.PathPlusInner)
+		{
+			String strFilter = filters[0];
+			for (LXModel m : model.sub(strFilter)) {
+				for (LXPoint p : m.points) {
+					mask[p.index] = true;
+				}
+			}
+			strFilter = filters[2];
+			for (LXModel m : model.sub(strFilter)) {
+				for (LXPoint p : m.points) {
+					mask[p.index] = true;
+				}
 			}
 		}
+		else //(targetType != PathPlusInner)
+		{
+			String strFilter = filters[iEnum];
+			for (LXModel m : model.sub(strFilter)) {
+				for (LXPoint p : m.points) {
+					mask[p.index] = true;
+				}
+			}
+		}
+
 	}
 
 	public void run(double deltaMs, double enabledAmount) {
