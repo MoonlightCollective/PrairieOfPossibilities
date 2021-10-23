@@ -86,8 +86,6 @@ public static class PrairieEnvAD
 
 }
 
-
-
 public static class PrairieEnvASR
 {
 	public boolean IsActive;
