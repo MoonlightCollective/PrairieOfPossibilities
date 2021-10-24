@@ -23,6 +23,13 @@ public static class PrairieUtils {
 		
 		return rand.nextInt(maxVal - minVal+1) + lower;
 	}
+
+	public static float RandomFloatInRange(float lower, float upper)
+	{
+		float minVal = min(lower,upper);
+		float maxVal = max(lower,upper);
+		return (rand.nextFloat() * (maxVal - minVal));
+	}
 }
 
 public static class PrairieEnvAD

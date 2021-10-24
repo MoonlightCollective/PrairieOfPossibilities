@@ -11,6 +11,20 @@ public static class ModelUtils
 	private static ArrayList<ArrayList<Integer>> ringLightDexArrays = new ArrayList<ArrayList<Integer>>();
 	private static ArrayList<ArrayList<Integer>> ringPlantDexArrays = new ArrayList<ArrayList<Integer>>();
 
+	private static class IndexRange 
+	{
+		public int min;
+		public int max;
+		IndexRange(int minIn, int maxIn)
+		{
+			min = minIn;
+			max = maxIn;
+		}
+	}
+
+	private static IndexRange[] ringPlantDexRanges = new IndexRange[PrairieUtils.kNumRings];
+	private static IndexRange[] ringLightDexRanges = new IndexRange[PrairieUtils.kNumRings];
+
 	public static void Init(LXModel model)
 	{
 		if (s_initialized)
@@ -20,7 +34,6 @@ public static class ModelUtils
 		computeringLightDexArrays(model);
 		s_initialized = true;
 	}
-
 
 	public static ArrayList<Integer> PlantDexArrayForRing(int ringDex)
 	{
@@ -42,6 +55,26 @@ public static class ModelUtils
 	public static int NumPlantsInRing(int ringDex)
 	{
 		return PlantDexArrayForRing(ringDex).size();
+	}
+
+
+	public static boolean IsPlantInRing(int plantDex,int ringDex)
+	{
+		if (ringDex < 0 || ringDex >= PrairieUtils.kNumRings)
+			return false;
+
+		IndexRange range = ringPlantDexRanges[ringDex];
+
+		return (plantDex >= range.min && plantDex <= range.max);
+	}
+
+	public static boolean IsLightInRing(int lightDex,int ringDex)
+	{
+		if (ringDex < 0 || ringDex >= PrairieUtils.kNumRings)
+			return false;
+		
+		IndexRange range = ringLightDexRanges[ringDex];
+		return (lightDex >= range.min && lightDex <= range.max);
 	}
 
 	private static void computeringLightDexArrays(LXModel model)
@@ -69,12 +102,9 @@ public static class ModelUtils
 			Collections.sort(rpda);
 			ringLightDexArrays.add(rda);
 			ringPlantDexArrays.add(rpda);
-			
-			// println("ring" + Integer.toString(i) + ":");
-			// for (Integer pi : rpda)
-			// {
-				// println("\t" + pi);
-			// }
+
+			ringLightDexRanges[i] = new IndexRange(rda.get(0),rda.get(rda.size()-1));
+			ringPlantDexRanges[i] = new IndexRange(rpda.get(0),rpda.get(rpda.size()-1));
 		}
 
 	}

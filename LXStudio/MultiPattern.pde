@@ -93,6 +93,7 @@ public static class MultiPattern extends LXPattern {
       particle.UpdateParticle((float)deltaMs/1000.0);
       if (particle.isDead())
       {
+        notifyRemovedParticle(particle);
         if (usePool)
         {
           particlePool.push(particle);
@@ -108,4 +109,10 @@ public static class MultiPattern extends LXPattern {
 
     computeColors(deltaMs);
   }
+
+  protected void notifyRemovedParticle(ParticleInfo pi)
+  {
+    // nothing - but override if you wanna do something
+  }
+
 }
