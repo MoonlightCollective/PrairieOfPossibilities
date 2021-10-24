@@ -11,6 +11,7 @@ public static class CirclingDotsPattern extends MultiPattern
 	public final CompoundParameter sustainTime = new CompoundParameter("sustainTime",1,0.5,10.0);
 	public final CompoundParameter decayTime = new CompoundParameter("DcyTime",0.1,0,2.0);
 	public final CompoundParameter updateFreq = new CompoundParameter("UpdateFreq",10,.1,10);
+	public final ColorParameter dotColor = new ColorParameter("DotColor",0xFFFFFFFF);
 
 	private static int kPoolSize = 100;
 
@@ -18,7 +19,7 @@ public static class CirclingDotsPattern extends MultiPattern
 
 	private int[] countPerRing = new int[PrairieUtils.kNumRings];
 
-	private static float speedDeltaPerRing = 0.125;// multiply speed by 1-(ringDex*speedDeltaPerRing)
+	private static float speedDeltaPerRing = 0.25;// multiply speed by 1-(ringDex*speedDeltaPerRing)
 	private static float countMultPerRing = 4.0/6.0;
 
 	public CirclingDotsPattern(LX lx)
@@ -33,6 +34,8 @@ public static class CirclingDotsPattern extends MultiPattern
 		addParameter("SusTime",sustainTime);
 		addParameter("DcyTime",decayTime);
 		addParameter("UpdateFreq",updateFreq);
+		addParameter("DotColor",dotColor);
+
 		ModelUtils.Init(model);
 		for (int i = 0; i < PrairieUtils.kNumRings; i++)
 		{
@@ -86,7 +89,9 @@ public static class CirclingDotsPattern extends MultiPattern
 						attackTime.getValuef(),life, decayTime.getValuef(),
 						speed,
 						brightness.getValuef()/100.0f,
-						dotWidth.getValuef());
+						dotWidth.getValuef(),
+						dotColor.getColor()
+						);
 		addNewDot(dot);
 	}
 
@@ -142,8 +147,10 @@ public static class CirclingDotsPattern extends MultiPattern
 		public int ringDex;
 		public float widthPlantCount;
 		public float widthDegrees;
+		public float fullBrightWidthDegrees;
+		public int dotColor;
 
-		public void TriggerDot(int ring,float atk, float sus, float dec, float speed, float brightness,float width)
+		public void TriggerDot(int ring,float atk, float sus, float dec, float speed, float brightness,float width,int dColor)
 		{
 			ringDex = ring;
 			lifetimeEnv.AttackTimeMs = atk*1000.0f;
@@ -154,7 +161,10 @@ public static class CirclingDotsPattern extends MultiPattern
 			curSpeed = maxSpeed;
 			maxBright = brightness;
 			widthPlantCount = width;
-			widthDegrees = widthPlantCount * (360.0/(float)ModelUtils.NumPlantsInRing(ringDex)); // how many degress is in a single plant?
+			fullBrightWidthDegrees = widthPlantCount * (360.0/(float)ModelUtils.NumPlantsInRing(ringDex)); // how many degress is in a single plant?
+			widthDegrees = fullBrightWidthDegrees+(fullBrightWidthDegrees * .2); // add 20% for falloff.
+			
+			dotColor = dColor;
 			lifetimeEnv.Trigger(true);
 		}
 
@@ -181,16 +191,20 @@ public static class CirclingDotsPattern extends MultiPattern
 			
 			// println("pt in range: ", pt.index + " for ring:" + ringDex);
 			float pAngleDeg = pt.azimuth * 180/PI;
-			float angleDelta = (float)LXUtils.wrapdist(curAngle,pAngleDeg,360);
+			float angleDelta = abs((float)LXUtils.wrapdist(curAngle,pAngleDeg,360));
 			
-			if (abs(angleDelta) > widthDegrees)
+			if (angleDelta > widthDegrees)
 			{
 				return 0;
 			}
 
-			float bNorm = 1-(abs(angleDelta)/widthDegrees);
-			int bright = (int)(bNorm * maxBright * lifetimeEnv.CurVal * 255.0);
-			return LXColor.rgba(bright,bright,bright,bright);
+			float bNorm = max(0,min(1,1-(angleDelta/(.5*fullBrightWidthDegrees))));
+			float brightMult = bNorm * maxBright * lifetimeEnv.CurVal;
+			int r = (int)(min(255.0,brightMult * LXColor.red(dotColor)));
+			int g = (int)(min(255.0,brightMult * LXColor.green(dotColor)));
+			int b = (int)(min(255.0,brightMult * LXColor.blue(dotColor)));
+			int a = (int)(min(255.0,brightMult * 255));
+			return LXColor.rgba(r,g,b,a);
 		}
 
 		public boolean isDead()

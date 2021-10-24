@@ -35,6 +35,11 @@ public static class ModelUtils
 		s_initialized = true;
 	}
 
+	public static int NumPlants()
+	{
+		return MaxPlantDex + 1;
+	}
+
 	public static ArrayList<Integer> PlantDexArrayForRing(int ringDex)
 	{
 		if (!s_initialized)
