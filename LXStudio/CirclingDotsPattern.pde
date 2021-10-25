@@ -66,7 +66,7 @@ public static class CirclingDotsPattern extends MultiPattern
 	public void triggerNewParticle()
 	{
 		super.triggerNewParticle();
-		int ring = PrairieUtils.RandomInRange(0,PrairieUtils.kNumRings);
+		int ring = PrairieUtils.RandomInRange(0,PrairieUtils.kNumRings-1);
 		spawnNewDot(ring);
 	}
 
@@ -200,11 +200,11 @@ public static class CirclingDotsPattern extends MultiPattern
 
 			float bNorm = max(0,min(1,1-(angleDelta/(.5*fullBrightWidthDegrees))));
 			float brightMult = bNorm * maxBright * lifetimeEnv.CurVal;
-			int r = (int)(min(255.0,brightMult * LXColor.red(dotColor)));
-			int g = (int)(min(255.0,brightMult * LXColor.green(dotColor)));
-			int b = (int)(min(255.0,brightMult * LXColor.blue(dotColor)));
+			int h = (int)(min(255.0,brightMult * LXColor.h(dotColor)));
+			int s = (int)(min(255.0,brightMult * LXColor.s(dotColor)));
+			int b = (int)(min(100.0,brightMult * LXColor.b(dotColor)));
 			int a = (int)(min(255.0,brightMult * 255));
-			return LXColor.rgba(r,g,b,a);
+			return LXColor.hsba(h,s,b,a);
 		}
 
 		public boolean isDead()

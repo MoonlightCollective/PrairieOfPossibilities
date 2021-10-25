@@ -1,4 +1,4 @@
-@LXCategory("RandomFilterEffect")
+@LXCategory("PrairieFilters")
 public static class RandomFilterEffect extends LXEffect
 {
 	public final CompoundParameter plantCountMin = new CompoundParameter("CountMin",100,1,250);
