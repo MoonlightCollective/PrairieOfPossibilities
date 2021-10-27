@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634674023514,
+  "timestamp": 1635195430454,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -3693,8 +3693,8 @@
               "arm": false,
               "selected": true,
               "enabled": true,
-              "cue": false,
-              "fader": 0.0,
+              "cue": true,
+              "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": false,
@@ -3705,13 +3705,13 @@
               "transitionEnabled": false,
               "transitionTimeSecs": 5.0,
               "transitionBlendMode": 0,
-              "focusedPattern": 0,
+              "focusedPattern": 1,
               "triggerPatternCycle": false
             },
             "children": {},
             "effects": [],
             "clips": [],
-            "patternIndex": 0,
+            "patternIndex": 1,
             "patterns": [
               {
                 "id": 38926,
@@ -3732,6 +3732,49 @@
                 "children": {
                   "modulation": {
                     "id": 38927,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 43545,
+                "class": "LXStudio$WispPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Wisp",
+                  "Trigger": false,
+                  "Decay": 0.5,
+                  "RingMin": 0.0,
+                  "RingMax": 0.2799999937415123,
+                  "LengthMin": 8.399999924004078,
+                  "LengthMax": 0.0,
+                  "DurationMin": 2.599999964237213,
+                  "DurationMax": 0.0,
+                  "SpeedMin": 5.399999879300594,
+                  "Speed": 0.0,
+                  "Direction": 0,
+                  "UseMinSpacing": false,
+                  "MinSpacing": 0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 43546,
                     "class": "heronarts.lx.modulation.LXModulationEngine",
                     "internal": {
                       "modulationColor": 0
@@ -3772,8 +3815,8 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.5433070866141733,
-              "macro2": 0.29133858267716534,
+              "macro1": 0.0,
+              "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
               "macro5": 0.0
@@ -3790,8 +3833,8 @@
               "label": "Macro 2",
               "running": true,
               "trigger": false,
-              "macro1": 1.0,
-              "macro2": 0.015748031496062992,
+              "macro1": 0.0,
+              "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
               "macro5": 0.0
@@ -3808,9 +3851,9 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.08661417322834646,
-              "macro2": 0.9606299212598425,
-              "macro3": 0.7086614173228346,
+              "macro1": 0.0,
+              "macro2": 0.0,
+              "macro3": 0.0,
               "macro4": 0.0,
               "macro5": 0.0
             },

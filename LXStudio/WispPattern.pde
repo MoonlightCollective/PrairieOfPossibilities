@@ -194,9 +194,9 @@ public static class WispPattern extends MultiPattern {
 		{
 			int ring = chooseNextRingDex();
 			w.TriggerWisp( ring,
-							PrairieUtils.RandomInRange ((int)lengthMin.getValuef(),(int)lengthMax.getValuef()),
-							(float)LXUtils.random(durationMin.getValuef(), durationMax.getValuef()),
-							(float)LXUtils.random(speedMin.getValuef(), speedMax.getValuef()),
+							PrairieUtils.RandomInRange ((int)lengthMin.getValuef(),(int)lengthMax.getValuef(),false),
+							(float)PrairieUtils.RandomFloatInRange(durationMin.getValuef(), durationMax.getValuef(),false),
+							(float)PrairieUtils.RandomFloatInRange(speedMin.getValuef(), speedMax.getValuef(),false),
 							direction.getEnum());
 			addParticle(w);
 			lastRing = ring;

@@ -10,7 +10,7 @@ public static class TargetedColorizePaletteInterpEffect extends LXEffect
 
 	public final DiscreteParameter targetType = new DiscreteParameter("Target",new String[]{"None","Inner","Outer","Both"},3);
 	public final CompoundParameter paletteDex = new CompoundParameter("TargetIndex",1,1,LXSwatch.MAX_COLORS);
-	public final CompoundParameter transitionTime = new CompoundParameter("TransTime",0,0,5);
+	public final CompoundParameter transitionTime = new CompoundParameter("TransTime",0,0,10);
 	public final BooleanParameter  midiEnabled = new BooleanParameter("MidiEnabled",false);
 	public final DiscreteParameter midiRootNote = new DiscreteParameter("MidiRoot",60,0,127);
 

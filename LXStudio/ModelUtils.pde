@@ -24,6 +24,7 @@ public static class ModelUtils
 
 	private static IndexRange[] ringPlantDexRanges = new IndexRange[PrairieUtils.kNumRings];
 	private static IndexRange[] ringLightDexRanges = new IndexRange[PrairieUtils.kNumRings];
+	private static float[] plantRandomOffsets;
 
 	public static void Init(LXModel model)
 	{
@@ -32,6 +33,7 @@ public static class ModelUtils
 			return;
 		}
 		computeringLightDexArrays(model);
+		buildRandomOffset(model);
 		s_initialized = true;
 	}
 
@@ -80,6 +82,23 @@ public static class ModelUtils
 		
 		IndexRange range = ringLightDexRanges[ringDex];
 		return (lightDex >= range.min && lightDex <= range.max);
+	}
+
+	private static void buildRandomOffset(LXModel model)
+	{
+		int numPlants = NumPlants();
+		plantRandomOffsets = new float[numPlants];
+		for (int i = 0; i < numPlants; i++)
+		{
+			plantRandomOffsets[i] = PrairieUtils.RandomFloatInRange(0.0,1.0);
+		}
+	}
+
+	public static float RandomOffsetForPlantDex(int i)
+	{
+		if (i < 0 || i > MaxPlantDex)
+			return 0;
+		return plantRandomOffsets[i];
 	}
 
 	private static void computeringLightDexArrays(LXModel model)

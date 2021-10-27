@@ -154,7 +154,7 @@ public static class TwinkleEffect extends LXEffect {
 					// println("updateLight("+i+")" + twink.ValForEnv(i));
 					float bright = min(brightAdd + LXColor.b(colors[baseDex+i]),100);
 					int c = colors[baseDex + i];
-					colors[baseDex + i] = LXColor.hsb(LXColor.h(c),LXColor.s(c),(int)bright);
+					colors[baseDex + i] = LXColor.hsba(LXColor.h(c),LXColor.s(c),(int)bright,bright/100);
 				}
 			}
 		}
