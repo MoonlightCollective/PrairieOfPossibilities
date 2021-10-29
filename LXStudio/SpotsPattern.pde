@@ -177,8 +177,8 @@ public class SpotsPatternRandomColor extends SpotsPattern {
 	@Override
 	protected SpotInfo newRandomParticle()
 	{
-		float rTheta = (float)LXUtils.random(thetaMin.getValuef(),thetaMax.getValuef());
-		float rDist = (float)LXUtils.random(distMin.getValuef(),distMax.getValuef());
+		float rTheta = (float)PrairieUtils.RandomFloatInRange(thetaMin.getValuef(),thetaMax.getValuef(),false);
+		float rDist = (float)PrairieUtils.RandomFloatInRange(distMin.getValuef(),distMax.getValuef(),false);
 
 		int startSlotDex = slotStartParam.getValuei()-1;
 		int colorDex = (lastColorDex+1)%5;
