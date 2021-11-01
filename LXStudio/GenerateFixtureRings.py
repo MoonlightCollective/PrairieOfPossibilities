@@ -42,26 +42,36 @@ EYE_CENTER_X = -10 * FEET
 EYE_CENTER_Z = 45 * FEET
 EYE_SIZE = 14*FEET
 
-i = 0
-numbases = NUM_BASES
+basesLeftToAdd = NUM_BASES
+basesAdded = 0
 radius = CENTER_RADIUS
 angle_offset = 0
 ring = 0
 last_ring = False
 outputPolarFile = None
 
+universe = 0
+start = 0
+startChannel = 1
+remainingFreeChannels = 512
+CHANNELS_PER_POINT = int(3) # 3 channels per point = RGB
+CHANNELS_PER_BASE = int(POINTS_PER_BASE * CHANNELS_PER_POINT) 
+BASES_PER_UNIVERSE = int(512 / CHANNELS_PER_BASE) 
+
+outputs = []
+
 for arg in sys.argv:
   if arg in ("-o"):
     outputPolarFile=open('polarCoordinates.txt','w')
 
-while numbases > 0:
+while basesLeftToAdd > 0:
   perimeter = math.pi * 2 * radius
   angle = angle_offset
   light_run = ((perimeter / NUM_AISLES) - AISLE_WIDTH)       # distance covered by this consecutive run of lights
   ring_bases = int(light_run / BASE_SPACING) + 1             # number of bases used in this run -- with one base at start and finish of each run -- err on side of more density than less if not a perfect multiple
   aisle_angle = (AISLE_WIDTH  / perimeter) * 2 * math.pi     # angle of each aisle
   base_angle = ((light_run / (ring_bases - 1)) / perimeter) * 2 * math.pi   # figure out angle between bases on this particular stretch
-  if (numbases <= (NUM_AISLES*ring_bases)):
+  if (basesLeftToAdd <= (NUM_AISLES*ring_bases)):
     last_ring = True
 
   for k in range(NUM_AISLES):
@@ -79,8 +89,6 @@ while numbases > 0:
       
       x = radius * math.cos(angle)
       z = radius*math.sin(angle)
-      if outputPolarFile:
-        outputPolarFile.write("ring:"+str(ring)+",section:"+str(k)+",base:"+str(j)+",angle:"+str(round(math.degrees(angle)))+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
 
       if (k==0):
         if (math.sqrt((x-EYE_CENTER_X)*(x-EYE_CENTER_X) + (z-EYE_CENTER_Z)*(z-EYE_CENTER_Z)) >= EYE_SIZE):
@@ -91,10 +99,32 @@ while numbases > 0:
 
       tags.append("section"+str(k))
       tags.append("ring"+str(ring))
+
+      # do we have space in the current universe?
+      if (remainingFreeChannels < CHANNELS_PER_BASE):
+        # output the current universe
+        points = int((512-remainingFreeChannels)/CHANNELS_PER_POINT)
+        output = Protocol(IP, universe, start, points)
+        outputs.append (output)
+        # and bump to the next universe
+        universe = universe + 1
+        start = start + points
+        startChannel = 1
+        remainingFreeChannels = 512
+
+      # output the polar field setup file
+      if outputPolarFile:
+        outputPolarFile.write("ring:"+str(ring)+",section:"+str(k)+",universe:"+str(universe)+",channels:"+str(startChannel)+"-"+str(startChannel+CHANNELS_PER_BASE-1)+",angle:"+str(round(math.degrees(angle)))+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
+
+      # use these channels
+      remainingFreeChannels = remainingFreeChannels-CHANNELS_PER_BASE
+      startChannel = startChannel+CHANNELS_PER_BASE
+
+      # add the base
       base = BaseFixture(x=x, z=z, tags=tags)
       bases.append (base)
-      numbases = numbases-1
-      i = i + 1
+      basesLeftToAdd = basesLeftToAdd-1
+      basesAdded = basesAdded+1
       angle += base_angle    # advance to the next base
     angle -= base_angle             # now move back when we get to the next aisle
 
@@ -102,21 +132,18 @@ while numbases > 0:
   angle_offset += AISLE_CURVE       # each iteration, shift a little over so the aisle curves
   ring = ring + 1
 
-numpoints = i * POINTS_PER_BASE
-universe = 0
-start = 0
-BASES_PER_UNIVERSE = int(512 / (POINTS_PER_BASE * 3)) # 3 channels per point = RGB
-
-outputs = []
-while numpoints > 0:
-  points = min(numpoints,BASES_PER_UNIVERSE * POINTS_PER_BASE)
+# add the final universe
+if remainingFreeChannels < 512:
+  # output the current universe
+  points = int((512-remainingFreeChannels)/CHANNELS_PER_POINT)
   output = Protocol(IP, universe, start, points)
-  universe = universe + 1
-  numpoints = numpoints - points
-  start = start + points
   outputs.append (output)
+  # and bump to the next universe
+  universe = universe + 1
+  start = start + points
+  remainingFreeChannels = 512
 
-spiral = Fixture(label="Rings", comment="Num Bases " + str(i), children=bases, outputs=outputs)
+spiral = Fixture(label="Rings", comment="Num Bases " + str(basesAdded), children=bases, outputs=outputs)
 json_data = json.dumps(spiral, default=lambda o:o.__dict__, indent=4)
 print(json_data)
 if outputPolarFile:
