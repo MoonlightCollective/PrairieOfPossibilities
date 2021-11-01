@@ -1,4 +1,5 @@
 from typing import List
+import sys, getopt
 import json
 import math
 
@@ -47,6 +48,11 @@ radius = CENTER_RADIUS
 angle_offset = 0
 ring = 0
 last_ring = False
+outputPolarFile = None
+
+for arg in sys.argv:
+  if arg in ("-o"):
+    outputPolarFile=open('polarCoordinates.txt','w')
 
 while numbases > 0:
   perimeter = math.pi * 2 * radius
@@ -73,6 +79,8 @@ while numbases > 0:
       
       x = radius * math.cos(angle)
       z = radius*math.sin(angle)
+      if outputPolarFile:
+        outputPolarFile.write("ring:"+str(ring)+",section:"+str(k)+",base:"+str(j)+",angle:"+str(round(math.degrees(angle)))+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
 
       if (k==0):
         if (math.sqrt((x-EYE_CENTER_X)*(x-EYE_CENTER_X) + (z-EYE_CENTER_Z)*(z-EYE_CENTER_Z)) >= EYE_SIZE):
@@ -111,3 +119,6 @@ while numpoints > 0:
 spiral = Fixture(label="Rings", comment="Num Bases " + str(i), children=bases, outputs=outputs)
 json_data = json.dumps(spiral, default=lambda o:o.__dict__, indent=4)
 print(json_data)
+if outputPolarFile:
+  outputPolarFile.close()
+  outputPolarFile = None
