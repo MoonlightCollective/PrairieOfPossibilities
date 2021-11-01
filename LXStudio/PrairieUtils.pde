@@ -39,7 +39,7 @@ public static class PrairieUtils {
 
 		float minVal = min(lower,upper);
 		float maxVal = max(lower,upper);
-		return (rand.nextFloat() * (maxVal - minVal));
+		return (minVal + (rand.nextFloat() * (maxVal - minVal)));
 	}
 
 	public static float RandomFloatInRange(float lower, float upper)
