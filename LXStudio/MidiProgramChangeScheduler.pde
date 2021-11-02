@@ -1,5 +1,19 @@
 import java.nio.file.Paths;
 
+
+// This class listens for MIDI program change events. If a program change event occurs on 
+// any Midi channel, it will look to see if the Project Scheduler is enabled in LX.Studio.
+// If the scheduler _is_ enabled, then it will look through the projects for a file with a name
+// that matches the program change requested.  For name matching, we look for a pair of
+// numbers in paremtheses anywhere in the file name, separated by a dash. e.g. MyProjectFile(2-12).lxp
+//
+// The first number is the midi channel, and the second is the program change number in the event.
+// So, if we sent a Program Change: 12 on Midi Channel 2, then it will load the project in the example above,
+// but ONLY if the scheduler is enabled in LX Studio.
+//
+// Some additional logic is in here to prevent re-loading the same project multiple times. Some midi files
+// might fire the same program change event more than ones, and we don't want to trigger more loads
+// than we need to.
 public class MidiProgramChangeListener implements LXMidiListener, LX.ProjectListener
 {
 	LXScheduler sched;
