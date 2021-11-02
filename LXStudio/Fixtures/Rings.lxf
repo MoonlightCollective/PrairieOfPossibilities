@@ -2335,20 +2335,36 @@
             "host.james": "192.168.1.60",
             "protocol": "artnet",
             "byteOrder": "rgb",
-            "universe": 0,
-            "start": 0,
+            "universe": 0,            
+            "start": 1134,
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 1,
-            "start": 168,
-            "num": 168
+            "segments": [
+                {
+                    "start": 840,
+                    "num": 147
+                },
+                {
+                    "start": 707,
+                    "num": 7
+                },
+                {
+                    "start": 461,
+                    "num": 7
+                },
+                {
+                    "start": 287,
+                    "num": 7
+                }
+            ]        
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 2,
@@ -2356,7 +2372,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 3,
@@ -2364,7 +2380,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 4,
@@ -2372,7 +2388,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 5,
@@ -2380,7 +2396,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 6,
@@ -2388,7 +2404,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 7,
@@ -2396,7 +2412,7 @@
             "num": 168
         },
         {
-            "host": "192.168.0.60",
+            "host": "192.168.254.29",
             "protocol": "artnet",
             "byteOrder": "rgb",
             "universe": 8,

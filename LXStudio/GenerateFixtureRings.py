@@ -114,7 +114,7 @@ while basesLeftToAdd > 0:
 
       # output the polar field setup file
       if outputPolarFile:
-        outputPolarFile.write("ring:"+str(ring)+",section:"+str(k)+",universe:"+str(universe)+",channels:"+str(startChannel)+"-"+str(startChannel+CHANNELS_PER_BASE-1)+",angle:"+str(round(math.degrees(angle)))+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
+        outputPolarFile.write("baseId:"+str(basesAdded+1)+",ring:"+str(ring)+",section:"+str(k)+",angle:"+str(round(math.degrees(angle)))+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
 
       # use these channels
       remainingFreeChannels = remainingFreeChannels-CHANNELS_PER_BASE
