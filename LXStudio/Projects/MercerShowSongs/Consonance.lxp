@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634443126005,
+  "timestamp": 1635811275377,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -88,7 +88,7 @@
           "autoCycleEnabled": false,
           "autoCycleMode": 0,
           "autoCycleTimeSecs": 60.0,
-          "autoCycleCursor": 1,
+          "autoCycleCursor": 8,
           "triggerSwatchCycle": false
         },
         "children": {
@@ -99,7 +99,7 @@
               "modulationColor": 0
             },
             "parameters": {
-              "label": "Azure blue",
+              "label": "Firetruck red",
               "recall": false,
               "autoCycleEligible": true
             },
@@ -115,12 +115,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 100.0,
+                  "primary/brightness": 80.3921568627451,
                   "primary/saturation": 100.0,
-                  "primary/hue": 154.35294117647058,
+                  "primary/hue": 326.0487804878049,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 154.35294117647058
+                  "secondary/hue": 326.0487804878049
                 },
                 "children": {}
               },
@@ -135,11 +135,11 @@
                   "mode": 0,
                   "period": 30.0,
                   "primary/brightness": 100.0,
-                  "primary/saturation": 93.33333333333333,
-                  "primary/hue": 205.96638655462186,
+                  "primary/saturation": 100.0,
+                  "primary/hue": 0.0,
                   "secondary/brightness": 100.0,
-                  "secondary/saturation": 93.33333333333333,
-                  "secondary/hue": 205.96638655462186
+                  "secondary/saturation": 100.0,
+                  "secondary/hue": 0.0
                 },
                 "children": {}
               },
@@ -154,11 +154,11 @@
                   "mode": 0,
                   "period": 30.0,
                   "primary/brightness": 100.0,
-                  "primary/saturation": 84.70588235294117,
-                  "primary/hue": 240.0,
+                  "primary/saturation": 100.0,
+                  "primary/hue": 27.294117647058822,
                   "secondary/brightness": 100.0,
-                  "secondary/saturation": 84.70588235294117,
-                  "secondary/hue": 240.0
+                  "secondary/saturation": 100.0,
+                  "secondary/hue": 27.294117647058822
                 },
                 "children": {}
               },
@@ -172,12 +172,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 100.0,
+                  "primary/brightness": 80.0,
                   "primary/saturation": 100.0,
-                  "primary/hue": 34.35294117647059,
+                  "primary/hue": 120.0,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 34.35294117647059
+                  "secondary/hue": 120.0
                 },
                 "children": {}
               },
@@ -191,12 +191,12 @@
                   "label": "LX",
                   "mode": 0,
                   "period": 30.0,
-                  "primary/brightness": 65.88235294117646,
+                  "primary/brightness": 32.549019607843135,
                   "primary/saturation": 100.0,
-                  "primary/hue": 34.285714285714285,
+                  "primary/hue": 120.0,
                   "secondary/brightness": 100.0,
                   "secondary/saturation": 100.0,
-                  "secondary/hue": 34.285714285714285
+                  "secondary/hue": 120.0
                 },
                 "children": {}
               }
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 0,
+          "focusedChannel": 4,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2303,7 +2303,7 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.34285714384168386,
@@ -2372,7 +2372,8 @@
                   "label": "Solid",
                   "h": 25.199999436736107,
                   "s": 100.0,
-                  "b": 0.0
+                  "b": 0.0,
+                  "Brt-\u003eA": false
                 },
                 "children": {
                   "modulation": {
@@ -3206,7 +3207,7 @@
             "parameters": {
               "label": "Channel-5",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -3238,9 +3239,9 @@
                   "enabled": true,
                   "MinTime": 0.009999999776482582,
                   "MaxTime": 0.6617000075235963,
-                  "Intensity": 99.00000002235174,
+                  "Intensity": 75.00000055879354,
                   "DecayTime": 0.9399999901652336,
-                  "AttackTimeMs": 40.0
+                  "AttackTimeMs": 105.99999852478503
                 },
                 "children": {
                   "modulation": {
@@ -4606,7 +4607,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.0,
+              "macro1": 0.007874015748031496,
               "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.0,
@@ -4627,7 +4628,7 @@
               "macro1": 0.0,
               "macro2": 0.0,
               "macro3": 0.7952755905511811,
-              "macro4": 0.023622047244094488,
+              "macro4": 0.0,
               "macro5": 0.0
             },
             "children": {}
@@ -5152,12 +5153,6 @@
         "children": {},
         "inputs": [
           {
-            "name": "mio",
-            "channel": true,
-            "control": true,
-            "sync": false
-          },
-          {
             "name": "HomeBoxBlack",
             "channel": true,
             "control": true,
@@ -5165,6 +5160,12 @@
           },
           {
             "name": "mio MIDI IN",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
+          {
+            "name": "mio",
             "channel": true,
             "control": true,
             "sync": false
@@ -5603,9 +5604,9 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 803.7672565873602,
-          "theta": -19.703027482843027,
-          "phi": 0.5858982251957059,
+          "radius": 1421.9336279581626,
+          "theta": -19.677894740132615,
+          "phi": 0.3680811347439885,
           "x": 11.822515921667218,
           "y": -224.8186802789569,
           "z": 16.90584973822115
@@ -5622,18 +5623,18 @@
           },
           {
             "active": true,
-            "radius": 496.0738956589135,
-            "theta": -22.73020072444342,
-            "phi": -0.11382628884166479,
-            "x": -416.5910886062775,
-            "y": 114.78646650910378,
-            "z": -419.8951761391363
+            "radius": 520.8775904418592,
+            "theta": -23.563770013162866,
+            "phi": -7.289489731192589E-4,
+            "x": -578.1438102380198,
+            "y": 51.50212723016739,
+            "z": -2.5958903033645697
           },
           {
             "active": true,
-            "radius": 803.7672565873602,
-            "theta": -19.703027482843027,
-            "phi": 0.5858982251957059,
+            "radius": 1421.9336279581626,
+            "theta": -19.677894740132615,
+            "phi": 0.3680811347439885,
             "x": 11.822515921667218,
             "y": -224.8186802789569,
             "z": 16.90584973822115

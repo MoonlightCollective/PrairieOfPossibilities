@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634680008073,
+  "timestamp": 1635812360929,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -32,7 +32,7 @@
       {
         "jsonFixtureType": "Rings",
         "jsonParameters": {},
-        "id": 9979,
+        "id": 56156,
         "class": "LXStudio$Field",
         "internal": {
           "modulationColor": 0
@@ -2806,7 +2806,7 @@
                   "Trigger": false,
                   "Decay": 0.0,
                   "Size": 0.18099999954551457,
-                  "AtkSpot": 0.13999999687075615,
+                  "AtkSpot": 0.5199999883770943,
                   "SusSpot": 0.8699999805539846,
                   "DcySpot": 1.3399999812245371,
                   "Brightness": 0.9400000013411045,
@@ -3253,7 +3253,7 @@
               "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 0.0,
+              "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 4,
               "midiMonitor": true,
@@ -3382,8 +3382,8 @@
                 },
                 "parameters": {
                   "label": "RingToggles",
-                  "Trig": 1,
-                  "Attack": 0.17999999597668648,
+                  "Trig": 2,
+                  "Attack": 0.2199999950826168,
                   "Decay": 2.2099999617785215,
                   "R0": false,
                   "R1": false,
@@ -4220,9 +4220,9 @@
                   "label": "ElementFlashes",
                   "TrigType": 1,
                   "MidiRoot": 60,
-                  "Attack": 0.09999999776482582,
+                  "Attack": 0.1599999964237213,
                   "Decay": 0.9399999901652336,
-                  "Brightness": 0.7700000051409006,
+                  "Brightness": 0.7200000062584877,
                   "Inner0Trig": false,
                   "Inner1Trig": false,
                   "Outer0Trig": false,
@@ -4277,7 +4277,7 @@
               "macro1": 0.015748031496062992,
               "macro2": 0.0,
               "macro3": 0.0,
-              "macro4": 0.0,
+              "macro4": 0.7401574803149606,
               "macro5": 0.0
             },
             "children": {}
@@ -4293,8 +4293,8 @@
               "running": true,
               "trigger": false,
               "macro1": 0.4015748031496063,
-              "macro2": 0.7716535433070866,
-              "macro3": 0.0,
+              "macro2": 0.0,
+              "macro3": 0.031496062992125984,
               "macro4": 0.0,
               "macro5": 0.0
             },
@@ -4310,9 +4310,9 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.33070866141732286,
-              "macro2": 0.4015748031496063,
-              "macro3": 0.16535433070866143,
+              "macro1": 0.08661417322834646,
+              "macro2": 0.0,
+              "macro3": 0.3228346456692913,
               "macro4": 0.0,
               "macro5": 0.0
             },
@@ -4684,6 +4684,12 @@
         },
         "children": {},
         "inputs": [
+          {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
           {
             "name": "mio MIDI IN",
             "channel": true,

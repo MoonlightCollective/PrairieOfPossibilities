@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635403283935,
+  "timestamp": 1635811628081,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.5,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 5,
+          "focusedChannel": 2,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2636,7 +2636,7 @@
             "parameters": {
               "label": "Channel-3",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -2774,11 +2774,11 @@
                 "parameters": {
                   "label": "MultiFlashes",
                   "Trigger": false,
-                  "Decay": 0.8999999761581421,
+                  "Decay": 0.0,
                   "B Min": 2.9999999329447746,
                   "B Max": 55.00000100582838,
                   "Atk": 0.14999999664723873,
-                  "Dcy": 1.4899999722838404,
+                  "Dcy": 2.1499999575316906,
                   "Target": 2
                 },
                 "children": {
@@ -3191,7 +3191,7 @@
             "parameters": {
               "label": "Channel-6",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 1.0,
@@ -3568,7 +3568,7 @@
                           "period": 1695.992444494506
                         },
                         "children": {},
-                        "basis": 0.16120285467901155,
+                        "basis": 0.22685906431905686,
                         "stages": [
                           {
                             "basis": 0.0,
@@ -3805,11 +3805,11 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.0,
+              "macro1": 0.44881889763779526,
               "macro2": 0.0,
               "macro3": 0.0,
-              "macro4": 0.9291338582677166,
-              "macro5": 0.952755905511811
+              "macro4": 0.7401574803149606,
+              "macro5": 0.0
             },
             "children": {}
           },
@@ -3823,11 +3823,11 @@
               "label": "Macro 2",
               "running": true,
               "trigger": false,
-              "macro1": 0.8503937007874016,
-              "macro2": 0.5984251968503937,
-              "macro3": 0.9606299212598425,
+              "macro1": 0.2992125984251969,
+              "macro2": 0.0,
+              "macro3": 0.031496062992125984,
               "macro4": 0.0,
-              "macro5": 1.0
+              "macro5": 0.0
             },
             "children": {}
           },
@@ -3844,7 +3844,7 @@
               "macro1": 0.0,
               "macro2": 0.0,
               "macro3": 0.0,
-              "macro4": 0.4094488188976378,
+              "macro4": 0.0,
               "macro5": 0.0
             },
             "children": {}
@@ -4384,6 +4384,12 @@
         "children": {},
         "inputs": [
           {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
+          {
             "name": "mio MIDI IN",
             "channel": true,
             "control": true,
@@ -4669,7 +4675,7 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 1715.510444049981,
+          "radius": 2298.948067518038,
           "theta": -17.13285434921272,
           "phi": 0.2250476940535009,
           "x": -86.60956249199808,
@@ -4697,7 +4703,7 @@
           },
           {
             "active": true,
-            "radius": 1715.510444049981,
+            "radius": 2298.948067518038,
             "theta": -17.13285434921272,
             "phi": 0.2250476940535009,
             "x": -86.60956249199808,

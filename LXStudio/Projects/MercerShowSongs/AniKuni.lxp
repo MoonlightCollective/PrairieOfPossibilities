@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635404922426,
+  "timestamp": 1635810815124,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 0,
+          "focusedChannel": 5,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2303,7 +2303,7 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -2397,8 +2397,8 @@
                 },
                 "parameters": {
                   "label": "Noise",
-                  "midpoint": 52.999999932944775,
-                  "contrast": 78.88932066892289,
+                  "midpoint": 43.00000015646219,
+                  "contrast": 50.3122335067414,
                   "xOffset": 0.0,
                   "yOffset": 0.0,
                   "zOffset": 0.0,
@@ -2831,8 +2831,8 @@
                   "waveshape": 0,
                   "minInterval": 1.0,
                   "maxInterval": 2.79699995983392,
-                  "minLevel": 41.000000573694706,
-                  "maxLevel": 57.00000058859587
+                  "minLevel": 50.00000037252903,
+                  "maxLevel": 38.00000101327896
                 },
                 "children": {
                   "modulation": {
@@ -3258,7 +3258,7 @@
             "parameters": {
               "label": "Channel-6",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.7285714270547032,
@@ -4017,7 +4017,7 @@
                           "exp": 0.0
                         },
                         "children": {},
-                        "basis": 0.9972754481044408
+                        "basis": 0.33689038351232403
                       }
                     ],
                     "modulations": [
@@ -4099,7 +4099,7 @@
                 "parameters": {
                   "label": "Solid",
                   "color/brightness": 100.0,
-                  "color/saturation": 100.0,
+                  "color/saturation": 0.0,
                   "color/hue": 0.0,
                   "colorMode": 0,
                   "paletteIndex": 1
@@ -4206,9 +4206,9 @@
                   "enabled": true,
                   "MinNote": 60,
                   "MaxNote": 73,
-                  "Pitch": 68,
-                  "PitchNorm": 0.6153846383094788,
-                  "VelNorm": 0.6875,
+                  "Pitch": 73,
+                  "PitchNorm": 1.0,
+                  "VelNorm": 0.875,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
@@ -4775,8 +4775,8 @@
               "running": true,
               "trigger": false,
               "macro1": 0.49606299212598426,
-              "macro2": 0.0,
-              "macro3": 0.0,
+              "macro2": 0.3779527559055118,
+              "macro3": 0.4251968503937008,
               "macro4": 0.7401574803149606,
               "macro5": 0.16535433070866143
             },
@@ -5465,6 +5465,30 @@
               "enabled": true,
               "Polarity": 0,
               "Range": 0.21250000316649675
+            },
+            "children": {}
+          },
+          {
+            "source": {
+              "componentId": 24663,
+              "parameterPath": "VelNorm",
+              "path": "/mixer/channel/11/effect/2/VelNorm"
+            },
+            "target": {
+              "componentId": 28743,
+              "parameterPath": "GrowPct",
+              "path": "/mixer/channel/11/pattern/2/GrowPct"
+            },
+            "id": 37623,
+            "class": "heronarts.lx.modulation.LXCompoundModulation",
+            "internal": {
+              "modulationColor": 0
+            },
+            "parameters": {
+              "label": "LX",
+              "enabled": true,
+              "Polarity": 0,
+              "Range": 0.30000000540167093
             },
             "children": {}
           }
