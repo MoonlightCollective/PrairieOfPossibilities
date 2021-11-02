@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1634872575916,
+  "timestamp": 1635814320278,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 5,
+          "focusedChannel": 2,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2355,7 +2355,7 @@
                   "RainFrequency": 0.3713000028476119,
                   "MaxIntensity": 100.0,
                   "MinIntensity": 94.00000013411045,
-                  "DropDecay": 3.317000037871301,
+                  "DropDecay": 3.5150000334158538,
                   "DropAttack": 0.13909999877363444,
                   "Size": 0.20889999908059836,
                   "Width": 0.11980000105202197
@@ -2514,7 +2514,7 @@
             "parameters": {
               "label": "Channel-3",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -2630,9 +2630,9 @@
                   "waveshape": 0,
                   "minInterval": 1.0,
                   "maxInterval": 2.79699995983392,
-                  "baseLevel": 41.999999061226845,
-                  "minLevel": 80.99999986588955,
-                  "maxLevel": 100.0
+                  "baseLevel": 40.99999908357859,
+                  "minLevel": 83.99999979883432,
+                  "maxLevel": 91.00000020116568
                 },
                 "children": {
                   "modulation": {
@@ -2957,7 +2957,7 @@
             "parameters": {
               "label": "Channel-6",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 1.0,
@@ -3081,9 +3081,9 @@
               "trigger": false,
               "macro1": 0.0,
               "macro2": 0.0,
-              "macro3": 0.8031496062992126,
-              "macro4": 1.0,
-              "macro5": 0.9763779527559056
+              "macro3": 0.0,
+              "macro4": 0.0,
+              "macro5": 0.03937007874015748
             },
             "children": {}
           },
@@ -3374,6 +3374,12 @@
         "children": {},
         "inputs": [
           {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
+          {
             "name": "mio MIDI IN",
             "channel": true,
             "control": true,
@@ -3651,9 +3657,9 @@
         "centerPoint": false,
         "camera": {
           "active": true,
-          "radius": 1748.0572406556869,
-          "theta": -16.720415128627792,
-          "phi": 0.30832271417602897,
+          "radius": 2459.6920821539347,
+          "theta": -16.732981499982998,
+          "phi": 0.3083227169699967,
           "x": -85.12554504536092,
           "y": -87.94505166262388,
           "z": -2.1594923602533527
@@ -3679,9 +3685,9 @@
           },
           {
             "active": true,
-            "radius": 1748.0572406556869,
-            "theta": -16.720415128627792,
-            "phi": 0.30832271417602897,
+            "radius": 2459.6920821539347,
+            "theta": -16.732981499982998,
+            "phi": 0.3083227169699967,
             "x": -85.12554504536092,
             "y": -87.94505166262388,
             "z": -2.1594923602533527
