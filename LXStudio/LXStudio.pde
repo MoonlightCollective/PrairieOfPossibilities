@@ -26,9 +26,10 @@ processing.core.PApplet applet;
 
 Field field;
 UISimulation simulation;
+MidiProgramChangeListener midiPm;
 
 void setup() {
-  size(1920, 1080, P3D);
+  size(1280	,1024, P3D);
   smooth(8);
   
   heronarts.lx.studio.LXStudio.Flags flags = new heronarts.lx.studio.LXStudio.Flags(this);
@@ -60,7 +61,11 @@ void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI 
   // add the main simulation
   simulation = new UISimulation(lx);
   ui.preview.addComponent(simulation);
+
+  midiPm = new MidiProgramChangeListener(lx);
+  lx.engine.midi.addListener(midiPm);
 }
+
 
 
 void draw() {
