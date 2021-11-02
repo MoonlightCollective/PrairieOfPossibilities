@@ -16,13 +16,37 @@ public static class PrairieUtils {
 	    return rand.nextInt(modelSize/kNumLightsPerPlant);
 	}
 
-	public static int RandomInRange(int lower, int upper)
+	public static int RandomInRange(int lower, int upper, boolean doReorder)
 	{
+		if (!doReorder && upper <= lower)
+			return lower;
+
 		int minVal = min(lower,upper);
 		int maxVal = max(upper,lower);
 		
 		return rand.nextInt(maxVal - minVal+1) + lower;
 	}
+
+	public static int RandomInRange(int lower, int upper)
+	{
+		return RandomInRange(lower,upper, true);
+	}
+
+	public static float RandomFloatInRange(float lower, float upper,boolean doReorder)
+	{
+		if (!doReorder && upper <= lower)
+			return lower;
+
+		float minVal = min(lower,upper);
+		float maxVal = max(lower,upper);
+		return (minVal + (rand.nextFloat() * (maxVal - minVal)));
+	}
+
+	public static float RandomFloatInRange(float lower, float upper)
+	{
+		return RandomFloatInRange(lower,upper,true);
+	}
+
 }
 
 public static class PrairieEnvAD
@@ -85,8 +109,6 @@ public static class PrairieEnvAD
 
 
 }
-
-
 
 public static class PrairieEnvASR
 {

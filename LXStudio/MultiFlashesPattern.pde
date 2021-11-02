@@ -11,6 +11,7 @@ public static class MultiFlashesPattern extends MultiPattern
 	public CompoundParameter envAttack = new CompoundParameter("Atk",0,0,3).setDescription("Attack time of light flash (sec)");
 	public CompoundParameter envDecay = new CompoundParameter("Dcy",.5,0,3).setDescription("Decay time of light flash (sec");
 	public EnumParameter<EPlantPart> targetPart = new EnumParameter<EPlantPart>("Target",EPlantPart.Both);
+	private static int kPoolSize = 40;
 
 	public enum EPlantPart
 	{
@@ -24,13 +25,19 @@ public static class MultiFlashesPattern extends MultiPattern
 		public PrairieEnvAD env;
 		public int plantDex;
 		public EPlantPart plantPart;
-		
-		public SingleFlashInstance(float attackTime, float decayTime, int plantDex, EPlantPart plantPart)
+
+		public SingleFlashInstance()
 		{
-			env = new PrairieEnvAD(attackTime,decayTime);
+			env = new PrairieEnvAD(0.1,1.0);
+		}
+
+		public void TriggerFlashFlashInstance(float attackTime, float decayTime, int plantDex, EPlantPart plantPart)
+		{
+			env.AttackTimeMs = attackTime;
+			env.DecayTimeMs = decayTime;
 			this.plantDex = plantDex;
 			this.plantPart = plantPart;
-            env.Trigger(true);
+			env.Trigger(true);
 		}
 		
 		public void UpdateParticle(float deltaSec)
@@ -38,41 +45,41 @@ public static class MultiFlashesPattern extends MultiPattern
 			env.Update(deltaSec*1000.0f);
 		}
 
-        boolean isDead()
-        {
+		boolean isDead()
+		{
 			return (!env.IsActive);
-        }
+		}
 
-        public int getColorValue(LXPoint pt)
-        {
+		public int getColorValue(LXPoint pt)
+		{
 			int baseDex = plantDex * 7;
 
-            if (pt.index >= baseDex && pt.index < baseDex + 7)          // only return light values if it's in the right range
-            {
-                float brightMinF = brightnessMin.getValuef();
-                float brightMaxF = brightnessMax.getValuef();
-                float bright = brightMinF + env.CurVal * (brightMaxF-brightMinF);
-                int b = (int)(bright * 2.559f);
-                int c = LXColor.rgba(b,b,b,b);
+			if (pt.index >= baseDex && pt.index < baseDex + 7)          // only return light values if it's in the right range
+			{
+				float brightMinF = brightnessMin.getValuef();
+				float brightMaxF = brightnessMax.getValuef();
+				float bright = brightMinF + env.CurVal * (brightMaxF-brightMinF);
+				int b = (int)(bright * 2.559f);
+				int c = LXColor.rgba(b,b,b,b);
 
-                if (plantPart == EPlantPart.Inner)
-                {
-                    if (PrairieUtils.IsInner(pt.index))
-                        return c;
-                    else
-                        return 0;
-                }
-                else if (plantPart == EPlantPart.Outer)
-                {
-                    if (PrairieUtils.IsOuter(pt.index))
-                        return c;
-                    else
-                        return 0;
-                }
-                else return c;
-            }
-            return 0;
-        }
+				if (plantPart == EPlantPart.Inner)
+				{
+					if (PrairieUtils.IsInner(pt.index))
+						return c;
+					else
+						return 0;
+				}
+				else if (plantPart == EPlantPart.Outer)
+				{
+					if (PrairieUtils.IsOuter(pt.index))
+						return c;
+					else
+						return 0;
+				}
+				else return c;
+			}
+			return 0;
+		}
 	}
 
 	public MultiFlashesPattern(LX lx)
@@ -81,35 +88,59 @@ public static class MultiFlashesPattern extends MultiPattern
 		addParameter("B Min",brightnessMin);
 		addParameter("B Max",brightnessMax);
 		addParameter("Atk",envAttack);
-        envAttack.setUnits(LXParameter.Units.SECONDS);
+		envAttack.setUnits(LXParameter.Units.SECONDS);
 		addParameter("Dcy",envDecay);
-        envDecay.setUnits(LXParameter.Units.SECONDS);
+		envDecay.setUnits(LXParameter.Units.SECONDS);
 		addParameter("Target",targetPart);
 	}
 
-    @Override
-	public void triggerNewParticle()
+	@Override
+	protected void buildPool()
 	{
-        super.triggerNewParticle();
-        addParticle(new SingleFlashInstance(envAttack.getValuef() * 1000, envDecay.getValuef() * 1000, PrairieUtils.RandomPlantDex(model.size), targetPart.getEnum()));
+		particlePool = new Stack<ParticleInfo>();
+		for (int i = 0; i < kPoolSize; i++)
+		{
+			particlePool.push(new SingleFlashInstance());
+		}
+		usePool = true;
 	}
 
-    @Override
-    public void computeColors(double deltaMs)
-    {
-        float brightMinF = brightnessMin.getValuef();
-        int b = (int)(brightMinF * 2.559f);
-        int c = LXColor.rgba(b,b,b,b);
+	public SingleFlashInstance getParticleFromPool()
+	{
+		if (particlePool == null || particlePool.size() < 1)
+			return null;
+		
+		return ((SingleFlashInstance)particlePool.pop());
+	}
 
-        for (LXPoint p : model.points) 
-        {
-            colors[p.index] = c;
-            for (ParticleInfo particle : particles)
-            {
-                int col = particle.getColorValue(p);
-                colors[p.index] = LXColor.lightest(colors[p.index], col);
-            }
-        }
-    }
+	@Override
+	public void triggerNewParticle()
+	{
+		super.triggerNewParticle();
+		SingleFlashInstance flash = getParticleFromPool();
+		if (flash != null)
+		{
+			flash.TriggerFlashFlashInstance(envAttack.getValuef() * 1000, envDecay.getValuef() * 1000, PrairieUtils.RandomPlantDex(model.size), targetPart.getEnum());
+			addParticle(flash);
+		}
+	}
+
+	@Override
+	public void computeColors(double deltaMs)
+	{
+		float brightMinF = brightnessMin.getValuef();
+		int b = (int)(brightMinF * 2.559f);
+		int c = LXColor.rgba(b,b,b,b);
+
+		for (LXPoint p : model.points) 
+		{
+			colors[p.index] = c;
+			for (ParticleInfo particle : particles)
+			{
+				int col = particle.getColorValue(p);
+				colors[p.index] = LXColor.lightest(colors[p.index], col);
+			}
+		}
+	}
 
 }

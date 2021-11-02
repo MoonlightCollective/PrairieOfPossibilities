@@ -461,16 +461,24 @@ public class SolidPattern extends LXPattern {
   public final CompoundParameter h = new CompoundParameter("Hue", 0, 360);
   public final CompoundParameter s = new CompoundParameter("Sat", 0, 100);
   public final CompoundParameter b = new CompoundParameter("Brt", 100, 100);
-
+  public final BooleanParameter mapBtoA = new BooleanParameter("Brt->A").setDescription("Get alpha value from the brightness");
+  
   public SolidPattern(LX lx) {
     super(lx);
     addParameter("h", this.h);
     addParameter("s", this.s);
     addParameter("b", this.b);
+    addParameter("Brt->A",this.mapBtoA);
   }
 
   public void run(double deltaMs) {
-    setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(), 255));
+    if (mapBtoA.getValueb()) {
+      float a = (float)this.b.getValue()/100.0;
+      setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(),(float)a));
+    }
+    else {
+      setColors(LXColor.hsba(this.h.getValue(), this.s.getValue(), this.b.getValue(), 255));
+    }
   }
 }
 
@@ -486,12 +494,14 @@ public static class SpinEachBladePattern extends LXPattern {
     public final CompoundParameter brightnessMin = new CompoundParameter("Min Bright", 0, 0, 100);
     public final CompoundParameter brightnessCenter = new CompoundParameter("Center Bright", 50, 0, 100);
     public final DiscreteParameter spinType = new DiscreteParameter("Spin Type",1, 0,3);
+	public final BooleanParameter useRandOffset = new BooleanParameter("RandOffset",false);
 
     private double timerMs = 0; // timer for the rotation animation
     private double rotTimeMs = 0; // cached value of sec->ms
     private final static int kNumRingLights = 5; // constant count of lights in base.
     private float[] brightPerLight = new float[kNumRingLights]; // array of brightness values for each light - to be applied to each base (rather than computing it for each base as we iterate)
-    
+	private float randomOffset = 0.0f;
+
     public SpinEachBladePattern(LX lx) {
         super(lx);
         addParameter("Rot Time",this.rotTimeSec);
@@ -499,7 +509,9 @@ public static class SpinEachBladePattern extends LXPattern {
         addParameter("Min Bright", this.brightnessMin);
         addParameter("Center Bright", this.brightnessCenter);
         addParameter("Spin Type", this.spinType);
-    }
+		addParameter("useRandOffset",this.useRandOffset);
+		ModelUtils.Init(model);
+	}
 
     void run(double deltaMs)
     {
@@ -516,9 +528,10 @@ public static class SpinEachBladePattern extends LXPattern {
 
         // alpha = percentage of rotation (0->1)
         float alpha = (float)(timerMs / rotTimeMs);
+
         float fBrightMax = brightnessMax.getValuef(); // cache value we're going to use a lot
         float fBrightDelta = fBrightMax - brightnessMin.getValuef(); // cache value we use multiple times
-        
+
         // figure out lighting levels for a single plant, depending on which algorithm is chosen by "spin type"
         for (int i = 0; i < kNumRingLights; i++)
         {
@@ -532,9 +545,9 @@ public static class SpinEachBladePattern extends LXPattern {
                     brightPerLight[i] = fBrightMax - (offsetAlpha * fBrightDelta);
                     break;
                 case 1:
-                    // softer, with cos
-                    float offsetAngle = (alpha + (float)i/kNumRingLights) * 2 * PI;
-                    brightPerLight[i] = max(brightnessMin.getValuef(), fBrightMax * (1 + LXUtils.cosf(offsetAngle)) / 2);
+                    float dist = LXUtils.wrapdistf((float)i/kNumRingLights,alpha,1.0);
+					float b = max(0.0,(1-dist*1.5));
+                    brightPerLight[i] = brightnessMin.getValuef() + (b * fBrightDelta);
                     break;
                 case 2:
                     // only one light on at a time
@@ -557,8 +570,22 @@ public static class SpinEachBladePattern extends LXPattern {
             }
             else
             {
-                int b = (int) (brightPerLight[lightDex-2] * 2.559f);
-                colors[p.index] = LXColor.rgba(b,b,b,b);
+				if (!useRandOffset.getValueb())
+				{
+                	int b = (int) (brightPerLight[lightDex-2] * 2.559f);
+	                colors[p.index] = LXColor.rgba(b,b,b,b);
+				}
+				else
+				{
+					float a = alpha + ModelUtils.RandomOffsetForPlantDex((int)(p.index/PrairieUtils.kNumLightsPerPlant));
+					 if (a > 1)
+						a -= 1.0f;
+                    float dist = LXUtils.wrapdistf((float)(lightDex-2)/(float)kNumRingLights,a,1.0);
+					float b = max(0.0,(1-dist*1.5));
+                    float bpl = brightnessMin.getValuef() + (b * fBrightDelta);
+					int bInt = (int)(bpl*2.559f);
+					colors[p.index] = LXColor.rgba(bInt,bInt,bInt,bInt);
+				}
             }
         }
     }
