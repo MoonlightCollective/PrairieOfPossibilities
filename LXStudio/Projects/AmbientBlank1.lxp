@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635195430454,
+  "timestamp": 1635553709863,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -47,7 +47,7 @@
           "roll": 0.0,
           "selected": true,
           "deactivate": false,
-          "enabled": false,
+          "enabled": true,
           "brightness": 1.0,
           "identify": false,
           "mute": false,
@@ -2288,7 +2288,7 @@
               "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 0.0,
+              "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 4,
               "midiMonitor": false,
@@ -3693,7 +3693,7 @@
               "arm": false,
               "selected": true,
               "enabled": true,
-              "cue": true,
+              "cue": false,
               "fader": 1.0,
               "crossfadeGroup": 0,
               "blendMode": 0,
@@ -3705,13 +3705,46 @@
               "transitionEnabled": false,
               "transitionTimeSecs": 5.0,
               "transitionBlendMode": 0,
-              "focusedPattern": 1,
+              "focusedPattern": 4,
               "triggerPatternCycle": false
             },
             "children": {},
-            "effects": [],
+            "effects": [
+              {
+                "id": 47425,
+                "class": "LXStudio$FilterEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Filter",
+                  "enabled": true,
+                  "Filter": 8,
+                  "Invert": false
+                },
+                "children": {
+                  "modulation": {
+                    "id": 47426,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              }
+            ],
             "clips": [],
-            "patternIndex": 1,
+            "patternIndex": 4,
             "patterns": [
               {
                 "id": 38926,
@@ -3775,6 +3808,114 @@
                 "children": {
                   "modulation": {
                     "id": 43546,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 47421,
+                "class": "LXStudio$LightOnePlantPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "LightOnePlant",
+                  "100s": 0,
+                  "10s": 1,
+                  "1s": 0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 47422,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 47423,
+                "class": "LXStudio$DonutPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "Donut",
+                  "Size": 0.0,
+                  "Width": 0.3900000061839819,
+                  "Dist": 0.0,
+                  "Theta": 0.0
+                },
+                "children": {
+                  "modulation": {
+                    "id": 47424,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 47428,
+                "class": "LXStudio$RingTogglesPattern",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false,
+                  "autoCycleEligible": true
+                },
+                "parameters": {
+                  "label": "RingToggles",
+                  "Trig": 0,
+                  "Attack": 0.0,
+                  "Decay": 0.5,
+                  "R0": false,
+                  "R1": false,
+                  "R2": false,
+                  "R3": false,
+                  "R4": false,
+                  "R5": false,
+                  "R6": false,
+                  "MidiRoot": 60
+                },
+                "children": {
+                  "modulation": {
+                    "id": 47429,
                     "class": "heronarts.lx.modulation.LXModulationEngine",
                     "internal": {
                       "modulationColor": 0
