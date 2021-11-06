@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635870528645,
+  "timestamp": 1636238429498,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 2,
+          "focusedChannel": 10,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2315,13 +2315,46 @@
                 "parameters": {
                   "label": "TargetedColorizePalette",
                   "enabled": true,
-                  "Target": 3,
+                  "Target": 2,
                   "Index": 1,
                   "Interp": false
                 },
                 "children": {
                   "modulation": {
                     "id": 21797,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 57572,
+                "class": "LXStudio$TargetedColorizePaletteEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "TargetedColorizePalette",
+                  "enabled": true,
+                  "Target": 1,
+                  "Index": 2,
+                  "Interp": false
+                },
+                "children": {
+                  "modulation": {
+                    "id": 57573,
                     "class": "heronarts.lx.modulation.LXModulationEngine",
                     "internal": {
                       "modulationColor": 0
@@ -2386,8 +2419,8 @@
                 },
                 "parameters": {
                   "label": "Noise",
-                  "midpoint": 21.000000648200512,
-                  "contrast": 87.03359241476475,
+                  "midpoint": 50.0,
+                  "contrast": 190.476308889707,
                   "xOffset": 0.0,
                   "yOffset": 0.0,
                   "zOffset": 0.0,
@@ -2398,8 +2431,8 @@
                   "yScale": 1.0,
                   "zScale": 1.0,
                   "motion": true,
-                  "motionSpeed": 0.11320754885673523,
-                  "motionSpeedRange": 128.0,
+                  "motionSpeed": 0.18867924809455872,
+                  "motionSpeedRange": 36.200002051889896,
                   "xMotion": 0.9047619216144085,
                   "yMotion": 0.9523809514939785,
                   "zMotion": 0.3333333171904087,
@@ -2626,7 +2659,7 @@
                   "minInterval": 1.2979999732226133,
                   "maxInterval": 1.89699995983392,
                   "baseLevel": 38.99999912828207,
-                  "minLevel": 23.000001162290573,
+                  "minLevel": 36.00000087171793,
                   "maxLevel": 100.0
                 },
                 "children": {
@@ -2659,7 +2692,7 @@
             "parameters": {
               "label": "Channel-3",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -2805,9 +2838,9 @@
                   "label": "Spots",
                   "Trigger": false,
                   "Decay": 0.0,
-                  "Size": 0.18099999954551457,
-                  "AtkSpot": 0.5199999883770943,
-                  "SusSpot": 0.8699999805539846,
+                  "Size": 0.24399999803304673,
+                  "AtkSpot": 0.25999999418854713,
+                  "SusSpot": 0.6299999859184027,
                   "DcySpot": 1.3399999812245371,
                   "Brightness": 0.9400000013411045,
                   "DistMin": 0.6199999861419201,
@@ -3041,7 +3074,7 @@
               "selected": false,
               "enabled": true,
               "cue": false,
-              "fader": 0.4142857175320387,
+              "fader": 0.5428571468219161,
               "crossfadeGroup": 0,
               "blendMode": 4,
               "midiMonitor": true,
@@ -3175,9 +3208,9 @@
                   "enabled": true,
                   "MinNote": 0,
                   "MaxNote": 113,
-                  "Pitch": 60,
-                  "PitchNorm": 0.5309734344482422,
-                  "VelNorm": 0.046875,
+                  "Pitch": 62,
+                  "PitchNorm": 0.5486725568771362,
+                  "VelNorm": 0.890625,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
@@ -3214,7 +3247,7 @@
                 },
                 "parameters": {
                   "label": "Solid",
-                  "color/brightness": 9.52380783855915,
+                  "color/brightness": 38.095237873494625,
                   "color/saturation": 0.0,
                   "color/hue": 0.0,
                   "colorMode": 0,
@@ -3383,7 +3416,7 @@
                 "parameters": {
                   "label": "RingToggles",
                   "Trig": 2,
-                  "Attack": 0.2199999950826168,
+                  "Attack": 0.11999999731779099,
                   "Decay": 2.2099999617785215,
                   "R0": false,
                   "R1": false,
@@ -4079,11 +4112,11 @@
                 "parameters": {
                   "label": "TriggeredFlashes",
                   "OB Min": 35.00000014901161,
-                  "OB Max": 72.00000062584877,
+                  "OB Max": 69.000000692904,
                   "O Atk": 0.05999999865889549,
                   "O Dcy": 0.5,
                   "IB Min": 23.00000060349703,
-                  "IB Max": 85.00000033527613,
+                  "IB Max": 97.00000006705523,
                   "I Atk": 0.0,
                   "I Dcy": 0.5,
                   "I Trg": false,
@@ -4119,7 +4152,7 @@
             "parameters": {
               "label": "Channel-11",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -4222,7 +4255,7 @@
                   "MidiRoot": 60,
                   "Attack": 0.1599999964237213,
                   "Decay": 0.9399999901652336,
-                  "Brightness": 0.7200000062584877,
+                  "Brightness": 0.9800000004470348,
                   "Inner0Trig": false,
                   "Inner1Trig": false,
                   "Outer0Trig": false,
@@ -4274,7 +4307,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.015748031496062992,
+              "macro1": 0.4409448818897638,
               "macro2": 0.0,
               "macro3": 0.0,
               "macro4": 0.7401574803149606,
@@ -4293,7 +4326,7 @@
               "running": true,
               "trigger": false,
               "macro1": 0.4015748031496063,
-              "macro2": 0.0,
+              "macro2": 1.0,
               "macro3": 0.031496062992125984,
               "macro4": 0.0,
               "macro5": 0.0
@@ -4310,10 +4343,10 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.08661417322834646,
-              "macro2": 0.0,
-              "macro3": 0.3228346456692913,
-              "macro4": 0.0,
+              "macro1": 0.49606299212598426,
+              "macro2": 0.4251968503937008,
+              "macro3": 0.16535433070866143,
+              "macro4": 0.3700787401574803,
               "macro5": 0.0
             },
             "children": {}
@@ -4638,7 +4671,7 @@
         },
         "parameters": {
           "label": "Output",
-          "enabled": true,
+          "enabled": false,
           "brightness": 1.0,
           "fps": 0.0,
           "gamma": 1.0,

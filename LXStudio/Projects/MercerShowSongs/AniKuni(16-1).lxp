@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635870567139,
+  "timestamp": 1636234182306,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 5,
+          "focusedChannel": 10,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2486,8 +2486,8 @@
                   "enabled": true,
                   "MinNote": 60,
                   "MaxNote": 74,
-                  "Pitch": 72,
-                  "PitchNorm": 0.8571428656578064,
+                  "Pitch": 69,
+                  "PitchNorm": 0.6428571343421936,
                   "VelNorm": 0.9765625,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
@@ -2831,8 +2831,8 @@
                   "waveshape": 0,
                   "minInterval": 1.0,
                   "maxInterval": 2.79699995983392,
-                  "minLevel": 50.00000037252903,
-                  "maxLevel": 38.00000101327896
+                  "minLevel": 64.00000005960464,
+                  "maxLevel": 57.00000058859587
                 },
                 "children": {
                   "modulation": {
@@ -2967,9 +2967,9 @@
                   "enabled": true,
                   "MinNote": 60,
                   "MaxNote": 64,
-                  "Pitch": 64,
-                  "PitchNorm": 1.0,
-                  "VelNorm": 0.6875,
+                  "Pitch": 60,
+                  "PitchNorm": 0.0,
+                  "VelNorm": 0.2421875,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
@@ -3183,11 +3183,11 @@
                 "parameters": {
                   "label": "TriggeredFlashes",
                   "OB Min": 18.000000156462193,
-                  "OB Max": 37.99999915063381,
+                  "OB Max": 44.99999899417162,
                   "O Atk": 0.08999999798834324,
                   "O Dcy": 0.7099999953061341,
                   "IB Min": 27.999999560415745,
-                  "IB Max": 16.000001691281796,
+                  "IB Max": 30.00000137835741,
                   "I Atk": 0.0,
                   "I Dcy": 1.2499999832361937,
                   "I Trg": false,
@@ -3258,7 +3258,7 @@
             "parameters": {
               "label": "Channel-6",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.7285714270547032,
@@ -3326,6 +3326,39 @@
                 "children": {
                   "modulation": {
                     "id": 20409,
+                    "class": "heronarts.lx.modulation.LXModulationEngine",
+                    "internal": {
+                      "modulationColor": 0
+                    },
+                    "parameters": {
+                      "label": "Modulation"
+                    },
+                    "children": {},
+                    "modulators": [],
+                    "modulations": [],
+                    "triggers": []
+                  }
+                },
+                "deviceVersion": -1
+              },
+              {
+                "id": 55659,
+                "class": "heronarts.lx.effect.BlurEffect",
+                "internal": {
+                  "modulationColor": 0,
+                  "expanded": true,
+                  "modulationExpanded": false
+                },
+                "parameters": {
+                  "label": "Blur",
+                  "enabled": true,
+                  "level": 0.3299999926239252,
+                  "decay": 1.0,
+                  "mode": 1
+                },
+                "children": {
+                  "modulation": {
+                    "id": 55660,
                     "class": "heronarts.lx.modulation.LXModulationEngine",
                     "internal": {
                       "modulationColor": 0
@@ -3809,7 +3842,7 @@
                 "parameters": {
                   "label": "Labyrinth",
                   "Trigger": false,
-                  "Decay": 1.1400000415742397,
+                  "Decay": 1.470000034198165,
                   "Speed Inner": 0.0,
                   "Speed Outer": 0.0,
                   "Direction": 0
@@ -3912,7 +3945,7 @@
                 "parameters": {
                   "label": "Lighthouse",
                   "speed": 0.6299999859184027,
-                  "width": 0.18000001087784767,
+                  "width": 0.3900000061839819,
                   "axis": 0
                 },
                 "children": {
@@ -4017,7 +4050,7 @@
                           "exp": 0.0
                         },
                         "children": {},
-                        "basis": 0.9523466387291466
+                        "basis": 0.8145142559873011
                       }
                     ],
                     "modulations": [
@@ -4134,10 +4167,10 @@
             "parameters": {
               "label": "Channel-11",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
-              "fader": 0.45714285410940647,
+              "fader": 0.771428570151329,
               "crossfadeGroup": 0,
               "blendMode": 0,
               "midiMonitor": true,
@@ -4166,12 +4199,12 @@
                   "enabled": true,
                   "I1": true,
                   "I2": true,
-                  "O1": false,
+                  "O1": true,
                   "O2": false,
                   "O3": false,
-                  "O4": false,
+                  "O4": true,
                   "O5": false,
-                  "Invert": false,
+                  "Invert": true,
                   "MidiEnabled": false,
                   "MidiRoot": 56
                 },
@@ -4320,7 +4353,7 @@
                   "label": "Spots",
                   "Trigger": false,
                   "Decay": 0.0,
-                  "Size": 0.18100000122189516,
+                  "Size": 0.1990000007897615,
                   "AtkSpot": 0.8999999836087227,
                   "SusSpot": 0.8699999805539846,
                   "DcySpot": 0.8899999912828206,
@@ -4716,10 +4749,10 @@
                   "label": "SpotsPatternRandomColor",
                   "Trigger": false,
                   "Decay": 0.0,
-                  "Size": 0.16299999997764825,
+                  "Size": 0.28899999695271256,
                   "AtkSpot": 0.05999999865889549,
-                  "SusSpot": 0.17999999597668648,
-                  "DcySpot": 0.8899999912828207,
+                  "SusSpot": 0.41999999061226845,
+                  "DcySpot": 1.1599999852478504,
                   "Brightness": 1.0,
                   "DistMin": 0.5199999883770943,
                   "DistMax": 0.7799999937415123,
@@ -4774,7 +4807,7 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.49606299212598426,
+              "macro1": 0.0,
               "macro2": 0.3779527559055118,
               "macro3": 0.4251968503937008,
               "macro4": 0.7401574803149606,
@@ -4810,10 +4843,10 @@
               "label": "Macro 3",
               "running": true,
               "trigger": false,
-              "macro1": 0.07086614173228346,
-              "macro2": 0.25984251968503935,
-              "macro3": 0.0,
-              "macro4": 0.023622047244094488,
+              "macro1": 0.0,
+              "macro2": 0.0,
+              "macro3": 0.015748031496062992,
+              "macro4": 0.0,
               "macro5": 0.0
             },
             "children": {}
@@ -4840,7 +4873,7 @@
               "label": "LX",
               "enabled": true,
               "Polarity": 0,
-              "Range": 0.7624999964609742
+              "Range": 0.9249999988824129
             },
             "children": {}
           },
@@ -4984,7 +5017,7 @@
               "label": "LX",
               "enabled": true,
               "Polarity": 0,
-              "Range": 0.8375000143423676
+              "Range": 1.0
             },
             "children": {}
           },
@@ -6060,9 +6093,9 @@
       "modulatorExpanded": {
         "10228": true,
         "10229": false,
-        "10230": false,
+        "10230": true,
         "19271": false,
-        "20385": false,
+        "20385": true,
         "21113": false,
         "21141": false,
         "24663": true,
