@@ -1,6 +1,6 @@
 {
   "version": "0.2.2-SNAPSHOT",
-  "timestamp": 1635813565679,
+  "timestamp": 1636232773985,
   "model": {
     "id": 2,
     "class": "heronarts.lx.structure.LXStructure",
@@ -2252,7 +2252,7 @@
           "scene-5": false,
           "crossfader": 0.4745762664824724,
           "crossfaderBlendMode": 0,
-          "focusedChannel": 5,
+          "focusedChannel": 0,
           "cueA": false,
           "cueB": false,
           "viewCondensed": false
@@ -2285,7 +2285,7 @@
             "parameters": {
               "label": "Channel-1",
               "arm": false,
-              "selected": false,
+              "selected": true,
               "enabled": true,
               "cue": false,
               "fader": 0.0,
@@ -2436,8 +2436,8 @@
                   "minInterval": 1.2979999732226133,
                   "maxInterval": 5.192999906279146,
                   "baseLevel": 21.99999950826168,
-                  "minLevel": 44.99999899417162,
-                  "maxLevel": 47.000001184642315
+                  "minLevel": 56.99999872595072,
+                  "maxLevel": 72.00000062584877
                 },
                 "children": {
                   "modulation": {
@@ -2609,9 +2609,9 @@
                 "parameters": {
                   "label": "SpinEachBlade",
                   "Rot Time": 1.489999988898635,
-                  "Max Bright": 83.00000037997961,
-                  "Min Bright": 14.999999664723873,
-                  "Center Bright": 75.00000055879354,
+                  "Max Bright": 93.00000015646219,
+                  "Min Bright": 12.999999709427357,
+                  "Center Bright": 100.0,
                   "Spin Type": 1,
                   "useRandOffset": true
                 },
@@ -10687,6 +10687,734 @@
                         "command": 128,
                         "data1": 60,
                         "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 66,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 66,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 66,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 66,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 66,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 66,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 65,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 66,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 63,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 64,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 66,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 65,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 60,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 61,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 144,
+                        "data1": 62,
+                        "data2": 88
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 64,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 63,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 62,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 61,
+                        "data2": 64
+                      },
+                      {
+                        "cursor": 0.0,
+                        "channel": 2,
+                        "command": 128,
+                        "data1": 60,
+                        "data2": 64
                       }
                     ]
                   },
@@ -10789,9 +11517,9 @@
                   "enabled": true,
                   "MinNote": 60,
                   "MaxNote": 84,
-                  "Pitch": 82,
-                  "PitchNorm": 0.9166666865348816,
-                  "VelNorm": 0.9609375,
+                  "Pitch": 70,
+                  "PitchNorm": 0.4166666567325592,
+                  "VelNorm": 0.9921875,
                   "NoteGateOut": false,
                   "NoteTrigOut": false
                 },
@@ -11186,7 +11914,7 @@
             "parameters": {
               "label": "Channel-6",
               "arm": false,
-              "selected": true,
+              "selected": false,
               "enabled": true,
               "cue": false,
               "fader": 0.6571428533643484,
@@ -11405,9 +12133,9 @@
               "label": "Macro",
               "running": true,
               "trigger": false,
-              "macro1": 0.07874015748031496,
-              "macro2": 0.44881889763779526,
-              "macro3": 0.0,
+              "macro1": 0.937007874015748,
+              "macro2": 0.7874015748031497,
+              "macro3": 0.9448818897637795,
               "macro4": 0.968503937007874,
               "macro5": 0.0
             },
@@ -11486,7 +12214,7 @@
               "parameterPath": "fader",
               "path": "/mixer/channel/4/fader"
             },
-            "id": 38394,
+            "id": 53619,
             "class": "heronarts.lx.modulation.LXCompoundModulation",
             "internal": {
               "modulationColor": 0
@@ -11867,6 +12595,12 @@
         },
         "children": {},
         "inputs": [
+          {
+            "name": "HomeBoxBlack",
+            "channel": true,
+            "control": true,
+            "sync": false
+          },
           {
             "name": "mio MIDI IN",
             "channel": true,
