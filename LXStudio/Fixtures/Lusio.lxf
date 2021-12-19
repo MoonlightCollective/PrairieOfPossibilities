@@ -1,0 +1,116 @@
+{
+    "label": "Lusio",
+    "comment": "Num Bases 12",
+    "children": [
+        {
+            "type": "7-pixel-base",
+            "x": 0,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 96,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 192,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 288,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 384,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 480,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 48,
+            "z": 96,
+            "tags": [
+                "ring1"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 144,
+            "z": 96,
+            "tags": [
+                "ring1"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 240,
+            "z": 96,
+            "tags": [
+                "inner",
+                "edge",
+                "yinyang",
+                "section1",
+                "ring1"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 336,
+            "z": 96,
+            "tags": [
+                "ring1"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 432,
+            "z": 96,
+            "tags": [
+                "ring1"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 528,
+            "z": 96,
+            "tags": [
+                "ring1"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "host": "192.168.0.60",
+            "protocol": "artnet",
+            "byteOrder": "rgb",
+            "universe": 0,            
+            "start": 0,
+            "num": 84
+        }
+    ]
+}
