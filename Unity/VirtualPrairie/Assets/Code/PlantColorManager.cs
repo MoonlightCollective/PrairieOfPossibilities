@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class StalkColorManager
+public class StemColorManager
 {
 	public List<Material> Materials = new List<Material>();
 	public void SetColor(Color color, float GlowIntensity, float Alpha)
@@ -18,9 +18,9 @@ public class StalkColorManager
 		}
 	}
 
-	public void InitFromStalk(Transform stalkT)
+	public void InitFromStem(Transform stemTrans)
 	{
-		var meshes = stalkT.GetComponentsInChildren<MeshRenderer>();
+		var meshes = stemTrans.GetComponentsInChildren<MeshRenderer>();
 		foreach (var mesh in meshes)
 		{
 			Materials.Add(mesh.material);
@@ -30,31 +30,20 @@ public class StalkColorManager
 
 public class PlantColorManager : MonoBehaviour
 {
-	[Header("Debug")]
-	public bool DoDebugRainbow = true;
-	public float DebugRainbowCycleTime = 1.0f;
-	public float DebugBrightness = 1.0f;
-	public Color DebugStaticColor = Color.red;
-
-	[Header("Glow")]
-	public float GlowIntensity = 1.0f;
-	public float StalkAlpha = 1.0f;
-	protected List<StalkColorManager> StalkColors = new List<StalkColorManager>();
-
+	protected List<StemColorManager> StemColors = new List<StemColorManager>();
 	float _colorOffset = 0.0f;
-
 
 	public void Awake()
 	{
-		_colorOffset = Random.RandomRange(0,1f);
+		// _colorOffset = Random.RandomRange(0,1f);
 		_colorOffset = transform.position.x;
 		foreach (Transform child in transform)
 		{
 			if (child.gameObject.name.Contains("Stalk"))
 			{
-				var s = new StalkColorManager();
-				s.InitFromStalk(child);
-				StalkColors.Add(s);
+				var s = new StemColorManager();
+				s.InitFromStem(child);
+				StemColors.Add(s);
 			}
 		}
 	}
@@ -68,21 +57,25 @@ public class PlantColorManager : MonoBehaviour
 	
 	public void Update()
 	{
-		_debugSwirlAlpha += Time.deltaTime / DebugRainbowCycleTime;
-		while (_debugSwirlAlpha > 1.0f)
+		var settings = GlobalPlantSettings.Instance;
+
+		if (settings.DebugRainbow)
 		{
-			_debugSwirlAlpha -= 1f;
-		}
+			_debugSwirlAlpha += Time.deltaTime / settings.DebugRainbowCycleTime;
+			while (_debugSwirlAlpha > 1.0f)
+			{
+				_debugSwirlAlpha -= 1f;
+			}
 
-		DebugStaticColor = Color.HSVToRGB(_debugSwirlAlpha,1f,1.5f,true);
+			Color c = new Color();
+			float offset = 0;
 
-		float offset = 0;
-
-		foreach (var s in StalkColors)
-		{
-			Color c = Color.HSVToRGB(Mathf.Repeat(offset + _colorOffset + _debugSwirlAlpha,1.0f), 1.0f, DebugBrightness,true);
-			s.SetColor(c, GlowIntensity, StalkAlpha);
-			offset += .02f;
+			foreach (var s in StemColors)
+			{
+				c = Color.HSVToRGB(Mathf.Repeat(offset + _colorOffset + _debugSwirlAlpha,1.0f), 1.0f, settings.Brightness,true);
+				s.SetColor(c, settings.GlowIntensity, settings.StemAlpha);
+				offset += .02f;
+			}
 		}
 	}
 
