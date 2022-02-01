@@ -93,7 +93,7 @@ namespace ArtNet.Sockets
                 ArtNetRecieveData recieveState = new ArtNetRecieveData();
                 BeginReceiveFrom(recieveState.buffer, 0, recieveState.bufferSize, SocketFlags.None, ref localPort, new AsyncCallback(OnRecieve), recieveState);
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 OnUnhandledException(new ApplicationException("An error ocurred while trying to start recieving ArtNet.", ex));
             }

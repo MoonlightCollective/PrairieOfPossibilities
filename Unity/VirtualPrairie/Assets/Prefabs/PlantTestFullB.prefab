@@ -182,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423405162551313593}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 976353090431161747}
@@ -452,14 +452,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3131090945177722624}
   m_LocalRotation: {x: -0.5940445, y: 0.3835507, z: 0.3835507, w: 0.5940445}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100.00001, y: 100.00001, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 6394622164545216271}
   - {fileID: 6374804253965967932}
   - {fileID: 3253338067438710570}
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3339719865947634429
 GameObject:
@@ -571,7 +571,7 @@ Transform:
   - {fileID: 4182039250339201894}
   - {fileID: 2321743462883514539}
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3367932485787786052
 GameObject:
@@ -1452,7 +1452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531779254938624795}
   m_Layer: 8
-  m_Name: StalkGroupAa
+  m_Name: StalkGroupD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,13 +1467,13 @@ Transform:
   m_GameObject: {fileID: 5285167193348753767}
   m_LocalRotation: {x: 0.0629228, y: 0.6691499, z: 0.73794174, w: -0.061001316}
   m_LocalPosition: {x: 0.00216045, y: 0.008791496, z: -0.020967398}
-  m_LocalScale: {x: 100.00001, y: 100.00001, z: 100}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 3059662688728330343}
   - {fileID: 4373939238248303642}
   - {fileID: 2188074194388773012}
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5354713593687840128
 GameObject:
@@ -1485,7 +1485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5498068276409925728}
   m_Layer: 8
-  m_Name: StalkGroupC.001
+  m_Name: StalkGroupE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,7 +1500,7 @@ Transform:
   m_GameObject: {fileID: 5354713593687840128}
   m_LocalRotation: {x: -0.51172096, y: -0.48799768, z: -0.48799825, w: 0.51172036}
   m_LocalPosition: {x: 0.011651056, y: 0.014858044, z: -0.03566593}
-  m_LocalScale: {x: 100.00001, y: 100.00001, z: 100}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 730104797293328767}
   - {fileID: 1360060915570924906}
@@ -1619,9 +1619,9 @@ Transform:
   - {fileID: 2284933410612014119}
   - {fileID: 3575327346208376909}
   - {fileID: 989324035666970098}
-  - {fileID: 531779254938624795}
   - {fileID: 7200599883359412076}
   - {fileID: 4907585468598889855}
+  - {fileID: 531779254938624795}
   - {fileID: 5498068276409925728}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1638,3 +1638,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224ba986093e35a4f8babe630e434c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StemColors: []
