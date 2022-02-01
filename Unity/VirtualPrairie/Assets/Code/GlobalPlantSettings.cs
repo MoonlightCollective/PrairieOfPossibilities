@@ -8,7 +8,8 @@ public class GlobalPlantSettings : MonoBehaviour
 	public float Brightness;
 	public float StemAlpha;
 	public float GlowIntensity;
-
+	public float GroundGlowAlpha = 0.5f;
+	
 	[Header("DebugCycling")]
 	public bool DebugRainbow = false;
 	public float DebugRainbowCycleTime = 5.0f;

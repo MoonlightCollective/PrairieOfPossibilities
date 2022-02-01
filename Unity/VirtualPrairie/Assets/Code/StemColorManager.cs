@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
 
 //
 // StemColorManager represents a single DmxPoint that effects one or more light stems (fibers).
@@ -13,6 +13,9 @@ using UnityEngine;
 public class StemColorManager : DmxColorPoint
 {
 	public List<Material> Materials = new List<Material>();
+	public Material GlowMat;
+	private List<Material> _groundGlowMats = new List<Material>();
+
 	private Transform _rootTransform;
 
 	// 
@@ -26,6 +29,10 @@ public class StemColorManager : DmxColorPoint
 			mat.SetColor("MainColor",mainColor);
 			mat.SetColor("GlowColor",color);
 			mat.SetFloat("GlowIntensity",GlowIntensity);
+		}
+		foreach (var gp in _groundGlowMats)
+		{
+			gp.SetColor("_GlowColor",new Color(color.r,color.g,color.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
 		}
 	}
 
@@ -61,6 +68,16 @@ public class StemColorManager : DmxColorPoint
 		foreach (var mesh in meshes)
 		{
 			Materials.Add(mesh.material);
+		}
+
+		foreach (Transform child in transform)
+		{
+			var dp = child.GetComponent<DecalProjector>();
+			if (dp != null)
+			{
+				dp.material = new Material(GlowMat);
+				_groundGlowMats.Add(dp.material);
+			}
 		}
 	}
 

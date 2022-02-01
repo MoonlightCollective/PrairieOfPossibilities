@@ -13,6 +13,8 @@ public class PlantColorManager : MonoBehaviour
 	public int PlantId = -1;
 	public int PointRangeMin = -1;
 	public int PointRangeMax = -1;
+	public Material GlowMat;
+
 	// material init has to happen before we can set any colors on our stems.
 	private bool _initializedMaterials = false;
 
@@ -55,6 +57,7 @@ public class PlantColorManager : MonoBehaviour
 					scm = child.gameObject.AddComponent<StemColorManager>();
 				}
 
+				scm.GlowMat = GlowMat;
 				StemColors.Add(scm);
 			}
 		}

@@ -105,7 +105,7 @@ public class FixtureImportWindow : EditorWindow
 		int plantId = 0;
 		foreach (var item in fixtureData.children)
 		{
-			GameObject newObj = GameObject.Instantiate(FixturePrefab);
+			GameObject newObj = PrefabUtility.InstantiatePrefab(FixturePrefab) as GameObject;
 			newObj.transform.SetParent(layoutObj.transform, false);
 			newObj.transform.position = new Vector3(inchesToMeters(item.x), 0.0f, inchesToMeters(item.z));
 			PlantColorManager pcm = newObj.GetComponent<PlantColorManager>();
