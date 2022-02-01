@@ -113,6 +113,14 @@ public class FixtureImportWindow : EditorWindow
 			pcm.PointRangeMin = pcm.PlantId * 7;
 			pcm.PointRangeMax = pcm.PointRangeMin + 7;
 
+			Vector3 castStart = newObj.transform.position + Vector3.up * 40.0f;
+
+			RaycastHit hit;
+			if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+			{
+				newObj.transform.position = hit.point;
+			}
+
 			allDevices.Add(pcm);
 		}
 

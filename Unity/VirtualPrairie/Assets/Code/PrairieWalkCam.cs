@@ -41,6 +41,14 @@ public class PrairieWalkCam : MonoBehaviour
 		Vector3 walkVel = walkDirWorld * WalkSpeed;
 
 		transform.position += walkVel * Time.deltaTime;
+
+		Vector3 castStart = transform.position;
+		RaycastHit hit;
+		if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+		{
+			transform.position = new Vector3(transform.position.x, hit.point.y + HeadHeight, transform.position.z);
+		}
+		
 	}
 
 	public Vector2 getLookDirDeltaFromMouse()
