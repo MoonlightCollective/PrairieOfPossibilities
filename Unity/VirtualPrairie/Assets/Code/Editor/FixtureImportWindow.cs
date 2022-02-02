@@ -70,8 +70,39 @@ public class FixtureImportWindow : EditorWindow
 		{
 			doFixtureImport(FixtureFile,FixturePrefab);
 		}
+
+		GUILayout.Space(10);
+
+		if (GUILayout.Button("Generate"))
+		{
+			doGenerateButton();
+		}
 	}
 
+	void doGenerateButton()
+	{
+		FixtureLayoutGen gen = GameObject.FindObjectOfType<FixtureLayoutGen>();
+		if (gen == null)
+		{
+			return;
+		}
+
+		gen.GenerateLayout(getLayoutRoot());
+	}
+
+	GameObject getLayoutRoot()
+	{
+		// Create or find the parent object for our plants
+		GameObject layoutObj = GameObject.Find("Layout");
+		if (layoutObj == null)
+		{
+			// create new parent object if there is one.
+			layoutObj = new GameObject("Layout");
+			layoutObj.transform.position = Vector3.zero;
+		}
+
+		return layoutObj;
+	}
 
 	void doFixtureImport(TextAsset fixture, GameObject prefab)
 	{
@@ -83,14 +114,7 @@ public class FixtureImportWindow : EditorWindow
 		var fixtureData = JsonConvert.DeserializeObject<FixtureData>(fixtureStr);
 		Debug.Log("Children found: " + fixtureData.children.Count);
 
-		// Create or find the parent object for our plants
-		GameObject layoutObj = GameObject.Find("Layout");
-		if (layoutObj == null)
-		{
-			// create new parent object if there is one.
-			layoutObj = new GameObject("Layout");
-			layoutObj.transform.position = Vector3.zero;
-		}
+		GameObject layoutObj = getLayoutRoot();
 
 		// Clear existing layout if there is one.
 		int count = layoutObj.transform.childCount;
@@ -107,7 +131,7 @@ public class FixtureImportWindow : EditorWindow
 		{
 			GameObject newObj = PrefabUtility.InstantiatePrefab(FixturePrefab) as GameObject;
 			newObj.transform.SetParent(layoutObj.transform, false);
-			newObj.transform.position = new Vector3(inchesToMeters(item.x), 0.0f, inchesToMeters(item.z));
+			newObj.transform.position = new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z));
 			PlantColorManager pcm = newObj.GetComponent<PlantColorManager>();
 			pcm.PlantId = plantId++;
 			pcm.PointRangeMin = pcm.PlantId * 7;
@@ -175,8 +199,4 @@ public class FixtureImportWindow : EditorWindow
 		}
 	}
 
-	float inchesToMeters(float feet)
-	{
-		return feet * .3048f / 12.0f;
-	}
 }
