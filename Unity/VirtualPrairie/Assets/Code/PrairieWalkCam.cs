@@ -7,12 +7,21 @@ public class PrairieWalkCam : MonoBehaviour
 
 	public float RotSpeed = 5.0f;
 	public float MouseSensitivity = 1.0f;
+	public float KeyLookSensitivity = 1.0f;
 	public float WalkSpeed = 1.0f;
 	public float HeadHeight = 1.65f;
+
+	public float AccelRate = 1.0f;
+	public float DecelRate = 0.3f;
+	
+	protected float _desiredSpeed;
+	protected float _curSpeed;
 
 	public  void Start()
 	{
 		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
+		_desiredSpeed = 0;
+		_curSpeed = 0;
 	}
 
 	public void LateUpdate()
@@ -38,8 +47,14 @@ public class PrairieWalkCam : MonoBehaviour
 
 		walkDirWorld.y = 0.0f;
 		walkDirWorld.Normalize();
-		Vector3 walkVel = walkDirWorld * WalkSpeed;
 
+		_desiredSpeed = (walkDirWorld * WalkSpeed).magnitude;
+		if (_desiredSpeed > _curSpeed)
+			_curSpeed = Mathf.MoveTowards(_curSpeed, _desiredSpeed, Time.deltaTime /  AccelRate);
+		else
+			_curSpeed = Mathf.MoveTowards(_curSpeed,_desiredSpeed, Time.deltaTime / DecelRate);
+
+		Vector3 walkVel = walkDirWorld * _curSpeed;
 		transform.position += walkVel * Time.deltaTime;
 
 		Vector3 castStart = transform.position;
@@ -59,6 +74,10 @@ public class PrairieWalkCam : MonoBehaviour
 			retDelta.x = Input.GetAxis("Mouse X") * MouseSensitivity;
 			retDelta.y = -Input.GetAxis("Mouse Y") * MouseSensitivity;
 		}
+
+		retDelta.x += Input.GetAxis("Look H") * KeyLookSensitivity;
+		retDelta.y += Input.GetAxis("Look V") * KeyLookSensitivity;
+
 		return retDelta;
 	}
 
