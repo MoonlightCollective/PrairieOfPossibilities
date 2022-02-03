@@ -27,7 +27,7 @@ public class StemColorManager : DmxColorPoint
 		foreach (var mat in Materials)
 		{
 			mat.SetColor("MainColor",mainColor);
-			mat.SetColor("GlowColor",color);
+			mat.SetColor("GlowColor", new Color(color.r*GlowIntensity, color.g*GlowIntensity, color.b*GlowIntensity));
 			mat.SetFloat("GlowIntensity",GlowIntensity);
 		}
 		foreach (var gp in _groundGlowMats)
