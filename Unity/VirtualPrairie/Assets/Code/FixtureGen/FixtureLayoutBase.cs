@@ -10,16 +10,20 @@ public class FixtureLayoutBase : MonoBehaviour
 
 	[Header("Output Params")]
 	public string BaseIP;
+	public int UniverseStart;
 
 	protected int _curUniverse;
 	protected int _curChannel;
-	protected int _channelsPerPoint = 3;
-	protected int _pointsPerFixture = 7;
+	protected static int _channelsPerPoint = 3;
+	protected static int _pointsPerFixture = 7;
+	protected static int _channelsPerUniverse = 512;
+	protected static int _channelsPerFixture = _pointsPerFixture * _channelsPerPoint;
+
 
 	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{
 		ClearChildrenFrom(rootObj);
-		_curUniverse = 0;
+		_curUniverse = UniverseStart;
 		return true;
 	}
 

@@ -18,6 +18,7 @@ public class FixtureLayoutGen : MonoBehaviour
 	public GameObject FixturePrefab;
 	
 	protected FixtureLayoutGrid _gridLayout;
+	protected FixtureLayoutRings _ringLayout;
 
 	public void Awake()
 	{
@@ -32,7 +33,12 @@ public class FixtureLayoutGen : MonoBehaviour
 				_gridLayout = GetComponent<FixtureLayoutGrid>();
 				_gridLayout.GenerateLayout(parentObj,FixturePrefab);
 				break;
+			case EFixtureLayoutAlgorithm.Rings:
+				_ringLayout = GetComponent<FixtureLayoutRings>();
+				_ringLayout.GenerateLayout(parentObj,FixturePrefab);
+				break;
 			default:
+
 			break;
 		}
 	}
