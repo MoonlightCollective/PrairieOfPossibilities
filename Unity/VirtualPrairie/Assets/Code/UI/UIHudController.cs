@@ -25,15 +25,25 @@ public class UIHudController : MonoBehaviour
 		BrightnessSlider.Slider.value = settings.Brightness;
 		AlphaSlider.Slider.value = settings.StemAlpha;
 		GlowSlider.Slider.value = settings.GlowIntensity;
-
+		
+		Slider[] sliders = GetComponentsInChildren<Slider>();
+		foreach (var s in sliders)
+		{
+			s.onValueChanged.AddListener(OnValueUpdate);
+		}
 	}
 
     void Update()
     {
-		PlantCountText.text = $"Plants:{_plantLayoutRoot.transform.childCount}";
+		PlantCountText.text = $"Fixtures:{_plantLayoutRoot.transform.childCount}";
+    }
+
+	public void OnValueUpdate(float value)
+	{
 		GlobalPlantSettings settings = GlobalPlantSettings.Instance;
 		settings.Brightness = BrightnessSlider.Slider.value;
 		settings.StemAlpha = AlphaSlider.Slider.value;
 		settings.GlowIntensity = GlowSlider.Slider.value;
-    }
+		GlobalPlantSettings.Instance.SavePrefs();
+	}
 }

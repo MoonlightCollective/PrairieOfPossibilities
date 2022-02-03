@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor;
 
-public class FixtureLayoutBase : MonoBehaviour
+public abstract class FixtureLayoutBase : MonoBehaviour
 {
 	[Header("Base Params")]
 	public int NumFixtures = 20;
@@ -19,6 +19,8 @@ public class FixtureLayoutBase : MonoBehaviour
 	protected static int _channelsPerUniverse = 512;
 	protected static int _channelsPerFixture = _pointsPerFixture * _channelsPerPoint;
 
+	public abstract void SaveSettings();
+	public abstract void LoadSettings();
 
 	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{

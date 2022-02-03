@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 2566033387955961247}
   - component: {fileID: 2566033387955961246}
   m_Layer: 5
-  m_Name: BrightnessSlider
+  m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -525,6 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumValueDigits: 1
+  WriteSettingsOnChange: 1
 --- !u!1 &6973945767485085374
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.3
+  m_fontSize: 3.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

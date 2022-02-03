@@ -8,7 +8,34 @@ public class FixtureLayoutRings : FixtureLayoutBase
 	public float CenterRadiusFt = 30f;
 	public int NumAisles;
 	public float AisleWidthFt;
-	public float AisleCurve = 10 / 360 * 2 * Mathf.PI;
+	public float AisleCurve;
+
+	public override void SaveSettings()
+	{
+		PlayerPrefs.SetInt("RingNumFixtures", NumFixtures);
+		PlayerPrefs.SetFloat("RingFixtureSpacing", BaseSpacingFt);
+		PlayerPrefs.SetFloat("RingCenterRadius", CenterRadiusFt);
+		PlayerPrefs.SetFloat("RingAisleWidth",AisleWidthFt);
+		PlayerPrefs.SetFloat("RingAisleCurve",AisleCurve);
+		PlayerPrefs.SetInt("RingNumAisles",NumAisles);
+	}
+
+	static int kDefaultNumFixtures = 210;
+	static float kDefaultFixtureSpacing = 8f;
+	static float kDefaultCenterRad = 25f;
+	static float kDefaultAisleWidth = 16f;
+	static float kDefaultAisleCurve = 5f;
+	static int kDefaultNumAisles = 2;
+
+	public override void LoadSettings()
+	{
+		NumFixtures = PlayerPrefs.GetInt("RingNumFixtures",kDefaultNumFixtures);
+		BaseSpacingFt = PlayerPrefs.GetFloat("RingFixtureSpacing",kDefaultFixtureSpacing);
+		CenterRadiusFt = PlayerPrefs.GetFloat("RingCenterRadius",kDefaultCenterRad);
+		AisleWidthFt = PlayerPrefs.GetFloat("RingAisleWidth",kDefaultAisleWidth);
+		AisleCurve = PlayerPrefs.GetFloat("RingAisleCurve",kDefaultAisleCurve);
+		NumAisles = PlayerPrefs.GetInt("RingNumAisles",kDefaultNumAisles);
+	}
 
 	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{
@@ -73,61 +100,11 @@ public class FixtureLayoutRings : FixtureLayoutBase
 				angle -= anglePerFixture;
 			}
 			radius += BaseSpacingFt;
-			angleOffset += AisleCurve;
+			angleOffset += ((AisleCurve/10) * Mathf.PI/180.0f);
 			ring++;
 		}
 
-		// int numArcs = NumAisles + 1;
 
-/*		while (fixturesLeft > 0)
-		{
-			float perimeter = Mathf.PI * 2.0f * radius;
-			float angle = angleOffset;
-			float arcLen = ((perimeter - (AisleWidthFt * numArcs)) / numArcs);
-
-			int arcBaseCt = (int)(arcLen / BaseSpacingFt) + 1; 			// # bases used in this run, err on the side of density
-			float aisleAngle = (AisleWidthFt / perimeter) * 2.0f * Mathf.PI;	// angle of each aisle
-			float baseAngle = ((lightRunDist / (arcBaseCt -1)) / perimeter) * 2.0f * Mathf.PI; // angle between bases for this run
-
-			if (fixturesLeft <= (aisles * arcBaseCt))
-				lastRing = true;
-
-			for (int k = 0; k <= aisles; k++)
-			{
-				for (int j = 0; j < arcBaseCt; j++)
-				{
-					// TODO - add tags.
-
-					float x = radius * Mathf.Cos(angle);
-					float z = radius * Mathf.Sin(angle);
-
-					// TODO add yinYang tags
-
-					//TODO add section, ring, and base# tags
-					
-					if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
-					{
-						_curUniverse++;
-						_curChannel = 0;
-					}
-
-					GameObject newObj = CreateObjFromPrefab(fixturePrefab);
-					newObj.transform.SetParent(rootObj.transform,false);
-					
-					newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(x),0.0f,PrairieUtil.FeetToMeters(z));
-					_curChannel += _channelsPerFixture;
-					
-					fixturesLeft--;
-					angle += baseAngle;
-				}
-
-				angle -= baseAngle;
-			}
-
-			radius += BaseSpacingFt;
-			angleOffset += AisleCurve;
-			ring++;
-		}*/
 		return true;
 	}
 }

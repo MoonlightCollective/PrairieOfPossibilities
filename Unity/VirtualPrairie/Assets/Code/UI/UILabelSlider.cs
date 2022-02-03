@@ -9,7 +9,6 @@ public class UILabelSlider : MonoBehaviour
 	protected Slider _slider;
 	public Slider Slider => _slider;
 	public int NumValueDigits = 1;
-	public bool WriteSettingsOnChange = true;
 
 	protected TextMeshProUGUI _labelText;
 	protected TextMeshProUGUI _valueText;
@@ -23,11 +22,10 @@ public class UILabelSlider : MonoBehaviour
 
 	public void OnUpdateValue(float newVal)
 	{
+		Debug.Log($"{gameObject.name} - updateLabelSlider {newVal} curVal:{_slider.value}");
+
 		if (_valueText != null)
 			_valueText.text = newVal.ToString($"F{NumValueDigits}");
-		
-		if (WriteSettingsOnChange)
-			GlobalPlantSettings.Instance.SavePrefs();
 	}
 
 }

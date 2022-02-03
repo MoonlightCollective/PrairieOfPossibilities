@@ -8,6 +8,26 @@ public class FixtureLayoutGrid : FixtureLayoutBase
 	public int NumRows = 10;
 	public float RowSpacingFt = 7f;
 
+	static int kDefaultNumFixtures = 20;
+	static float kDefaultFixtureSpacing = 8;
+	static int kDefaultNumRows = 2;
+	static float kDefaultRowSpacing = 6;
+
+	public override void SaveSettings()
+	{
+		PlayerPrefs.SetInt("GridNumFixtures", NumFixtures);
+		PlayerPrefs.SetFloat("GridFixtureSpacing", BaseSpacingFt);
+		PlayerPrefs.SetFloat("GridRowSpacing", RowSpacingFt);
+		PlayerPrefs.SetInt("GridNumRows",NumRows);
+	}
+
+	public override void LoadSettings()
+	{
+		NumFixtures = PlayerPrefs.GetInt("GridNumFixtures",kDefaultNumFixtures);
+		BaseSpacingFt = PlayerPrefs.GetFloat("GridFixtureSpacing",kDefaultFixtureSpacing);
+		RowSpacingFt = PlayerPrefs.GetFloat("GridRowSpacing",kDefaultRowSpacing);
+		NumRows = PlayerPrefs.GetInt("GridNumRows",kDefaultNumRows);
+	}
 
 	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{

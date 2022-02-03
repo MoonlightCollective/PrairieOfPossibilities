@@ -26,14 +26,9 @@ public class GlobalPlantSettings : MonoBehaviour
 
 	public void LoadFromPrefs()
 	{
-		if (PlayerPrefs.HasKey("Brightness"))
-			Brightness = PlayerPrefs.GetFloat("Brightness");
-
-		if (PlayerPrefs.HasKey("GlowIntensity"))
-			GlowIntensity = PlayerPrefs.GetFloat("GlowIntensity");
-
-		if (PlayerPrefs.HasKey("StemAlpha"))
-			StemAlpha = PlayerPrefs.GetFloat("StemAlpha");
+		Brightness = PlayerPrefs.GetFloat("Brightness",.5f);
+		GlowIntensity = PlayerPrefs.GetFloat("GlowIntensity",1.9f);
+		StemAlpha = PlayerPrefs.GetFloat("StemAlpha",.25f);
 	}
 
 	public void SavePrefs()

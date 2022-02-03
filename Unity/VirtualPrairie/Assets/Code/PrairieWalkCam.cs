@@ -15,6 +15,8 @@ public class PrairieWalkCam : MonoBehaviour
 	public float DecelRate = 0.3f;
 	public bool isFlying = true;
 	
+	public GameObject CameraStopRoot;
+
 	protected float _desiredSpeed;
 	protected float _curSpeed;
 
@@ -28,6 +30,8 @@ public class PrairieWalkCam : MonoBehaviour
 
 	public void LateUpdate()
 	{
+		checkForTeleport();
+
 		if (Input.GetMouseButtonDown(1))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
@@ -84,7 +88,6 @@ public class PrairieWalkCam : MonoBehaviour
 		if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
 		{
 			newY = Mathf.Max(HeadHeight + hit.point.y, transform.position.y);
-// transform.position = new Vector3(transform.position.x, hit.point.y + HeadHeight, transform.position.z);
 		}
 		else
 		{
@@ -104,7 +107,7 @@ public class PrairieWalkCam : MonoBehaviour
 			transform.position = new Vector3(transform.position.x, HeadHeight, transform.position.z);
 	}
 
-	public Vector2 getLookDirDeltaFromMouse()
+	Vector2 getLookDirDeltaFromMouse()
 	{
 		Vector2 retDelta = Vector2.zero;
 		if (Input.GetMouseButton(1))
@@ -119,7 +122,36 @@ public class PrairieWalkCam : MonoBehaviour
 		return retDelta;
 	}
 
-	public Vector3 getWalkInputDir()
+	void checkForTeleport()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha0))
+			teleportTo(0);
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+			teleportTo(1);
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+			teleportTo(2);
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+			teleportTo(3);
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+			teleportTo(4);
+		if (Input.GetKeyDown(KeyCode.Alpha5))
+			teleportTo(5);
+		if (Input.GetKeyDown(KeyCode.Alpha6))
+			teleportTo(6);
+	}
+
+	void teleportTo(int dex)
+	{
+		Transform target = CameraStopRoot.transform.GetChild(dex);
+		if (target != null)
+		{
+			transform.position = target.transform.position;
+			transform.localRotation = target.transform.localRotation;
+		}
+
+	}
+
+	Vector3 getWalkInputDir()
 	{
 		float lr = Input.GetAxis("Horizontal");
 		float fb = Input.GetAxis("Vertical");
