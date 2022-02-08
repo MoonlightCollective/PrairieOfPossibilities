@@ -31,7 +31,6 @@ public class UILayoutSettingsController : MonoBehaviour
 
 	public void Awake()
 	{
-		RowsLayoutRoot.SetActive(true);
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 		LayoutDropdown.onValueChanged.AddListener(DropdownChanged);
 
@@ -41,15 +40,26 @@ public class UILayoutSettingsController : MonoBehaviour
 			s.onValueChanged.AddListener(SliderChanged);
 		}
 
-		updateUIFromSettings();
 	}
 
 	void Start()
 	{
+		updateUIFromSettings();
+		RowsLayoutRoot.SetActive(true);
 	}
 
 	public void DropdownChanged(int val)
 	{
+		switch (LayoutDropdown.options[val].text)
+		{
+			case "Rings":
+			default:
+				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Rings;
+				break;
+			case "Grid":
+				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Grid;
+				break;
+		}
 		updateUIFromSettings();
 	}
 
