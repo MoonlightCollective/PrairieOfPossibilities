@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using TMPro;
+using OxOD;
+
 public class UILayoutSettingsController : MonoBehaviour
 {
 	[Header("Base")]
 	public FixtureLayoutGen LayoutGenObj;
+
+	public FileDialog FileSelectDialog;
 
 	[Header("Mode")]
 	public TMP_Dropdown LayoutDropdown;
@@ -66,6 +71,27 @@ public class UILayoutSettingsController : MonoBehaviour
 	public void SliderChanged(float val)
 	{
 		updateSettingsFromUI();
+	}
+
+	public void OnExportButton()
+	{
+		StartCoroutine(doExportDialog());
+	}
+
+	public IEnumerator doExportDialog()
+	{
+		yield return StartCoroutine(FileSelectDialog.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ".lxf|.json", "Save File",null, true));
+
+		if (FileSelectDialog.result != null)
+		{
+			Debug.Log($"Do export returned: {FileSelectDialog.result}");
+		}
+	}
+
+
+	public void OnImportButton()
+	{
+
 	}
 
 	public void DoGenLayout()

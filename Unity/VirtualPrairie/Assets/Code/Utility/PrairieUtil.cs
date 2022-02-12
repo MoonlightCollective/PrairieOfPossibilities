@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrairieUtil
 {
+	static string s_lastExportPath = "";
+
 	public static float InchesToMeters(float inches)
 	{
 		return inches * .0254f;
@@ -12,5 +14,17 @@ public class PrairieUtil
 	public static float FeetToMeters(float feet)
 	{
 		return .3048f * feet;
+	}
+
+	public static string lastExportPath
+	{
+		get 
+		{
+			if (string.IsNullOrEmpty(s_lastExportPath))
+			{
+				s_lastExportPath = PlayerPrefs.GetString("LastExportPath","");
+			}
+			return s_lastExportPath;
+		}
 	}
 }
