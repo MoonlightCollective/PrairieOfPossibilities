@@ -33,7 +33,8 @@ NUM_BASES = 450
 POINTS_PER_BASE = 7
 CENTER_DIAMETER = 25*FEET
 SPACING_START = 3*FEET
-SPACING_GROW = 0.007
+SPACING_GROW = 0.004
+SPACING_EXP = 1.003
 CENTER_RADIUS = CENTER_DIAMETER/2
 IP = "192.168.0.60"
 GOLDEN_RATIO = 1.61803398875
@@ -62,7 +63,8 @@ for arg in sys.argv:
 
 for i in range(NUM_BASES):
   angle = i * (2 * math.pi) / (GOLDEN_RATIO * GOLDEN_RATIO)
-  radius = (SPACING_START * ((SPACING_GROW * i) + 1) * math.sqrt(i)) + CENTER_RADIUS      
+  ## radius = (SPACING_START * ((SPACING_GROW * i) + 1) * math.sqrt(i)) + CENTER_RADIUS      
+  radius = ((math.pow(SPACING_EXP, i) * SPACING_START) * math.sqrt(i)) + CENTER_RADIUS      
   x = radius * math.cos(angle)
   z = radius*math.sin(angle)
   tags = ["area"]
