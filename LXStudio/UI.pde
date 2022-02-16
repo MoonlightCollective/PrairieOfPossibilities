@@ -51,7 +51,7 @@ public class UIFloor extends UI3dComponent {
     pg.endShape(CLOSE);
     
     float personY = 0;
-    drawPerson(pg, -10*FEET, personY, 10*FEET, 1.5*FEET, 1.5*FEET);
+    drawPerson(pg, 0*FEET, personY, 0*FEET, 1.5*FEET, 1.5*FEET);
     drawPerson(pg, 8*FEET, personY, 12*FEET, -1.5*FEET, 1.5*FEET);
     drawPerson(pg, 2*FEET, personY, 8*FEET, -2*FEET, 1*FEET);
 
