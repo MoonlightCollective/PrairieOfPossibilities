@@ -73,10 +73,22 @@ public class UILayoutSettingsController : MonoBehaviour
 		updateSettingsFromUI();
 	}
 
+
+	//
+	// File Import/Export
+	//
 	public void OnExportButton()
 	{
 		StartCoroutine(doExportDialog());
 	}
+
+
+	// When user hits "import" button to import a fixture file.
+	public void OnImportButton()
+	{
+		StartCoroutine(doImportDialog());
+	}
+
 
 	public IEnumerator doExportDialog()
 	{
@@ -88,17 +100,24 @@ public class UILayoutSettingsController : MonoBehaviour
 		}
 	}
 
-
-	public void OnImportButton()
+	public IEnumerator doImportDialog()
 	{
+		yield return StartCoroutine(FileSelectDialog.Open(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ".lxf|.txt|.json" , "Open Fixture File",null, -1, true));
 
+		if (FileSelectDialog.result != null)
+		{
+			LayoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
+			Debug.Log($"Do export returned: {FileSelectDialog.result}");
+		}
 	}
 
+	// When user hits "Generate" button for currently active mode of generation
 	public void DoGenLayout()
 	{
-		var root = GameObject.Find("Layout").gameObject;
+		var root = PrairieUtil.GetLayoutRoot();
 		LayoutGenObj.GenerateLayout(root);
 	}
+
 	public void Update()
 	{
 		if (!_didFirstUpdate)

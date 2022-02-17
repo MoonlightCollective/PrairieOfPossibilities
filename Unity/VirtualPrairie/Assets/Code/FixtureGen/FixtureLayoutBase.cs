@@ -14,10 +14,10 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 
 	protected int _curUniverse;
 	protected int _curChannel;
-	protected static int _channelsPerPoint = 3;
-	protected static int _pointsPerFixture = 7;
+	public static int kChannelsPerPoint = 3;
+	public static int kPointsPerFixture = 7;
 	protected static int _channelsPerUniverse = 512;
-	protected static int _channelsPerFixture = _pointsPerFixture * _channelsPerPoint;
+	protected static int _channelsPerFixture = kPointsPerFixture * kChannelsPerPoint;
 
 	public abstract void SaveSettings();
 	public abstract void LoadSettings();

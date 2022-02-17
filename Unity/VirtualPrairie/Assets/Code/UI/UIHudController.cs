@@ -15,7 +15,7 @@ public class UIHudController : MonoBehaviour
 
 	void Awake()
 	{
-		_plantLayoutRoot = GameObject.Find("Layout")?.gameObject;
+		_plantLayoutRoot = PrairieUtil.GetLayoutRoot();
 	}
 
 	void Start()
