@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrairieUtil
 {
 	static string s_lastExportPath = "";
-
+	
 	public static float InchesToMeters(float inches)
 	{
 		return inches * .0254f;
@@ -26,5 +26,19 @@ public class PrairieUtil
 			}
 			return s_lastExportPath;
 		}
+	}
+
+	public static GameObject GetLayoutRoot()
+	{
+		// Create or find the parent object for our plants
+		GameObject layoutObj = GameObject.Find("Layout");
+		if (layoutObj == null)
+		{
+			// create new parent object if there is one.
+			layoutObj = new GameObject("Layout");
+			layoutObj.transform.position = Vector3.zero;
+		}
+
+		return layoutObj;
 	}
 }

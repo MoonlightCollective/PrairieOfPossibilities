@@ -336,6 +336,7 @@ namespace OxOD
                 GameObject obj = Instantiate(drivesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
                 obj.transform.SetParent(target.transform, true);
                 obj.transform.localScale = new Vector3(1, 1, 1);
+				obj.transform.localPosition = Vector3.zero;
 
                 FileListElement element = obj.GetComponent<FileListElement>();
                 element.instance = this;
@@ -375,7 +376,8 @@ namespace OxOD
                 for (int i = 0; i < info.Length; i++)
                 {
                     GameObject obj = Instantiate(filesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
-                    obj.transform.SetParent(target.transform, true);
+                    obj.transform.SetParent(target.transform, false);
+					obj.transform.localPosition = Vector3.zero;
                     obj.transform.localScale = new Vector3(1, 1, 1);
 
                     FileListElement element = obj.GetComponent<FileListElement>();
@@ -400,6 +402,7 @@ namespace OxOD
                                 {
                                     GameObject obj = Instantiate(filesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
                                     obj.transform.SetParent(target.transform, true);
+									obj.transform.localPosition = Vector3.zero;
                                     obj.transform.localScale = new Vector3(1, 1, 1);
 
                                     FileListElement element = obj.GetComponent<FileListElement>();
@@ -416,7 +419,7 @@ namespace OxOD
                                 GameObject obj = Instantiate(filesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
                                 obj.transform.SetParent(target.transform, true);
                                 obj.transform.localScale = new Vector3(1, 1, 1);
-
+								obj.transform.localPosition = Vector3.zero;
                                 FileListElement element = obj.GetComponent<FileListElement>();
                                 element.instance = this;
                                 element.data = fileinfo[i].FullName;
@@ -440,6 +443,7 @@ namespace OxOD
                                     GameObject obj = Instantiate(filesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
                                     obj.transform.SetParent(target.transform, true);
                                     obj.transform.localScale = new Vector3(1, 1, 1);
+									obj.transform.localPosition = Vector3.zero;
 
                                     FileListElement element = obj.GetComponent<FileListElement>();
                                     element.instance = this;
@@ -455,6 +459,7 @@ namespace OxOD
                                 GameObject obj = Instantiate(filesScrollRectElement, Vector3.zero, Quaternion.identity) as GameObject;
                                 obj.transform.SetParent(target.transform, true);
                                 obj.transform.localScale = new Vector3(1, 1, 1);
+								obj.transform.localPosition = Vector3.zero;
 
                                 FileListElement element = obj.GetComponent<FileListElement>();
                                 element.instance = this;
