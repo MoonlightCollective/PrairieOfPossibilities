@@ -13,6 +13,12 @@ public class UILayoutSettingsController : MonoBehaviour
 
 	public FileDialog FileSelectDialog;
 
+	[Header("Props UI")]
+	public TMP_Dropdown PropsDropdown; 
+	public UILabelSlider PropsOffsetSlider;
+	public FixturePropLayout PropsLayoutObj;
+	protected EPropLayoutStyle _propLayoutStyle = EPropLayoutStyle.OuterPortals;
+
 	[Header("Mode")]
 	public TMP_Dropdown LayoutDropdown;
 
@@ -32,25 +38,34 @@ public class UILayoutSettingsController : MonoBehaviour
 	public UILabelSlider RowsRowCountSlider;
 	public UILabelSlider RowsRowSpacingSlider;
 
+	public String FixtureImportPath = "%MyDocuments%";
+	public String FixtureExportPath = "%MyDocuments%";
+
 	bool _didFirstUpdate = false;
 
 	public void Awake()
 	{
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 		LayoutDropdown.onValueChanged.AddListener(DropdownChanged);
+		PropsDropdown.onValueChanged.AddListener(PropDropdownChanged);
+
 
 		Slider[] sliders = GetComponentsInChildren<Slider>();
 		foreach (var s in sliders)
 		{
 			s.onValueChanged.AddListener(SliderChanged);
 		}
-
+	
+		PropsOffsetSlider.Slider.onValueChanged.AddListener(PropSliderChanged);
+		if (PlayerPrefs.HasKey("FixtureImportPath"))
+			FixtureImportPath = PlayerPrefs.GetString("FixtureImportPath");
 	}
 
 	void Start()
 	{
 		updateUIFromSettings();
 		RowsLayoutRoot.SetActive(true);
+		PropDropdownChanged(0);
 	}
 
 	public void DropdownChanged(int val)
@@ -66,6 +81,31 @@ public class UILayoutSettingsController : MonoBehaviour
 				break;
 		}
 		updateUIFromSettings();
+	}
+
+	public void PropDropdownChanged(int val)
+	{
+		switch (PropsDropdown.options[val].text)
+		{
+			case "None":
+				_propLayoutStyle = EPropLayoutStyle.Disabled;
+				break;
+			case "Inner Portals":
+				_propLayoutStyle = EPropLayoutStyle.InnerPortals;
+				break;
+			case "Outer Portals":
+				_propLayoutStyle = EPropLayoutStyle.OuterPortals;
+				break;
+		}
+
+		float offsetVal = PropsOffsetSlider.Slider.value;
+		PropsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, LayoutGenObj);
+	}
+
+	public void PropSliderChanged(float val)
+	{
+		float offsetVal = val;
+		PropsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, LayoutGenObj);
 	}
 
 	public void SliderChanged(float val)
@@ -92,22 +132,26 @@ public class UILayoutSettingsController : MonoBehaviour
 
 	public IEnumerator doExportDialog()
 	{
-		yield return StartCoroutine(FileSelectDialog.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ".lxf|.json", "Save File",null, true));
+		yield return StartCoroutine(FileSelectDialog.Save(FixtureExportPath, ".lxf|.json", "Save File",null, true));
 
 		if (FileSelectDialog.result != null)
 		{
+			FixtureExportPath = System.IO.Path.GetDirectoryName(FileSelectDialog.result);
+			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
 			Debug.Log($"Do export returned: {FileSelectDialog.result}");
 		}
 	}
 
 	public IEnumerator doImportDialog()
 	{
-		yield return StartCoroutine(FileSelectDialog.Open(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ".lxf|.txt|.json" , "Open Fixture File",null, -1, true));
+		yield return StartCoroutine(FileSelectDialog.Open(FixtureImportPath, ".lxf|.txt|.json" , "Open Fixture File",null, -1, true));
 
 		if (FileSelectDialog.result != null)
 		{
+			FixtureImportPath = System.IO.Path.GetDirectoryName(FileSelectDialog.result);
+			PlayerPrefs.SetString("FixtureImportPath",FixtureImportPath);
 			LayoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
-			Debug.Log($"Do export returned: {FileSelectDialog.result}");
+			Debug.Log($"Do import returned path: {FileSelectDialog.result}");
 		}
 	}
 

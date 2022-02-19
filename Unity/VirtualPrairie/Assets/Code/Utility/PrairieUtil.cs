@@ -41,4 +41,9 @@ public class PrairieUtil
 
 		return layoutObj;
 	}
+
+	public static PrairieWalkCam GetCamera()
+	{
+		return (GameObject.FindObjectOfType<PrairieWalkCam>());
+	}
 }

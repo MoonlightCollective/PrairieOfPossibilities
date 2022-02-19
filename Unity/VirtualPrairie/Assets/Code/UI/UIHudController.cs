@@ -10,12 +10,15 @@ public class UIHudController : MonoBehaviour
 	public UILabelSlider BrightnessSlider;
 	public UILabelSlider GlowSlider;
 	public UILabelSlider AlphaSlider;
+	public TextMeshProUGUI FlyText;
 	
 	protected GameObject _plantLayoutRoot;
+	protected PrairieWalkCam _cam;
 
 	void Awake()
 	{
 		_plantLayoutRoot = PrairieUtil.GetLayoutRoot();
+		_cam = PrairieUtil.GetCamera();
 	}
 
 	void Start()
@@ -36,6 +39,7 @@ public class UIHudController : MonoBehaviour
     void Update()
     {
 		PlantCountText.text = $"Fixtures:{_plantLayoutRoot.transform.childCount}";
+		FlyText.text = $"Flying:{_cam.isFlying}";
     }
 
 	public void OnValueUpdate(float value)
