@@ -32,9 +32,9 @@ FEET = 12 #using 1 = 1 inch
 NUM_BASES = 450
 POINTS_PER_BASE = 7
 CENTER_DIAMETER = 25*FEET
-SPACING_START = 3*FEET
+SPACING_START = 2*FEET
 SPACING_GROW = 0.004
-SPACING_EXP = 1.003
+SPACING_EXP = 1.002
 CENTER_RADIUS = CENTER_DIAMETER/2
 IP = "192.168.0.60"
 GOLDEN_RATIO = 1.61803398875
@@ -60,15 +60,20 @@ outputs = []
 for arg in sys.argv:
   if arg in ("-o"):
     outputPolarFile=open('polarCoordinates.txt','w')
+    outputPolarFile.write("baseId,angle,radius,x,z\n")
 
-for i in range(NUM_BASES):
+i = 0
+while basesAdded < NUM_BASES:
   angle = i * (2 * math.pi) / (GOLDEN_RATIO * GOLDEN_RATIO)
   ## radius = (SPACING_START * ((SPACING_GROW * i) + 1) * math.sqrt(i)) + CENTER_RADIUS      
-  radius = ((math.pow(SPACING_EXP, i) * SPACING_START) * math.sqrt(i)) + CENTER_RADIUS      
+  ## radius = ((math.pow(SPACING_EXP, i) * SPACING_START) * math.sqrt(i)) + CENTER_RADIUS      
+  radius = ((math.pow(SPACING_EXP, i) * SPACING_START) * math.sqrt(i))      
   x = radius * math.cos(angle)
   z = radius*math.sin(angle)
+  i = i + 1
   tags = ["area"]
-
+  if (radius < CENTER_RADIUS):
+    continue
 
   # do we have space in the current universe?
   if (remainingFreeChannels < CHANNELS_PER_BASE):
@@ -84,7 +89,7 @@ for i in range(NUM_BASES):
 
   # output the polar field setup file
   if outputPolarFile:
-    outputPolarFile.write("baseId:"+str(basesAdded+1)+",ring:"+str(ring)+",section:"+str(k)+",angle:"+str(round(math.degrees(angle))%360)+",radius:"+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\""+"\n")
+    outputPolarFile.write(str(basesAdded+1)+","+str(round(math.degrees(angle))%360)+","+str(math.floor(radius/12))+"'"+str(math.floor(radius%12))+"\","+str(round(x))+","+str(round(z))+"\n")
 
   # use these channels
   remainingFreeChannels = remainingFreeChannels-CHANNELS_PER_BASE
