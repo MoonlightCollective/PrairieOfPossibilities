@@ -6,36 +6,45 @@ using System.Net.Sockets;
 using ArtNet.Sockets;
 using ArtNet.Packets;
 using System;
+// Points themselves are mapped in a dictionary that maps Point Index -> DmxColorPoint
+// Using dictionaries, because we may not have contguous ranges of devices in a universe, or contiguous universes
+// themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
+using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections.Generic.Dictionary<int,DmxColorPoint>>;
 
 
 // PrairieDmxController is mostly a copy of the receiving parts of the DmxController from the Artnet.Unity package 
 // downloaded from github. 
 public class PrairieDmxController : MonoBehaviour
 {
+	const string localhost = "localhost";
+
 	// how many channels per point (per LED)
 	public int ChannelsPerPoint = 3;
 
-	// how many universes to allocate? We're allocating static buffers and copying into them
-	// so that we can avoid lots of memory allocation at runtime - but also in case data comes 
-	// in while we are using the previous frame. Make sure there's enough for the universes you're
-	// going to transmit. Currently assumes a single IP target for all universes. Future effort will
-	// create an IP->Universes mapping, so you can the same universe ID associated with different
-	// target IP addresses.
-	public int UniverseCount = 10;
+	// We support 2 main modes for DMX
+	// 	Listen: in this mode the prairie acts as a dmx controller, and listens for dmx events.
+	//			another tool is driving the experience (like lx studio) and the prarie will show it
+	//  Send:	in this mode the prairie will send dmx events out to the controllers.   the simulation
+	//			will drive the experience and instead play to the dmx light controllers.  no lx studio required.
+	//  Off:	no dmx listen or send.  a quiet prairie.
+	public enum DmxSendListenMode {
+		Listen,
+		Send,
+		Off
+	}
+
+	public DmxSendListenMode DmxMode  = DmxSendListenMode.Off;
 
 	bool _initialized = false;
 	private ArtNetSocket _artNet;
 
-	// A mapping from Universe to all the Points in that universe.
-	// Points themselves are mapped in a dictionary that maps Point Index -> DmxColorPoint.  
-	// Using dictionaries, because we may not have contguous ranges of devices in a universe, or contiguous universes
-	// themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
-	Dictionary<int,Dictionary<int,DmxColorPoint>> _universeDeviceMap = new Dictionary<int, Dictionary<int, DmxColorPoint>>();
+	// A mapping from controllers to universes
+	Dictionary<string,UniverseMap> _controllerMap  = new Dictionary<string,UniverseMap>();
 
 	// A mapping of universe to byte array containing the most recently received ArtNet data for that universe.
 	// ArtNet sends a whole universe worth of data in a single packet.
-	List<byte[]> _universeDataMap = new List<byte[]>();
-
+	// Note, we only keep this for the localhost controller, used during DmxSendListenMode.Listen
+	Dictionary<string,List<byte[]>> _dataMap = new Dictionary<string,List<byte[]>>();
 
 	// startup tasks at runtime. If we want to change layout at runtime, will need to re-jigger this.
 	public void Start()
@@ -49,32 +58,46 @@ public class PrairieDmxController : MonoBehaviour
 				return;
 			}
 
-			_universeDeviceMap.Clear();
+			_controllerMap.Clear();
 			buildUniverseMap();
+		}
+	}
+
+	public void SetDmxColor(Color color, string host, int universe, int pointIndex)
+	{
+		// are we in send mode?
+		if (this.DmxMode == DmxSendListenMode.Send)
+		{
+			// set the local color data
+			int channelIndex = pointIndex * ChannelsPerPoint;
+			_dataMap[host][universe][channelIndex]   = (byte)(color.r*255f);
+			_dataMap[host][universe][channelIndex+1] = (byte)(color.g*255f);
+			_dataMap[host][universe][channelIndex+2] = (byte)(color.b*255f);
 		}
 	}
 
 	// doInit() - ArtNet setup.
 	private bool doInit()
 	{
+		// Set up ArtNet
 		_artNet = new ArtNetSocket();
-		_artNet.Open(ipFromHostname("localhost"), null);
-		_artNet.NewPacket += handleNewPacket;
+		_artNet.Open(ipFromHostname(localhost), null);
 
-		// Set up ArtNet and register our event handler.
-		_universeDataMap.Clear();
-		for (int i = 0; i < UniverseCount; i++)
+		_dataMap.Clear();
+
+		// are we listening?
+		if (DmxMode == DmxSendListenMode.Listen)
 		{
-			// create an array for each universe that will hold the data 
-			// we get from packets.
-			_universeDataMap.Add(new byte[512]);
+ 			//  register our event handler.
+			_artNet.NewPacket += handleNewListenPacket;
 		}
+
 		return true;
 	}
 
-	// handleNewPacket() - called when ArtNet receives new data. Not sure if this
+	// handleNewListenPacket() - called when ArtNet receives new data. Not sure if this
 	// is threaded, but definitely doesn't happen in sync with Update loop.
-	private void handleNewPacket(object sender, NewPacketEventArgs<ArtNetPacket> e)
+	private void handleNewListenPacket(object sender, NewPacketEventArgs<ArtNetPacket> e)
 	{
 		var sourceEndpoint = e.Source;
 		
@@ -86,14 +109,14 @@ public class PrairieDmxController : MonoBehaviour
 			
 			var universe = packet.Universe;
 			// Debug.Log($"Received Packet from {sourceEndpoint.Address.ToString()}: u: {universe}");
-			if (!_universeDeviceMap.ContainsKey(universe))
+						
+			if (!_controllerMap.ContainsKey(localhost) || !_controllerMap[localhost].ContainsKey(universe))
 			{
 				Debug.LogWarning($"Ignoring dmx data for universe {universe} - don't have any points in our layout for that universe");
 			}
-
 			// Copy the data over to our universeDataMap. Copy so that new data can come in 
 			// asynchronously into the packet data buffers.
-			data.CopyTo(_universeDataMap[universe],0);
+			data.CopyTo(_dataMap[localhost][universe],0);
 		}
 	}
 
@@ -102,26 +125,47 @@ public class PrairieDmxController : MonoBehaviour
 	//				of the points that need to get updated.
 	public void Update()
 	{
-		// let's send all our data long to each of our fixtures
-		for (int u = 0; u < UniverseCount; u++)
+		// are we listening?
+		if (this.DmxMode == DmxSendListenMode.Listen)
 		{
-			// make sure we have devices in this universe.
-			if (_universeDeviceMap.ContainsKey(u))
+			// let's send all our received dmx data to each of our fixtures
+			for (int u = 0; u < _dataMap[localhost].Count; u++)
 			{
-				// go through dmx data, 3 points at a time, and set the apprpriate data in the device map
-				for (int c = 0; c < (_universeDataMap[u].Length - ChannelsPerPoint); c += ChannelsPerPoint)
+				if (_controllerMap.ContainsKey(localhost))
 				{
-					// figure out which point this channel data will fill in
-					int pointDex = c/ChannelsPerPoint;
-					
-					// grab a reference to the one Point worth of channel data (without copying it) and send it 
-					// along to the point device so it can change its color accordingly.
-					ArraySegment<byte> dataSeg = new ArraySegment<byte>( _universeDataMap[u], c, ChannelsPerPoint);
-
-					if (_universeDeviceMap[u].ContainsKey(pointDex))
+					UniverseMap universeMap = _controllerMap[localhost];
+					// make sure we have devices in this universe.			
+					if (universeMap.ContainsKey(u))
 					{
-						_universeDeviceMap[u][pointDex].SetFromDmx(dataSeg);
+						// go through dmx data, 3 points at a time, and set the apprpriate data in the device map
+						for (int c = 0; c < (_dataMap[localhost][u].Length - ChannelsPerPoint); c += ChannelsPerPoint)
+						{
+							// figure out which point this channel data will fill in
+							int pointDex = c/ChannelsPerPoint;
+							
+							// grab a reference to the one Point worth of channel data (without copying it) and send it 
+							// along to the point device so it can change its color accordingly.
+							ArraySegment<byte> dataSeg = new ArraySegment<byte>( _dataMap[localhost][u], c, ChannelsPerPoint);
+
+							if (universeMap[u].ContainsKey(pointDex))
+							{
+								universeMap[u][pointDex].SetFromDmxColor(dataSeg);
+							}
+						}
 					}
+				} 
+			}
+		}
+		else if (this.DmxMode == DmxSendListenMode.Send)
+		{
+			foreach (var host in _dataMap)
+			{
+				for (int u = 0; u < host.Value.Count; ++u)
+				{
+					ArtNetDmxPacket packet = new ArtNetDmxPacket();
+					packet.Universe = (short)u;
+					packet.DmxData = host.Value[u];
+					_artNet.Send(packet, new IPEndPoint(ipFromHostname(host.Key), ArtNetSocket.Port));
 				}
 			}
 		}
@@ -131,19 +175,44 @@ public class PrairieDmxController : MonoBehaviour
 	//
 	private void buildUniverseMap()
 	{
+		Debug.Log($"buildUniverseMap() starting");
+
 		// THIS IS SLOW. Only perform this at startup, or if the layout has changed.
 		DmxColorPoint[] colorPoints = GameObject.FindObjectsOfType<DmxColorPoint>();
 		foreach (var colorPoint in colorPoints)
 		{
-			int u = colorPoint.Universe;
-			if (!_universeDeviceMap.ContainsKey(u))
+			string host = colorPoint.Host;
+			// find the universe map for this controller
+ 			if (!_controllerMap.ContainsKey(host))
 			{
+				Debug.Log($"buildUniverseMap() adding host:{host}");
+				// first time, add it to the controller map
+				_controllerMap[host] = new UniverseMap();
+				// and the data map
+				_dataMap[host] = new List<byte[]>();
+			}
+			UniverseMap universeMap = _controllerMap[host];
+
+			int u = colorPoint.Universe;
+			if (!universeMap.ContainsKey(u))
+			{
+				Debug.Log($"buildUniverseMap() adding host:{host},universe:{u}");
 				// first time we encounter this universe
-				_universeDeviceMap[u] = new Dictionary<int, DmxColorPoint>();
+				universeMap[u] = new Dictionary<int, DmxColorPoint>();
+				// make sure we have space for the universe data all the way up to this universe #
+				while (_dataMap[host].Count <= u+1)
+				{
+					// dmx512 is 512 bytes
+					_dataMap[host].Add(new byte[512]);
+				}
 			}
 
-			_universeDeviceMap[u][colorPoint.GlobalPointIndex] = colorPoint;
+			// setup a link to the color point
+			universeMap[u][colorPoint.GlobalPointIndex] = colorPoint;
+			// make sure the color point knows how to use this controller
+			colorPoint.Controller = this;
 		}
+		Debug.Log($"buildUniverseMap() finished");
 	}
 
 	// 

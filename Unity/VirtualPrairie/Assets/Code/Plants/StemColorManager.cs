@@ -34,12 +34,14 @@ public class StemColorManager : DmxColorPoint
 		{
 			gp.SetColor("_GlowColor",new Color(color.r,color.g,color.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
 		}
+		// tell the dmx controller about the color change
+
 	}
 
 	//
-	// SetFromDmx - calls Set Color using the data packet passed in new Data (rgb)
+	// SetFromDmxColor - calls Set Color using the data packet passed in new Data (rgb)
 	// 
-	public override void SetFromDmx(byte[] newData)
+	public override void SetFromDmxColor(byte[] newData)
 	{
 		var settings = GlobalPlantSettings.Instance;
 		float alpha = settings.StemAlpha;
@@ -48,14 +50,14 @@ public class StemColorManager : DmxColorPoint
 		SetColor(new Color(newData[0]/256f, newData[1]/256f, newData[2]/256f), glow, alpha);
 	}
 
-	public override void SetFromDmx(ArraySegment<byte> newData)
+	public override void SetFromDmxColor(ArraySegment<byte> newData)
 	{
 		var settings = GlobalPlantSettings.Instance;
 		float alpha = settings.StemAlpha;
 		float glow = settings.GlowIntensity;
 		int offset = newData.Offset;
 
-		SetColor(new Color(newData.Array[offset]/256f, newData.Array[offset+1]/256f, newData.Array[offset+2]/256f), glow, alpha);
+		SetColor(new Color(newData.Array[offset]/255f, newData.Array[offset+1]/255f, newData.Array[offset+2]/255f), glow, alpha);
 	}
 
 	//
