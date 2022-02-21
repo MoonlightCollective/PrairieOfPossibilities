@@ -79,18 +79,18 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				int universeStartDex = 0;
 				foreach (var seg in outputItem.segments)
 				{
-					setChannelsForRun(seg.start,seg.num,outputItem.universe,universeStartDex, allDevices);
+					setChannelsForRun(seg.start,seg.num,outputItem.host, outputItem.universe,universeStartDex, allDevices);
 					universeStartDex+=seg.num;
 				}
 			}
 			else
 			{
-				setChannelsForRun(outputItem.start, outputItem.num, outputItem.universe,0,allDevices);
+				setChannelsForRun(outputItem.start, outputItem.num, outputItem.host, outputItem.universe,0,allDevices);
 			}
 		}
 	}
 
-	public void setChannelsForRun(int startPoint, int runPointCount, int universe, int universePointDexStart, List<PlantColorManager> allDevices)
+	public void setChannelsForRun(int startPoint, int runPointCount, string host, int universe, int universePointDexStart, List<PlantColorManager> allDevices)
 	{
 		int pointsPerFixture = FixtureLayoutBase.kPointsPerFixture;
 
@@ -118,7 +118,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				Debug.LogError($"Point out of range: Point {point}, Fixture {fixtureDex}, PointDex {localPointDex}");
 			}
 			
-			allDevices[fixtureDex].AssociatePointData(localPointDex,universe,p+universePointDexStart);
+			allDevices[fixtureDex].AssociatePointData(localPointDex,host,universe,p+universePointDexStart);
 		}
 	}
 

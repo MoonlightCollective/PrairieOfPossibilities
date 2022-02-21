@@ -22,15 +22,16 @@ public class PlantColorManager : MonoBehaviour
 	private float _debugSwirlAlpha = 0;
 	private float _colorOffset = 0.0f;
 
-	public void AssociatePointData(int localPointDex, int universe, int globalPointDex)
+	public void AssociatePointData(int localPointDex, string host, int universe, int globalPointDex)
 	{
 		if (StemColors == null || StemColors.Count < 1)
 			findChildren();
 
+		StemColors[localPointDex].Host = host;
 		StemColors[localPointDex].Universe = universe;
 		StemColors[localPointDex].LocalPointIndex = localPointDex;
 		StemColors[localPointDex].GlobalPointIndex = globalPointDex;
-		StemColors[localPointDex].gameObject.name = StemColors[localPointDex].gameObject.name + $"_U{universe}_gpd:{globalPointDex}";
+		StemColors[localPointDex].gameObject.name = StemColors[localPointDex].gameObject.name + $"H{host}_U{universe}_gpd:{globalPointDex}";
 		int minDex = 999;
 		int maxDex = -1;
 
@@ -42,7 +43,7 @@ public class PlantColorManager : MonoBehaviour
 			if (sc.GlobalPointIndex > maxDex)
 				maxDex = sc.GlobalPointIndex;
 		}
-		gameObject.name = $"Plant_{PlantId}_U{universe}_PointRange_{minDex}-{maxDex}";
+		gameObject.name = $"Plant_{PlantId}_H{host}_U{universe}_PointRange_{minDex}-{maxDex}";
 	}
 
 	void findChildren()
