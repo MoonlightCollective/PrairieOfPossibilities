@@ -58,7 +58,6 @@ public class PrairieDmxController : MonoBehaviour
 				return;
 			}
 
-			_controllerMap.Clear();
 			buildUniverseMap();
 		}
 	}
@@ -80,14 +79,20 @@ public class PrairieDmxController : MonoBehaviour
 	private bool doInit()
 	{
 		// Set up ArtNet
+		if (_artNet != null )
+		{
+			_artNet.Dispose();
+			_artNet = null;
+		}
 		_artNet = new ArtNetSocket();
-		_artNet.Open(ipFromHostname(localhost), null);
-
-		_dataMap.Clear();
 
 		// are we listening?
 		if (DmxMode == DmxSendListenMode.Listen)
 		{
+			// bind and start listening
+			// note:  only do the open when we are listening, as it appears to bind  to an adapter and
+			// send mode can start to fail on machines with multiple adapters
+			_artNet.Open(ipFromHostname(localhost), null);
  			//  register our event handler.
 			_artNet.NewPacket += handleNewListenPacket;
 		}
@@ -165,7 +170,10 @@ public class PrairieDmxController : MonoBehaviour
 					ArtNetDmxPacket packet = new ArtNetDmxPacket();
 					packet.Universe = (short)u;
 					packet.DmxData = host.Value[u];
-					_artNet.Send(packet, new IPEndPoint(ipFromHostname(host.Key), ArtNetSocket.Port));
+
+					IPAddress address = ipFromHostname(host.Key);
+					//Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
+					_artNet.Send(packet, new IPEndPoint(address, ArtNetSocket.Port));
 				}
 			}
 		}
@@ -176,6 +184,10 @@ public class PrairieDmxController : MonoBehaviour
 	private void buildUniverseMap()
 	{
 		Debug.Log($"buildUniverseMap() starting");
+
+		// clear the maps
+		_controllerMap.Clear();
+		_dataMap.Clear();
 
 		// THIS IS SLOW. Only perform this at startup, or if the layout has changed.
 		DmxColorPoint[] colorPoints = GameObject.FindObjectsOfType<DmxColorPoint>();
@@ -200,7 +212,7 @@ public class PrairieDmxController : MonoBehaviour
 				// first time we encounter this universe
 				universeMap[u] = new Dictionary<int, DmxColorPoint>();
 				// make sure we have space for the universe data all the way up to this universe #
-				while (_dataMap[host].Count <= u+1)
+				while (_dataMap[host].Count < u+1)
 				{
 					// dmx512 is 512 bytes
 					_dataMap[host].Add(new byte[512]);
