@@ -38,6 +38,13 @@ public class UILayoutSettingsController : MonoBehaviour
 	public UILabelSlider RowsRowCountSlider;
 	public UILabelSlider RowsRowSpacingSlider;
 
+	[Header("Suflower UI")]
+	public GameObject SunflowerLayoutRoot;
+	public UILabelSlider SunflowerFixtureCountSlider;
+	public UILabelSlider SunflowerSpacingSlider;
+	public UILabelSlider SunflowerSpacingExpSlider;
+	public UILabelSlider SunflowerCenterRadiusSlider;
+
 	public String FixtureImportPath = "%MyDocuments%";
 	public String FixtureExportPath = "%MyDocuments%";
 
@@ -78,6 +85,9 @@ public class UILayoutSettingsController : MonoBehaviour
 				break;
 			case "Grid":
 				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Grid;
+				break;
+			case "Sunflower":
+				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Sunflower;
 				break;
 		}
 		updateUIFromSettings();
@@ -179,10 +189,17 @@ public class UILayoutSettingsController : MonoBehaviour
 			case EFixtureLayoutAlgorithm.Grid:
 				RingsLayoutRoot.SetActive(false);
 				RowsLayoutRoot.SetActive(true);
+				SunflowerLayoutRoot.SetActive(false);
+				break;
+			case EFixtureLayoutAlgorithm.Sunflower:
+				RingsLayoutRoot.SetActive(false);
+				RowsLayoutRoot.SetActive(false);
+				SunflowerLayoutRoot.SetActive(true);
 				break;
 			default:
 				RingsLayoutRoot.SetActive(true);
 				RowsLayoutRoot.SetActive(false);
+				SunflowerLayoutRoot.SetActive(false);
 			break;
 		}
 
@@ -199,6 +216,12 @@ public class UILayoutSettingsController : MonoBehaviour
 		RowsSpacingSlider.Slider.SetValueWithoutNotify(glr.BaseSpacingFt);
 		RowsRowCountSlider.Slider.SetValueWithoutNotify(glr.NumRows);
 		RowsRowSpacingSlider.Slider.SetValueWithoutNotify(glr.RowSpacingFt);
+
+		FixtureLayoutSunflower fls = LayoutGenObj.SunflowerLayout;
+		SunflowerFixtureCountSlider.Slider.SetValueWithoutNotify(fls.NumFixtures);
+		SunflowerSpacingSlider.Slider.SetValueWithoutNotify(fls.BaseSpacingFt);
+		SunflowerCenterRadiusSlider.Slider.SetValueWithoutNotify(fls.CenterRadiusFt);
+		SunflowerSpacingExpSlider.Slider.SetValueWithoutNotify((fls.SpacingExp - 1.0f) * 1000f);
 
 		UILabelSlider[] sliders = GetComponentsInChildren<UILabelSlider>();
 		foreach (var s in sliders)
@@ -226,7 +249,12 @@ public class UILayoutSettingsController : MonoBehaviour
 		glr.NumRows = (int)RowsRowCountSlider.Slider.value;
 		glr.RowSpacingFt = RowsRowSpacingSlider.Slider.value;
 
+		FixtureLayoutSunflower fls = LayoutGenObj.SunflowerLayout;
+		fls.NumFixtures = (int) SunflowerFixtureCountSlider.Slider.value;
+		fls.BaseSpacingFt = SunflowerSpacingSlider.Slider.value;
+		fls.SpacingExp = (SunflowerSpacingExpSlider.Slider.value / 1000f) + 1.0f;
+		fls.CenterRadiusFt = SunflowerCenterRadiusSlider.Slider.value;
+
 		LayoutGenObj.SaveLayoutSettings();
 	}
-
 }

@@ -5,6 +5,7 @@ public enum EFixtureLayoutAlgorithm
 {
 	Grid,
 	Rings,
+	Sunflower,
 }
 
 //
@@ -23,8 +24,11 @@ public class FixtureLayoutGen : MonoBehaviour
 	protected FixtureLayoutRings _ringLayout;
 	public FixtureLayoutRings RingsLayout => _ringLayout;
 
-	protected FixtureLayoutImport _importLayot;
-	public FixtureLayoutImport ImportLayout => _importLayot;
+	protected FixtureLayoutSunflower _sunflowerLayout;
+	public FixtureLayoutSunflower SunflowerLayout => _sunflowerLayout;
+
+	protected FixtureLayoutImport _importLayout;
+	public FixtureLayoutImport ImportLayout => _importLayout;
 
 	public UnityEvent<FixtureLayoutGen> OnNewLayout;
 
@@ -38,7 +42,8 @@ public class FixtureLayoutGen : MonoBehaviour
 	{
 		_gridLayout = GetComponent<FixtureLayoutGrid>();
 		_ringLayout = GetComponent<FixtureLayoutRings>();
-		_importLayot = GetComponent<FixtureLayoutImport>();
+		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
+		_importLayout = GetComponent<FixtureLayoutImport>();
 		LoadLayoutSettings();
 	}
 
@@ -60,8 +65,12 @@ public class FixtureLayoutGen : MonoBehaviour
 				_ringLayout = GetComponent<FixtureLayoutRings>();
 				_ringLayout.GenerateLayout(rootObj,FixturePrefab);
 				break;
+			case EFixtureLayoutAlgorithm.Sunflower:
+				_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
+				_sunflowerLayout.GenerateLayout(rootObj,FixturePrefab);
+				break;
 			default:
-			break;
+				break;
 		}
 
 		updateLayoutStats();
@@ -71,10 +80,10 @@ public class FixtureLayoutGen : MonoBehaviour
 	public void DoImportLayout(GameObject rootObj, string fileName, bool fromEditor = false)
 	{
 		if (fromEditor)
-			_importLayot = GetComponentInChildren<FixtureLayoutImport>();
+			_importLayout = GetComponentInChildren<FixtureLayoutImport>();
 
-		_importLayot.JsonFilePath = fileName;
-		_importLayot.GenerateLayout(rootObj,FixturePrefab);
+		_importLayout.JsonFilePath = fileName;
+		_importLayout.GenerateLayout(rootObj,FixturePrefab);
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
 	}
@@ -91,8 +100,10 @@ public class FixtureLayoutGen : MonoBehaviour
 		Debug.Log("LoadLayoutSettings");
 		_gridLayout = GetComponent<FixtureLayoutGrid>();
 		_ringLayout = GetComponent<FixtureLayoutRings>();
+		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
 		_gridLayout.LoadSettings();
 		_ringLayout.LoadSettings();
+		_sunflowerLayout.LoadSettings();
 	}
 
 	void updateLayoutStats()
