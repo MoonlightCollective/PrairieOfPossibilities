@@ -34,8 +34,12 @@ public class StemColorManager : DmxColorPoint
 		{
 			gp.SetColor("_GlowColor",new Color(color.r,color.g,color.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
 		}
-		// tell the dmx controller about the color change
-		this.Controller.SetDmxColor(mainColor, this.Host, this.Universe, this.LocalPointIndex);
+		// the controller is null if DMX is turned off
+		if (this.Controller != null)
+		{
+			// tell the dmx controller about the color change
+			this.Controller.SetDmxColor(mainColor, this.Host, this.Universe, this.LocalPointIndex);
+		}
 	}
 
 	//
