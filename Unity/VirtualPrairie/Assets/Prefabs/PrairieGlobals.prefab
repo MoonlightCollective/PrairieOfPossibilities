@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChannelsPerPoint: 3
-  UniverseCount: 10
+  DmxMode: 2
 --- !u!1 &2754244950565654878
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 2754244950565654877}
   - component: {fileID: 2754244950565654882}
   - component: {fileID: 2754244950565654881}
+  - component: {fileID: 1558642400}
   m_Layer: 0
   m_Name: LayoutGenerator
   m_TagString: Untagged
@@ -94,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Algorithm: 1
-  FixturePrefab: {fileID: 6972691233989155126, guid: b0ebd5132178b4440a2fee2eb06a9bf7,
+  FixturePrefab: {fileID: 6972691233989155126, guid: 91fc91fc5d7884b12b493dd86c3e3dc1,
     type: 3}
   OnNewLayout:
     m_PersistentCalls:
@@ -166,6 +167,24 @@ MonoBehaviour:
   BaseIP: 
   UniverseStart: 0
   JsonFilePath: Assets/Fixtures/sunflower2.txt
+--- !u!114 &1558642400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2754244950565654878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36036eab99453454d955755cc840468d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumFixtures: 20
+  BaseSpacingFt: 8
+  BaseIP: 
+  UniverseStart: 0
+  CenterRadiusFt: 30
+  SpacingExp: 1.002
 --- !u!1 &2754244950870197590
 GameObject:
   m_ObjectHideFlags: 0

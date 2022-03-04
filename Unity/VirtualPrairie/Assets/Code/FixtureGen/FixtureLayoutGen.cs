@@ -103,7 +103,7 @@ public class FixtureLayoutGen : MonoBehaviour
 		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
 		_gridLayout.LoadSettings();
 		_ringLayout.LoadSettings();
-		_sunflowerLayout.LoadSettings();
+		_sunflowerLayout?.LoadSettings();
 	}
 
 	void updateLayoutStats()
