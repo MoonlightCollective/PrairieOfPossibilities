@@ -17,7 +17,8 @@ public class FixtureLayoutGen : MonoBehaviour
 {
 	public EFixtureLayoutAlgorithm Algorithm;
 	public GameObject FixturePrefab;
-	
+	public GameObject AmbientSpeakerPrefab;
+
 	protected FixtureLayoutGrid _gridLayout;
 	public FixtureLayoutGrid GridLayout => _gridLayout;
 
