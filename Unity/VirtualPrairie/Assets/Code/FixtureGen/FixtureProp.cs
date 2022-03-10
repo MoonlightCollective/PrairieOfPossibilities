@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum EPropLayoutType
 {
-	InnerRing,
-	OuterRing,
+	InnerRingPortal,
+	OuterRingPortal,
+	InnerRingBooth,
+	OuterRingBooth
 }
 
 public class FixtureProp : MonoBehaviour
@@ -20,11 +22,17 @@ public class FixtureProp : MonoBehaviour
 		float yPos = transform.position.y;
 		switch (LayoutType)
 		{
-			case EPropLayoutType.InnerRing:
+			case EPropLayoutType.InnerRingPortal:
 				transform.position = (dir * (gen.MinDistFromOrigin + RadialOffset)) + new Vector3(0,yPos,0);
 				break;
-			case EPropLayoutType.OuterRing:
+			case EPropLayoutType.OuterRingPortal:
 				transform.position = (dir * (gen.MaxDistFromOrigin + RadialOffset)) + new Vector3(0,yPos,0);
+				break;
+			case EPropLayoutType.InnerRingBooth:
+				transform.position = (dir * (gen.MinDistFromOrigin + (RadialOffset * 1.5f))) + new Vector3(0, yPos, 0);
+				break;
+			case EPropLayoutType.OuterRingBooth:
+				transform.position = (dir * (gen.MaxDistFromOrigin + (RadialOffset * 1.5f))) + new Vector3(0, yPos, 0);
 				break;
 		}
 	}

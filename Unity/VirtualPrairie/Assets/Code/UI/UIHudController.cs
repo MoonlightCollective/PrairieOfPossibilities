@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIHudController : MonoBehaviour
 {
 	public TextMeshProUGUI PlantCountText;
+	public TextMeshProUGUI FieldDiameterText;
 	public UILabelSlider BrightnessSlider;
 	public UILabelSlider GlowSlider;
 	public UILabelSlider AlphaSlider;
@@ -14,11 +15,13 @@ public class UIHudController : MonoBehaviour
 	
 	protected GameObject _plantLayoutRoot;
 	protected PrairieWalkCam _cam;
+	protected FixtureLayoutGen _fixtureLayoutGen;
 
 	void Awake()
 	{
 		_plantLayoutRoot = PrairieUtil.GetLayoutRoot();
 		_cam = PrairieUtil.GetCamera();
+		_fixtureLayoutGen = PrairieUtil.GetLayoutGen();
 	}
 
 	void Start()
@@ -40,7 +43,8 @@ public class UIHudController : MonoBehaviour
     {
 		PlantCountText.text = $"Fixtures:{_plantLayoutRoot.transform.childCount}";
 		FlyText.text = $"Flying:{_cam.isFlying}";
-    }
+		FieldDiameterText.text = $"Radius:{_fixtureLayoutGen.MaxDistFromOrigin.ToString("F1")}m";
+	}
 
 	public void OnValueUpdate(float value)
 	{

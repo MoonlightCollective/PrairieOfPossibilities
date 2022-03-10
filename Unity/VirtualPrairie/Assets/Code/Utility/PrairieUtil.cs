@@ -46,4 +46,9 @@ public class PrairieUtil
 	{
 		return (GameObject.FindObjectOfType<PrairieWalkCam>());
 	}
+
+	public static FixtureLayoutGen GetLayoutGen()
+    {
+		return (GameObject.FindObjectOfType<FixtureLayoutGen>());
+    }
 }
