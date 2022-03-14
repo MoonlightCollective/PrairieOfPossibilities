@@ -54,4 +54,34 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		return obj;
 	}
 
+	protected bool AddFixture(Vector3 newPosFt, GameObject rootObj, GameObject prefabObj)
+    {
+		// don't add if this is too close to an existing base
+		// currently using "2 meters" as the threshold
+		// TODO: make this spacing more dynamic
+		Vector3 newPosM = new Vector3(PrairieUtil.FeetToMeters(newPosFt.x), 0.0f, PrairieUtil.FeetToMeters(newPosFt.z));
+
+		int count = rootObj.transform.childCount;
+		for (int i=0; i < count; i++)
+        {
+			var fixture = rootObj.transform.GetChild(i).gameObject;
+			Vector3 pos = fixture.transform.position;
+			if (Vector3.Distance(pos, newPosM) < 1.5f)
+				return false;
+        }
+
+		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
+		{
+			_curUniverse++;
+			_curChannel = 0;
+		}
+
+		GameObject newObj = CreateObjFromPrefab(prefabObj);
+		newObj.transform.SetParent(rootObj.transform, false);
+
+		Debug.Log($"{newPosFt.x}, {newPosFt.z}");
+		newObj.transform.position = newPosM;
+		_curChannel += _channelsPerFixture;
+		return true;
+	}
 }

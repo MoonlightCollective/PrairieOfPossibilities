@@ -18,7 +18,6 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		PlayerPrefs.SetFloat("SunflowerSpacingExp", SpacingExp);
 		PlayerPrefs.SetFloat("SunflowerClearingOffset", ClearingOffset);
 		PlayerPrefs.SetFloat("SunflowerClearingSize", ClearingSize);
-
 	}
 
 	static int kDefaultNumFixtures = 420;
@@ -26,7 +25,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 	static float kDefaultCenterRad = 0f;
     static float kDefaultSpacingExp = 1.001f;
 	static float kDefaultClearingOffset = 0;
-	static float kDefaultClearingSize = 12;
+	static float kDefaultClearingSize = 15;
 
 	public override void LoadSettings()
 	{
@@ -45,31 +44,43 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		int fixturesLeft = NumFixtures;
 		float twoPi = Mathf.PI * 2f;
 		float GoldenRatio = 1.61803398875f;
-		Vector3[] clearings;
-		clearings = new Vector3[6];
-		float clearing_angle, clearing_distance;
 
-		// create clearings for portals and hot spots
-		clearing_distance = 50 + ClearingOffset;
-		for (int j = 0; j < 4; j++)
-		{
-			// create circle for new clearing
-			clearing_angle = j * (Mathf.PI / 2); // set at 90, 180, 270, etc
+		// EXPERIMENT -- let's try creating circles of plants around each clearing
+		// then when placing the rest of the plants, if a new plant is too close to an existing plant we'll skip
 
-			clearings[j] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+		for (int j=0; j<6; j++)
+        {
+			float clearing_radius = ClearingSize; // in feet
+			if (j > 3)							// make circles for booths bigger
+				clearing_radius *= 1.5f;
+
+			// figure out how many lights we need --- assume 8' spacing around the circle
+			float perimeter = 2 * Mathf.PI * clearing_radius;
+			int numPlants = (int)(perimeter / 6.0f);
+			float angleStep = Mathf.PI * 2 / numPlants; // angle step per light
+
+			float clearingAngle = 0;
+			for (int k=0; k<numPlants; k++)
+            {
+				Vector3 newPlant = PrairieUtil.GetLayoutGen().Clearings[j];
+				newPlant.x += clearing_radius * Mathf.Cos(clearingAngle);
+				newPlant.y = 0;
+				newPlant.z += clearing_radius * Mathf.Sin(clearingAngle);
+
+				if (AddFixture(newPlant, rootObj, fixturePrefab))
+					fixturesLeft--;
+
+				clearingAngle += angleStep;
+			}
 		}
-		// now create clearings for phone booths
-		clearing_distance = clearing_distance * 1.5f; // put phone booths 1.5x further from center than portals
-		clearing_angle = Mathf.PI / 4; // set at 45 degrees
-		clearings[4] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
-		clearing_angle += Mathf.PI; // add 180 degrees
-		clearings[5] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
 
 		int i = 0;
 		while (fixturesLeft > 0)
+		//while (false)
 		{
 			float angle = i * twoPi / (GoldenRatio * GoldenRatio);
 			float radius = Mathf.Pow(SpacingExp, i) * BaseSpacingFt * Mathf.Sqrt(i);
+			float clearing_radius = ClearingSize; // in feet
 
 			float x = radius * Mathf.Cos(angle);
 			float z = radius * Mathf.Sin(angle);
@@ -80,30 +91,16 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 				continue;
 
 			// create clearings for portals and hot spots
-			float clearing_radius = ClearingSize; // in feet
-
-			if (Vector3.Distance(clearings[0], plant_loc) < clearing_radius ||
-				Vector3.Distance(clearings[1], plant_loc) < clearing_radius ||
-				Vector3.Distance(clearings[2], plant_loc) < clearing_radius ||
-				Vector3.Distance(clearings[3], plant_loc) < clearing_radius ||
-				Vector3.Distance(clearings[4], plant_loc) < clearing_radius ||
-				Vector3.Distance(clearings[5], plant_loc) < clearing_radius)
+			if (Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[0], plant_loc) < clearing_radius ||
+				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[1], plant_loc) < clearing_radius ||
+				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[2], plant_loc) < clearing_radius ||
+				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[3], plant_loc) < clearing_radius ||
+				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc) < (clearing_radius * 1.5f) ||
+				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc) < (clearing_radius * 1.5f) )
 				continue;
-			
-            if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
-            {
-                _curUniverse++;
-                _curChannel = 0;
-            }
 
-            GameObject newObj = CreateObjFromPrefab(fixturePrefab);
-            newObj.transform.SetParent(rootObj.transform,false);
-            
-            Debug.Log($"{angle}, {x}, {z}");
-            newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(x),0.0f,PrairieUtil.FeetToMeters(z));
-            _curChannel += _channelsPerFixture;
-            
-            fixturesLeft--;
+			if (AddFixture(plant_loc, rootObj, fixturePrefab))
+				fixturesLeft--;
 		}
 		return true;
 	}

@@ -7,6 +7,7 @@ public enum EPropLayoutStyle
 	Disabled,
 	InnerPortals,
 	OuterPortals,
+	ClearingPortals
 }
 
 public class FixturePropLayout : MonoBehaviour

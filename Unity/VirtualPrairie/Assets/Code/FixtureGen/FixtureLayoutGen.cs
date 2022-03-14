@@ -17,6 +17,8 @@ public class FixtureLayoutGen : MonoBehaviour
 {
 	public EFixtureLayoutAlgorithm Algorithm;
 	public GameObject FixturePrefab;
+	public GameObject PortalPrefab;
+	public GameObject BoothPrefab;
 	
 	protected FixtureLayoutGrid _gridLayout;
 	public FixtureLayoutGrid GridLayout => _gridLayout;
@@ -30,6 +32,9 @@ public class FixtureLayoutGen : MonoBehaviour
 	protected FixtureLayoutImport _importLayout;
 	public FixtureLayoutImport ImportLayout => _importLayout;
 
+	protected PropLayout _propLayout;
+	public PropLayout PropLayout => _propLayout;
+
 	public UnityEvent<FixtureLayoutGen> OnNewLayout;
 
 
@@ -38,19 +43,50 @@ public class FixtureLayoutGen : MonoBehaviour
 	protected float _maxDistFromOrigin = 0f;
 	public float MaxDistFromOrigin => _maxDistFromOrigin;
 
+	protected Vector3[] _clearings = new Vector3[6];
+	public Vector3[] Clearings => _clearings;
+
 	public void Awake()
 	{
 		_gridLayout = GetComponent<FixtureLayoutGrid>();
 		_ringLayout = GetComponent<FixtureLayoutRings>();
 		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
 		_importLayout = GetComponent<FixtureLayoutImport>();
+		_propLayout = GetComponent<PropLayout>();
 		LoadLayoutSettings();
 	}
 
 	public void Start()
 	{
+		// first create clearings for the 4 portals
+
+		float clearing_distance = 60; // + ClearingOffset;
+		float clearing_angle = 0;
+		_clearings[0] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		clearing_angle =  (Mathf.PI / 3); // 60 degrees
+		_clearings[1] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		clearing_angle = 3 * (Mathf.PI / 3); // 180 degrees
+		_clearings[2] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		clearing_angle = 4 * (Mathf.PI / 3); // 240 degrees
+		_clearings[3] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		// now create clearings for phone booths
+		//clearing_distance = clearing_distance * 1.5f; // put phone booths 1.5x further from center than portals
+		clearing_angle = 2 * (Mathf.PI / 3); // 120 degrees
+		_clearings[4] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		clearing_angle = 5 * (Mathf.PI / 3); // 300 degrees
+		_clearings[5] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+
+		var root = PrairieUtil.GetLayoutRoot();
+		GenerateLayout(root);
+
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
+
 	}
 
 	public void GenerateLayout(GameObject rootObj)
@@ -72,6 +108,9 @@ public class FixtureLayoutGen : MonoBehaviour
 			default:
 				break;
 		}
+
+		// add portals and booths
+		_propLayout.GenerateLayout(rootObj, PortalPrefab, BoothPrefab);
 
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);

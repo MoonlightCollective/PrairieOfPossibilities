@@ -45,7 +45,6 @@ public class FixtureLayoutRings : FixtureLayoutBase
 
 		float radius = CenterRadiusFt;
 		float angleOffset = 0;
-		bool lastRing = false;
 		int ring = 0;
 
 		float twoPi = Mathf.PI * 2f;
