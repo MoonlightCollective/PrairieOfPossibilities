@@ -1,6 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6792921270132926957
+--- !u!114 &-8651253592495798881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../Wayward Distractions Dropbox/Projects/Prairies/FMod/RAIN/RainMusic/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637828952283460285
+  FileSizes:
+  - Name: Desktop
+    Value: 26461280
+  Exists: 1
+--- !u!114 &-8532762254264021937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,51 +30,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Speaker1
+  m_Name: event:/RoutingEvents/OutSpeaker2
   m_EditorClassIdentifier: 
-  Path: event:/Speaker1
+  Path: event:/RoutingEvents/OutSpeaker2
   Guid:
-    Data1: -1005547012
-    Data2: 1158673087
-    Data3: -1066382157
-    Data4: 825901928
+    Data1: 1609519601
+    Data2: 1263774002
+    Data3: -545547854
+    Data4: -1120127244
   Banks:
-  - {fileID: 4834155377042400238}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 35
-  Length: 8000
---- !u!114 &-3225671142360519330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Speaker3
-  m_EditorClassIdentifier: 
-  Path: event:/Speaker3
-  Guid:
-    Data1: 1700310607
-    Data2: 1281794064
-    Data3: 1530209931
-    Data4: -1784493387
-  Banks:
-  - {fileID: 4834155377042400238}
+  - {fileID: -8651253592495798881}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 8000
---- !u!114 &-1273339556450605325
+  Length: 2000
+--- !u!114 &-8295113633777162297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,23 +57,94 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Speaker4
+  m_Name: event:/RoutingEvents/OutSpeaker4
   m_EditorClassIdentifier: 
-  Path: event:/Speaker4
+  Path: event:/RoutingEvents/OutSpeaker4
   Guid:
-    Data1: 1267774193
-    Data2: 1231923951
-    Data3: 230323897
-    Data4: 1291828160
+    Data1: -1090915550
+    Data2: 1298321116
+    Data3: 1281738624
+    Data4: 341281711
   Banks:
-  - {fileID: 4834155377042400238}
+  - {fileID: -8651253592495798881}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 8000
+  Length: 2000
+--- !u!114 &-6905396968386503756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../../Wayward Distractions Dropbox/Projects/Prairies/FMod/RAIN/RainMusic/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637828952283509059
+  FileSizes:
+  - Name: Desktop
+    Value: 1182
+  Exists: 1
+--- !u!114 &-5975467857307500519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RoutingEvents/OutSpeaker1
+  m_EditorClassIdentifier: 
+  Path: event:/RoutingEvents/OutSpeaker1
+  Guid:
+    Data1: 1762242628
+    Data2: 1260385135
+    Data3: 445015957
+    Data4: 646848467
+  Banks:
+  - {fileID: -8651253592495798881}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 736
+--- !u!114 &-5120128442963113414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/RainMusic/VEventVol
+  m_EditorClassIdentifier: 
+  Name: VEventVol
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0.96
+  ID:
+    data1: 1156262778
+    data2: 961047140
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,22 +158,52 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 6399875981565485341}
-  - {fileID: 4834155377042400238}
+  - {fileID: -6905396968386503756}
+  - {fileID: -8651253592495798881}
   EditorEvents:
-  - {fileID: 5376843660354374565}
-  - {fileID: -3225671142360519330}
-  - {fileID: 7666457001122488500}
-  - {fileID: -1273339556450605325}
-  - {fileID: -6792921270132926957}
-  EditorParameters: []
+  - {fileID: -8295113633777162297}
+  - {fileID: -5975467857307500519}
+  - {fileID: 6065388865034429370}
+  - {fileID: 4362061464075361170}
+  - {fileID: 5772282017357504490}
+  - {fileID: -8532762254264021937}
+  - {fileID: 1149438542511294773}
+  EditorParameters:
+  - {fileID: 2414972661567884098}
   MasterBanks:
-  - {fileID: 4834155377042400238}
+  - {fileID: -8651253592495798881}
   StringsBanks:
-  - {fileID: 6399875981565485341}
-  cacheTime: 637823841454379911
+  - {fileID: -6905396968386503756}
+  cacheTime: 637828952283509059
   cacheVersion: 10
---- !u!114 &2315575267701900845
+--- !u!114 &1149438542511294773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/VoiceEvents/Story2
+  m_EditorClassIdentifier: 
+  Path: event:/VoiceEvents/Story2
+  Guid:
+    Data1: -2126468104
+    Data2: 1265107304
+    Data3: 2124986772
+    Data4: -1667869844
+  Banks:
+  - {fileID: -8651253592495798881}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12000
+--- !u!114 &2414972661567884098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,41 +213,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/GenerativeAmbientLoop1/Population
+  m_Name: parameter:/VEventVol
   m_EditorClassIdentifier: 
-  Name: Population
-  StudioPath: 
+  Name: VEventVol
+  StudioPath: parameter:/VEventVol
   Min: 0
   Max: 1
-  Default: 0
+  Default: 0.96
   ID:
-    data1: 892399415
-    data2: 1829579491
+    data1: 1156262778
+    data2: 961047140
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &4834155377042400238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../../Wayward Distractions Dropbox/Projects/Prairies/FMod/GenTest1/GenTest1/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 637823841454331942
-  FileSizes:
-  - Name: Desktop
-    Value: 11771712
-  Exists: 1
---- !u!114 &5376843660354374565
+--- !u!114 &4362061464075361170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,44 +237,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Speaker2
+  m_Name: event:/VoiceEvents/Story1
   m_EditorClassIdentifier: 
-  Path: event:/Speaker2
+  Path: event:/VoiceEvents/Story1
   Guid:
-    Data1: 645351460
-    Data2: 1125539417
-    Data3: 885666185
-    Data4: -1744514551
+    Data1: 224673435
+    Data2: 1272345846
+    Data3: 490328714
+    Data4: -1545245481
   Banks:
-  - {fileID: 4834155377042400238}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
+  - {fileID: -8651253592495798881}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 35
-  Length: 8000
---- !u!114 &6399875981565485341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../../Wayward Distractions Dropbox/Projects/Prairies/FMod/GenTest1/GenTest1/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 637823841454379911
-  FileSizes:
-  - Name: Desktop
-    Value: 1020
-  Exists: 1
---- !u!114 &7666457001122488500
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12000
+--- !u!114 &5772282017357504490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,21 +264,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/GenerativeAmbientLoop1
+  m_Name: event:/RainMusic
   m_EditorClassIdentifier: 
-  Path: event:/GenerativeAmbientLoop1
+  Path: event:/RainMusic
   Guid:
-    Data1: 526310059
-    Data2: 1297695643
-    Data3: 996736914
-    Data4: -322972690
+    Data1: -627069496
+    Data2: 1176732273
+    Data3: -602897535
+    Data4: -228293003
   Banks:
-  - {fileID: 4834155377042400238}
+  - {fileID: -8651253592495798881}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 2315575267701900845}
+  - {fileID: -5120128442963113414}
   MinDistance: 1
   MaxDistance: 20
-  Length: 435040
+  Length: 495611
+--- !u!114 &6065388865034429370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/RoutingEvents/OutSpeaker3
+  m_EditorClassIdentifier: 
+  Path: event:/RoutingEvents/OutSpeaker3
+  Guid:
+    Data1: -1917306471
+    Data2: 1164276316
+    Data3: 624404116
+    Data4: -464924400
+  Banks:
+  - {fileID: -8651253592495798881}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
