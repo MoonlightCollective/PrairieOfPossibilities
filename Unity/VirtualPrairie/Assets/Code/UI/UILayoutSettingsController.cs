@@ -44,6 +44,8 @@ public class UILayoutSettingsController : MonoBehaviour
 	public UILabelSlider SunflowerSpacingSlider;
 	public UILabelSlider SunflowerSpacingExpSlider;
 	public UILabelSlider SunflowerCenterRadiusSlider;
+	public UILabelSlider SunflowerClearingOffsetSlider;
+	public UILabelSlider SunflowerClearingSizeSlider;
 
 	public String FixtureImportPath = "%MyDocuments%";
 	public String FixtureExportPath = "%MyDocuments%";
@@ -71,8 +73,10 @@ public class UILayoutSettingsController : MonoBehaviour
 	void Start()
 	{
 		updateUIFromSettings();
-		RowsLayoutRoot.SetActive(true);
+		SunflowerLayoutRoot.SetActive(true);
 		PropDropdownChanged(0);
+		DropdownChanged(0);
+		//DoGenLayout();			// do initial generation of plants as per UI
 	}
 
 	public void DropdownChanged(int val)
@@ -222,6 +226,8 @@ public class UILayoutSettingsController : MonoBehaviour
 		SunflowerSpacingSlider.Slider.SetValueWithoutNotify(fls.BaseSpacingFt);
 		SunflowerCenterRadiusSlider.Slider.SetValueWithoutNotify(fls.CenterRadiusFt);
 		SunflowerSpacingExpSlider.Slider.SetValueWithoutNotify((fls.SpacingExp - 1.0f) * 1000f);
+		SunflowerClearingOffsetSlider.Slider.SetValueWithoutNotify(fls.ClearingOffset);
+		SunflowerClearingSizeSlider.Slider.SetValueWithoutNotify(fls.ClearingSize);
 
 		UILabelSlider[] sliders = GetComponentsInChildren<UILabelSlider>();
 		foreach (var s in sliders)
@@ -254,6 +260,8 @@ public class UILayoutSettingsController : MonoBehaviour
 		fls.BaseSpacingFt = SunflowerSpacingSlider.Slider.value;
 		fls.SpacingExp = (SunflowerSpacingExpSlider.Slider.value / 1000f) + 1.0f;
 		fls.CenterRadiusFt = SunflowerCenterRadiusSlider.Slider.value;
+		fls.ClearingOffset = SunflowerClearingOffsetSlider.Slider.value;
+		fls.ClearingSize = SunflowerClearingSizeSlider.Slider.value;
 
 		LayoutGenObj.SaveLayoutSettings();
 	}

@@ -48,7 +48,13 @@ public class PrairieWalkCam : MonoBehaviour
 
 		Vector2 lookDirDelta = getLookDirDeltaFromMouse();
 
-		Quaternion targetRot = Quaternion.Euler(transform.eulerAngles + new Vector3(lookDirDelta.y * RotSpeed * Time.deltaTime, lookDirDelta.x * RotSpeed * Time.deltaTime, 0f));
+		float mult = 1;
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		{
+			mult = 2.5f;
+		}
+
+		Quaternion targetRot = Quaternion.Euler(transform.eulerAngles + new Vector3(lookDirDelta.y * RotSpeed * mult * Time.deltaTime, lookDirDelta.x * RotSpeed * mult * Time.deltaTime, 0f));
 		transform.localRotation = targetRot;
 
 		Vector3 walkDirLocal = getWalkInputDir();
@@ -62,12 +68,6 @@ public class PrairieWalkCam : MonoBehaviour
 			_curSpeed = Mathf.MoveTowards(_curSpeed, _desiredSpeed, Time.deltaTime /  AccelRate);
 		else
 			_curSpeed = Mathf.MoveTowards(_curSpeed,_desiredSpeed, Time.deltaTime / DecelRate);
-
-		float mult = 1;
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-		{
-			mult = 2.5f;
-		}
 
 		Vector3 walkVel = walkDirWorld * _curSpeed * mult;
 		transform.position += walkVel * Time.deltaTime;

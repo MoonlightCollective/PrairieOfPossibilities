@@ -7,6 +7,7 @@ public enum EPropLayoutStyle
 	Disabled,
 	InnerPortals,
 	OuterPortals,
+	ClearingPortals
 }
 
 public class FixturePropLayout : MonoBehaviour
@@ -21,14 +22,29 @@ public class FixturePropLayout : MonoBehaviour
 				switch(layoutStyle)
 				{
 					case EPropLayoutStyle.InnerPortals:
-						prop.LayoutType = EPropLayoutType.InnerRing;
+						prop.LayoutType = EPropLayoutType.InnerRingPortal;
 						break;
 					case EPropLayoutStyle.OuterPortals:
-						prop.LayoutType = EPropLayoutType.OuterRing;
+						prop.LayoutType = EPropLayoutType.OuterRingPortal;
 						break;
 				}
 				prop.RadialOffset = offset;
 			}
+			if (prop.gameObject.name.Contains("booth"))
+			{
+				switch (layoutStyle)
+				{
+					case EPropLayoutStyle.InnerPortals:
+						prop.LayoutType = EPropLayoutType.InnerRingBooth;
+						break;
+					case EPropLayoutStyle.OuterPortals:
+						prop.LayoutType = EPropLayoutType.OuterRingBooth;
+						break;
+				}
+				prop.RadialOffset = offset;
+			}
+
+			
 		}
 
 		if (layoutStyle == EPropLayoutStyle.Disabled)
