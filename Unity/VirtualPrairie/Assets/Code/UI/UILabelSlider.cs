@@ -23,15 +23,26 @@ public class UILabelSlider : MonoBehaviour
     void Awake()
     {
 		Debug.Log($"{gameObject.name} - awake");
+		findRequiredObjects();
+    }
+	void findRequiredObjects()
+	{
 		_slider = GetComponentInChildren<Slider>();
 		_labelText = transform.Find("LabelText").GetComponent<TextMeshProUGUI>();
 		_valueText = transform.Find("ValueText").GetComponent<TextMeshProUGUI>();
-    }
+	}
+
+	public void Start()
+	{
+		_valueText.text = _slider.value.ToString($"F{NumValueDigits}");
+	}
 
 	public void OnUpdateValue(float newVal)
 	{
-		Debug.Log($"{gameObject.name} - updateLabelSlider {newVal} curVal:{_slider.value}");
-
+		// Debug.Log($"{gameObject.name} - updateLabelSlider {newVal} curVal:{_slider.value}");
+		if (_slider == null)
+			findRequiredObjects();
+		
 		if (_valueText != null)
 			_valueText.text = newVal.ToString($"F{NumValueDigits}");
 	}

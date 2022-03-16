@@ -67,7 +67,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 791
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -103,15 +103,16 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 279
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 1
+  m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -134,13 +135,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotSpeed: 20
   MouseSensitivity: 10
-  KeyLookSensitivity: 1
+  KeyLookSensitivity: 1.5
   WalkSpeed: 1.4
   HeadHeight: 1.4
   FloatSpeed: 3
   AccelRate: 1
   DecelRate: 0.3
-  isFlying: 1
+  isFlying: 0
   CameraStopRoot: {fileID: 0}
 --- !u!114 &-1710642112404184222
 MonoBehaviour:

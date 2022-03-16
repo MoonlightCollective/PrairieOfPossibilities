@@ -6,12 +6,17 @@ using UnityEngine.UI;
 
 public class FmodParamSetter : MonoBehaviour
 {
-	public StudioEventEmitter emitter;
+	public bool IsGlobal = false;
 	public Slider slider;
 	public string ParamString;
+	public StudioEventEmitter emitter;
+
 	public void SliderUpdated()
 	{
-		emitter.SetParameter(ParamString, slider.value);
+		if (!IsGlobal)
+			emitter.SetParameter(ParamString, slider.value);
+		else
+			FMODUnity.RuntimeManager.StudioSystem.setParameterByName(ParamString,slider.value);
 	}
 
     // Start is called before the first frame update
@@ -23,6 +28,8 @@ public class FmodParamSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		float val;
+		FMODUnity.RuntimeManager.StudioSystem.getParameterByName(ParamString,out val);
+        Debug.Log($"{ParamString}: {val}");
     }
 }
