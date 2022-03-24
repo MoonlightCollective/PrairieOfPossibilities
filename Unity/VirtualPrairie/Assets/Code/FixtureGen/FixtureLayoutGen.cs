@@ -60,25 +60,29 @@ public class FixtureLayoutGen : MonoBehaviour
 	{
 		// first create clearings for the 4 portals
 
-		float clearing_distance = 60; // + ClearingOffset;
+		float clearing_distance = 80; // put portals 100' out
 		float clearing_angle = 0;
+		float angle_offset = Mathf.PI / 2; // 90 degrees
+
 		_clearings[0] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+		clearing_angle += angle_offset;
 
-		clearing_angle =  (Mathf.PI / 3); // 60 degrees
 		_clearings[1] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+		clearing_angle += angle_offset;
 
-		clearing_angle = 3 * (Mathf.PI / 3); // 180 degrees
 		_clearings[2] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+		clearing_angle += angle_offset;
 
-		clearing_angle = 4 * (Mathf.PI / 3); // 240 degrees
 		_clearings[3] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
 
 		// now create clearings for phone booths
-		//clearing_distance = clearing_distance * 1.5f; // put phone booths 1.5x further from center than portals
-		clearing_angle = 2 * (Mathf.PI / 3); // 120 degrees
-		_clearings[4] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
 
-		clearing_angle = 5 * (Mathf.PI / 3); // 300 degrees
+		clearing_distance = 50; // put phone booths at 60' out
+		clearing_angle = Mathf.PI * 3 / 4; // 45 degrees
+
+		_clearings[4] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
+		clearing_angle += Mathf.PI; // add 180 degrees
+
 		_clearings[5] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
 
 		var root = PrairieUtil.GetLayoutRoot();
