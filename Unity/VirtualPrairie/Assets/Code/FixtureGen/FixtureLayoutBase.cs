@@ -79,7 +79,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		GameObject newObj = CreateObjFromPrefab(prefabObj);
 		newObj.transform.SetParent(rootObj.transform, false);
 
-		Debug.Log($"{newPosFt.x}, {newPosFt.z}");
+		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
 		newObj.transform.position = newPosM;
 		_curChannel += _channelsPerFixture;
 		return true;

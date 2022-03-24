@@ -47,7 +47,7 @@ MonoBehaviour:
   IsGlobal: 1
   slider: {fileID: 0}
   ParamString: VEventVol
-  emitter: {fileID: 1859728487857045909}
+  emitter: {fileID: 0}
 --- !u!1 &1876574421
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   IsGlobal: 1
   slider: {fileID: 0}
   ParamString: MasterVolume
-  emitter: {fileID: 1859728487857045909}
+  emitter: {fileID: 0}
 --- !u!1 &1859728487857045897
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +105,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859728487857045911}
-  - component: {fileID: 1859728487857045909}
+  - component: {fileID: 5595058949814542964}
+  - component: {fileID: 5741546928887584785}
   m_Layer: 0
   m_Name: FModMusicManager
   m_TagString: Untagged
@@ -130,7 +131,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1859728487857045909
+--- !u!114 &5595058949814542964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,24 +140,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1859728487857045897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c42508070a1b4798bbdf1a6502c4f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -627069496
-      Data2: 1176732273
-      Data3: -602897535
-      Data4: -228293003
-    Path: event:/RainMusic
-  Event: 
-  PlayEvent: 1
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  MusicEvents: []
+  PlaybackStyle: 1
+  MusicPlayer: {fileID: 5741546928887584785}
+  InfiniteRepeat: 1
+--- !u!114 &5741546928887584785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859728487857045897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e349ea75296b24eec8bea9c18739910a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

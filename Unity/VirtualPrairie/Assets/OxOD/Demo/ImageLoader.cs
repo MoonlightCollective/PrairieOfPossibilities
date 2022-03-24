@@ -9,13 +9,14 @@ public class ImageLoader : MonoBehaviour
 
     public IEnumerator LoadImage(string path)
     {
-        WWW m_get = new WWW("file://" + path);
+        /*WWW m_get = new WWW("file://" + path);
         yield return m_get;
         Texture2D texture = m_get.texture;
         Sprite image = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100);
         yield return image;
         img.sprite = image;
-        Debug.Log("[ImageLoader] Loaded image from " + path);
+        Debug.Log("[ImageLoader] Loaded image from " + path);*/
+		return null; // Removed to get rid of warnings. Example code only.
     }
 
     public void OnLoadClick()

@@ -30,6 +30,6 @@ public class FmodParamSetter : MonoBehaviour
     {
 		float val;
 		FMODUnity.RuntimeManager.StudioSystem.getParameterByName(ParamString,out val);
-        Debug.Log($"{ParamString}: {val}");
+        // Debug.Log($"{ParamString}: {val}");
     }
 }
