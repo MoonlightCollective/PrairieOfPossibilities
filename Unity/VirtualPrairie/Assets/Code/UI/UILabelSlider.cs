@@ -22,7 +22,7 @@ public class UILabelSlider : MonoBehaviour
 
     void Awake()
     {
-		Debug.Log($"{gameObject.name} - awake");
+		// Debug.Log($"{gameObject.name} - awake");
 		findRequiredObjects();
     }
 	void findRequiredObjects()

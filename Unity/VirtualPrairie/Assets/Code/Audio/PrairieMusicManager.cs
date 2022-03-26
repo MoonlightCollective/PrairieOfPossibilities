@@ -16,11 +16,15 @@ public class PrairieMusicManager : MonoBehaviour
 	public List<EventReference> MusicEvents;
 	public EMusicPlaybackStyle PlaybackStyle;
 	public PrairieMusicPlayer MusicPlayer;
+	
+	public System.EventHandler<int> OnSongStart;
 
 	public bool InfiniteRepeat = true;
 
 	protected List<int> _playbackQueue = new List<int>();
-	
+
+	protected int _curDex = -1;
+	public int CurSongDex => _curDex;
 
 	public void Awake()
 	{
@@ -29,6 +33,7 @@ public class PrairieMusicManager : MonoBehaviour
 
 	void resetQueue()
 	{
+		Debug.Log("MM: Reset Queue");
 		_playbackQueue = new List<int>();
 		for (int i = 0; i < MusicEvents.Count; i++)
 		{
@@ -54,12 +59,45 @@ public class PrairieMusicManager : MonoBehaviour
 	bool _started = false;
 	public void Start()
 	{
-		playNextSong();
+		// playNextSong();
 	}
 
-	public void Update()
+	public void QueueSongAsNext(int songDex)
 	{
+		_playbackQueue.Insert(0,songDex);
+	}
 
+	public String CurSongPath()
+	{
+		if (_curDex < 0)
+			return "";
+		else
+			return MusicEvents[_curDex].Path;
+	}
+	
+
+	public void StopPlayback()
+	{
+		MusicPlayer.StopMusic();
+	}
+
+	public void StartPlayback()
+	{
+		if (MusicPlayer.ReadyForPlayback())
+			MusicPlayer.ResumeMusic();
+		else		
+			playNextSong();
+	}
+
+	public void PausePlayback()
+	{
+		MusicPlayer.PauseMusic();
+	}
+
+	public void SkipToNextSong()
+	{
+		MusicPlayer.StopMusic();
+		playNextSong();
 	}
 
 	void playNextSong()
@@ -68,7 +106,8 @@ public class PrairieMusicManager : MonoBehaviour
 			resetQueue();
 
 		int dex = Mathf.Clamp(_playbackQueue[0],0,MusicEvents.Count()-1);
-		_playbackQueue.Remove(0);
+		_playbackQueue.RemoveAt(0);
 		MusicPlayer.PlayMusic(MusicEvents[dex]);
+		_curDex = dex;
 	}
 }

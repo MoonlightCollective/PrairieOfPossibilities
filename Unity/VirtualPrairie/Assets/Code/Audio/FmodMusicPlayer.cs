@@ -6,21 +6,28 @@ using FMODUnity;
 using FMOD.Studio;
 using UnityEngine;
 
+
 public abstract class PrairieMusicPlayer : MonoBehaviour
 {
 	public event System.EventHandler PlaybackStarted;
 	public event System.EventHandler PlayerbackFinished;
-
+	
 	public abstract void PlayMusic(EventReference musicEvent);
 	public abstract void StopMusic();
-}
+	public abstract void PauseMusic();
+	public abstract void ResumeMusic();
+
+	public abstract bool ReadyForPlayback();
+}	
 
 public class FmodMusicPlayer : PrairieMusicPlayer
 {
 	EventReference _curEventRef;
 	EventInstance _curEventInstance;
 
-	private enum EFmodMusicPlayerState
+	private FMOD.Studio.EVENT_CALLBACK _musicCallback;
+
+	public enum EFmodMusicPlayerState
 	{
 		Stopped,
 		Paused,
@@ -42,12 +49,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	private void createStateMachine()
 	{
 		_stateMachine = new StateTable<EFmodMusicPlayerState,FmodMusicPlayer,EFmodMusicPlayerAction>(this);
+		_stateMachine.LogStatePrefix = "XXXX";
+		_stateMachine.LogStateTransitions = true;
 		_stateMachine.InitActionTable();
 	}
 	
-	void reset()
+	public override bool ReadyForPlayback()
 	{
-		_curEventInstance.clearHandle();
+		return (_curEventInstance.isValid());
 	}
 
 	public override void PlayMusic(EventReference musicEvent)
@@ -55,9 +64,22 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Play,new StateTableValue{Value = musicEvent});
 	}
 
+	public override void ResumeMusic()
+	{
+		if (ReadyForPlayback())
+			_stateMachine.DoStateAction(EFmodMusicPlayerAction.Play,new StateTableValue{Value = _curEventRef});
+		else
+			StopMusic();
+	}
+
 	public override void StopMusic()
 	{
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Stop);
+	}
+
+	public override void PauseMusic()
+	{
+		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Pause);
 	}
 
 	//===============
@@ -65,7 +87,6 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	//===============
 	public void Awake()
 	{
-		findRequiredObjects();
 		createStateMachine();
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}
@@ -75,14 +96,34 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Update);
 	}
 
-	private void findRequiredObjects()
+	void reset()
 	{
+		Debug.Log("fmp:RESET");
+		_curEventInstance.clearHandle();
 	}
 
-	protected EventInstance createNewInstance(EventReference eventRef)
+	protected EventInstance createNewFmodEventInstance(EventReference eventRef)
 	{
 		EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(eventRef);
 		return inst;
+	}
+
+
+	//===============
+	// FMod callback handler
+	//===============
+
+	//Helper function for beat callbacks
+	[AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
+    static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
+	{
+        FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
+
+		// switch (type)
+		// {
+		// Debug.Log($"Event: {type.ToString()}");
+		// }
+		return FMOD.RESULT.OK;
 	}
 
 
@@ -95,6 +136,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		{
 			_curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 			_curEventInstance.setTimelinePosition(0);
+			reset();
 		}
 	}
 	protected void StoppedUpdate()
@@ -105,7 +147,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	protected void StoppedPlay(StateTableValue v)
 	{
 		EventReference ev = (EventReference)v.Value;
-		
+		startPlayingEvent(ev);
+	}
+
+	void startPlayingEvent(EventReference ev)
+	{
 		Debug.Log($"fmp: Trying to play:{ev.Path}");
 		if (_curEventInstance.hasHandle())
 		{
@@ -113,10 +159,13 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_curEventInstance.release();
 		}
 
-		_curEventInstance = createNewInstance(ev);
+		_curEventInstance = createNewFmodEventInstance(ev);
 		if (_curEventInstance.hasHandle())
 		{
 			Debug.Log("fmp: have handle");
+
+			_musicCallback = new FMOD.Studio.EVENT_CALLBACK(eventCallback);
+			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 		}
 		else
@@ -132,12 +181,13 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	{ 
 		if (!_curEventInstance.isValid())
 		{
+			Debug.Log($"fmp: bad curEventInstance - ABORT");
 			reset();
 			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 			return;
 		}
-		
-		_curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+		_curEventInstance.setPaused(true);
+		// _curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 	}
 	protected void PausedUpdate()
 	{
@@ -146,9 +196,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	protected void PausedExit() { }
 	protected void PausedPlay(StateTableValue v)
 	{
+		Debug.Log("fmp: Paused Play");
 		EventReference ev = (EventReference)v.Value;
 		if (ev.IsNull && _curEventInstance.isValid())
 		{
+			Debug.Log("fmp: Paused resume with NULL handle");
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 			return;
 		}
@@ -157,19 +209,19 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		{
 			if (_curEventInstance.isValid())
 			{
+				Debug.Log("fmp: Paused resume with same handle");
 				_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 				return;
 			}
 		}
-		
-		doStartPlaying(ev);
+
+		Debug.Log("fmp: Paused different handle - start from scratch");
+		startPlayingEvent(ev);		
 	}
 
-	void doStartPlaying(EventReference ev)
+	protected void PausedStop()
 	{
-		_curEventRef = ev;
-		_curEventInstance = createNewInstance(ev);
-		_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
+		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}
 
 	//=================
@@ -186,7 +238,16 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		}
 
 		Debug.Log("fmp: playingEnter::start");
-		_curEventInstance.start();
+		bool isPaused;
+		_curEventInstance.getPaused(out isPaused);
+		if (isPaused)
+		{
+			_curEventInstance.setPaused(false);
+		}
+		else
+		{
+			_curEventInstance.start();
+		}
 	}
 	protected void PlayingUpdate()
 	{
@@ -220,7 +281,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		}
 		else if (!ev.IsNull)
 		{
-			doStartPlaying(ev);
+			startPlayingEvent(ev);
 		}
 
 	}
