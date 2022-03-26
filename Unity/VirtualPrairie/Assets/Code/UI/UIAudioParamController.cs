@@ -101,9 +101,40 @@ public class UIAudioParamController : MonoBehaviour
 		AudioSelectDropdown.SetValueWithoutNotify(explicitVal);
 	}
 
-	public void HandleSkip()
+	public void OnSongNext()
 	{
-		MusicManager.SkipToNextSong();
-		updateSongSelection();
+		Debug.Log(("UIapc: NextSong"));
+		MusicManager.StopPlayback();
+
+		if (_isPlaying)
+		{
+			MusicManager.QueueSongAsNext(MusicManager.CurSongDex + 1);
+			MusicManager.StartPlayback();
+			updateSongSelection();
+		}
+		else
+		{
+			MusicManager.QueueSongAsNext(MusicManager.NextSongDex + 1);
+			updateSongSelection(MusicManager.NextSongDex);
+		}
+	}
+
+	public void OnSongPrev()
+	{
+		Debug.Log(("UIapc: PrevSong"));
+		MusicManager.StopPlayback();
+
+
+		if (_isPlaying)
+		{
+			MusicManager.QueueSongAsNext(MusicManager.CurSongDex - 1);
+			MusicManager.StartPlayback();
+			updateSongSelection();
+		}
+		else
+		{
+			MusicManager.QueueSongAsNext(MusicManager.NextSongDex - 1);
+			updateSongSelection(MusicManager.NextSongDex);
+		}
 	}
 }

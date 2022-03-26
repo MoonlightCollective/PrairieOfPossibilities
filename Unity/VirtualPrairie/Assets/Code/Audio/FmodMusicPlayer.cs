@@ -5,13 +5,17 @@ using Assets.Code.StateTable;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine;
-
+using UnityEngine.Events;
+using System.Runtime.InteropServices;
 
 public abstract class PrairieMusicPlayer : MonoBehaviour
 {
 	public event System.EventHandler PlaybackStarted;
 	public event System.EventHandler PlayerbackFinished;
-	
+
+	public UnityEvent OnBeatEvent;
+	public UnityEvent<string> OnMarkerEvent;
+
 	public abstract void PlayMusic(EventReference musicEvent);
 	public abstract void StopMusic();
 	public abstract void PauseMusic();
@@ -26,7 +30,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	EventInstance _curEventInstance;
 
 	private FMOD.Studio.EVENT_CALLBACK _musicCallback;
-
+	private GCHandle _musicCallbackUserDataHandle;
+	
 	public enum EFmodMusicPlayerState
 	{
 		Stopped,
@@ -113,16 +118,48 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	// FMod callback handler
 	//===============
 
-	//Helper function for beat callbacks
+	//Helper function for music callbacks - evets coming out of music
 	[AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
 	{
         FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
 
-		// switch (type)
-		// {
-		// Debug.Log($"Event: {type.ToString()}");
-		// }
+    	IntPtr evUserDataPtr;
+		FmodMusicPlayer playerInstance = null;
+        FMOD.RESULT result = instance.getUserData(out evUserDataPtr);
+        if (result != FMOD.RESULT.OK)
+        {
+            Debug.LogError("fmp: Event callback user data error: " + result);
+        }
+        else if (evUserDataPtr != IntPtr.Zero)
+        {
+            // Get the object to store beat and marker details
+            GCHandle userHandle = GCHandle.FromIntPtr(evUserDataPtr);
+            playerInstance = (FmodMusicPlayer)userHandle.Target;
+		}
+
+		switch(type)
+		{
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
+				if (playerInstance != null)
+				{
+					playerInstance.OnBeatEvent?.Invoke();
+				}
+				break;
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
+				{
+               		var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+                    if (playerInstance != null)
+					{
+						playerInstance.OnMarkerEvent?.Invoke(parameter.name);
+					}
+				}
+				break;
+			default:
+				Debug.Log($"Event: {type.ToString()}");
+				break;
+		}
+
 		return FMOD.RESULT.OK;
 	}
 
@@ -156,6 +193,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		if (_curEventInstance.hasHandle())
 		{
 			Debug.Log("fmp: Releasing prev music handle");
+			_curEventInstance.setUserData(IntPtr.Zero);
 			_curEventInstance.release();
 		}
 
@@ -164,7 +202,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		{
 			Debug.Log("fmp: have handle");
 
+			_musicCallbackUserDataHandle = GCHandle.Alloc(this);
 			_musicCallback = new FMOD.Studio.EVENT_CALLBACK(eventCallback);
+			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 		}

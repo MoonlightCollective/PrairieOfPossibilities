@@ -25,7 +25,7 @@ public class PrairieMusicManager : MonoBehaviour
 
 	protected int _curDex = -1;
 	public int CurSongDex => _curDex;
-
+	public int NextSongDex => _playbackQueue[0];
 	public void Awake()
 	{
 		resetQueue();
@@ -64,7 +64,13 @@ public class PrairieMusicManager : MonoBehaviour
 
 	public void QueueSongAsNext(int songDex)
 	{
+		if (songDex < 0)
+			songDex = MusicEvents.Count()-1;
+		if (songDex >= MusicEvents.Count())
+			songDex = 0;
+
 		_playbackQueue.Insert(0,songDex);
+		Debug.Log($"MM: queued song dex {songDex} ({this.NextSongDex})");
 	}
 
 	public String CurSongPath()
@@ -98,6 +104,15 @@ public class PrairieMusicManager : MonoBehaviour
 	{
 		MusicPlayer.StopMusic();
 		playNextSong();
+	}
+
+	public void SkipToPrevSong()
+	{
+		_curDex--;
+		if (_curDex < 0)
+			_curDex = _curDex = Mathf.Clamp(MusicEvents.Count()-1,0,MusicEvents.Count()-1);
+		MusicPlayer.StopMusic();
+		MusicPlayer.PlayMusic(MusicEvents[_curDex]);
 	}
 
 	void playNextSong()

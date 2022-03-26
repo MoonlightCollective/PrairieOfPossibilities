@@ -11,7 +11,7 @@ public class FmodParamSetter : MonoBehaviour
 	public string ParamString;
 	public StudioEventEmitter emitter;
 
-	public void SliderUpdated()
+	public void SliderUpdated(float val)
 	{
 		if (!IsGlobal)
 			emitter.SetParameter(ParamString, slider.value);
@@ -19,10 +19,10 @@ public class FmodParamSetter : MonoBehaviour
 			FMODUnity.RuntimeManager.StudioSystem.setParameterByName(ParamString,slider.value);
 	}
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+		if (slider != null)
+			slider.onValueChanged.AddListener(SliderUpdated);
     }
 
     // Update is called once per frame
