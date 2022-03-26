@@ -163,6 +163,15 @@ public class PrairieWalkCam : MonoBehaviour
 			transform.position = target.transform.position;
 			transform.localRotation = target.transform.localRotation;
 			isFlying = _cameraStops[dex].IsFlying;
+			if (_cameraStops[dex].IsOrtho)
+            {
+				Camera.main.orthographic = true;
+				Camera.main.orthographicSize = PrairieUtil.GetLayoutGen().MaxDistFromOrigin;
+			}
+			else
+            {
+				Camera.main.orthographic = false;
+            }
 		}
 	}
 

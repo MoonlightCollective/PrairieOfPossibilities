@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraStop : MonoBehaviour
 {
 	public bool IsFlying = false;
+	public bool IsOrtho = false;
 
 	[Header("Dynamic Positions")]
 	public Transform FollowObj;
