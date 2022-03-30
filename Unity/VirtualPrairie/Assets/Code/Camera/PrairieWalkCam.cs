@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PrairieWalkCam : MonoBehaviour
 {
+	[Header("WalkCam Properties")]
 	public float RotSpeed = 5.0f;
 	public float MouseSensitivity = 1.0f;
 	public float KeyLookSensitivity = 1.0f;
@@ -15,12 +16,24 @@ public class PrairieWalkCam : MonoBehaviour
 	public float DecelRate = 0.3f;
 	public bool isFlying = true;
 	
+	[Header("OrthoCamera Properties")]
+	public float OrthoMinSize = 1.0f;
+	public float OrthoMaxSize = 100.0f;
+	public float OrthoScrollMult = 1.0f;
+
+
+	[Header("Camera Stops")]
 	public GameObject CameraStopRoot;
 	protected List<CameraStop> _cameraStops;
+	Camera _camera;
 
 	protected float _desiredSpeed;
 	protected float _curSpeed;
 
+	public void Awake()
+	{
+		_camera = GetComponent<Camera>();
+	}
 
 	public  void Start()
 	{
@@ -34,7 +47,39 @@ public class PrairieWalkCam : MonoBehaviour
 	{
 		checkForTeleport();
 		checkForFlyingToggle();
+		if (_camera.orthographic)
+		{
+			updateOrthoCam();
+		}
+		else
+		{
+			updatePerspCam();
+		}
+	}
+	
+	bool _orthMouseDown = false;
+	Vector3 _orthoDragOriginWorld;
+	void updateOrthoCam()
+	{
+		if (Input.GetMouseButtonDown(1))
+		{
+			_orthoDragOriginWorld = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,-_camera.transform.position.z));
+		}
 
+		if (Input.GetMouseButton(1))
+		{
+			Vector3 newposWorld = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,-_camera.transform.position.z));
+			Vector3 deltaWorld = _orthoDragOriginWorld - newposWorld;
+			deltaWorld.y = 0f;
+			Debug.Log($"Translate by:{deltaWorld}");
+			_camera.transform.Translate(deltaWorld,Space.World);
+		}
+		float scrollDelta = -OrthoScrollMult * Input.GetAxis("Mouse ScrollWheel");
+		_camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize + scrollDelta, OrthoMinSize, OrthoMaxSize);
+	}
+
+	void updatePerspCam()
+	{
 		if (Input.GetMouseButtonDown(1))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
