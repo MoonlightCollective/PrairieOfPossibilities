@@ -16,6 +16,11 @@ public class PrairieUtil
 		return .3048f * feet;
 	}
 
+	public static float MetersToFeet(float meters)
+	{
+		return 3.28084f * meters;
+	}
+
 	public static string lastExportPath
 	{
 		get 
