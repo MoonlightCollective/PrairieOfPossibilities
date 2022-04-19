@@ -153,6 +153,7 @@ public class UILayoutSettingsController : MonoBehaviour
 			FixtureExportPath = System.IO.Path.GetDirectoryName(FileSelectDialog.result);
 			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
 			Debug.Log($"Do export returned: {FileSelectDialog.result}");
+			LayoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
 		}
 	}
 
@@ -175,6 +176,7 @@ public class UILayoutSettingsController : MonoBehaviour
 		var root = PrairieUtil.GetLayoutRoot();
 		LayoutGenObj.GenerateLayout(root);
 	}
+
 
 	public void Update()
 	{

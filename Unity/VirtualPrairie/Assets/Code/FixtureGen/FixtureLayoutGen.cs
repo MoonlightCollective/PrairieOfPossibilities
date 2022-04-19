@@ -29,6 +29,9 @@ public class FixtureLayoutGen : MonoBehaviour
 	protected FixtureLayoutSunflower _sunflowerLayout;
 	public FixtureLayoutSunflower SunflowerLayout => _sunflowerLayout;
 
+	protected FixtureLayoutExporter _exporter;
+	public FixtureLayoutExporter Exporter => _exporter;
+
 	protected FixtureLayoutImport _importLayout;
 	public FixtureLayoutImport ImportLayout => _importLayout;
 
@@ -53,6 +56,7 @@ public class FixtureLayoutGen : MonoBehaviour
 		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
 		_importLayout = GetComponent<FixtureLayoutImport>();
 		_propLayout = GetComponent<PropLayout>();
+		_exporter = GetComponent<FixtureLayoutExporter>();
 		LoadLayoutSettings();
 	}
 
@@ -129,6 +133,16 @@ public class FixtureLayoutGen : MonoBehaviour
 		_importLayout.GenerateLayout(rootObj,FixturePrefab);
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
+	}
+
+	public void SaveLayoutToFixture(GameObject rootObj, string fileName, bool fromEditor = false)
+	{
+		if (fromEditor)
+		{
+			Debug.Log("NOT IMPLEMENTED YET");
+			return; // 
+		}
+		_exporter.DoFixtureExport(rootObj, fileName);
 	}
 
 	public void SaveLayoutSettings()
