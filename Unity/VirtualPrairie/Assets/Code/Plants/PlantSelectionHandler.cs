@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,8 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 {	
 	public GameObject SelectedVis;
 	public GameObject MouseOverVis;
+
+	public List<TextMeshPro> PlantIdText;
 
 	protected bool _selected = false;
 	public bool Selected => _selected;
@@ -17,6 +20,11 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 	{
 		updateMouseVis();
 		updateSelectVis();
+		PlantColorManager pcm = GetComponentInParent<PlantColorManager>();
+		foreach (var tmp in PlantIdText)
+		{
+			tmp.text = pcm.PlantId.ToString();
+		}
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
