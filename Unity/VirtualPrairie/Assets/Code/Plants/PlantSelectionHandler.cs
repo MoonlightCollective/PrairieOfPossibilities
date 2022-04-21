@@ -51,6 +51,12 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 		updateSelectVis();
 	}
 
+	public void ForceSelect()
+	{
+		_selected = true;
+		updateSelectVis();
+	}
+
 	void updateSelectVis()
 	{
 		if (SelectedVis != null)

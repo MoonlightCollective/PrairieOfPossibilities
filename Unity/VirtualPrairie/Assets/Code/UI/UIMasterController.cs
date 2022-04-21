@@ -6,11 +6,18 @@ public class UIMasterController : MonoBehaviour
 {
 	public UIHudController HudController;
 	public UILayoutSettingsController LayoutSettingsController;
+	public UIWiringController WiringController;
 
-    
+
+	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
+	public bool HudActive  => HudController.gameObject.activeInHierarchy;
+	public bool LayoutSettingsActive  => LayoutSettingsController.gameObject.activeInHierarchy;
+	
+
 	void Start()
 	{
 		HudController.gameObject.SetActive(true);
+		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 	}
 
@@ -23,6 +30,10 @@ public class UIMasterController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.L))
 		{
 			toggleLayoutUI();
+		}
+		if (Input.GetKeyDown(KeyCode.W))
+		{
+			toggleWiringController();
 		}
     }
 	
@@ -49,5 +60,16 @@ public class UIMasterController : MonoBehaviour
 			HudController.gameObject.SetActive(false);
 		else
 			HudController.gameObject.SetActive(true);
+	}
+
+	void toggleWiringController()
+	{
+		if (WiringController == null)
+			return;
+		
+		if (WiringController.gameObject.activeInHierarchy)
+			WiringController.gameObject.SetActive(false);
+		else
+			WiringController.gameObject.SetActive(true);
 	}
 }

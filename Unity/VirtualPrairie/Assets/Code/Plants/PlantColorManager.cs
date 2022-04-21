@@ -6,7 +6,7 @@ using UnityEngine;
 //
 // PlantColorManager = handles a full fixture of 7 lights - each light being a StemColorManager, which in turn may have multiple pieces of geometry to handle
 //
-public class PlantColorManager : MonoBehaviour
+public class PlantColorManager : WiredFixtureBase
 {
 	// you've got to set this up in Unity Editor.  
 	public List<StemColorManager> StemColors = new List<StemColorManager>();
@@ -21,6 +21,8 @@ public class PlantColorManager : MonoBehaviour
 	// variables for the debug rainbow
 	private float _debugSwirlAlpha = 0;
 	private float _colorOffset = 0.0f;
+
+	protected PlantSelectionHandler _selectionHandler;
 
 	public void AssociatePointData(int localPointDex, string host, int universe, int globalPointDex)
 	{
@@ -84,7 +86,10 @@ public class PlantColorManager : MonoBehaviour
 		
 		if (!_initializedMaterials)
 			initMaterials();
+
+		_selectionHandler = GetComponentInChildren<PlantSelectionHandler>();
 	}
+
 	public void Update()
 	{
 		var settings = GlobalPlantSettings.Instance;
@@ -106,6 +111,23 @@ public class PlantColorManager : MonoBehaviour
 				s.SetColor(c, settings.GlowIntensity, settings.StemAlpha);
 				offset += .02f;
 			}
+		}
+	}
+
+
+	public override void SetWireVisState(WiredPath.EPathVisState vis)
+	{
+		if (_selectionHandler == null)
+			return;
+		
+		switch (vis)
+		{
+			case WiredPath.EPathVisState.Hidden:
+				_selectionHandler.ForceDeselect();
+				break;
+			case WiredPath.EPathVisState.Visible:
+				_selectionHandler.ForceSelect();
+				break;
 		}
 	}
 

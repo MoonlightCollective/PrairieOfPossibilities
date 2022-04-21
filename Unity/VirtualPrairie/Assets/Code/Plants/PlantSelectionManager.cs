@@ -18,17 +18,22 @@ public class PlantSelectionManager : MonoBehaviour
 	public LineRenderer MeasureLine;
 
 
+	[Header("Wiring mode")]
+	public UIWiringController WiringUI;
+
 	public bool ShouldShowMouseOver()
 	{
 		return AlwaysShowMouseOver || (bool)_stateMachine.DoStateActionWithResult(EPlantSelectionManagerAction.ShouldShowMouseOver);
 	}
 
 	protected List<PlantSelectionHandler> _measureList = new List<PlantSelectionHandler>();
+	protected List<PlantSelectionHandler> _wirePathList = new List<PlantSelectionHandler>();
 
 	private enum EPlantSelectionManagerState
 	{
 		Disabled,
 		Measure,
+		Wiring,
 	}
 	
 	private enum EPlantSelectionManagerAction
@@ -79,6 +84,8 @@ public class PlantSelectionManager : MonoBehaviour
 	//=================
 	protected void DisabledEnter() 
 	{
+		Debug.Log("WiringUI" + WiringUI.ToString());
+		WiringUI.gameObject.SetActive(false);
 		MeasureUI.gameObject.SetActive(false);
 		MeasureLine.gameObject.SetActive(false);
 	}
@@ -88,6 +95,10 @@ public class PlantSelectionManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Measure);
+		}
+		else if (Input.GetKeyDown(KeyCode.W))
+		{
+			_stateMachine.GotoState(EPlantSelectionManagerState.Wiring);
 		}
 	}
 	protected void DisabledExit() { }
@@ -108,6 +119,7 @@ public class PlantSelectionManager : MonoBehaviour
 	protected void MeasureEnter() 
 	{
 		_measureList.Clear();
+		WiringUI.gameObject.SetActive(false);
 		MeasureUI.gameObject.SetActive(true);	
 		updateMeasureText();
 		updateMeasureLine();
@@ -125,6 +137,10 @@ public class PlantSelectionManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			clearSelection();
+		}
+		if (Input.GetKeyDown(KeyCode.W))
+		{
+			_stateMachine.GotoState(EPlantSelectionManagerState.Wiring);
 		}
 	}
 
@@ -149,6 +165,83 @@ public class PlantSelectionManager : MonoBehaviour
 	{
 		return new StateTableValue{ Value = true };
 	}
+
+
+	//=================
+	// Wiring State
+	//=================
+	WiredPath _workingPath = null;
+	protected void WiringEnter() 
+	{
+		_measureList.Clear();
+		WiringUI.gameObject.SetActive(false);
+		WiredPathManager.Instance.ShowAllPaths();
+	}
+
+	protected void WiringExit()
+	{
+		WiredPathManager.Instance.HideAllPaths();
+	}
+
+	protected void WiringUpdate()
+	{
+		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Escape))
+		{
+			_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
+		}
+		if (Input.GetKeyDown(KeyCode.Backspace))
+		{
+			if (_workingPath != null)
+			{
+				_workingPath.RemoveLastFixture();
+			}
+		}
+	
+	}
+
+	protected StateTableValue WiringPlantClicked(StateTableValue v)
+	{
+		// if it's already selected, we just kind of ignore it.
+		PlantSelectionHandler handler = (PlantSelectionHandler)v.Value;
+		if (handler.Selected)
+			return (StateTableValue)true;
+
+		// if not, see if it's already wired.
+		WiredFixtureBase wiredFixture = handler.GetComponentInParent<WiredFixtureBase>();
+		if (wiredFixture == null)
+			return (StateTableValue)false; /// not a wired fixture
+
+		if (wiredFixture.IsWired)
+		{
+			// already wired? switch our active path to that one.
+			_workingPath = wiredFixture.ParentPath;
+			_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+			updateActivePathInfoVis();
+		}
+		else
+		{
+			if (_workingPath == null)
+			{
+				_workingPath = WiredPathManager.NewPathInstance();
+				_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+			}
+			_workingPath.AddFixture(wiredFixture);
+			updateActivePathInfoVis();
+		}
+
+		return (StateTableValue)true;
+	}
+	
+	void updateActivePathInfoVis()
+	{
+
+	}
+
+	protected StateTableValue WiringShouldShowMouseOver()
+	{
+		return new StateTableValue{ Value = true };
+	}
+
 
 	//===============
 	// Shared helper functions for selection management
