@@ -11,6 +11,9 @@ public class WiredFixtureBase : MonoBehaviour
 	protected int _pathIndex = -1; 
 	public int PathIndex => _pathIndex;
 
+	public virtual string FixtureType => "GenericFixture";
+	public virtual int FixtureId => -1;
+
 	public virtual void WireToPath(WiredPath path, int index = -1)
 	{
 		_pathIndex = index;
