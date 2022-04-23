@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PrairieUtil
 {
@@ -32,6 +34,23 @@ public class PrairieUtil
 			return s_lastExportPath;
 		}
 	}
+
+	public static bool AnyInputActive()
+    {
+		GameObject curSelection = EventSystem.current.currentSelectedGameObject;
+		if (curSelection != null)
+        {
+			var tmpif = curSelection.GetComponent<TMP_InputField>();
+			if (tmpif != null)
+				return true;
+
+            var inF = EventSystem.current.currentSelectedGameObject.GetComponent<UnityEngine.UI.InputField>();
+            if (inF != null)
+                return true;
+
+        }
+        return false;
+    }
 
 	public static GameObject GetLayoutRoot()
 	{

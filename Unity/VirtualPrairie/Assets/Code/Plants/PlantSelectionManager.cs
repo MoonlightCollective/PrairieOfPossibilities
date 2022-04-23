@@ -128,6 +128,20 @@ public class PlantSelectionManager : MonoBehaviour
 		startNewWire();
 	}
 	
+	public void NotifyExportWirePathCsvClick()
+	{
+#if UNITY_EDITOR
+		string saveFilePath = UnityEditor.EditorUtility.SaveFilePanel("Save Layout",MasterUI.LayoutSettingsController.FixtureExportPath,"","csv");
+		if (saveFilePath.Length  != 0)
+		{			
+			MasterUI.LayoutSettingsController.LayoutGenObj.Exporter.ExportPathDataCSV(saveFilePath);
+		}
+#else
+		Debug.LogError("CSV export only works from within the editor right now");
+#endif
+
+	}
+
 	public void NotifyExportClick()
 	{
 		MasterUI.LayoutSettingsController.OnExportButton();
@@ -178,6 +192,9 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected void DisabledUpdate()
 	{
+		if (PrairieUtil.AnyInputActive()) // no input processing if we are typing.
+			return;
+
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Measure);
@@ -213,6 +230,9 @@ public class PlantSelectionManager : MonoBehaviour
 	}
 	protected void MeasureUpdate()
 	{
+		if (PrairieUtil.AnyInputActive()) // no input processing if we are typing.
+			return;
+
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
@@ -326,6 +346,9 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected void WiringUpdate()
 	{
+		if (PrairieUtil.AnyInputActive()) // no input processing if we are typing.
+			return;
+
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);

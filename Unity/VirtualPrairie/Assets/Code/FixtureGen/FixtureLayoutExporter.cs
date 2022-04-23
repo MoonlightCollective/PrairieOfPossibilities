@@ -87,11 +87,27 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 	public void ExportPathDataCSV(string exportFilePath)
 	{
-		string HeaderStr = "PathId,Universe,Fixture0,Fixture1,DistanceM,DistanceFt";
+		string HeaderStr = "PathId,Host,Universe,ChannelStart,Fixture0,Fixture1,DistanceM,DistanceFt";
 		using (StreamWriter stream = new StreamWriter(exportFilePath) )
 		{
 			stream.WriteLine(HeaderStr);
-			stream.AutoFlush = true;
+			foreach (var path in WiredPathManager.Instance.Paths)
+			{
+				string host = path.ArtnetHost;
+				string channelStart = path.ChannelStart.ToString();
+				string pathId = path.PathId;
+				string universe = path.Universe.ToString();
+				for (int i = 0; i < path.Fixtures.Count-1; i++)
+				{
+					Vector3 startPos = path.Fixtures[i].transform.position;
+					Vector3 endPos = path.Fixtures[i+1].transform.position;
+					float distM = Vector3.Distance(endPos,startPos);
+					float distFt = PrairieUtil.MetersToFeet(distM);
+					stream.WriteLine($"{pathId},{host},{universe},{channelStart},{(path.Fixtures[i].FixtureId).ToString()},{(path.Fixtures[i+1].FixtureId).ToString()},{distM.ToString()},{distFt.ToString()}");
+				}
+				stream.Flush();
+			}
+			stream.Flush();
 		}
 	}
 }
