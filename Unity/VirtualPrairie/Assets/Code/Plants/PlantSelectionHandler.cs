@@ -59,6 +59,7 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 
 	void updateSelectVis()
 	{
+		// Debug.Log("updateSelectVis:" + _selected);
 		if (SelectedVis != null)
 			SelectedVis.SetActive(_selected);
 	}

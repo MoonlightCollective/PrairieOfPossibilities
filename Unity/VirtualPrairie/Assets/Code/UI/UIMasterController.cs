@@ -31,10 +31,6 @@ public class UIMasterController : MonoBehaviour
 		{
 			toggleLayoutUI();
 		}
-		if (Input.GetKeyDown(KeyCode.W))
-		{
-			toggleWiringController();
-		}
     }
 	
 	void toggleLayoutUI()

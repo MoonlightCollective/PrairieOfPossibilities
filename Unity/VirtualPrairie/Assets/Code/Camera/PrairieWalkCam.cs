@@ -180,6 +180,9 @@ public class PrairieWalkCam : MonoBehaviour
 
 	void checkForTeleport()
 	{
+		if (PlantSelectionManager.Instance.IsWiring())
+			return;
+
 		if (Input.GetKeyDown(KeyCode.Alpha0))
 			teleportTo(0);
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -196,19 +199,30 @@ public class PrairieWalkCam : MonoBehaviour
 			teleportTo(6);
 	}
 
+
+	public void TeleportToStop(CameraStop stop)
+	{
+		doTeleportToStop(stop);
+	}
+
 	void teleportTo(int dex)
 	{
 		if (dex >= _cameraStops.Count)
 			return;
 
-		Transform target = _cameraStops[dex].transform;
+		doTeleportToStop(_cameraStops[dex]);
+	}
+
+	void doTeleportToStop(CameraStop cStop)
+	{
+		Transform target = cStop.transform;
 
 		if (target != null)
 		{
 			transform.position = target.transform.position;
 			transform.localRotation = target.transform.localRotation;
-			isFlying = _cameraStops[dex].IsFlying;
-			if (_cameraStops[dex].IsOrtho)
+			isFlying = cStop.IsFlying;
+			if (cStop.IsOrtho)
             {
 				Camera.main.orthographic = true;
 				Camera.main.orthographicSize = PrairieUtil.GetLayoutGen().MaxDistFromOrigin;

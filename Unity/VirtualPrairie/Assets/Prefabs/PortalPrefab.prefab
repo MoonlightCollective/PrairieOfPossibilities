@@ -146,18 +146,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntryEvent:
     Guid:
-      Data1: 237386098
-      Data2: 1241499826
-      Data3: 604156816
-      Data4: -1059224789
-    Path: event:/PortalEntry1
+      Data1: -788050596
+      Data2: 1308874415
+      Data3: 1383694015
+      Data4: -1083851065
+    Path: event:/EchoEvents/DessertEcho
   ExitEvent:
     Guid:
       Data1: -1759998675
       Data2: 1169331007
       Data3: -639605876
       Data4: -263774671
-    Path: event:/PortalExit1
+    Path: event:/PortalEvents/PortalExit1
 --- !u!1 &2135360680157700265
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,17 +457,17 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.07
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -508,6 +508,21 @@ PrefabInstance:
         type: 3}
       propertyPath: EventReference.Path
       value: event:/RoutingEvents/PortalSpeaker2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -557,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.04
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -567,7 +582,7 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.93
+      value: -3.02
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -608,6 +623,21 @@ PrefabInstance:
         type: 3}
       propertyPath: EventReference.Path
       value: event:/RoutingEvents/PortalSpeaker4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -677,7 +707,7 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.176
+      value: 2.14
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -726,6 +756,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
       propertyPath: EventReference.Guid.Data1
       value: -1881288717
       objectReference: {fileID: 0}
@@ -748,6 +783,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PortalSpeaker (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578813464845637328, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36385fcec64924ec3b535ab10623cba8, type: 3}
@@ -826,6 +866,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
       propertyPath: EventReference.Guid.Data1
       value: -1881288717
       objectReference: {fileID: 0}
@@ -872,7 +927,7 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.04
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -882,7 +937,7 @@ PrefabInstance:
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.93
+      value: -2.96
       objectReference: {fileID: 0}
     - target: {fileID: 3486851266145336686, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}
@@ -923,6 +978,21 @@ PrefabInstance:
         type: 3}
       propertyPath: EventReference.Path
       value: event:/RoutingEvents/PortalSpeaker3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7146911204628369245, guid: 36385fcec64924ec3b535ab10623cba8,
         type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WiredPath : MonoBehaviour
 {
+	public string PathId = "Path";
 	public string ArtnetHost = "127.0.0.1";
 	public int Universe = -1;
 	public int ChannelStart = 0;
@@ -16,6 +17,7 @@ public class WiredPath : MonoBehaviour
 	public enum EPathVisState
 	{
 		Visible,
+		Active,
 		Hidden
 	}
 
@@ -24,11 +26,13 @@ public class WiredPath : MonoBehaviour
 
 	public void ClearPath()
 	{
-		_fixtures.Clear();
+		disableLineRender();
+		RemoveAllChildren();
 	}
 
 	public void SetVisibility(EPathVisState newVis)
 	{
+		Debug.Log($"{gameObject.name} SetVisibility:" + newVis);
 		_visState = newVis;
 		updateVisuals();
 	}
@@ -36,6 +40,7 @@ public class WiredPath : MonoBehaviour
 	public void AddFixture(WiredFixtureBase newFixture)
 	{
 		_fixtures.Add(newFixture);
+		newFixture.WireToPath(this,_fixtures.Count-1);
 		updateVisuals();
 	}
 
@@ -58,6 +63,7 @@ public class WiredPath : MonoBehaviour
 				disableLineRender();
 				break;
 			case EPathVisState.Visible:
+			case EPathVisState.Active:
 			{
 				if (_fixtures.Count < 2)
 				{
@@ -65,14 +71,7 @@ public class WiredPath : MonoBehaviour
 				}
 				else
 				{
-					Vector3[] newPositions = new Vector3[_fixtures.Count];
-					for (int i = 0; i < newPositions.Length; i++)
-					{
-						newPositions[i] = _fixtures[i].GetPosition();
-					}
-					VisLineRender.positionCount = newPositions.Length;
-					VisLineRender.SetPositions(newPositions);
-					VisLineRender.gameObject.SetActive(true);
+					enableAndUpdateLine();
 				}
 				break;
 			}
@@ -84,8 +83,43 @@ public class WiredPath : MonoBehaviour
 		}
 	}
 
+	void enableAndUpdateLine()
+	{
+		Vector3[] newPositions = new Vector3[_fixtures.Count];
+		for (int i = 0; i < newPositions.Length; i++)
+		{
+			newPositions[i] = _fixtures[i].GetPosition();
+		}
+		VisLineRender.positionCount = newPositions.Length;
+		VisLineRender.SetPositions(newPositions);
+		VisLineRender.gameObject.SetActive(true);
+	}
+
 	void disableLineRender()
 	{
 		VisLineRender.gameObject.SetActive(false);
+	}
+
+	public float GetPathLengthMeters()
+	{
+		float measurement = 0;
+		if (_fixtures.Count > 1)
+		{
+			for (int i = 0; i < _fixtures.Count-1; i++)
+			{
+				measurement += Vector3.Distance(_fixtures[i].transform.position,_fixtures[i+1].transform.position);
+			}
+		}
+		return measurement;
+	}
+
+	public void RemoveAllChildren()
+	{
+		foreach (var f in _fixtures)
+		{
+			f.RemoveFromPath();
+		}
+
+		_fixtures.Clear();
 	}
 }

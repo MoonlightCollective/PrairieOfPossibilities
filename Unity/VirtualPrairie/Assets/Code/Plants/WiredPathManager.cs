@@ -35,4 +35,19 @@ public class WiredPathManager : MonoBehaviour
 			path.SetVisibility(WiredPath.EPathVisState.Hidden);
 		}
 	}
+
+	public bool PathExists(WiredPath p)
+	{
+		return Paths.Contains(p);
+	}
+
+	public void AddPath(WiredPath p)
+	{
+		if (Paths.Contains(p))
+			return;
+
+		Paths.Add(p);
+	}
+
+	
 }

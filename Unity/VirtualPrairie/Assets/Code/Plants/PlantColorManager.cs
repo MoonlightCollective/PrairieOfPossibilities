@@ -120,13 +120,17 @@ public class PlantColorManager : WiredFixtureBase
 		if (_selectionHandler == null)
 			return;
 		
+		// Debug.Log("Set wire vis state:" + vis);
 		switch (vis)
 		{
 			case WiredPath.EPathVisState.Hidden:
 				_selectionHandler.ForceDeselect();
 				break;
-			case WiredPath.EPathVisState.Visible:
+			case WiredPath.EPathVisState.Active:
 				_selectionHandler.ForceSelect();
+				break;
+			case WiredPath.EPathVisState.Visible:
+				_selectionHandler.ForceDeselect();
 				break;
 		}
 	}

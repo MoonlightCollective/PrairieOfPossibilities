@@ -17,9 +17,21 @@ public class PlantSelectionManager : MonoBehaviour
 	public TextMeshProUGUI MeasurementText;
 	public LineRenderer MeasureLine;
 
-
 	[Header("Wiring mode")]
 	public UIWiringController WiringUI;
+	public TMP_InputField WiringPathIdInput;
+	public TMP_InputField WiringArtNetHostInput;
+	public TMP_InputField WiringUniverseInput;
+	public TMP_InputField WiringChannelStartInput;
+	public TextMeshProUGUI WiringMeasurementText;
+	public TextMeshProUGUI WiringCountText;
+	public CameraStop WiringCameraStop;
+	public PrairieWalkCam WalkCam;
+
+	public bool IsWiring()
+	{
+		return (_stateMachine.CurrentState == EPlantSelectionManagerState.Wiring);
+	}
 
 	public bool ShouldShowMouseOver()
 	{
@@ -79,6 +91,49 @@ public class PlantSelectionManager : MonoBehaviour
 		return (bool) result.Value;
 	}
 
+	public void NotifyApplyWireClick()
+	{
+		Debug.Log("APPLY");
+
+		if (_stateMachine.CurrentState != EPlantSelectionManagerState.Wiring)
+			return;
+		
+		if (_workingPath == null || _workingPath.Fixtures.Count < 2)
+			return;
+
+
+		// Apply meta-data from edit boxes.
+		_workingPath.ArtnetHost = WiringArtNetHostInput.text;
+		_workingPath.PathId = WiringPathIdInput.text;
+		int outVal = -1;
+		
+		int.TryParse(WiringUniverseInput.text,out outVal);
+		_workingPath.Universe = outVal;
+
+		outVal = -1;
+		int.TryParse(WiringChannelStartInput.text, out outVal);
+		_workingPath.ChannelStart = outVal;
+
+		// if we aren't already in the path manager, add us to the master list of paths
+		if (!WiredPathManager.Instance.PathExists(_workingPath))
+		{
+			WiredPathManager.Instance.AddPath(_workingPath);
+		}
+		_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+
+		// regardless, now that we apply the info, deselect the path and start a new path.
+		startNewWire();
+	}
+
+	public void NotifyDeleteWireClick()
+	{
+		if (_stateMachine.CurrentState != EPlantSelectionManagerState.Wiring)
+			return;
+
+		_workingPath.RemoveAllChildren();
+		_workingPath.ClearPath();
+	}
+
 	//=================
 	// Disabled State
 	//=================
@@ -96,7 +151,7 @@ public class PlantSelectionManager : MonoBehaviour
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Measure);
 		}
-		else if (Input.GetKeyDown(KeyCode.W))
+		else if (Input.GetKeyDown(KeyCode.P))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Wiring);
 		}
@@ -138,7 +193,7 @@ public class PlantSelectionManager : MonoBehaviour
 		{
 			clearSelection();
 		}
-		if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetKeyDown(KeyCode.P))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Wiring);
 		}
@@ -171,11 +226,39 @@ public class PlantSelectionManager : MonoBehaviour
 	// Wiring State
 	//=================
 	WiredPath _workingPath = null;
+	WiredPathManager _pathManager;
 	protected void WiringEnter() 
 	{
+		_pathManager = WiredPathManager.Instance; // cache it - we'll use it a lot.
 		_measureList.Clear();
-		WiringUI.gameObject.SetActive(false);
+		WiringUI.gameObject.SetActive(true);
+		MeasureUI.gameObject.SetActive(false);
 		WiredPathManager.Instance.ShowAllPaths();
+		if (WalkCam != null && WiringCameraStop != null)
+		{
+			WalkCam.TeleportToStop(WiringCameraStop);
+		}
+		startNewWire();
+	}
+
+	protected void startNewWire()
+	{
+		Debug.Log("startNewWire");
+		if (_workingPath != null)
+		{
+			_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+
+			if (!_pathManager.PathExists(_workingPath))
+			{
+				// doesn't already exist, use current path as a scratch path.
+				// but clear it out.
+				_workingPath.ClearPath();
+				return;
+			}
+		}
+		_workingPath = WiredPathManager.NewPathInstance();
+		_workingPath.SetVisibility(WiredPath.EPathVisState.Active);
+
 	}
 
 	protected void WiringExit()
@@ -185,9 +268,10 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected void WiringUpdate()
 	{
-		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.P))
 		{
 			_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
+			return;
 		}
 		if (Input.GetKeyDown(KeyCode.Backspace))
 		{
@@ -195,6 +279,14 @@ public class PlantSelectionManager : MonoBehaviour
 			{
 				_workingPath.RemoveLastFixture();
 			}
+		}
+		if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
+		{
+			NotifyApplyWireClick();
+		}
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			startNewWire();
 		}
 	
 	}
@@ -209,19 +301,36 @@ public class PlantSelectionManager : MonoBehaviour
 		// if not, see if it's already wired.
 		WiredFixtureBase wiredFixture = handler.GetComponentInParent<WiredFixtureBase>();
 		if (wiredFixture == null)
-			return (StateTableValue)false; /// not a wired fixture
+			return (StateTableValue)false; /// not a wired fixture type at all
 
 		if (wiredFixture.IsWired)
 		{
+			Debug.Log("Fixtured clicked IS wired");
+
 			// already wired? switch our active path to that one.
+			if (_workingPath != null)
+			{
+				if (!_pathManager.PathExists(_workingPath))
+				{
+					Debug.Log("Clear current path, since we never applied it");
+					_workingPath.ClearPath();
+				}
+				else
+				{
+					_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+				}
+			}
+
 			_workingPath = wiredFixture.ParentPath;
-			_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
+			_workingPath.SetVisibility(WiredPath.EPathVisState.Active);
 			updateActivePathInfoVis();
 		}
 		else
 		{
+			Debug.Log("Fixture clicked is NOT wired");
 			if (_workingPath == null)
 			{
+				Debug.Log("creating a new path");
 				_workingPath = WiredPathManager.NewPathInstance();
 				_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
 			}
@@ -234,14 +343,21 @@ public class PlantSelectionManager : MonoBehaviour
 	
 	void updateActivePathInfoVis()
 	{
-
+		WiringArtNetHostInput.text = _workingPath.ArtnetHost;
+		WiringPathIdInput.text = _workingPath.PathId;
+		WiringChannelStartInput.text = _workingPath.ChannelStart.ToString();
+		WiringUniverseInput.text = _workingPath.Universe.ToString();
+		float measurement = _workingPath.GetPathLengthMeters();
+		float measurementFt = PrairieUtil.MetersToFeet(measurement);
+		string measureStr = measurement.ToString("F2") + "m " + measurementFt.ToString("F2") + "ft";
+		WiringMeasurementText.text = measureStr;
+		WiringCountText.text = _workingPath.Fixtures.Count.ToString();
 	}
 
 	protected StateTableValue WiringShouldShowMouseOver()
 	{
 		return new StateTableValue{ Value = true };
 	}
-
 
 	//===============
 	// Shared helper functions for selection management
