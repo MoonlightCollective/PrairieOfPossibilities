@@ -24,13 +24,24 @@ public class FixtureLayoutExporter : MonoBehaviour
 		List<FixtureItemData> items = new List<FixtureItemData>();
 
 		// go through all my children looking for plants
+		int itemCount = 0;
 		foreach (Transform obj in rootObj.transform)
 		{
 			PlantColorManager pcm = obj.gameObject.GetComponent<PlantColorManager>();
 			if (pcm == null)
+			{
+				// Debug.LogWarning($"Skipping {obj.gameObject.name} - not a Plant fixture");
 				continue; // skip if not a plant.
-			
-			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToFeet(pcm.transform.position.x) * 12f, z = PrairieUtil.MetersToFeet(pcm.transform.position.z) * 12f };
+			}
+
+			if (itemCount != pcm.PlantId)
+			{
+				Debug.LogWarning($"out of order plant id:{pcm.PlantId} in plant, but is the item dex{itemCount}");
+			}
+
+			itemCount++;
+
+			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToFeet(pcm.transform.position.x) * 12f, z = PrairieUtil.MetersToFeet(pcm.transform.position.z) * 12f };			
 			items.Add(fid);
 		}
 
@@ -72,5 +83,15 @@ public class FixtureLayoutExporter : MonoBehaviour
 			dataList.Add(pathData);
 		}
 		return dataList;
+	}
+
+	public void ExportPathDataCSV(string exportFilePath)
+	{
+		string HeaderStr = "PathId,Universe,Fixture0,Fixture1,DistanceM,DistanceFt";
+		using (StreamWriter stream = new StreamWriter(exportFilePath) )
+		{
+			stream.WriteLine(HeaderStr);
+			stream.AutoFlush = true;
+		}
 	}
 }

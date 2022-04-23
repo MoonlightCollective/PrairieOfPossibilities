@@ -33,7 +33,7 @@ public class WiredPath : MonoBehaviour
 
 	public void SetVisibility(EPathVisState newVis)
 	{
-		Debug.Log($"{gameObject.name} SetVisibility:" + newVis);
+		// Debug.Log($"{gameObject.name} SetVisibility:" + newVis);
 		_visState = newVis;
 		updateVisuals();
 	}

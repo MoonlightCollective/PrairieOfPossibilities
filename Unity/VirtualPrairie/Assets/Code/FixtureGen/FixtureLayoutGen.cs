@@ -120,8 +120,27 @@ public class FixtureLayoutGen : MonoBehaviour
 		// add portals and booths
 		_propLayout.GenerateLayout(rootObj, PortalPrefab, BoothPrefab);
 
+		resetPlantIds(rootObj);
+		
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
+	}
+
+	// Sync up plant Id's to make sure they reflect their index within their parent.
+	// layout generation might have done some deletion which caused Id's to get out of sync.
+	void resetPlantIds(GameObject rootObj)
+	{
+		// Debug.LogWarning("ResetPlantIds");
+		int id = 0;
+		foreach (Transform t in rootObj.transform)
+		{
+			PlantColorManager pcm = t.GetComponent<PlantColorManager>();
+			if (pcm != null)
+			{
+				// Debug.Log("assign plant id:" + id);
+				pcm.PlantId = id++;
+			}
+		}
 	}
 
 	public void DoImportLayout(GameObject rootObj, string fileName, bool fromEditor = false)

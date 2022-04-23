@@ -70,7 +70,10 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			var fixture = rootObj.transform.GetChild(i).gameObject;
 			Vector3 pos = fixture.transform.position;
 			if (Vector3.Distance(pos, newPosM) < 1.5f)
+			{
+				// Debug.LogWarning("Skipping fixture add "+ _lastFixtureId);
 				return false;
+			}
         }
 
 		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
@@ -86,7 +89,16 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		if (pcm != null)
 		{
 			pcm.PlantId = _lastFixtureId++;
+			if (pcm.transform.GetSiblingIndex() != pcm.PlantId)
+			{
+				Debug.LogWarning($"ID/Sibling mismatch {pcm.PlantId} {transform.GetSiblingIndex()}");
+			}
 		}
+		else
+		{
+			Debug.LogWarning($"Not a plant: {newObj.gameObject.name}, {_lastFixtureId}");
+		}
+
 
 		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
 		newObj.transform.position = newPosM;
