@@ -59,7 +59,7 @@ public class PortalSoundManager : MonoBehaviour
 			Debug.LogWarning("psm: have NO handle!");
 			return;
 		}
-
+		_curEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
 		_curEventInstance.start();
 	}
 }

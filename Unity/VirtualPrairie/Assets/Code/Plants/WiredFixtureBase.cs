@@ -11,13 +11,13 @@ public class WiredFixtureBase : MonoBehaviour
 	protected int _pathIndex = -1; 
 	public int PathIndex => _pathIndex;
 
-	public void WireToPath(WiredPath path, int index = -1)
+	public virtual void WireToPath(WiredPath path, int index = -1)
 	{
 		_pathIndex = index;
 		_parentPath = path;
 	}
 
-	public void RemoveFromPath()
+	public virtual void RemoveFromPath()
 	{
 		_pathIndex = -1;
 		_parentPath = null;
@@ -27,6 +27,16 @@ public class WiredFixtureBase : MonoBehaviour
 	public virtual Vector3 GetPosition()
 	{
 		return transform.position;
+	}
+
+	public virtual void NotifyEnterWiringMode()
+	{
+		
+	}
+
+	public virtual void NotifyExitWiringMode()
+	{
+		
 	}
 
 	public virtual void SetWireVisState(WiredPath.EPathVisState vis)

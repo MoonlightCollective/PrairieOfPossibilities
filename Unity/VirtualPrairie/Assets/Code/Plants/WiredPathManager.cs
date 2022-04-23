@@ -21,6 +21,14 @@ public class WiredPathManager : MonoBehaviour
 		s_instance = this;
 	}
 
+	public void DeletePath(WiredPath path)
+	{
+		if (Paths.Contains(path))
+		{
+			Paths.Remove(path);
+		}
+	}
+
 	public void ShowAllPaths()
 	{
 		foreach (var path in Paths)
@@ -49,5 +57,5 @@ public class WiredPathManager : MonoBehaviour
 		Paths.Add(p);
 	}
 
-	
+
 }

@@ -89,7 +89,12 @@ public class PlantColorManager : WiredFixtureBase
 
 		_selectionHandler = GetComponentInChildren<PlantSelectionHandler>();
 	}
-
+	
+	public void Start()
+	{
+		if (_selectionHandler != null)
+			_selectionHandler.EnableHavePathVis(ParentPath != null);
+	}
 	public void Update()
 	{
 		var settings = GlobalPlantSettings.Instance;
@@ -114,12 +119,45 @@ public class PlantColorManager : WiredFixtureBase
 		}
 	}
 
+	public override void WireToPath(WiredPath path, int index = -1)
+	{
+		base.WireToPath(path, index);
+		if (index == 0)
+			_selectionHandler.EnableFirstInPathVis();
+	}
+
+	public override void RemoveFromPath()
+	{
+		base.RemoveFromPath();
+		_selectionHandler.DisableFirstInPathVis();
+	}
+
+	public override void NotifyEnterWiringMode()
+	{
+		base.NotifyEnterWiringMode();
+		_selectionHandler.EnableHavePathVis(ParentPath != null);
+	}
+
+	public override void NotifyExitWiringMode()
+	{
+		base.NotifyExitWiringMode();
+		_selectionHandler.DisableHavePathVis();
+	}
 
 	public override void SetWireVisState(WiredPath.EPathVisState vis)
 	{
 		if (_selectionHandler == null)
 			return;
 		
+		if (PlantSelectionManager.Instance.IsWiring())
+		{
+			_selectionHandler.EnableHavePathVis(ParentPath != null);
+		}
+		else
+		{
+			_selectionHandler.DisableHavePathVis();
+		}
+
 		// Debug.Log("Set wire vis state:" + vis);
 		switch (vis)
 		{

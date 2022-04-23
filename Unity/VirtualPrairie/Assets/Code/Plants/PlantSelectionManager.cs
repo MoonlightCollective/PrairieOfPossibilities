@@ -27,6 +27,8 @@ public class PlantSelectionManager : MonoBehaviour
 	public TextMeshProUGUI WiringCountText;
 	public CameraStop WiringCameraStop;
 	public PrairieWalkCam WalkCam;
+	public TextMeshProUGUI TotalPathCountText;
+	public TextMeshProUGUI TotalPathLengthText;
 
 	public bool IsWiring()
 	{
@@ -132,6 +134,8 @@ public class PlantSelectionManager : MonoBehaviour
 
 		_workingPath.RemoveAllChildren();
 		_workingPath.ClearPath();
+		_pathManager.DeletePath(_workingPath);
+		updatePathTotalsText();
 	}
 
 	//=================
@@ -238,6 +242,18 @@ public class PlantSelectionManager : MonoBehaviour
 		{
 			WalkCam.TeleportToStop(WiringCameraStop);
 		}
+
+		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
+		foreach (Transform child in layoutRoot.transform)
+		{
+			WiredFixtureBase wfb = child.GetComponent<WiredFixtureBase>();
+			if (wfb != null)
+			{
+				wfb.NotifyEnterWiringMode();
+			}
+		}
+		
+		updatePathTotalsText();
 		startNewWire();
 	}
 
@@ -258,11 +274,20 @@ public class PlantSelectionManager : MonoBehaviour
 		}
 		_workingPath = WiredPathManager.NewPathInstance();
 		_workingPath.SetVisibility(WiredPath.EPathVisState.Active);
-
+		updatePathTotalsText();
 	}
 
 	protected void WiringExit()
 	{
+		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
+		foreach (Transform child in layoutRoot.transform)
+		{
+			WiredFixtureBase wfb = child.GetComponent<WiredFixtureBase>();
+			if (wfb != null)
+			{
+				wfb.NotifyExitWiringMode();
+			}
+		}
 		WiredPathManager.Instance.HideAllPaths();
 	}
 
@@ -279,6 +304,7 @@ public class PlantSelectionManager : MonoBehaviour
 			{
 				_workingPath.RemoveLastFixture();
 			}
+			updateActivePathInfoVis();
 		}
 		if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
 		{
@@ -289,6 +315,19 @@ public class PlantSelectionManager : MonoBehaviour
 			startNewWire();
 		}
 	
+	}
+
+	protected void updatePathTotalsText()
+	{
+		// figure out total measurement
+		float totalPathLength = 0;
+		foreach (var path in _pathManager.Paths)
+		{
+			totalPathLength += path.GetPathLengthMeters();
+		}
+		TotalPathLengthText.text = totalPathLength.ToString("F2") + " m";
+
+		TotalPathCountText.text = _pathManager.Paths.Count.ToString() + " Runs";
 	}
 
 	protected StateTableValue WiringPlantClicked(StateTableValue v)

@@ -8,6 +8,8 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 {	
 	public GameObject SelectedVis;
 	public GameObject MouseOverVis;
+	public GameObject NoPathVis;
+	public GameObject FirstInPathVis;
 
 	public List<TextMeshPro> PlantIdText;
 
@@ -18,6 +20,8 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 
 	public void Start()
 	{
+		DisableFirstInPathVis();
+		DisableHavePathVis();
 		updateMouseVis();
 		updateSelectVis();
 		PlantColorManager pcm = GetComponentInParent<PlantColorManager>();
@@ -57,9 +61,31 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 		updateSelectVis();
 	}
 
+	public void EnableHavePathVis(bool havePath)
+	{
+		if (NoPathVis != null)
+			NoPathVis.SetActive(!havePath);
+	}
+
+	public void EnableFirstInPathVis()
+	{
+		if (FirstInPathVis != null)
+			FirstInPathVis.SetActive(true);
+	}
+
+	public void DisableFirstInPathVis()
+	{
+		if (FirstInPathVis != null)
+			FirstInPathVis.SetActive(false);
+	}
+
+	public void DisableHavePathVis()
+	{
+		NoPathVis.SetActive(false);
+	}
+
 	void updateSelectVis()
 	{
-		// Debug.Log("updateSelectVis:" + _selected);
 		if (SelectedVis != null)
 			SelectedVis.SetActive(_selected);
 	}
