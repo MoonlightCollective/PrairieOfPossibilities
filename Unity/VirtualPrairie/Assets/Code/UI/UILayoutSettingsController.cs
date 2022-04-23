@@ -58,6 +58,8 @@ public class UILayoutSettingsController : MonoBehaviour
 		LayoutDropdown.onValueChanged.AddListener(DropdownChanged);
 		PropsDropdown.onValueChanged.AddListener(PropDropdownChanged);
 
+		FixtureExportPath = PlayerPrefs.GetString("FixtureExportPath");
+		FixtureImportPath = PlayerPrefs.GetString("FixtureImportPath");
 
 		Slider[] sliders = GetComponentsInChildren<Slider>();
 		foreach (var s in sliders)
@@ -133,14 +135,34 @@ public class UILayoutSettingsController : MonoBehaviour
 	//
 	public void OnExportButton()
 	{
+#if UNITY_EDITOR
+		string saveFilePath = UnityEditor.EditorUtility.SaveFilePanel("Save Layout",FixtureExportPath,"","json");
+		if (saveFilePath.Length  != 0)
+		{
+			LayoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),saveFilePath);
+			FixtureExportPath = System.IO.Path.GetDirectoryName(saveFilePath);
+			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
+		}
+#else
 		StartCoroutine(doExportDialog());
+#endif
 	}
 
 
 	// When user hits "import" button to import a fixture file.
 	public void OnImportButton()
 	{
+#if UNITY_EDITOR
+		string openFilePath = UnityEditor.EditorUtility.OpenFilePanel("Import Layout", FixtureExportPath,"json");
+		if (openFilePath.Length != 0)
+		{
+			LayoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(), openFilePath, true);
+			FixtureExportPath = System.IO.Path.GetDirectoryName(openFilePath);
+			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
+		}
+#else
 		StartCoroutine(doImportDialog());
+#endif
 	}
 
 

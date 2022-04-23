@@ -28,6 +28,7 @@ public class WiredPath : MonoBehaviour
 	{
 		disableLineRender();
 		RemoveAllChildren();
+		updateVisuals();
 	}
 
 	public void SetVisibility(EPathVisState newVis)

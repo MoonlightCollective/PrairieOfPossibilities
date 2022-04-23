@@ -69,6 +69,38 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			allDevices.Add(pcm);
 		}
 
+		// now reconstruct paths.
+		WiredPathManager pathManager = WiredPathManager.Instance;
+		pathManager.ClearAllPaths();
+		foreach (var pathData in fixtureData.wirePaths)
+		{
+			WiredPath newPath = WiredPathManager.NewPathInstance();
+			newPath.ArtnetHost = pathData.artnetHost;
+			newPath.Universe = pathData.universe;
+			newPath.ChannelStart = pathData.channelStart;
+			newPath.PathId = pathData.pathId;
+			foreach (var pathDataItem in pathData.items)
+			{
+				if (pathDataItem.FixtureType == "PlantFixture")
+				{
+					if (pathDataItem.FixtureId < allDevices.Count)
+					{
+						WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
+						newPath.AddFixture(wfb);
+					}
+					else
+					{
+						Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
+					}
+
+				}
+				else
+				{
+					Debug.LogWarning($"Unknown Fixture type in path {pathDataItem.FixtureType} - skipping.");
+				}
+			}
+			pathManager.AddPath(newPath);
+		}
 
 		// Now parse our outputs to figure out how to map DMX channels to specific points on specific fixtures.
 		foreach (var outputItem in fixtureData.outputs)
@@ -88,6 +120,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				setChannelsForRun(outputItem.start, outputItem.num, outputItem.host, outputItem.universe,0,allDevices);
 			}
 		}
+
 	}
 
 	public void setChannelsForRun(int startPoint, int runPointCount, string host, int universe, int universePointDexStart, List<PlantColorManager> allDevices)

@@ -27,22 +27,33 @@ public class UIMasterController : MonoBehaviour
 		{
 			toggleHud();
 		}
-		if (Input.GetKeyDown(KeyCode.L))
+		if (!PlantSelectionManager.Instance.IsWiring() && Input.GetKeyDown(KeyCode.L))
 		{
 			toggleLayoutUI();
 		}
     }
 	
+	public void ForceDisableLayoutUI()
+	{
+		LayoutSettingsController.gameObject.SetActive(false);
+	}
+
 	void toggleLayoutUI()
 	{
 		if (LayoutSettingsController == null)
 			return;
 		
 		if (LayoutSettingsController.gameObject.activeInHierarchy)
+		{
 			LayoutSettingsController.gameObject.SetActive(false);
+		}
 		else
 		{
 			HudController.gameObject.SetActive(false);
+			if (PlantSelectionManager.Instance.IsWiring())
+			{
+				PlantSelectionManager.Instance.ForceDisable();
+			}
 			LayoutSettingsController.gameObject.SetActive(true);
 		}
 	}

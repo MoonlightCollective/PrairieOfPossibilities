@@ -25,7 +25,26 @@ public class WiredPathManager : MonoBehaviour
 	{
 		if (Paths.Contains(path))
 		{
+			path.ClearPath();
 			Paths.Remove(path);
+		}
+	}
+
+	public void ClearAllPaths()
+	{
+		HideAllPaths();
+		foreach (var p in Paths)
+		{
+			p.ClearPath();
+		}
+		Paths.Clear();
+	}
+
+	public void NotifyNewLayout()
+	{
+		if (PlantSelectionManager.Instance.IsWiring())
+		{
+			PlantSelectionManager.Instance.NotifyRereshWiring();
 		}
 	}
 

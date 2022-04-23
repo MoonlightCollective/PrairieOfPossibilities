@@ -93,7 +93,11 @@ public class PlantColorManager : WiredFixtureBase
 	public void Start()
 	{
 		if (_selectionHandler != null)
+		{
 			_selectionHandler.EnableHavePathVis(ParentPath != null);
+			_selectionHandler.DisableFirstInPathVis();
+		}
+		
 	}
 	public void Update()
 	{
@@ -135,13 +139,21 @@ public class PlantColorManager : WiredFixtureBase
 	public override void NotifyEnterWiringMode()
 	{
 		base.NotifyEnterWiringMode();
+
 		_selectionHandler.EnableHavePathVis(ParentPath != null);
 	}
 
 	public override void NotifyExitWiringMode()
 	{
 		base.NotifyExitWiringMode();
+		_selectionHandler.DisableFirstInPathVis();
 		_selectionHandler.DisableHavePathVis();
+	}
+
+	public void updateFirstInPathState()
+	{
+		if (IsWired && PathIndex == 0)
+			_selectionHandler.EnableFirstInPathVis();
 	}
 
 	public override void SetWireVisState(WiredPath.EPathVisState vis)
@@ -162,13 +174,16 @@ public class PlantColorManager : WiredFixtureBase
 		switch (vis)
 		{
 			case WiredPath.EPathVisState.Hidden:
+				_selectionHandler.DisableFirstInPathVis();
 				_selectionHandler.ForceDeselect();
 				break;
 			case WiredPath.EPathVisState.Active:
 				_selectionHandler.ForceSelect();
+				updateFirstInPathState();
 				break;
 			case WiredPath.EPathVisState.Visible:
 				_selectionHandler.ForceDeselect();
+				updateFirstInPathState();
 				break;
 		}
 	}

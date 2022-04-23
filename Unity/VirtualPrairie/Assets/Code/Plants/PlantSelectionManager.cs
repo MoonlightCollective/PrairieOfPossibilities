@@ -11,6 +11,7 @@ public class PlantSelectionManager : MonoBehaviour
 
 	[Header("Global settings")]
 	public bool AlwaysShowMouseOver = false;
+	public UIMasterController MasterUI;
 
 	[Header("Measure mode")]
 	public GameObject MeasureUI;
@@ -126,6 +127,27 @@ public class PlantSelectionManager : MonoBehaviour
 		// regardless, now that we apply the info, deselect the path and start a new path.
 		startNewWire();
 	}
+	
+	public void NotifyExportClick()
+	{
+		MasterUI.LayoutSettingsController.OnExportButton();
+	}
+
+	public void NotifyImportClick()
+	{
+		MasterUI.LayoutSettingsController.OnImportButton();
+	}
+
+	public void NotifyClearAll()
+	{
+		WiredPathManager.Instance.ClearAllPaths();
+		refreshWiring();
+	}
+
+	public void NotifyRereshWiring()
+	{
+		WiringEnter();
+	}
 
 	public void NotifyDeleteWireClick()
 	{
@@ -136,6 +158,11 @@ public class PlantSelectionManager : MonoBehaviour
 		_workingPath.ClearPath();
 		_pathManager.DeletePath(_workingPath);
 		updatePathTotalsText();
+	}
+
+	public void ForceDisable()
+	{
+		_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
 	}
 
 	//=================
@@ -157,6 +184,7 @@ public class PlantSelectionManager : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(KeyCode.P))
 		{
+			MasterUI.ForceDisableLayoutUI();
 			_stateMachine.GotoState(EPlantSelectionManagerState.Wiring);
 		}
 	}
@@ -242,7 +270,14 @@ public class PlantSelectionManager : MonoBehaviour
 		{
 			WalkCam.TeleportToStop(WiringCameraStop);
 		}
+		refreshWiring();
+		updatePathTotalsText();
+		startNewWire();
+	}
 
+	protected void refreshWiring()
+	{
+		WiredPathManager.Instance.ShowAllPaths();
 		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
 		foreach (Transform child in layoutRoot.transform)
 		{
@@ -252,9 +287,7 @@ public class PlantSelectionManager : MonoBehaviour
 				wfb.NotifyEnterWiringMode();
 			}
 		}
-		
 		updatePathTotalsText();
-		startNewWire();
 	}
 
 	protected void startNewWire()
