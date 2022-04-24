@@ -16,6 +16,11 @@ public class WiredPathManager : MonoBehaviour
 		return go.GetComponent<WiredPath>();
 	}
 
+	public string NextPathName()
+	{
+		return $"Path{Paths.Count.ToString()}";
+	}
+
 	void Awake()
 	{
 		s_instance = this;

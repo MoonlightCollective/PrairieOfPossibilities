@@ -326,6 +326,7 @@ public class PlantSelectionManager : MonoBehaviour
 			}
 		}
 		_workingPath = WiredPathManager.NewPathInstance();
+		_workingPath.PathId = WiredPathManager.Instance.NextPathName();
 		_workingPath.SetVisibility(WiredPath.EPathVisState.Active);
 		updatePathTotalsText();
 	}
@@ -427,6 +428,7 @@ public class PlantSelectionManager : MonoBehaviour
 			{
 				Debug.Log("creating a new path");
 				_workingPath = WiredPathManager.NewPathInstance();
+				_workingPath.PathId = _pathManager.NextPathName();
 				_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
 			}
 			_workingPath.AddFixture(wiredFixture);
