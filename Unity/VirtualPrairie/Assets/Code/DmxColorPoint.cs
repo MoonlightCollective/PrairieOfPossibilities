@@ -10,11 +10,11 @@ public abstract class DmxColorPoint : MonoBehaviour
 	// the global dmx controller
 	public PrairieDmxController Controller;
 	// the host address of the dmx controller
-	public string Host;
+	public string Host = "undefined";
 	// the universe of the dmx controller
-	public int Universe;
+	public int Universe = -1;
 	// the point index in the entire scene 
-	public int GlobalPointIndex;
+	public int GlobalPointIndex = -1;
 	// the point index in the local dmx universe
-	public int LocalPointIndex;
+	public int LocalPointIndex = -1;
 }

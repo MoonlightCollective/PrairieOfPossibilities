@@ -20,6 +20,8 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 	protected static int _channelsPerUniverse = 512;
 	protected static int _channelsPerFixture = kPointsPerFixture * kChannelsPerPoint;
 
+	protected int _lastFixtureId = 0;
+
 	public abstract void SaveSettings();
 	public abstract void LoadSettings();
 
@@ -29,6 +31,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		ClearChildrenFrom(rootObj);
 		_curUniverse = UniverseStart;
 		_curChannel = 0;
+		_lastFixtureId = 0;
 		return true;
 	}
 
@@ -111,6 +114,15 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			newObj.transform.position = hit.point;
 		}
 
+		PlantColorManager pcm = newObj.GetComponentInChildren<PlantColorManager>();
+		if (pcm != null)
+		{
+			pcm.PlantId = _lastFixtureId++;
+		}
+
+		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
+		newObj.transform.position = newPosM;
+		_curChannel += _channelsPerFixture;
 		return newObj;
 	}
 }
