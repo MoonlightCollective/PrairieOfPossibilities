@@ -145,8 +145,8 @@ MonoBehaviour:
   active: 1
   Properties:
     LiveUpdate:
-      Value: 0
-      HasValue: 0
+      Value: 1
+      HasValue: 1
     LiveUpdatePort:
       Value: 9264
       HasValue: 1
@@ -218,7 +218,7 @@ MonoBehaviour:
   active: 1
   Properties:
     LiveUpdate:
-      Value: 0
+      Value: 1
       HasValue: 1
     LiveUpdatePort:
       Value: 9264
@@ -283,7 +283,7 @@ MonoBehaviour:
   sourceProjectPath: ../../../../Wayward Distractions Dropbox/Projects/Prairies/FMod/RAIN/RainMusic/RainMusic.fspro
   sourceBankPath: Assets/Audio/FModBanks/Desktop
   SourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 1
   ShowBankRefreshWindow: 0
   AutomaticEventLoading: 0
   BankLoadType: 0
