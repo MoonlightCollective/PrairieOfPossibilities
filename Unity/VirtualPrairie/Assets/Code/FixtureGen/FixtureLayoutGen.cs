@@ -6,6 +6,7 @@ public enum EFixtureLayoutAlgorithm
 	Grid,
 	Rings,
 	Sunflower,
+	None
 }
 
 //
@@ -86,7 +87,7 @@ public class FixtureLayoutGen : MonoBehaviour
 		_clearings[5] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
 
 		var root = PrairieUtil.GetLayoutRoot();
-		GenerateLayout(root);
+		//GenerateLayout(root);
 
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);

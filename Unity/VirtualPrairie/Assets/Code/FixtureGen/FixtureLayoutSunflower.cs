@@ -67,7 +67,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 				newPlant.y = 0;
 				newPlant.z += clearing_radius * Mathf.Sin(clearingAngle);
 
-				if (AddFixture(newPlant, rootObj, fixturePrefab))
+				if (AddFixture(new Vector3(PrairieUtil.FeetToMeters(newPlant.x), 0.0f, PrairieUtil.FeetToMeters(newPlant.z)), rootObj, fixturePrefab) != null)
 					fixturesLeft--;
 
 				clearingAngle += angleStep;
@@ -81,7 +81,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 			float angle = i * twoPi / (GoldenRatio * GoldenRatio);
 			float radius = Mathf.Pow(SpacingExp, i) * BaseSpacingFt * Mathf.Sqrt(i);
 			//float clearing_radius = ClearingSize; // in feet
-			float portal_clearing_radius = 7;
+			//float portal_clearing_radius = 7;
 			float booth_clearing_radius = ClearingSize;
 
 			float x = radius * Mathf.Cos(angle);
@@ -104,7 +104,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 				)
 				continue;
 
-			if (AddFixture(plant_loc, rootObj, fixturePrefab))
+			if (AddFixture(new Vector3(PrairieUtil.FeetToMeters(plant_loc.x), 0.0f, PrairieUtil.FeetToMeters(plant_loc.z)), rootObj, fixturePrefab) != null)
 				fixturesLeft--;
 		}
 		return true;

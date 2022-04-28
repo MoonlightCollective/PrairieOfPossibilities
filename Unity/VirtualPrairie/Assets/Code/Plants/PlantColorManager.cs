@@ -24,8 +24,8 @@ public class PlantColorManager : MonoBehaviour
 
 	public void AssociatePointData(int localPointDex, string host, int universe, int globalPointDex)
 	{
-		if (StemColors == null || StemColors.Count < 1)
-			findChildren();
+		// make sure the children are loaded
+		FindChildren();
 
 		StemColors[localPointDex].Host = host;
 		StemColors[localPointDex].Universe = universe;
@@ -46,8 +46,17 @@ public class PlantColorManager : MonoBehaviour
 		gameObject.name = $"Plant_{PlantId}_H{host}_U{universe}_PointRange_{minDex}-{maxDex}";
 	}
 
-	void findChildren()
+	// this is safe to call multiple times.   it will only find and load the child objects once
+	public void FindChildren()
 	{
+		// have we already found the children?
+		if (StemColors != null && StemColors.Count > 1)
+			return;
+
+		if (StemColors == null)
+			StemColors = new List<StemColorManager>();
+
+		// nope, go find and load them.
 		foreach (Transform child in transform)
 		{
 			if (child.gameObject.name.Contains("Stalk"))
@@ -79,8 +88,7 @@ public class PlantColorManager : MonoBehaviour
 
 	public void Awake()
 	{
-		if (StemColors == null || StemColors.Count < 1)
-			findChildren();
+		FindChildren();
 		
 		if (!_initializedMaterials)
 			initMaterials();
