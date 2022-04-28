@@ -87,8 +87,11 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		newObj.transform.position = newPos;
 		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
 
-		PlantColorManager pcm = newObj.GetComponent<PlantColorManager>();
-		pcm.PlantId = parentObj.transform.childCount - 1;
+		PlantColorManager pcm = newObj.GetComponentInChildren<PlantColorManager>();
+		if (pcm != null)
+		{
+			pcm.PlantId = _lastFixtureId++;
+		}
 
 		// add this to the global plant list
 		GlobalPlantSettings.Instance.AddFixture(newObj);
@@ -114,15 +117,6 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			newObj.transform.position = hit.point;
 		}
 
-		PlantColorManager pcm = newObj.GetComponentInChildren<PlantColorManager>();
-		if (pcm != null)
-		{
-			pcm.PlantId = _lastFixtureId++;
-		}
-
-		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
-		newObj.transform.position = newPosM;
-		_curChannel += _channelsPerFixture;
 		return newObj;
 	}
 }
