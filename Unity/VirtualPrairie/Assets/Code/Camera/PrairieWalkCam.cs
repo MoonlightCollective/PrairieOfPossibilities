@@ -71,7 +71,7 @@ public class PrairieWalkCam : MonoBehaviour
 			Vector3 newposWorld = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,-_camera.transform.position.z));
 			Vector3 deltaWorld = _orthoDragOriginWorld - newposWorld;
 			deltaWorld.y = 0f;
-			Debug.Log($"Translate by:{deltaWorld}");
+			// Debug.Log($"Translate by:{deltaWorld}");
 			_camera.transform.Translate(deltaWorld,Space.World);
 		}
 		float scrollDelta = -OrthoScrollMult * Input.GetAxis("Mouse ScrollWheel");

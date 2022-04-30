@@ -12,13 +12,17 @@ public class FixtureLayoutImport : FixtureLayoutBase
 
 	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{
+		GlobalPlantSettings.FindGlobalInstance();
 		base.GenerateLayout(rootObj, fixturePrefab);
 
-		string jsonStr = File.ReadAllText(JsonFilePath);
-		if (!string.IsNullOrEmpty(jsonStr))
+		if (!string.IsNullOrEmpty(JsonFilePath))
 		{
-			doFixtureImport(rootObj, jsonStr,fixturePrefab);
-			return true;
+			string jsonStr = File.ReadAllText(JsonFilePath);
+			if (!string.IsNullOrEmpty(jsonStr))
+			{
+				doFixtureImport(rootObj, jsonStr,fixturePrefab);
+				return true;
+			}
 		}
 		
 		return false;
@@ -44,29 +48,19 @@ public class FixtureLayoutImport : FixtureLayoutBase
 
 		ClearChildrenFrom(rootObj);
 
-		List<PlantColorManager> allDevices = new List<PlantColorManager>();
-
+		var allDevices = new List<WiredFixtureBase>();
 		// instantiate and place all fixtures at proper x,y		
-		int plantId = 0;
 		foreach (var item in fixtureData.children)
 		{
-			GameObject newObj = CreateObjFromPrefab(prefab);
-			newObj.transform.SetParent(rootObj.transform, false);
-			newObj.transform.position = new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z));
-			PlantColorManager pcm = newObj.GetComponent<PlantColorManager>();
-			pcm.PlantId = plantId++;
-			pcm.PointRangeMin = pcm.PlantId * 7;
-			pcm.PointRangeMax = pcm.PointRangeMin + 7;
+			// create the plant !
+			GameObject newObj = AddFixture(new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z)), rootObj, prefab, true);
 
-			Vector3 castStart = newObj.transform.position + Vector3.up * 40.0f;
-
-			RaycastHit hit;
-			if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+			// need to keep an ordered list of imported plants so we can index into them for wired paths.
+			var wfb = newObj.GetComponentInChildren<WiredFixtureBase>();
+			if (wfb != null)
 			{
-				newObj.transform.position = hit.point;
+				allDevices.Add(wfb);
 			}
-
-			allDevices.Add(pcm);
 		}
 
 		// now reconstruct paths.
@@ -103,6 +97,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		// Now parse our outputs to figure out how to map DMX channels to specific points on specific fixtures.
+		// TODO - let's pull this from the wire data instead!
 		foreach (var outputItem in fixtureData.outputs)
 		{
 			if (outputItem.segments != null && outputItem.segments.Count > 0)
@@ -111,19 +106,20 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				int universeStartDex = 0;
 				foreach (var seg in outputItem.segments)
 				{
-					setChannelsForRun(seg.start,seg.num,outputItem.host, outputItem.universe,universeStartDex, allDevices);
+					setChannelsForRun(rootObj, seg.start,seg.num,outputItem.host, outputItem.universe,universeStartDex);
 					universeStartDex+=seg.num;
 				}
 			}
 			else
 			{
-				setChannelsForRun(outputItem.start, outputItem.num, outputItem.host, outputItem.universe,0,allDevices);
+				setChannelsForRun(rootObj, outputItem.start, outputItem.num, outputItem.host, outputItem.universe,0);
 			}
 		}
 
 	}
 
-	public void setChannelsForRun(int startPoint, int runPointCount, string host, int universe, int universePointDexStart, List<PlantColorManager> allDevices)
+	// helper function that will setup all of the dmx channels for a "run" of a single output (aka dmx controller)
+	private void setChannelsForRun(GameObject rootObj, int startPoint, int runPointCount, string host, int universe, int universePointDexStart)
 	{
 		int pointsPerFixture = FixtureLayoutBase.kPointsPerFixture;
 
@@ -141,19 +137,23 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			Debug.LogWarning($"Start point not a multiple of 7 - will result in partial mapping, which will be bad");
 		}
 
+		// go through the whole run
 		for (int p = 0; p < runPointCount; p++)
 		{
 			int point = startPoint + p;
 			int fixtureDex = point / pointsPerFixture;
 			int localPointDex = point % pointsPerFixture;
-			if (fixtureDex >= allDevices.Count)
+
+			// make sure that this plant fixture exists in the scene (by index)
+			if (fixtureDex >= rootObj.transform.childCount)
 			{
 				Debug.LogError($"Point out of range: Point {point}, Fixture {fixtureDex}, PointDex {localPointDex}");
 			}
 			
-			allDevices[fixtureDex].AssociatePointData(localPointDex,host,universe,p+universePointDexStart);
+			// find the right plant
+			PlantColorManager pcm = rootObj.transform.GetChild(fixtureDex).GetComponent<PlantColorManager>();
+			// update the point data
+			pcm.AssociatePointData(localPointDex, host, universe, p+universePointDexStart);
 		}
 	}
-
-
 }

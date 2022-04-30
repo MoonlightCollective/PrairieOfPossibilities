@@ -75,4 +75,51 @@ public class PrairieUtil
     {
 		return (GameObject.FindObjectOfType<FixtureLayoutGen>());
     }
+
+	public static float wrapdistf(float v1, float v2, float modulus)
+	{
+		if (v1 < v2) {
+			return Mathf.Min(v2 - v1, v1 + modulus - v2);
+		} else {
+			return Mathf.Min(v1 - v2, v2 + modulus - v1);
+		}		
+	}
+
+	// LXStudio had a continous array of points that effects could use.   Simluate that here
+	private static List<StemColorManager> s_points;
+	public static List<StemColorManager> Points 
+	{ 
+		get
+		{ 
+			if (s_points == null)
+			{
+				// do this once
+				Debug.Log($"PrairieUtil:Points populating the static list");
+				s_points = new List<StemColorManager>();
+				var root = PrairieUtil.GetLayoutRoot();
+				int count = root.transform.childCount;
+				for (int i=0; i < count; i++)
+				{
+					var fixture = root.transform.GetChild(i).gameObject;
+					PlantColorManager pcm = fixture.GetComponent<PlantColorManager>();
+					foreach (var stem in pcm.StemColors)
+					{
+						Points.Add(stem);
+					}
+				}
+				Debug.Log($"PrairieUtil:added {Points.Count} points");
+			}
+			return s_points;
+		}
+		set
+		{
+			// only allow this to be used to reset it
+			if (value == null)
+			{
+				if (s_points != null)
+					s_points.Clear();
+				s_points = value;
+			}
+		}
+	}
 }

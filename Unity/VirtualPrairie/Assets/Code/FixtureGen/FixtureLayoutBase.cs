@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
@@ -26,14 +27,17 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 
 	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
 	{
+		GlobalPlantSettings.FindGlobalInstance();
 		ClearChildrenFrom(rootObj);
 		_curUniverse = UniverseStart;
+		_curChannel = 0;
 		_lastFixtureId = 0;
 		return true;
 	}
 
 	protected void ClearChildrenFrom(GameObject rootObj)
 	{
+		PrairieUtil.Points = null;
 		// Clear existing layout if there is one.
 		int count = rootObj.transform.childCount;
 		for (int i = count -1; i >= 0; i--)
@@ -57,33 +61,31 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		return obj;
 	}
 
-	protected bool AddFixture(Vector3 newPosFt, GameObject rootObj, GameObject prefabObj)
+	// creates and adds a plant to the scene graph.  note: a fixture is a plant
+	// will return null if its too close to another one.  ignores this rule for fromImportFile = true
+	protected GameObject AddFixture(Vector3 newPos, GameObject parentObj, GameObject prefabObj, bool fromImportFile = false)
     {
-		// don't add if this is too close to an existing base
-		// currently using "2 meters" as the threshold
-		// TODO: make this spacing more dynamic
-		Vector3 newPosM = new Vector3(PrairieUtil.FeetToMeters(newPosFt.x), 0.0f, PrairieUtil.FeetToMeters(newPosFt.z));
+		Debug.Log($"FixtureLayoutBase:AddFixture");
 
-		int count = rootObj.transform.childCount;
-		for (int i=0; i < count; i++)
-        {
-			var fixture = rootObj.transform.GetChild(i).gameObject;
-			Vector3 pos = fixture.transform.position;
-			if (Vector3.Distance(pos, newPosM) < 1.5f)
-			{
-				// Debug.LogWarning("Skipping fixture add "+ _lastFixtureId);
-				return false;
-			}
-        }
-
-		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
+		if (!fromImportFile) 
 		{
-			_curUniverse++;
-			_curChannel = 0;
+			// don't add if this is too close to an existing base
+			// currently using "2 meters" as the threshold
+			// TODO: make this spacing more dynamic
+			int count = parentObj.transform.childCount;
+			for (int i=0; i < count; i++)
+			{
+				var fixture = parentObj.transform.GetChild(i).gameObject;
+				Vector3 pos = fixture.transform.position;
+				if (Vector3.Distance(pos, newPos) < 1.5f)
+					return null;
+			}
 		}
 
 		GameObject newObj = CreateObjFromPrefab(prefabObj);
-		newObj.transform.SetParent(rootObj.transform, false);
+		newObj.transform.SetParent(parentObj.transform, false);
+		newObj.transform.position = newPos;
+		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
 
 		PlantColorManager pcm = newObj.GetComponentInChildren<PlantColorManager>();
 		if (pcm != null)
@@ -100,9 +102,30 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		}
 
 
-		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
-		newObj.transform.position = newPosM;
+		// add this to the global plant list
+		GlobalPlantSettings.Instance.AddFixture(newObj);
+
+		// support creating plants at runtime, assining universes as we see them.  import files will optionally overwrite these at the end
+		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
+		{
+			_curUniverse++;
+			_curChannel = 0;
+		}
 		_curChannel += _channelsPerFixture;
-		return true;
+
+		for (int i = 0; i < kPointsPerFixture; ++i)
+		{
+			pcm.AssociatePointData(i, null, _curUniverse, pcm.PointRangeMin + i);
+		}
+
+		// ray cast down and place it on the "ground".  this supports the maps we have with terrain (hills)
+		Vector3 castStart = newObj.transform.position + Vector3.up * 40.0f;
+		RaycastHit hit;
+		if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+		{
+			newObj.transform.position = hit.point;
+		}
+
+		return newObj;
 	}
 }
