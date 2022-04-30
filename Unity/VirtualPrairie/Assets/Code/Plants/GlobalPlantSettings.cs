@@ -60,7 +60,7 @@ public class GlobalPlantSettings : MonoBehaviour
 
 	public void AddFixture(GameObject fixture)
 	{
-		Debug.Log($"GlobalPlantSettings:AddFixture");
+		// Debug.Log($"GlobalPlantSettings:AddFixture");
 		PlantColorManager pcm = fixture.GetComponent<PlantColorManager>();
 		pcm.FindChildren();
 		// add this to the master plant list

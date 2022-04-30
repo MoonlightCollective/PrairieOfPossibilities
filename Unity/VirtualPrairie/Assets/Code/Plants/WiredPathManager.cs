@@ -30,6 +30,7 @@ public class WiredPathManager : MonoBehaviour
 	{
 		if (Paths.Contains(path))
 		{
+		
 			path.ClearPath();
 			Paths.Remove(path);
 		}

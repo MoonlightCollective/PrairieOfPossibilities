@@ -116,6 +116,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			}
 		}
 
+		PlantSelectionManager.Instance.NotifyFixtureImport();
 	}
 
 	// helper function that will setup all of the dmx channels for a "run" of a single output (aka dmx controller)

@@ -80,6 +80,11 @@ public class PlantSelectionManager : MonoBehaviour
 		_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
 	}
 	
+	public void Start()
+	{
+		WiredPathManager.Instance.HideAllPaths();
+	}
+
 	public void Update()
 	{
 		_stateMachine.DoStateAction(EPlantSelectionManagerAction.Update);
@@ -96,8 +101,6 @@ public class PlantSelectionManager : MonoBehaviour
 
 	public void NotifyApplyWireClick()
 	{
-		Debug.Log("APPLY");
-
 		if (_stateMachine.CurrentState != EPlantSelectionManagerState.Wiring)
 			return;
 		
@@ -174,6 +177,11 @@ public class PlantSelectionManager : MonoBehaviour
 		updatePathTotalsText();
 	}
 
+	public void NotifyFixtureImport()
+	{
+		refreshWiring();
+	}
+
 	public void ForceDisable()
 	{
 		_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
@@ -184,7 +192,7 @@ public class PlantSelectionManager : MonoBehaviour
 	//=================
 	protected void DisabledEnter() 
 	{
-		Debug.Log("WiringUI" + WiringUI.ToString());
+		// Debug.Log("WiringUI" + WiringUI.ToString());
 		WiringUI.gameObject.SetActive(false);
 		MeasureUI.gameObject.SetActive(false);
 		MeasureLine.gameObject.SetActive(false);
@@ -297,22 +305,25 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected void refreshWiring()
 	{
-		WiredPathManager.Instance.ShowAllPaths();
-		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
-		foreach (Transform child in layoutRoot.transform)
+		if (IsWiring())		
 		{
-			WiredFixtureBase wfb = child.GetComponent<WiredFixtureBase>();
-			if (wfb != null)
+			WiredPathManager.Instance.ShowAllPaths();
+			GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
+			foreach (Transform child in layoutRoot.transform)
 			{
-				wfb.NotifyEnterWiringMode();
+				WiredFixtureBase wfb = child.GetComponent<WiredFixtureBase>();
+				if (wfb != null)
+				{
+					wfb.NotifyEnterWiringMode();
+				}
 			}
+			updatePathTotalsText();
 		}
-		updatePathTotalsText();
 	}
 
 	protected void startNewWire()
 	{
-		Debug.Log("startNewWire");
+		// Debug.Log("startNewWire");
 		if (_workingPath != null)
 		{
 			_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
@@ -423,7 +434,7 @@ public class PlantSelectionManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Fixture clicked is NOT wired");
+			// Debug.Log("Fixture clicked is NOT wired");
 			if (_workingPath == null)
 			{
 				Debug.Log("creating a new path");

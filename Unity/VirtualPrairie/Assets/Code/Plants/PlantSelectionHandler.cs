@@ -18,10 +18,14 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 
 	protected bool _mouseOver = false;
 
-	public void Start()
+	public void Awake()
 	{
 		DisableFirstInPathVis();
 		DisableHavePathVis();
+	}
+
+	public void Start()
+	{
 		updateMouseVis();
 		updateSelectVis();
 		PlantColorManager pcm = GetComponentInParent<PlantColorManager>();
@@ -64,7 +68,9 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 	public void EnableHavePathVis(bool havePath)
 	{
 		if (NoPathVis != null)
+		{
 			NoPathVis.SetActive(!havePath);
+		}
 	}
 
 	public void EnableFirstInPathVis()

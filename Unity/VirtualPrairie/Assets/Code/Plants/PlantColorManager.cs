@@ -96,17 +96,21 @@ public class PlantColorManager : WiredFixtureBase
 			initMaterials();
 
 		_selectionHandler = GetComponentInChildren<PlantSelectionHandler>();
-	}
-	
-	public void Start()
-	{
 		if (_selectionHandler != null)
 		{
 			_selectionHandler.EnableHavePathVis(ParentPath != null);
 			_selectionHandler.DisableFirstInPathVis();
 		}
-		
 	}
+	
+	public void Start()
+	{
+		if (PlantSelectionManager.Instance.IsWiring())
+			NotifyEnterWiringMode();
+		else
+			NotifyExitWiringMode();
+	}
+
 	public void Update()
 	{
 		var settings = GlobalPlantSettings.Instance;
@@ -147,8 +151,15 @@ public class PlantColorManager : WiredFixtureBase
 	public override void NotifyEnterWiringMode()
 	{
 		base.NotifyEnterWiringMode();
-
 		_selectionHandler.EnableHavePathVis(ParentPath != null);
+		if (ParentPath != null && _pathIndex == 0)
+		{
+			_selectionHandler.EnableFirstInPathVis();
+		}
+		else
+		{
+			_selectionHandler.DisableFirstInPathVis();
+		}
 	}
 
 	public override void NotifyExitWiringMode()
