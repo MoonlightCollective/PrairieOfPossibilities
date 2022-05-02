@@ -129,7 +129,7 @@ public class PlantColorManager : WiredFixtureBase
 			foreach (var s in StemColors)
 			{
 				c = Color.HSVToRGB(Mathf.Repeat(offset + _colorOffset + _debugSwirlAlpha,1.0f), 1.0f, settings.Brightness,true);
-				s.SetColor(c, settings.GlowIntensity, settings.StemAlpha);
+				s.SetColor(c);
 				offset += .02f;
 			}
 		}

@@ -64,36 +64,39 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		// now reconstruct paths.
-		WiredPathManager pathManager = WiredPathManager.Instance;
-		pathManager.ClearAllPaths();
-		foreach (var pathData in fixtureData.wirePaths)
+		if (!Application.isEditor)
 		{
-			WiredPath newPath = WiredPathManager.NewPathInstance();
-			newPath.ArtnetHost = pathData.artnetHost;
-			newPath.Universe = pathData.universe;
-			newPath.ChannelStart = pathData.channelStart;
-			newPath.PathId = pathData.pathId;
-			foreach (var pathDataItem in pathData.items)
+			WiredPathManager pathManager = WiredPathManager.Instance;
+			pathManager.ClearAllPaths();
+			foreach (var pathData in fixtureData.wirePaths)
 			{
-				if (pathDataItem.FixtureType == "PlantFixture")
+				WiredPath newPath = WiredPathManager.NewPathInstance();
+				newPath.ArtnetHost = pathData.artnetHost;
+				newPath.Universe = pathData.universe;
+				newPath.ChannelStart = pathData.channelStart;
+				newPath.PathId = pathData.pathId;
+				foreach (var pathDataItem in pathData.items)
 				{
-					if (pathDataItem.FixtureId < allDevices.Count)
+					if (pathDataItem.FixtureType == "PlantFixture")
 					{
-						WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
-						newPath.AddFixture(wfb);
+						if (pathDataItem.FixtureId < allDevices.Count)
+						{
+							WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
+							newPath.AddFixture(wfb);
+						}
+						else
+						{
+							Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
+						}
+
 					}
 					else
 					{
-						Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
+						Debug.LogWarning($"Unknown Fixture type in path {pathDataItem.FixtureType} - skipping.");
 					}
-
 				}
-				else
-				{
-					Debug.LogWarning($"Unknown Fixture type in path {pathDataItem.FixtureType} - skipping.");
-				}
+				pathManager.AddPath(newPath);
 			}
-			pathManager.AddPath(newPath);
 		}
 
 		// Now parse our outputs to figure out how to map DMX channels to specific points on specific fixtures.
@@ -116,7 +119,10 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			}
 		}
 
-		PlantSelectionManager.Instance.NotifyFixtureImport();
+		if (!Application.isEditor)
+		{
+			PlantSelectionManager.Instance.NotifyFixtureImport();
+		}
 	}
 
 	// helper function that will setup all of the dmx channels for a "run" of a single output (aka dmx controller)

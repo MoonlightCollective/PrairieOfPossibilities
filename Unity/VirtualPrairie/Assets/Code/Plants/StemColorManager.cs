@@ -15,31 +15,54 @@ public class StemColorManager : DmxColorPoint
 	public List<Material> Materials = new List<Material>();
 	public Material GlowMat;
 	private List<Material> _groundGlowMats = new List<Material>();
+	Color _curColor = Color.black;
+	public Color CurColor => _curColor;
 
 	private Transform _rootTransform;
 
 	// 
 	// SetColor - set colors in the instanced materials for all mesh renderers associated with me.
 	// 
-	public void SetColor(Color color, float GlowIntensity, float Alpha)
+	public void SetColor(Color newColor)
 	{
-		Color mainColor = new Color(color.r,color.g,color.b,Alpha);
+		_curColor = newColor;
+	}
+
+	public void ApplyColorToMats()
+	{
+		float glow = GlobalPlantSettings.Instance.GlowIntensity;
+		float stemAlpha = GlobalPlantSettings.Instance.StemAlpha;
+
+		Color glowColor = new Color(_curColor.r * glow, _curColor.g * glow, _curColor.b * glow, stemAlpha);
+		Color mainColor = new Color(_curColor.r, _curColor.g, _curColor.b, stemAlpha);
 		foreach (var mat in Materials)
 		{
-			mat.SetColor("MainColor",mainColor);
-			mat.SetColor("GlowColor", new Color(color.r*GlowIntensity, color.g*GlowIntensity, color.b*GlowIntensity));
-			mat.SetFloat("GlowIntensity",GlowIntensity);
+			mat.SetColor("MainColor", _curColor);
+			mat.SetColor("GlowColor", glowColor);
+			mat.SetFloat("GlowIntensity",glow);
 		}
 		foreach (var gp in _groundGlowMats)
 		{
-			gp.SetColor("_GlowColor",new Color(color.r,color.g,color.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
+			gp.SetColor("_GlowColor",new Color(mainColor.r,mainColor.g,mainColor.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
 		}
+	}
+
+
+	public void ApplyColorToDmx()
+	{
 		// the controller is null if DMX is turned off
 		if (this.Controller != null)
 		{
 			// tell the dmx controller about the color change
-			this.Controller.SetDmxColor(mainColor, this.Host, this.Universe, this.LocalPointIndex);
+			this.Controller.SetDmxColor(_curColor, this.Host, this.Universe, this.LocalPointIndex);
 		}
+	}
+
+	public void LateUpdate()
+	{
+		ApplyColorToMats();
+		ApplyColorToDmx();
+		SetColor(Color.black);
 	}
 
 	//
@@ -50,8 +73,8 @@ public class StemColorManager : DmxColorPoint
 		var settings = GlobalPlantSettings.Instance;
 		float alpha = settings.StemAlpha;
 		float glow = settings.GlowIntensity;
-
-		SetColor(new Color(newData[0]/255f, newData[1]/255f, newData[2]/255f), glow, alpha);
+		_curColor = new Color(newData[0]/255f, newData[1]/255f, newData[2]/255f);
+		SetColor(_curColor);
 	}
 
 	public override void SetFromDmxColor(ArraySegment<byte> newData)
@@ -60,8 +83,8 @@ public class StemColorManager : DmxColorPoint
 		float alpha = settings.StemAlpha;
 		float glow = settings.GlowIntensity;
 		int offset = newData.Offset;
-
-		SetColor(new Color(newData.Array[offset]/255f, newData.Array[offset+1]/255f, newData.Array[offset+2]/255f), glow, alpha);
+		_curColor = new Color(newData.Array[offset]/255f, newData.Array[offset+1]/255f, newData.Array[offset+2]/255f);
+		SetColor(_curColor);
 	}
 
 	//

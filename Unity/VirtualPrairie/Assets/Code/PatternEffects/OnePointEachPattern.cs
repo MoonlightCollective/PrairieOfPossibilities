@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class OnePointEachPattern : PrairiePattern
+public class OnePointEachPattern : PrairiePatternLayer
 {
     private int index = 0;
 
@@ -14,10 +14,10 @@ public class OnePointEachPattern : PrairiePattern
     {
     }
 
-    public override void Run(float deltaMs) 
+    public override void Run(float deltaMs, List<StemColorManager> points) 
     {
         // time to blink ?
-        if (System.Environment.TickCount > this.lastBlinkTick + (int)(this.delayInSeconds * 1000f))
+        /*if (System.Environment.TickCount > this.lastBlinkTick + (int)(this.delayInSeconds * 1000f))
         {
             this.lastBlinkTick = System.Environment.TickCount;
             colors[this.index] = new Color(0,0,0); 
@@ -28,6 +28,6 @@ public class OnePointEachPattern : PrairiePattern
             }
             // fire engine red
             colors[this.index] = new Color(0.83f,0.13f,0.18f);
-        }
+        }*/
     }
 }

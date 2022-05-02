@@ -3,52 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class LighthousePattern : PrairiePattern
-{
-  private float angle = 0; // go between 0 and 1
-  private static float MOTION = .0005f;
 
-  public enum AxisEnum 
-  {
-    Y,
-    Z
-  };
-  
-  public AxisEnum Axis;  
-  public float Speed;  
-  public float Width;
-  
-  public LighthousePattern() 
-  {
-  }
-  
-  public override void Run(float deltaMs) 
-  {
-    float falloff = 100 / this.Width;
-    float speed = this.Speed;
-    int posInt;
-    
-    angle += speed * deltaMs * MOTION;
-    posInt = (int)angle;
-    angle = angle - posInt; // map between 0 and 1
-    
-    float pAngle = 0;
-    float dist = 0;
-    foreach (var p in PrairieUtil.Points) 
-    {
-      switch (this.Axis) 
-      {
-        case AxisEnum.Y:
-          pAngle = p.azimuth / (2*Mathf.PI);
-          break;
-        case AxisEnum.Z:
-          pAngle = p.theta / (2*Mathf.PI); // angle between 0 and 1
-          break;
-      }
-      dist = PrairieUtil.wrapdistf(pAngle,angle,1.0f);
-      int b = (int) (Mathf.Max(0, (100 - falloff*dist)) * 2.559f);
-      float c = b/255f;
-      colors[p.GlobalPointIndex] = new Color(c, c, c, c);
-    }
-  }
+public class LighthousePattern : PrairiePatternLayer
+{
+	protected float angle = 0; // normalized - from zero to one, for a full rotation.
+
+	[Header("LighthouseSettings")]
+	public LighthouseSettings Settings;
+
+	public enum AxisEnum 
+	{ 
+		Y, 
+		Z
+	};
+
+	public override void Run(float deltaTime,List<StemColorManager> Points)
+	{
+		float falloff = 1f/ Settings.Width;
+		float speed = Settings.Speed;
+
+		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
+		angle = (angle + speed * deltaTime)%1.0f;
+		
+		// pAngle is also normalized between zero and one, calculated based on axis.
+		float pAngle = 0;
+		float dist = 0;
+		
+		foreach (var p in Points)
+		{
+			switch (Settings.Axis) 
+			{
+				case AxisEnum.Y:
+					pAngle = p.azimuth / (2f * Mathf.PI); // note - azimuth is in radians 0->2*Pi
+		 			break;
+				case AxisEnum.Z:
+		  			pAngle = p.theta / (2f * Mathf.PI);
+		  		break;
+			}
+		
+			// normalized distance in angle.
+			dist = PrairieUtil.wrapdistf(pAngle,angle,1.0f);
+
+			// brightness is 0-1
+			float b = (Mathf.Max(0, (1 - falloff*dist)));
+
+			// color expects 0-1
+			Color blendColor = new Color(b,b,b,b * LayerAlpha);
+
+			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendMode));
+		}
+	}
 }
