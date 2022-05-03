@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SceneSettings
+{
+	public bool SceneEnabled = true;
+	[Range(0,1)]
+	public float SceneAlpha = 1.0f;
+}
+
 public class PrairieLayerScene : MonoBehaviour
 {
-	public float SceneAlpha = 1.0f;
-	public bool SceneEnabled = true;
+	public SceneSettings SceneSettings;
 
 	public List<PrairiePatternLayer> _layers = new List<PrairiePatternLayer>();
 
     // Update is called once per frame
     void Update()
     {
-		if (!SceneEnabled)
+		if (!SceneSettings.SceneEnabled)
 		{
 			return;
 		}
@@ -21,7 +28,7 @@ public class PrairieLayerScene : MonoBehaviour
 		{
 			if (layer.PatternEnabled)
 			{
-				layer.Run(Time.deltaTime, SceneAlpha, PrairieUtil.Points);
+				layer.Run(Time.deltaTime, SceneSettings.SceneAlpha, PrairieUtil.Points);
 			}
 		}
     }

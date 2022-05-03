@@ -22,8 +22,8 @@ public class OnePointEachPattern : PrairiePatternLayer
 				_index = 0;
 			}
 		}
-		Color blendColor = OnePointEachSettings.PointColor * LayerAlpha * parentAlpha;
-		points[_index].SetColor(ColorBlend.BlendColors(blendColor,points[_index].CurColor,BlendMode));
+		Color blendColor = OnePointEachSettings.PointColor * BlendSettings.LayerAlpha * parentAlpha;
+		points[_index].SetColor(ColorBlend.BlendColors(blendColor,points[_index].CurColor,BlendSettings.BlendMode));
         // time to blink ?
         /*if (System.Environment.TickCount > this.lastBlinkTick + (int)(this.delayInSeconds * 1000f))
         {

@@ -1,26 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 
 public class LighthousePattern : PrairiePatternLayer
 {
+	[Space]
+	
+	[Expandable]
+	public LighthouseSettings PatternSettings;
+
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
-
-	[Header("LighthouseSettings")]
-	public LighthouseSettings Settings;
-
-	public enum AxisEnum 
-	{ 
-		Y, 
-		Z
-	};
 
 	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
 	{
-		float falloff = 1f/ Settings.Width;
-		float speed = Settings.Speed;
+		float falloff = 1f/ PatternSettings.Width;
+		float speed = PatternSettings.Speed;
 
 		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
 		angle = (angle + speed * deltaTime)%1.0f;
@@ -31,12 +28,12 @@ public class LighthousePattern : PrairiePatternLayer
 		
 		foreach (var p in Points)
 		{
-			switch (Settings.Axis) 
+			switch (PatternSettings.Axis) 
 			{
-				case AxisEnum.Y:
+				case PrairieUtil.AxisEnum.Y:
 					pAngle = p.azimuth / (2f * Mathf.PI); // note - azimuth is in radians 0->2*Pi
 		 			break;
-				case AxisEnum.Z:
+				case PrairieUtil.AxisEnum.Z:
 		  			pAngle = p.theta / (2f * Mathf.PI);
 		  		break;
 			}
@@ -48,9 +45,9 @@ public class LighthousePattern : PrairiePatternLayer
 			float b = (Mathf.Max(0, (1 - falloff*dist)));
 
 			// color expects 0-1
-			Color blendColor = new Color(b,b,b,b * LayerAlpha * parentAlpha);
+			Color blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * parentAlpha);
 
-			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendMode));
+			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}
 	}
 }

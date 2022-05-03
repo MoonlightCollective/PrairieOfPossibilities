@@ -8,6 +8,12 @@ public class PrairieUtil
 {
 	static string s_lastExportPath = "";
 	
+	public enum AxisEnum 
+	{ 
+		Y, 
+		Z
+	};
+
 	public static float InchesToMeters(float inches)
 	{
 		return inches * .0254f;

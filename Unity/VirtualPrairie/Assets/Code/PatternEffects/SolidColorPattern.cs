@@ -12,10 +12,10 @@ public class SolidColorPattern : PrairiePatternLayer
 	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
 	{
 		Color blendColor = MyColor;
-		blendColor.a = blendColor.a * LayerAlpha * parentAlpha;
+		blendColor.a = blendColor.a * BlendSettings.LayerAlpha * parentAlpha;
 		foreach (var p in Points)
 		{
-			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendMode));
+			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}
 	}
 }
