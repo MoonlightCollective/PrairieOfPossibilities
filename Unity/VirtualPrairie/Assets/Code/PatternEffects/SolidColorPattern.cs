@@ -9,10 +9,10 @@ public class SolidColorPattern : PrairiePatternLayer
 	[Header("Color")]
 	public Color MyColor = new Color(1.0f,1.0f,1.0f,1.0f);
 
-	public override void Run(float deltaTime,List<StemColorManager> Points)
+	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
 	{
 		Color blendColor = MyColor;
-		blendColor.a = blendColor.a * LayerAlpha;
+		blendColor.a = blendColor.a * LayerAlpha * parentAlpha;
 		foreach (var p in Points)
 		{
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendMode));

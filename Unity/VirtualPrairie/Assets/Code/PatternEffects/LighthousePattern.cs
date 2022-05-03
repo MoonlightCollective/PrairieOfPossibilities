@@ -17,7 +17,7 @@ public class LighthousePattern : PrairiePatternLayer
 		Z
 	};
 
-	public override void Run(float deltaTime,List<StemColorManager> Points)
+	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
 	{
 		float falloff = 1f/ Settings.Width;
 		float speed = Settings.Speed;
@@ -48,7 +48,7 @@ public class LighthousePattern : PrairiePatternLayer
 			float b = (Mathf.Max(0, (1 - falloff*dist)));
 
 			// color expects 0-1
-			Color blendColor = new Color(b,b,b,b * LayerAlpha);
+			Color blendColor = new Color(b,b,b,b * LayerAlpha * parentAlpha);
 
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendMode));
 		}

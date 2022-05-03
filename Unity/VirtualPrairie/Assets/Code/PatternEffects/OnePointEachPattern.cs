@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+
 public class OnePointEachPattern : PrairiePatternLayer
 {
-    private int index = 0;
+	public OnePointEachSettings OnePointEachSettings;
+	float _delayTimer = -1f;
+	int _index = -1;
 
-    public float delayInSeconds = 0f;
-    private int lastBlinkTick = 0;
-
-    public OnePointEachPattern() 
+    public override void Run(float deltaTime, float parentAlpha, List<StemColorManager> points) 
     {
-    }
-
-    public override void Run(float deltaMs, List<StemColorManager> points) 
-    {
+		_delayTimer -= deltaTime;
+		if (_delayTimer <= 0 )
+		{
+			_index++;
+			_delayTimer += OnePointEachSettings.DelayTimeSec;
+			if (_index >= PrairieUtil.Points.Count)
+			{
+				_index = 0;
+			}
+		}
+		Color blendColor = OnePointEachSettings.PointColor * LayerAlpha * parentAlpha;
+		points[_index].SetColor(ColorBlend.BlendColors(blendColor,points[_index].CurColor,BlendMode));
         // time to blink ?
         /*if (System.Environment.TickCount > this.lastBlinkTick + (int)(this.delayInSeconds * 1000f))
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class PrairiePatternLayer : PrairieLayer
 {
-    public abstract void Run(float deltaTime, List<StemColorManager> points);
+    public abstract void Run(float deltaTime,float parentAlpha, List<StemColorManager> points);
 
     void Update()
     {
