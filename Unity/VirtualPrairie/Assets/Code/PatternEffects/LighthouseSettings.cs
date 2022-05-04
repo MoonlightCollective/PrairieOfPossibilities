@@ -12,3 +12,4 @@ public class LighthouseSettings : ScriptableObject
 	[Range(0,1)]
 	public float Width;
 }
+

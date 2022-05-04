@@ -8,13 +8,16 @@ using UnityEngine.Rendering.Universal;
 public class LighthousePattern : PrairiePatternLayer
 {
 	[Space]
-	
 	[Expandable]
 	public LighthouseSettings PatternSettings;
 
+	[Space]
+	[Expandable]
+	public ColorizeBrightToGradient ColorizeSettings;
+
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
 
-	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
+	public override void Run(float deltaTime,PrairieLayerScene scene, List<StemColorManager> Points)
 	{
 		float falloff = 1f/ PatternSettings.Width;
 		float speed = PatternSettings.Speed;
@@ -45,7 +48,16 @@ public class LighthousePattern : PrairiePatternLayer
 			float b = (Mathf.Max(0, (1 - falloff*dist)));
 
 			// color expects 0-1
-			Color blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * parentAlpha);
+			Color blendColor;
+			if (ColorizeSettings != null)
+			{
+				blendColor = ColorizeSettings.ColorForBrightness(b,scene);
+				blendColor.a = b * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+			}
+			else
+			{
+				blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha);
+			}
 
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}

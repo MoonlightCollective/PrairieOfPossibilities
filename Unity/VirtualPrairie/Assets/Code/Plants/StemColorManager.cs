@@ -32,12 +32,12 @@ public class StemColorManager : DmxColorPoint
 	{
 		float glow = GlobalPlantSettings.Instance.GlowIntensity;
 		float stemAlpha = GlobalPlantSettings.Instance.StemAlpha;
-
+		float Brightness = GlobalPlantSettings.Instance.Brightness;
 		Color glowColor = new Color(_curColor.r * glow, _curColor.g * glow, _curColor.b * glow, stemAlpha);
-		Color mainColor = new Color(_curColor.r, _curColor.g, _curColor.b, stemAlpha);
+		Color mainColor = new Color(_curColor.r * Brightness, _curColor.g * Brightness, _curColor.b * Brightness, stemAlpha);
 		foreach (var mat in Materials)
 		{
-			mat.SetColor("MainColor", _curColor);
+			mat.SetColor("MainColor", mainColor);
 			mat.SetColor("GlowColor", glowColor);
 			mat.SetFloat("GlowIntensity",glow);
 		}

@@ -6,5 +6,5 @@ using UnityEngine;
 public class OnePointEachSettings : ScriptableObject
 {
 	public float DelayTimeSec = 0.5f;
-	public Color PointColor = Color.red;
+	public SmartColorSlot PointColor;
 }

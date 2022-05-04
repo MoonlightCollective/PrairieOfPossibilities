@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 
 public class SolidColorPattern : PrairiePatternLayer
 {
-	[Header("Color")]
-	public Color MyColor = new Color(1.0f,1.0f,1.0f,1.0f);
+	public SmartColorSlot SolidColor;
 
-	public override void Run(float deltaTime,float parentAlpha, List<StemColorManager> Points)
+	public override void Run(float deltaTime,PrairieLayerScene scene, List<StemColorManager> Points)
 	{
-		Color blendColor = MyColor;
-		blendColor.a = blendColor.a * BlendSettings.LayerAlpha * parentAlpha;
+		Color blendColor = SolidColor.Color(scene);
+		blendColor.a = blendColor.a * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+
 		foreach (var p in Points)
 		{
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));

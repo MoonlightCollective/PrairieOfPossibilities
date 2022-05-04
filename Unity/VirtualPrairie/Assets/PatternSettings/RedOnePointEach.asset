@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: RedOnePointEach
   m_EditorClassIdentifier: 
   DelayTimeSec: 0.25
-  PointColor: {r: 1, g: 0, b: 0, a: 1}
+  PointColor:
+    UsePalette: 0
+    StaticColor: {r: 1, g: 0, b: 0, a: 1}
+    ColorIndex: 2
