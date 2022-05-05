@@ -46,7 +46,8 @@ public class PerlinNoisePattern : PrairiePatternLayer
 		foreach (var p in points)
 		{
 			Vector3 pos = p.transform.position + _offsetVect;
-			float noiseVal = Mathf.Clamp01((float)NoiseS3D.NoiseCombinedOctaves(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
+			// float noiseVal = Mathf.Clamp01((float)NoiseS3D.NoiseCombinedOctaves(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
+			float noiseVal = Mathf.Clamp01((float)NoiseS3D.Noise(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
 			float brightness = NoiseSettings.BrightnessCurve.Evaluate(noiseVal);
 			
 			if (ColorizeSettings == null)

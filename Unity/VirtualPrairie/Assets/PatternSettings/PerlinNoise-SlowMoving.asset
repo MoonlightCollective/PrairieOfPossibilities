@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d169ab3a1b5e541f8a81fc74da489925, type: 3}
   m_Name: PerlinNoise-SlowMoving
   m_EditorClassIdentifier: 
-  NoiseScale: {x: 30, y: 100, z: 30}
+  NoiseScale: {x: 70, y: 50, z: 70}
   InitialOffsets: {x: 0, y: 0, z: 0}
   BrightnessCurve:
     serializedVersion: 2
@@ -20,12 +20,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 2.8108244
+      outSlope: 2.8108244
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.030206677
     - serializedVersion: 3
       time: 1
       value: 1
@@ -38,6 +38,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MotionSpeedX: 0
-  MotionSpeedY: 1.2
-  MotionSpeedZ: 0.1
+  MotionSpeedX: 0.7
+  MotionSpeedY: 0.4
+  MotionSpeedZ: 0.3
