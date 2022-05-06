@@ -5,9 +5,9 @@ using NaughtyAttributes;
 using PygmyMonkey.ColorPalette;
 
 [System.Serializable]
-public class ColorizeBrightnessValue : ColorizeBase
+public abstract class ColorizeBrightnessValue : ColorizeBase
 {
-
+	public abstract Color ColorForBrightness(float v, PrairieLayerGroup group );
 }
 
 [System.Serializable]
@@ -17,7 +17,7 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 	public SmartColorSlot MinColor;
 	public SmartColorSlot MaxColor;
 
-	public Color ColorForBrightness(float v, PrairieLayerGroup group )
+	public override Color ColorForBrightness(float v, PrairieLayerGroup group )
 	{
 		float clampedV = Mathf.Clamp01(v);
 		if (group == null || group.GroupPalette == null)
@@ -40,8 +40,9 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 			float floatDex = Mathf.Lerp(MinColorDex,MaxColorDex,clampedV);
 
 			// now Color lerp between the bookending indicies.
-			int minLerpDex = Mathf.FloorToInt(floatDex);
-			int maxLerpDex = Mathf.FloorToInt(floatDex+1);
+			int minLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex),0,1);
+			int maxLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex+1),0,palette.colorInfoList.Count-1);
+
 			return Color.Lerp(palette.colorInfoList[minLerpDex].color,palette.colorInfoList[maxLerpDex].color,floatDex -(float)minLerpDex);
 		}
 

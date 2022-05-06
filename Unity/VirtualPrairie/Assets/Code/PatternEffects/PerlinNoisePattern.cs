@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class PerlinNoisePattern : PrairiePatternLayer
+public class PerlinNoisePattern : PrairiePatternMonochromaticBase
 {
 	[Space]
 	[Expandable]
 	public PerlinNoiseSettings NoiseSettings;
 	
-	[Space]
-	[Expandable]
-	public ColorizeBrightToGradient ColorizeSettings;
-
 	protected Vector3 _offsetVect = Vector3.zero;
 	protected Vector3 _moveSpeedVect = Vector3.zero;
 	protected Vector3 _noiseScale = Vector3.one;
@@ -38,27 +34,17 @@ public class PerlinNoisePattern : PrairiePatternLayer
 
 	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
-		float alpha = BlendSettings.LayerAlpha * group.GroupAlpha;
-		Color blendColor;
 		updateVects();
 		updateMotion(deltaTime);
 
 		foreach (var p in points)
 		{
 			Vector3 pos = p.transform.position + _offsetVect;
-			// float noiseVal = Mathf.Clamp01((float)NoiseS3D.NoiseCombinedOctaves(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
+
 			float noiseVal = Mathf.Clamp01((float)NoiseS3D.Noise(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
 			float brightness = NoiseSettings.BrightnessCurve.Evaluate(noiseVal);
 			
-			if (ColorizeSettings == null)
-			{
-				blendColor = new Color(brightness,brightness,brightness,alpha * brightness);
-			}
-			else
-			{
-				blendColor = ColorizeSettings.ColorForBrightness(brightness,group);
-				blendColor.a = alpha * brightness;
-			}
+			Color blendColor = ColorForBrightness(brightness,group);
 
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}

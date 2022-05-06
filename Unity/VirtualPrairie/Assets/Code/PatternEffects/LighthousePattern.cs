@@ -5,15 +5,11 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 
-public class LighthousePattern : PrairiePatternLayer
+public class LighthousePattern : PrairiePatternMonochromaticBase
 {
 	[Space]
 	[Expandable]
 	public LighthouseSettings PatternSettings;
-
-	[Space]
-	[Expandable]
-	public ColorizeBrightToGradient ColorizeSettings;
 
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
 
@@ -47,18 +43,10 @@ public class LighthousePattern : PrairiePatternLayer
 			// brightness is 0-1
 			float b = (Mathf.Max(0, (1 - falloff*dist)));
 
-			// color expects 0-1
-			Color blendColor;
-			if (ColorizeSettings != null)
-			{
-				blendColor = ColorizeSettings.ColorForBrightness(b,group);
-				blendColor.a = b * BlendSettings.LayerAlpha * group.GroupSettings.GroupAlpha;
-			}
-			else
-			{
-				blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * group.GroupSettings.GroupAlpha);
-			}
+			// convert to brightness based on our colorize settings (see base class)
+			Color blendColor = ColorForBrightness(b,group);
 
+			// Set color on the point
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}
 	}
