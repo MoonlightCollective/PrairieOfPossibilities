@@ -52,12 +52,12 @@ public class PerlinNoisePattern : PrairiePatternLayer
 			
 			if (ColorizeSettings == null)
 			{
-				blendColor = new Color(brightness,brightness,brightness,alpha);
+				blendColor = new Color(brightness,brightness,brightness,alpha * brightness);
 			}
 			else
 			{
 				blendColor = ColorizeSettings.ColorForBrightness(brightness,scene);
-				blendColor.a = alpha;
+				blendColor.a = alpha * brightness;
 			}
 
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
