@@ -36,9 +36,9 @@ public class PerlinNoisePattern : PrairiePatternLayer
 		}
 	}
 
-	public override void Run(float deltaTime, PrairieLayerScene scene, List<StemColorManager> points)
+	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
-		float alpha = BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+		float alpha = BlendSettings.LayerAlpha * group.GroupAlpha;
 		Color blendColor;
 		updateVects();
 		updateMotion(deltaTime);
@@ -56,7 +56,7 @@ public class PerlinNoisePattern : PrairiePatternLayer
 			}
 			else
 			{
-				blendColor = ColorizeSettings.ColorForBrightness(brightness,scene);
+				blendColor = ColorizeSettings.ColorForBrightness(brightness,group);
 				blendColor.a = alpha * brightness;
 			}
 

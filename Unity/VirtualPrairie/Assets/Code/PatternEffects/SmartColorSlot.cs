@@ -17,15 +17,15 @@ public class SmartColorSlot
 	[Range(0,7)]
 	public int ColorIndex = 0;
 
-	public Color Color(PrairieLayerScene scene)
+	public Color Color(PrairieLayerGroup group)
 	{
 		if (UsePalette)
 		{
-			if (scene.ScenePalette != null && 
+			if (group.GroupPalette != null && 
 				ColorIndex > -1 &&
-				ColorIndex < scene.ScenePalette.colorInfoList.Count)
+				ColorIndex < group.GroupPalette.colorInfoList.Count)
 			{
-				return scene.ScenePalette.colorInfoList[ColorIndex].color;
+				return group.GroupPalette.colorInfoList[ColorIndex].color;
 			}
 		}
 

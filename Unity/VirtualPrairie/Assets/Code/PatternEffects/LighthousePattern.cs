@@ -17,7 +17,7 @@ public class LighthousePattern : PrairiePatternLayer
 
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
 
-	public override void Run(float deltaTime,PrairieLayerScene scene, List<StemColorManager> Points)
+	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> Points)
 	{
 		float falloff = 1f/ PatternSettings.Width;
 		float speed = PatternSettings.Speed;
@@ -51,12 +51,12 @@ public class LighthousePattern : PrairiePatternLayer
 			Color blendColor;
 			if (ColorizeSettings != null)
 			{
-				blendColor = ColorizeSettings.ColorForBrightness(b,scene);
-				blendColor.a = b * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+				blendColor = ColorizeSettings.ColorForBrightness(b,group);
+				blendColor.a = b * BlendSettings.LayerAlpha * group.GroupSettings.GroupAlpha;
 			}
 			else
 			{
-				blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha);
+				blendColor = new Color(b,b,b,b * BlendSettings.LayerAlpha * group.GroupSettings.GroupAlpha);
 			}
 
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));

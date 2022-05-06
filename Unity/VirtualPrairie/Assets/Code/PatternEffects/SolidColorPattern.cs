@@ -9,10 +9,10 @@ public class SolidColorPattern : PrairiePatternLayer
 {
 	public SmartColorSlot SolidColor;
 
-	public override void Run(float deltaTime,PrairieLayerScene scene, List<StemColorManager> Points)
+	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> Points)
 	{
-		Color blendColor = SolidColor.Color(scene);
-		blendColor.a = blendColor.a * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+		Color blendColor = SolidColor.Color(group);
+		blendColor.a = blendColor.a * BlendSettings.LayerAlpha * group.GroupAlpha;
 
 		foreach (var p in Points)
 		{

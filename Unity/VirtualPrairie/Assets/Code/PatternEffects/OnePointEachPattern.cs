@@ -12,7 +12,7 @@ public class OnePointEachPattern : PrairiePatternLayer
 	float _delayTimer = -1f;
 	int _index = -1;
 
-    public override void Run(float deltaTime, PrairieLayerScene scene, List<StemColorManager> points) 
+    public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points) 
     {
 		_delayTimer -= deltaTime;
 		if (_delayTimer <= 0 )
@@ -24,7 +24,7 @@ public class OnePointEachPattern : PrairiePatternLayer
 				_index = 0;
 			}
 		}
-		Color blendColor = OnePointEachSettings.PointColor.Color(scene) * BlendSettings.LayerAlpha * scene.SceneSettings.SceneAlpha;
+		Color blendColor = OnePointEachSettings.PointColor.Color(group) * BlendSettings.LayerAlpha * group.GroupAlpha;
 		points[_index].SetColor(ColorBlend.BlendColors(blendColor,points[_index].CurColor,BlendSettings.BlendMode));
     }
 }
