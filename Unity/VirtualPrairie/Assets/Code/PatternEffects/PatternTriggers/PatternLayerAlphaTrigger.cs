@@ -4,16 +4,12 @@ using NaughtyAttributes;
 using Nothke.Utils;
 using UnityEngine;
 
-public class PatternLayerAlphaTrigger : MonoBehaviour
+public class PatternLayerAlphaTrigger : TriggerListener
 {
-	public bool EnableKeyboardDebug;
-	
-	[EnableIf("EnableKeyboardDebug")]
-	public KeyCode DebugKey;
-
 	public ADSREnvelope AlphaEnv = ADSREnvelope.Default();
 
 	protected PrairiePatternLayer _patternLayer = null;
+	protected bool _trigger = false;
 
 	public void Start()
 	{
@@ -33,11 +29,14 @@ public class PatternLayerAlphaTrigger : MonoBehaviour
 		if (_patternLayer == null)
 			return;
 
-		bool signalOn = false;
-		if (EnableKeyboardDebug)
-		{
-			signalOn = Input.GetKey(DebugKey);
-		}
+		bool signalOn = _trigger;
 		_patternLayer.BlendSettings.LayerAlpha = AlphaEnv.Update(signalOn,Time.deltaTime);
+		_trigger = false;
+	}
+
+	public override void NotifyTriggered(PrairieTriggerParams tParams)
+	{
+		PrairieUtil.EventDebug($"{gameObject.name} Notified trigger received");
+		_trigger = true;
 	}
 }

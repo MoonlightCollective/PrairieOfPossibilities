@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 public class PrairieUtil
 {
 	static string s_lastExportPath = "";
-	
+	static bool _debugEvents = false;
+
 	public enum AxisEnum 
 	{ 
 		Y, 
@@ -127,5 +128,11 @@ public class PrairieUtil
 				s_points = value;
 			}
 		}
+	}
+
+	public static void EventDebug(string debugStr)
+	{
+		if (_debugEvents)
+			Debug.Log($"Event: {debugStr}");
 	}
 }
