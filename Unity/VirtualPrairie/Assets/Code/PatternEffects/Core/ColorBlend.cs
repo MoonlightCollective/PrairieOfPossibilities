@@ -22,7 +22,7 @@ public class ColorBlend
 			default:
 				return srcColor;
 			case EBlendMode.AlphaBlend:
-				return ((srcColor * srcColor.a) + (destColor * destColor.a * (1f-srcColor.a)));
+				return ((srcColor * srcColor.a) + (destColor * (1f-srcColor.a)));
 			case EBlendMode.Add:
 				return srcColor + destColor;
 			case EBlendMode.AddClamped:

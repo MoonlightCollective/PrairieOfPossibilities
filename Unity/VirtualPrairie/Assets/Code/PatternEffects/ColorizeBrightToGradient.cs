@@ -40,7 +40,7 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 			float floatDex = Mathf.Lerp(MinColorDex,MaxColorDex,clampedV);
 
 			// now Color lerp between the bookending indicies.
-			int minLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex),0,1);
+			int minLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex),0,palette.colorInfoList.Count-1);
 			int maxLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex+1),0,palette.colorInfoList.Count-1);
 
 			return Color.Lerp(palette.colorInfoList[minLerpDex].color,palette.colorInfoList[maxLerpDex].color,floatDex -(float)minLerpDex);
