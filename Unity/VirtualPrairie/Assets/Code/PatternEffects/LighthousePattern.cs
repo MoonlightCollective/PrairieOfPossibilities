@@ -33,10 +33,10 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 			switch (PatternSettings.Axis) 
 			{
 				case PrairieUtil.AxisEnum.Y:
-					pAngle = p.azimuth / (2f * Mathf.PI); // note - azimuth is in radians 0->2*Pi
+					pAngle = p.GlobalAzimuthNormalized;
 		 			break;
 				case PrairieUtil.AxisEnum.Z:
-		  			pAngle = p.theta / (2f * Mathf.PI);
+		  			pAngle = p.GlobalThetaNormalized;
 		  		break;
 			}
 		

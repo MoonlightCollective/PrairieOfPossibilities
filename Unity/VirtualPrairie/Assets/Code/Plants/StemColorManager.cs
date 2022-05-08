@@ -26,6 +26,19 @@ public class StemColorManager : DmxColorPoint
 	public Color CurColor => _curColor;
 
 	private Transform _rootTransform;
+	
+	protected float _globalAzimuth = 0f;
+	public float GlobalAzimuth => _globalAzimuth;
+	protected float _globalAzimuthNormalized = 0f;
+	public float GlobalAzimuthNormalized => _globalAzimuthNormalized;
+
+	protected float _globalTheta = 0f;
+	protected float _globalThetaNormalized = 0f;
+	public float GlobalTheta => _globalThetaNormalized;
+	public float GlobalThetaNormalized => _globalThetaNormalized;
+
+	protected float _globalDistFromOrigin = 0f;
+	public float GlobalDistFromOrigin => _globalDistFromOrigin;
 
 	public List<EStemTags> Tags = new List<EStemTags>();
 	
@@ -69,9 +82,22 @@ public class StemColorManager : DmxColorPoint
 
 	public void LateUpdate()
 	{
+		checkForTransformChange();
 		ApplyColorToMats();
 		ApplyColorToDmx();
 		SetColor(Color.black);
+	}
+
+	void checkForTransformChange()
+	{
+		if (transform.hasChanged)
+		{
+			_globalAzimuth = azimuth * Mathf.Rad2Deg;
+			_globalAzimuthNormalized = _globalAzimuth / 360f;
+			_globalTheta = theta * Mathf.Rad2Deg;
+			_globalThetaNormalized = _globalTheta / 360f;
+			_globalDistFromOrigin = transform.position.magnitude;
+		}
 	}
 
 	//
@@ -131,7 +157,7 @@ public class StemColorManager : DmxColorPoint
 	}
 
 
-	public float azimuth
+	protected float azimuth
 	{
 		get
 		{		
@@ -139,11 +165,11 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	public float theta
+	protected float theta
 	{
 		get
 		{
-			return (float) ((2*Mathf.PI + Mathf.Atan2(this.gameObject.transform.position.z, this.gameObject.transform.position.x)) % (2*Mathf.PI));
+			return (float) ((2*Mathf.PI + Mathf.Atan2(this.gameObject.transform.position.y, this.gameObject.transform.position.x)) % (2*Mathf.PI));
 		}
 	}
 }
