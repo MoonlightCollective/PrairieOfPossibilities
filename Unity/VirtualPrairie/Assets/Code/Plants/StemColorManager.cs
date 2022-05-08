@@ -10,6 +10,13 @@ using UnityEngine.Rendering.Universal;
 //  Pulls from some global settings for things like glow intensity, etc.  This is basically
 //  a single POINT of LXStudio, but rendered as a fiber.
 //
+
+public enum EStemTags
+{
+	Inner,
+	Outer,
+}
+
 public class StemColorManager : DmxColorPoint
 {
 	public List<Material> Materials = new List<Material>();
@@ -20,6 +27,8 @@ public class StemColorManager : DmxColorPoint
 
 	private Transform _rootTransform;
 
+	public List<EStemTags> Tags = new List<EStemTags>();
+	
 	// 
 	// SetColor - set colors in the instanced materials for all mesh renderers associated with me.
 	// 
@@ -109,6 +118,18 @@ public class StemColorManager : DmxColorPoint
 			}
 		}
 	}
+
+	public bool HasTag(EStemTags tag)
+	{
+		return Tags.Contains(tag);
+	}
+
+	public void AddTag(EStemTags tag)
+	{
+		if (!Tags.Contains(tag))
+			Tags.Add(tag);
+	}
+
 
 	public float azimuth
 	{

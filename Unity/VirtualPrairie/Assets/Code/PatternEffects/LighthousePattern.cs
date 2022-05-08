@@ -13,7 +13,7 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
 
-	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> Points)
+	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> points)
 	{
 		float falloff = 1f/ PatternSettings.Width;
 		float speed = PatternSettings.Speed;
@@ -25,8 +25,11 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 		float pAngle = 0;
 		float dist = 0;
 		
-		foreach (var p in Points)
+		foreach (var p in points)
 		{
+			if (!filterAllowPoint(p))
+				continue;
+
 			switch (PatternSettings.Axis) 
 			{
 				case PrairieUtil.AxisEnum.Y:

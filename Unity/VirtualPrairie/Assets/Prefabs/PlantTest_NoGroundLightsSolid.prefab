@@ -161,6 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6911523336032311075}
+  - component: {fileID: 5846186125614093194}
   m_Layer: 0
   m_Name: StalkGroupAa
   m_TagString: Untagged
@@ -186,6 +187,26 @@ Transform:
   m_Father: {fileID: 7748488310151381900}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5846186125614093194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284445359100624223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 01000000
 --- !u!1 &1352249855979200952
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497134921465771096}
+  - component: {fileID: 4233149882316851780}
   m_Layer: 0
   m_Name: StalkGroupC.001
   m_TagString: Untagged
@@ -220,6 +242,26 @@ Transform:
   m_Father: {fileID: 7748488310151381900}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4233149882316851780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352249855979200952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 01000000
 --- !u!1 &1745316901375456816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,6 +1339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6138726562467492298}
+  - component: {fileID: 5081569984941421143}
   m_Layer: 0
   m_Name: StalkGroupA
   m_TagString: Untagged
@@ -1322,6 +1365,26 @@ Transform:
   m_Father: {fileID: 7748488310151381900}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5081569984941421143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425457410181083265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 01000000
 --- !u!1 &5513314900795312774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1632,6 +1695,7 @@ GameObject:
   - component: {fileID: 5133643311247906847}
   - component: {fileID: 935040736657174996}
   - component: {fileID: 6512607397049145283}
+  - component: {fileID: 441061299290761341}
   m_Layer: 0
   m_Name: CenterStalk0
   m_TagString: Untagged
@@ -1704,6 +1768,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &441061299290761341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321245393421070387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 00000000
 --- !u!1 &6521197590021216795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2218,6 +2302,7 @@ GameObject:
   - component: {fileID: 7572229891541908597}
   - component: {fileID: 1018930185042297836}
   - component: {fileID: 3848024682795528252}
+  - component: {fileID: 4695485920837457245}
   m_Layer: 0
   m_Name: CenterStalk1
   m_TagString: Untagged
@@ -2290,6 +2375,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4695485920837457245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651876965700386877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 00000000
 --- !u!1 &7672513587620021197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,6 +2736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4280179694773857108}
+  - component: {fileID: 6919055688776913120}
   m_Layer: 0
   m_Name: StalkGroupB
   m_TagString: Untagged
@@ -2656,6 +2762,26 @@ Transform:
   m_Father: {fileID: 7748488310151381900}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6919055688776913120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8356487455084129080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 01000000
 --- !u!1 &8506276720142060015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2791,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2058379550764177735}
+  - component: {fileID: 2401975354984159160}
   m_Layer: 0
   m_Name: StalkGroupC
   m_TagString: Untagged
@@ -2690,6 +2817,26 @@ Transform:
   m_Father: {fileID: 7748488310151381900}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2401975354984159160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8506276720142060015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7412fab5805c6b24fbdf18714ba6c37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 0}
+  Host: undefined
+  Universe: -1
+  GlobalPointIndex: -1
+  LocalPointIndex: -1
+  Materials: []
+  GlowMat: {fileID: 0}
+  Tags: 01000000
 --- !u!1 &8518179847689711484
 GameObject:
   m_ObjectHideFlags: 0

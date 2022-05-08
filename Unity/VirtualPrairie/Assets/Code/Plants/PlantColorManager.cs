@@ -51,9 +51,13 @@ public class PlantColorManager : WiredFixtureBase
 	// this is safe to call multiple times.   it will only find and load the child objects once
 	public void FindChildren()
 	{
+		Debug.Log("FindChildren");
 		// have we already found the children?
 		if (StemColors != null && StemColors.Count > 1)
+		{
+			applyTags();
 			return;
+		}
 
 		if (StemColors == null)
 			StemColors = new List<StemColorManager>();
@@ -71,6 +75,21 @@ public class PlantColorManager : WiredFixtureBase
 
 				scm.GlowMat = GlowMat;
 				StemColors.Add(scm);
+			}
+		}
+	}
+
+	protected void applyTags()
+	{
+		foreach (var scm in StemColors)
+		{
+			if (scm.gameObject.name.Contains("Center"))
+			{
+				scm.AddTag(EStemTags.Inner);
+			}
+			else
+			{
+				scm.AddTag(EStemTags.Outer);
 			}
 		}
 	}

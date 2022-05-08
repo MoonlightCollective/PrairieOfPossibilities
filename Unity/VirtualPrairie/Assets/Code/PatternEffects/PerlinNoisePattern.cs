@@ -39,6 +39,9 @@ public class PerlinNoisePattern : PrairiePatternMonochromaticBase
 
 		foreach (var p in points)
 		{
+			if (!filterAllowPoint(p))
+				continue;
+
 			Vector3 pos = p.transform.position + _offsetVect;
 
 			float noiseVal = Mathf.Clamp01((float)NoiseS3D.Noise(pos.x * _noiseScale.x, pos.y * _noiseScale.y, pos.z * _noiseScale.z));
