@@ -36,6 +36,7 @@ public class TriggerEmitter
 
 public abstract class TriggerBase : MonoBehaviour
 {
+	public string Name = "Trigger";
 	public TriggerEmitter TriggerTargets;
 }
 

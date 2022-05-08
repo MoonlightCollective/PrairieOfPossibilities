@@ -69,8 +69,8 @@ namespace Nothke.Utils
             return new ADSREnvelope()
             {
                 attack = .1f,
-                decay = 0f,
-                sustain = 0.5f,
+                decay = 0.1f,
+                sustain = 1.0f,
                 release = .5f
             };
         }
