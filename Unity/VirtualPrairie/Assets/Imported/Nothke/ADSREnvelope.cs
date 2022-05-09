@@ -61,7 +61,7 @@ namespace Nothke.Utils
             "\n\nIf enabled, the end of signal will \"interrupt\" the attack or decay and immediatelly skip to release.")]
         public bool interrupt = false;
 
-        float time = 0;
+        public float time = 0;
         bool lastPressed = false;
         float lastOnValue = 0;
 
@@ -78,6 +78,11 @@ namespace Nothke.Utils
             };
         }
 
+		public ADSREnvelope()
+		{
+			lastPressed = false;
+		}
+
         public float EvaluateIn(float time)
         {
             if (time < attack)
@@ -92,8 +97,9 @@ namespace Nothke.Utils
 
         public float EvaluateOut(float time, float from = 0)
         {
-            float _from = from == 0 ? sustain : from;
-
+            // float _from = from == 0 ? sustain : from;
+			float _from = from;
+			
             if (time < 0)
                 return _from;
 
@@ -106,7 +112,7 @@ namespace Nothke.Utils
 
         public float Update(bool value, float dt)
         {
-            // If interrupt is not set, this makes the value "sticky",
+			// If interrupt is not set, this makes the value "sticky",
             // so it keeps being on until the end of decay
             if (lastPressed && !interrupt && time < attack + decay)
             {

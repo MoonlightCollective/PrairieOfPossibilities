@@ -11,9 +11,17 @@ public class LayerBlendSettings
 	public float LayerAlpha = 1.0f;
 }
 
+[System.Serializable]
+public class TimeSettings
+{
+	[Range(0,5)]
+	public float TimeMult = 1.0f;
+}
+
 public class PrairieLayer : MonoBehaviour
 {
 	public LayerBlendSettings BlendSettings;
+	public TimeSettings TimeSettings;
 }
 
 

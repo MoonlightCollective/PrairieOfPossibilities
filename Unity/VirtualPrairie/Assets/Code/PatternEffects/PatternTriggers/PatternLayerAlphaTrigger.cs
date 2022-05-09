@@ -30,7 +30,7 @@ public class PatternLayerAlphaTrigger : TriggerListener
 			return;
 
 		bool signalOn = _trigger;
-		_patternLayer.BlendSettings.LayerAlpha = AlphaEnv.Update(signalOn,Time.deltaTime);
+		_patternLayer.BlendSettings.LayerAlpha = AlphaEnv.Update(signalOn,Time.deltaTime * _patternLayer.TimeSettings.TimeMult);
 		_trigger = false;
 	}
 
