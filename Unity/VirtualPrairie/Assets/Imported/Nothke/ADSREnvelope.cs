@@ -46,21 +46,24 @@ using UnityEngine;
 namespace Nothke.Utils
 {
     [System.Serializable]
-    public struct ADSREnvelope
+    public class ADSREnvelope
     {
-        public float attack, decay, sustain, release;
+        public float attack = 1f;
+		public float decay = 0f;
+		public float sustain = 1f;
+		public float release = 1f;
 
-        public float attackEase;
-        public float decayEase;
-        public float releaseEase;
+        public float attackEase = 0;
+        public float decayEase = 0;
+        public float releaseEase = 0;
 
         [Tooltip("If disabled, no matter how short the signal is, it will be played until at least the end of decay time. " +
             "\n\nIf enabled, the end of signal will \"interrupt\" the attack or decay and immediatelly skip to release.")]
-        public bool interrupt;
+        public bool interrupt = false;
 
-        float time;
-        bool lastPressed;
-        float lastOnValue;
+        float time = 0;
+        bool lastPressed = false;
+        float lastOnValue = 0;
 
         public float Time => time;
 

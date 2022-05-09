@@ -51,7 +51,7 @@ public class PlantColorManager : WiredFixtureBase
 	// this is safe to call multiple times.   it will only find and load the child objects once
 	public void FindChildren()
 	{
-		Debug.Log("FindChildren");
+		// Debug.Log("FindChildren");
 		// have we already found the children?
 		if (StemColors != null && StemColors.Count > 1)
 		{
