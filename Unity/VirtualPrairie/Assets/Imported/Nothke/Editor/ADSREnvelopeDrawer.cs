@@ -21,7 +21,6 @@ namespace Nothke.Utils
             float fullWidth = position.width;
 
             EditorGUI.BeginProperty(position, label, property);
-
             float startX = position.x;
 
             // Draw label foldout
@@ -38,22 +37,24 @@ namespace Nothke.Utils
             var attackEaseProp = property.FindPropertyRelative("attackEase");
             var decayEaseProp = property.FindPropertyRelative("decayEase");
             var releaseEaseProp = property.FindPropertyRelative("releaseEase");
-
             var interruptProp = property.FindPropertyRelative("interrupt");
+			var timeProp = property.FindPropertyRelative("time");
+			var curSegTimeProp = property.FindPropertyRelative("curSegTime");
+			var curSegProp = property.FindPropertyRelative("curSegment");
 
-            ADSREnvelope adsr = new ADSREnvelope
-            {
-                attack = attackProp.floatValue,
-                decay = decayProp.floatValue,
-                sustain = sustainProp.floatValue,
-                release = releaseProp.floatValue,
+			// Debug.Log($"aProp:{attackProp.floatValue}");
 
-                attackEase = attackEaseProp.floatValue,
-                decayEase = decayEaseProp.floatValue,
-                releaseEase = releaseEaseProp.floatValue,
+            ADSREnvelope adsr = 
+				new ADSREnvelope(attackProp.floatValue,
+								decayProp.floatValue,
+								sustainProp.floatValue,
+								releaseProp.floatValue,
+								interruptProp.boolValue,
+								attackEaseProp.floatValue,
+								decayEaseProp.floatValue,
+								releaseEaseProp.floatValue);
 
-                interrupt = interruptProp.boolValue
-            };
+			// Debug.Log("copying adsr:" + adsr.ToString());
 
             Rect curveRect = position;
 
@@ -72,7 +73,7 @@ namespace Nothke.Utils
             Vector2 lastP = curveStart;
             int viewWidth = (int)curveRect.width;
 
-            float os = 0.75f;
+            float os = 0.9f;
             float adrScale = (adsr.attack + adsr.decay + adsr.release) / (viewWidth * os);
 
             float attackWidth = adsr.attack / adrScale;
@@ -95,7 +96,8 @@ namespace Nothke.Utils
             EditorGUI.DrawRect(miniRect, new Color(1, 1, 0) * colorAlpha);
 
             miniRect.x += miniRect.width;
-            miniRect.width = Mathf.CeilToInt(curveRect.width - (attackWidth + decayWidth + releaseWidth));
+			float sustainWidth = (curveRect.width - (attackWidth + decayWidth + releaseWidth));
+            miniRect.width = Mathf.CeilToInt(sustainWidth);
             EditorGUI.DrawRect(miniRect, new Color(0, 1, 1) * colorAlpha);
 
             miniRect.x = Mathf.CeilToInt(curveRect.x + viewWidth - releaseWidth);
@@ -108,7 +110,7 @@ namespace Nothke.Utils
             {
                 float v = i < viewWidth - releaseWidth ?
                     adsr.EvaluateIn(i * graphScale) :
-                    adsr.EvaluateOut((i - (viewWidth - releaseWidth)) * graphScale);
+                    adsr.EvaluateOut((i - (viewWidth - releaseWidth)) * graphScale, adsr.sustain);
 
                 Vector2 p = curveStart + new Vector2(i, -v * curveRect.height);
                 Handles.DrawLine(lastP, p);
@@ -116,15 +118,32 @@ namespace Nothke.Utils
             }
 
             // Doesn't work nicely, not worth it:
-            /*
-            if (Application.isPlaying)
-            {
-                float t = adsr.Time;
-                float tx = t / adrScale;
-                Vector2 cp = curveRect.position;
-                cp.x += tx;
-                Handles.DrawLine(cp, cp + new Vector2(0, curveRect.height));
-            }*/
+			if (Application.isPlaying)
+			{
+				float t = timeProp.floatValue / adsr.TotalTime;
+				float tx = 0f;
+				switch (curSegProp.enumValueIndex)
+				{
+					case 0: // idle
+						tx = 0;
+						break;
+					case 1: // attack
+						tx = attackWidth * curSegTimeProp.floatValue;
+						break;
+					case 2: // decay
+						tx = attackWidth + decayWidth * curSegTimeProp.floatValue;
+						break;
+					case 3: // sustain
+						tx = attackWidth + decayWidth;
+						break;
+					case 4: // release
+						tx = attackWidth + decayWidth + sustainWidth + releaseWidth * curSegTimeProp.floatValue;
+						break;
+				}
+				Vector2 cp = curveRect.position;
+				cp.x += tx;
+				Handles.DrawLine(cp, cp + new Vector2(0, curveRect.height));
+			}
 
             if (fold)
             {

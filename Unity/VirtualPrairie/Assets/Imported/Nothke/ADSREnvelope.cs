@@ -41,6 +41,7 @@
 /// ============================================================================
 ///
 
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Nothke.Utils
@@ -48,39 +49,78 @@ namespace Nothke.Utils
     [System.Serializable]
     public class ADSREnvelope
     {
-        public float attack = 1f;
-		public float decay = 0f;
-		public float sustain = 1f;
-		public float release = 1f;
+		const float kDefaultAttack = 1.0f;
+		const float kDefaultDecay = 0.0f;
+		const float kDefaultSustain = 1.0f;
+		const float kDefaultRelease = 1.0f;
+		const float kDefaultAttackEase = 0.0f;
+		const float kDefaultDecayEase = 0.0f;
+		const float kDefaultReleaseEase = 0.0f;
+		const bool kDefaultInterrupt = false;
+		const bool kDefaultLoop = false;
 
-        public float attackEase = 0;
-        public float decayEase = 0;
-        public float releaseEase = 0;
+        public float attack = kDefaultAttack;
+		public float decay = kDefaultDecay;
+		public float sustain = kDefaultSustain;
+		public float release = kDefaultRelease;
+
+        public float attackEase = kDefaultAttackEase;
+        public float decayEase = kDefaultDecayEase;
+        public float releaseEase = kDefaultReleaseEase;
 
         [Tooltip("If disabled, no matter how short the signal is, it will be played until at least the end of decay time. " +
             "\n\nIf enabled, the end of signal will \"interrupt\" the attack or decay and immediatelly skip to release.")]
-        public bool interrupt = false;
+        public bool interrupt = kDefaultInterrupt;
+		public bool retrigger = true;
 
-        public float time = 0;
-        bool lastPressed = false;
-        float lastOnValue = 0;
+		public float time = 0f;
+		public float curSegTime = 0f;
+		protected bool _triggerSignalOn = false;
+		protected float _releaseStart = 1f;
 
-        public float Time => time;
+		protected float _lastSegStartTime = 0f;
+		public float LastSegStartTime => _lastSegStartTime;
+
+		public enum ESegment
+		{
+			Idle,
+			Attack,
+			Decay,
+			Sustain,
+			Release
+		}
+		
+		public ESegment curSegment = ESegment.Idle;
+
+		public float TotalTime => (attack + decay + release);
 
         public static ADSREnvelope Default()
         {
-            return new ADSREnvelope()
-            {
-                attack = .1f,
-                decay = 0.1f,
-                sustain = 1.0f,
-                release = .5f
-            };
+            return new ADSREnvelope(); // constructor takes care of defaults
         }
 
 		public ADSREnvelope()
 		{
-			lastPressed = false;
+			curSegment = ESegment.Idle;
+			_triggerSignalOn = false;
+			time = 0;
+		}
+
+		public ADSREnvelope(float a, float d, float s, float r, bool doInterrupt = false,float aEase = 0f, float dEase = 0f, float rEase = 0f) : base()
+		{
+			attack = a;
+			decay = d;
+			sustain = s;
+			release = r;
+			interrupt = doInterrupt;
+			attackEase = aEase;
+			decayEase = dEase;
+			releaseEase = rEase;
+		}
+
+		public override string ToString()
+		{
+			return $"A:{attack.ToString("0.00")} D:{decay.ToString("0.00")} S:{sustain.ToString("0.00")} R:{release.ToString("0.00")} Time:{time} / Time:{TotalTime}";
 		}
 
         public float EvaluateIn(float time)
@@ -110,36 +150,120 @@ namespace Nothke.Utils
                 return 0;
         }
 
-        public float Update(bool value, float dt)
+
+        public float Update(bool gateValue, float deltaTime)
         {
-			// If interrupt is not set, this makes the value "sticky",
-            // so it keeps being on until the end of decay
-            if (lastPressed && !interrupt && time < attack + decay)
-            {
-                value = true;
-            }
-
-            // Reset time on key change
-            if (value != lastPressed)
-                time = 0;
-
-            time += dt;
-
-            float f;
-            if (value)
-            {
-                f = EvaluateIn(time);
-                lastOnValue = f;
-            }
-            else
-            {
-                f = EvaluateOut(time, lastOnValue);
-            }
-
-            lastPressed = value;
-
-            return f;
+			switch (curSegment)
+			{
+				case ESegment.Idle:
+					return updateIdle(gateValue,deltaTime);
+				case ESegment.Attack:
+					return updateAttack(gateValue,deltaTime);
+				case ESegment.Decay:
+					return updateDecay(gateValue,deltaTime);
+				case ESegment.Sustain:
+					return updateSustain(gateValue,deltaTime);
+				case ESegment.Release:
+					return updateRelease(gateValue,deltaTime);
+			}
+			return 0f;
         }
+
+		float updateIdle(bool value, float deltaTime)
+		{
+			if (value)
+			{
+				curSegment = ESegment.Attack;
+				_lastSegStartTime = 0f;
+				time = 0;
+			}
+			curSegTime = 0f;
+			return 0;
+		}
+
+		float updateAttack(bool gateValue, float deltaTime)
+		{
+			time += deltaTime;
+			if (time >= attack)
+			{
+				time = attack;
+				curSegment = ESegment.Decay; // assume we'll be moving on to decay, but might not if we released this frame
+			}
+
+			_lastSegStartTime = time; // if we change state, keep track of when we did it.
+
+			curSegTime = (attack<=0)?0f:time/attack;
+			float val = (attack<=0)?0f:Mathf.Lerp(0,1,curSegTime);
+
+			if (!gateValue)
+			{
+				if (interrupt)
+				{
+					curSegment = ESegment.Release;
+					_releaseStart = val;
+				}
+				// if we don't have interrupt set, we just keep trucking through decay as if we did.
+			}
+
+			// Debug.Log($"Attack:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
+			return val;
+		}
+
+		float updateDecay(bool gateValue, float deltaTime)
+		{
+			time += deltaTime;
+
+			if (time >= attack + decay)
+			{
+				time = attack + decay;
+				curSegment = gateValue?ESegment.Sustain:ESegment.Release; // assume we're moving on to sustain
+			}
+
+			curSegTime = (decay<=0)?1:(time-_lastSegStartTime)/decay;
+			float val = (decay<=0)?sustain:Mathf.Lerp(1,sustain,curSegTime);
+
+			if (!gateValue && interrupt)
+			{
+				_lastSegStartTime = time;
+				_releaseStart = val;
+				curSegment = ESegment.Release;
+			}
+
+			// Debug.Log($"Decay:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
+			return val;
+		}
+
+		float updateSustain(bool gateValue, float deltaTime)
+		{
+			curSegTime = 1.0f;
+			if (!gateValue)
+			{
+				curSegment = ESegment.Release;
+				_lastSegStartTime = time;
+				_releaseStart = sustain;
+			}
+
+			// Debug.Log($"Systain:v:{sustain} {this.ToString()} next:{_curSegment.ToString()}");
+			return sustain;
+		}
+
+		float updateRelease(bool gateValue, float deltaTime)
+		{
+			time += deltaTime;
+			if (time >= _lastSegStartTime + release)
+			{
+				time = _lastSegStartTime + release;
+				curSegment = ESegment.Idle;
+			}
+
+			curSegTime = (release<=0)?1:(time-_lastSegStartTime)/release;
+			float val = (release<=0)?0f:Mathf.Lerp(_releaseStart,0,curSegTime);
+
+			// Debug.Log($"Release:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
+			// finish out our release, even if we have a gate signal at this point.
+			// todo: handle retrigger
+			return val;
+		}
 
         static float Ease(float p_x, float p_c)
         {

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PrairieUtil
 {
 	static string s_lastExportPath = "";
-	static bool _debugEvents = true;
+	static bool _debugEvents = false;
 
 	public enum AxisEnum 
 	{ 
