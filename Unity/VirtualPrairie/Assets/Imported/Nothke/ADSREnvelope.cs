@@ -75,7 +75,7 @@ namespace Nothke.Utils
 
 		public float time = 0f;
 		public float curSegTime = 0f;
-		protected bool _triggerSignalOn = false;
+		protected bool _lastGateVal = false;
 		protected float _releaseStart = 1f;
 
 		protected float _lastSegStartTime = 0f;
@@ -102,7 +102,7 @@ namespace Nothke.Utils
 		public ADSREnvelope()
 		{
 			curSegment = ESegment.Idle;
-			_triggerSignalOn = false;
+			_lastGateVal = false;
 			time = 0;
 		}
 
@@ -123,36 +123,15 @@ namespace Nothke.Utils
 			return $"A:{attack.ToString("0.00")} D:{decay.ToString("0.00")} S:{sustain.ToString("0.00")} R:{release.ToString("0.00")} Time:{time} / Time:{TotalTime}";
 		}
 
-        public float EvaluateIn(float time)
-        {
-            if (time < attack)
-                return 1 - Ease(1 - time / attack, attackEase);
-
-            else if (time < attack + decay)
-                return Mathf.Lerp(sustain, 1, Ease(1 - ((time - attack) / decay), decayEase));
-
-            else
-                return sustain;
-        }
-
-        public float EvaluateOut(float time, float from = 0)
-        {
-            // float _from = from == 0 ? sustain : from;
-			float _from = from;
-			
-            if (time < 0)
-                return _from;
-
-            else if (time < release)
-                return Ease(1 - time / release, releaseEase) * _from;
-
-            else
-                return 0;
-        }
-
-
         public float Update(bool gateValue, float deltaTime)
         {
+			if (retrigger && gateValue && !_lastGateVal)
+			{
+				time = -deltaTime;
+				curSegment = ESegment.Attack;
+			}
+			
+			_lastGateVal = gateValue;
 			switch (curSegment)
 			{
 				case ESegment.Idle:
@@ -183,53 +162,63 @@ namespace Nothke.Utils
 
 		float updateAttack(bool gateValue, float deltaTime)
 		{
-			time += deltaTime;
-			if (time >= attack)
+			time = Mathf.Min(deltaTime+time,attack);
+
+			// figure out our value from the attack ramp
+			curSegTime = (attack<=0)?0f:time/attack;
+
+			// float val = Mathf.Lerp(0,1,curSegTime);
+			float val = 1-Ease(1-curSegTime,attackEase);
+
+			if (!gateValue && interrupt)
 			{
-				time = attack;
+				// no gate - if I'm allowed to interrupt, move on to release
+				startRelease(val);
+			}
+			else if (time >= attack)
+			{
+				// if I get here, regardless of gate state, I should continue on to 
+				// the decay phase
+				curSegTime = 0f;
+				_lastSegStartTime = time;
 				curSegment = ESegment.Decay; // assume we'll be moving on to decay, but might not if we released this frame
 			}
 
-			_lastSegStartTime = time; // if we change state, keep track of when we did it.
-
-			curSegTime = (attack<=0)?0f:time/attack;
-			float val = (attack<=0)?0f:Mathf.Lerp(0,1,curSegTime);
-
-			if (!gateValue)
-			{
-				if (interrupt)
-				{
-					curSegment = ESegment.Release;
-					_releaseStart = val;
-				}
-				// if we don't have interrupt set, we just keep trucking through decay as if we did.
-			}
-
-			// Debug.Log($"Attack:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
+			envDebug($"Attack:v:{val} {this.ToString()} next:{curSegment.ToString()}");
 			return val;
 		}
 
 		float updateDecay(bool gateValue, float deltaTime)
 		{
-			time += deltaTime;
+			float adTime = attack + decay;
+			time = Mathf.Clamp(time+deltaTime,0,adTime);
 
-			if (time >= attack + decay)
+			curSegTime = (decay <= 0)?1:((time - _lastSegStartTime)/decay);
+
+			// float val = Mathf.Lerp(1,sustain,curSegTime);
+			float val = Mathf.Lerp(sustain, 1.0f, Ease(1-(curSegTime/release),decayEase));
+
+			if (time >= adTime)
 			{
-				time = attack + decay;
-				curSegment = gateValue?ESegment.Sustain:ESegment.Release; // assume we're moving on to sustain
+				if (!gateValue)
+				{
+					startRelease(val);
+				}
+				else
+				{
+					_lastSegStartTime = time;
+					curSegTime = 0f;
+					curSegment = ESegment.Sustain;
+				}
+			}
+			else if (!gateValue && interrupt)
+			{
+				// if I don't have a gate and I'm allowed to interrupt, then 
+				// move on to release immediately.
+				startRelease(val);
 			}
 
-			curSegTime = (decay<=0)?1:(time-_lastSegStartTime)/decay;
-			float val = (decay<=0)?sustain:Mathf.Lerp(1,sustain,curSegTime);
-
-			if (!gateValue && interrupt)
-			{
-				_lastSegStartTime = time;
-				_releaseStart = val;
-				curSegment = ESegment.Release;
-			}
-
-			// Debug.Log($"Decay:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
+			envDebug($"Decay:v:{val} {this.ToString()} next:{curSegment.ToString()}");
 			return val;
 		}
 
@@ -238,13 +227,21 @@ namespace Nothke.Utils
 			curSegTime = 1.0f;
 			if (!gateValue)
 			{
-				curSegment = ESegment.Release;
-				_lastSegStartTime = time;
-				_releaseStart = sustain;
+				startRelease(sustain);
 			}
 
-			// Debug.Log($"Systain:v:{sustain} {this.ToString()} next:{_curSegment.ToString()}");
+			envDebug($"Sustain:v:{sustain} {this.ToString()} next:{curSegment.ToString()}");
 			return sustain;
+		}
+
+
+
+		void startRelease(float releaseStart)
+		{
+			curSegment = ESegment.Release;
+			curSegTime = 0f;
+			_lastSegStartTime = time;
+			_releaseStart = releaseStart;
 		}
 
 		float updateRelease(bool gateValue, float deltaTime)
@@ -257,7 +254,11 @@ namespace Nothke.Utils
 			}
 
 			curSegTime = (release<=0)?1:(time-_lastSegStartTime)/release;
-			float val = (release<=0)?0f:Mathf.Lerp(_releaseStart,0,curSegTime);
+			
+			// float val = Mathf.Lerp(_releaseStart,0,curSegTime);
+			float val = Ease(1-(curSegTime/release), releaseEase) * _releaseStart;
+
+			envDebug($"Release:v:{val} {this.ToString()} next:{curSegment.ToString()}");
 
 			// Debug.Log($"Release:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
 			// finish out our release, even if we have a gate signal at this point.
@@ -280,5 +281,48 @@ namespace Nothke.Utils
                 return Mathf.Pow(p_x, p_c + 1);
             }
         }
+
+
+		//===============
+		// These are used by the property drawer function
+		//===============
+        public float EvaluateIn(float time)
+        {
+            if (time < attack)
+                return 1 - Ease(1 - time / attack, attackEase);
+
+            else if (time < attack + decay)
+                return Mathf.Lerp(sustain, 1, Ease(1 - ((time - attack) / decay), decayEase));
+
+            else
+                return sustain;
+        }
+
+        public float EvaluateOut(float time, float from = 0)
+        {
+            // float _from = from == 0 ? sustain : from;
+			float _from = from;
+			
+            if (time < 0)
+                return _from;
+
+            else if (time < release)
+                return Ease(1 - time / release, releaseEase) * _from;
+
+            else
+                return 0;
+        }
+
+
+
+
+		static bool s_debugEnv = false;
+		void envDebug(string dString)
+		{
+			if (s_debugEnv)
+			{
+				Debug.Log($"Env: {dString}");
+			}
+		}
     }
 }

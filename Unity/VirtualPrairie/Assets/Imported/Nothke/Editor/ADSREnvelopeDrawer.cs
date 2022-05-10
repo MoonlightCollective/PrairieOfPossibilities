@@ -6,13 +6,13 @@ namespace Nothke.Utils
     [CustomPropertyDrawer(typeof(Nothke.Utils.ADSREnvelope))]
     public class ADSREnvelopeDrawer : PropertyDrawer
     {
-        const int propCount = 7;
+        const int propCount = 8;
         bool fold;
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             float h = EditorGUIUtility.singleLineHeight;
-            return !fold ? h : propCount * h;
+            return !fold ? h : (propCount * (h+3));
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -41,6 +41,7 @@ namespace Nothke.Utils
 			var timeProp = property.FindPropertyRelative("time");
 			var curSegTimeProp = property.FindPropertyRelative("curSegTime");
 			var curSegProp = property.FindPropertyRelative("curSegment");
+			var retriggerProp = property.FindPropertyRelative("retrigger");
 
 			// Debug.Log($"aProp:{attackProp.floatValue}");
 
@@ -66,7 +67,7 @@ namespace Nothke.Utils
                 curveRect.y = position.y + h;
 
                 curveRect.width = fullWidth;
-                curveRect.height = h * 3;
+                curveRect.height = (h + 3) * 4;
             }
 
             Vector2 curveStart = curveRect.position - new Vector2(0, -curveRect.height);
@@ -159,7 +160,6 @@ namespace Nothke.Utils
                 float margin = 3;
                 float propWidth = position.width / 4 - margin;
                 var valueRect = new Rect(position.x, position.y, propWidth, h);
-                var easeRect = new Rect(position.x + valueRect.width, position.y, valueRect.width, h);
 
                 EditorGUI.PropertyField(valueRect, attackProp); valueRect.x += propWidth + margin;
                 EditorGUI.PropertyField(valueRect, decayProp); valueRect.x += propWidth + margin;
@@ -168,9 +168,16 @@ namespace Nothke.Utils
 
                 EditorGUI.PropertyField(valueRect, attackEaseProp, new GUIContent("Ease")); valueRect.x += propWidth + margin;
                 EditorGUI.PropertyField(valueRect, decayEaseProp, new GUIContent("Ease")); valueRect.x += propWidth + margin;
-                EditorGUI.PropertyField(valueRect, interruptProp); valueRect.x += propWidth + margin;
+				valueRect.x += propWidth + margin;
+                // EditorGUI.PropertyField(valueRect, interruptProp); 
                 EditorGUI.PropertyField(valueRect, releaseEaseProp, new GUIContent("Ease")); valueRect.x += propWidth + margin;
 
+				valueRect.y += h;
+				valueRect.x = startX;
+            	EditorGUI.PropertyField(valueRect, interruptProp);
+				valueRect.x += propWidth + margin;
+            	EditorGUI.PropertyField(valueRect, retriggerProp);
+				valueRect.x += propWidth + margin;
 
                 if (attackProp.floatValue < 0)
                     attackProp.floatValue = 0;
