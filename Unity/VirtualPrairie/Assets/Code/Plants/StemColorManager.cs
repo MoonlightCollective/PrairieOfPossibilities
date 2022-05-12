@@ -157,6 +157,28 @@ public class StemColorManager : DmxColorPoint
 	}
 
 
+	public float AzimuthRelativeTo(Vector3 centerPoint, bool normalized = false)
+	{
+		Vector3 offsetPos = transform.position - centerPoint;
+		float azRad = (float) ((2*Mathf.PI + Mathf.Atan2(offsetPos.z, offsetPos.x)) % (2*Mathf.PI));
+		if (normalized)
+		{
+			return (azRad * Mathf.Rad2Deg)/360.0f;
+		}
+		return azRad;
+	}
+
+	public float ThetaRelativeTo(Vector3 centerPoint, bool normalized = false)
+	{
+		Vector3 offsetPos = transform.position-centerPoint;
+		float thetaRad = (float) ((2*Mathf.PI + Mathf.Atan2(offsetPos.y, offsetPos.x)) % (2*Mathf.PI));
+		if (normalized)
+		{
+			return (thetaRad * Mathf.Rad2Deg)/360;
+		}
+		return thetaRad;
+	}
+
 	protected float azimuth
 	{
 		get

@@ -20,10 +20,13 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 
 		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
 		angle = (angle + speed * deltaTime)%1.0f;
-		
+		float offsetAngle = (angle + PatternSettings.NormAngleOffset)%1;
+
 		// pAngle is also normalized between zero and one, calculated based on axis.
 		float pAngle = 0;
 		float dist = 0;
+		
+		bool useCenter = PatternSettings.Origin == EOriginLoc.Center;
 		
 		foreach (var p in points)
 		{
@@ -33,15 +36,15 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 			switch (PatternSettings.Axis) 
 			{
 				case PrairieUtil.AxisEnum.Y:
-					pAngle = p.GlobalAzimuthNormalized;
+					pAngle = useCenter?p.GlobalAzimuthNormalized:p.AzimuthRelativeTo(transform.position,true);
 		 			break;
 				case PrairieUtil.AxisEnum.Z:
-		  			pAngle = p.GlobalThetaNormalized;
+					pAngle = useCenter?p.GlobalThetaNormalized:p.ThetaRelativeTo(transform.position,true);
 		  		break;
 			}
 		
 			// normalized distance in angle.
-			dist = PrairieUtil.wrapdistf(pAngle,angle,1.0f);
+			dist = PrairieUtil.wrapdistf(pAngle,offsetAngle,1.0f);
 
 			// brightness is 0-1
 			float b = (Mathf.Max(0, (1 - falloff*dist)));
