@@ -87,4 +87,19 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
+	public float azimuth
+	{
+		get
+		{		
+			return (float) ((2*Mathf.PI + Mathf.Atan2(this.gameObject.transform.position.z, this.gameObject.transform.position.x)) % (2*Mathf.PI));
+		}
+	}
+
+	public float theta
+	{
+		get
+		{
+			return (float) ((2*Mathf.PI + Mathf.Atan2(this.gameObject.transform.position.z, this.gameObject.transform.position.x)) % (2*Mathf.PI));
+		}
+	}
 }

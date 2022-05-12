@@ -18,9 +18,29 @@ public class GlobalPlantSettings : MonoBehaviour
 	public static GlobalPlantSettings Instance => s_instance;
 	private static GlobalPlantSettings s_instance;
 
+	// go search the scene graph to find the global instance
+    public static void FindGlobalInstance()
+	{
+		if (s_instance == null)
+		{
+			Debug.Log($"Finding the GlobalPlantSettings");	
+			GlobalPlantSettings[] plantSettings = GameObject.FindObjectsOfType<GlobalPlantSettings>();
+			if (plantSettings == null || plantSettings.Length != 1)
+			{
+				Debug.Log($"GlobalPlantSettings not found !   we have {plantSettings.Length} of them");	
+			}
+			else 
+			{
+				// use the first one
+				s_instance = plantSettings[0];
+			}
+		}
+	}
+
 	public void Awake()
 	{
-		s_instance = this;
+		Debug.Log($"GlobalPlantSettings:Awake");
+		GlobalPlantSettings.FindGlobalInstance();
 		LoadFromPrefs();
 	}
 
@@ -37,5 +57,14 @@ public class GlobalPlantSettings : MonoBehaviour
 		PlayerPrefs.SetFloat("GlowIntensity", GlowIntensity);
 		PlayerPrefs.SetFloat("StemAlpha", StemAlpha);
 	}
-	
+
+	public void AddFixture(GameObject fixture)
+	{
+		// Debug.Log($"GlobalPlantSettings:AddFixture");
+		PlantColorManager pcm = fixture.GetComponent<PlantColorManager>();
+		pcm.FindChildren();
+		// add this to the master plant list
+		pcm.PointRangeMin = pcm.PlantId * pcm.StemColors.Count;
+		pcm.PointRangeMax = pcm.PointRangeMin + pcm.StemColors.Count;
+	}
 }
