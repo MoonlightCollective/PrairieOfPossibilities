@@ -32,12 +32,28 @@ public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 		if (PatternAlpha <= 0)
 			return;
 			
+		
+		bool useGlobalOrigin = Settings.Origin == EOriginLoc.Center;
+		Vector2 myXZ = Vector2.zero;
+		if (!useGlobalOrigin)
+			myXZ = new Vector2(transform.position.x,transform.position.z);
+		
 		foreach (var p in points)
 		{
 			if (!filterAllowPoint(p))
 				continue;
 
-			float absDistFromR = Mathf.Abs(p.GlobalDistFromOrigin - ringDistFromOrigin);
+			float absDistFromR;
+			if (useGlobalOrigin)
+			{
+				absDistFromR = Mathf.Abs(p.GlobalDistFromOrigin - ringDistFromOrigin);
+			}
+			else 
+			{
+				// assume EOriginLoc.ThisObject
+				absDistFromR = Mathf.Abs(Vector2.Distance(p.XZVect,myXZ) - ringDistFromOrigin);
+			}
+			
 			float normalizedFalloffDist =  Mathf.Clamp01(absDistFromR/(Settings.FalloffRange + FalloffMod));
 			float bFromFalloff = Settings.FalloffCurve.Evaluate(normalizedFalloffDist);
 

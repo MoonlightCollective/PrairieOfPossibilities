@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
-[System.Serializable]
-public enum EOriginLoc
-{
-	Center,
-	ThisObject,
-	// GameObject,
-}
-
 
 [CreateAssetMenu(fileName = "Lighthouse Settings", menuName = "Prairie Settings/LighthouseSettings", order = 1)]
 public class LighthouseSettings : ScriptableObject

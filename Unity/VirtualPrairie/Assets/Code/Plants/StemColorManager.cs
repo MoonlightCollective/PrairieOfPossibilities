@@ -37,6 +37,9 @@ public class StemColorManager : DmxColorPoint
 	public float GlobalTheta => _globalThetaNormalized;
 	public float GlobalThetaNormalized => _globalThetaNormalized;
 
+	Vector2 _xzVect = Vector2.zero;
+	public Vector2 XZVect => _xzVect;
+
 	protected float _globalDistFromOrigin = 0f;
 	public float GlobalDistFromOrigin => _globalDistFromOrigin;
 
@@ -80,6 +83,11 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
+	public void Awake()
+	{
+		updateCachedVals();
+	}
+
 	public void LateUpdate()
 	{
 		checkForTransformChange();
@@ -92,14 +100,18 @@ public class StemColorManager : DmxColorPoint
 	{
 		if (transform.hasChanged)
 		{
-			_globalAzimuth = azimuth * Mathf.Rad2Deg;
-			_globalAzimuthNormalized = _globalAzimuth / 360f;
-			_globalTheta = theta * Mathf.Rad2Deg;
-			_globalThetaNormalized = _globalTheta / 360f;
-			_globalDistFromOrigin = transform.position.magnitude;
+			updateCachedVals();
 		}
 	}
-
+	void updateCachedVals()
+	{
+		_globalAzimuth = azimuth * Mathf.Rad2Deg;
+		_globalAzimuthNormalized = _globalAzimuth / 360f;
+		_globalTheta = theta * Mathf.Rad2Deg;
+		_globalThetaNormalized = _globalTheta / 360f;
+		_globalDistFromOrigin = transform.position.magnitude;
+		_xzVect = new Vector2(transform.position.x,transform.position.z);
+	}
 	//
 	// SetFromDmxColor - calls Set Color using the data packet passed in new Data (rgb)
 	// 

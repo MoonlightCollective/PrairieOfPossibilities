@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum EOriginLoc
+{
+	Center,
+	ThisObject,
+	// GameObject,
+}
+
 public abstract class PrairiePatternLayer : PrairieLayer
 {
 	// Any filtering out of points we shouldn't effect happens using this filter.

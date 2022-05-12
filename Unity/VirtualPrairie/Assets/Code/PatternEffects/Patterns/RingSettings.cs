@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Ring Settings", menuName = "Prairie Settings/RingSettings", order = 1)]
 public class RingSettings : ScriptableObject
 {
+	public EOriginLoc Origin;
+	
  	// in meters
 	 public float FalloffRange = 10f;
 
