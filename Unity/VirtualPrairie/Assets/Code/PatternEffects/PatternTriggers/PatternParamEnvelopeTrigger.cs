@@ -31,7 +31,10 @@ public class PatternParamEnvelopeTrigger : TriggerListener
 			float newVal = Envelope.Update(_triggered,Time.deltaTime * TargetPattern.TimeSettings.TimeMult);
 			TargetPattern.SetIndexedFloat(TargetParamIndex,newVal*Multiplier);
 		}
-
+		else
+		{
+			Debug.LogWarning($"{gameObject.name} - paramEnvelopeTrigger with Null target pattern");
+		}
 		_triggered = false;
 	}
 

@@ -74,18 +74,18 @@ namespace Nothke.Utils
             Vector2 lastP = curveStart;
             int viewWidth = (int)curveRect.width;
 
-            float os = 0.9f;
+            float os = 0.75f;
             float adrScale = (adsr.attack + adsr.decay + adsr.release) / (viewWidth * os);
 
             float attackWidth = adsr.attack / adrScale;
             float decayWidth = adsr.decay / adrScale;
+			float decayTotalWidth = attackWidth + decayWidth;
             float releaseWidth = adsr.release / adrScale;
 
             float attackDecayPoint = (adsr.attack + adsr.decay) / (adrScale * os);
             float releaseScale = adsr.release / (adrScale * os);
 
             const float colorAlpha = 0.4f;
-
 
             Rect miniRect = curveRect;
             miniRect.x = (int)miniRect.x;
@@ -105,17 +105,34 @@ namespace Nothke.Utils
             miniRect.width = (int)releaseWidth;
             EditorGUI.DrawRect(miniRect, new Color(1.0f, 0.0f, 1.0f) * colorAlpha);
 
+			float sustainTotalWidth = attackWidth + decayWidth + sustainWidth;
+
             float graphScale = adrScale;
             Handles.color = Color.white;
             for (int i = 0; i < viewWidth; i++)
             {
-                float v = i < viewWidth - releaseWidth ?
-                    adsr.EvaluateIn(i * graphScale) :
-                    adsr.EvaluateOut((i - (viewWidth - releaseWidth)) * graphScale, adsr.sustain);
+				float v = 0.5f;
+				if (i < attackWidth)
+				{
+					v = ADSREnvelope.Ease(0,1,(float)i/attackWidth,adsr.attackEase);
+				}
+				else if (i < decayTotalWidth)
+				{
+					v = ADSREnvelope.Ease(1,adsr.sustain,(float)(i-attackWidth)/decayWidth,adsr.decayEase);
 
-                Vector2 p = curveStart + new Vector2(i, -v * curveRect.height);
-                Handles.DrawLine(lastP, p);
-                lastP = p;
+				}
+				else if (i < sustainTotalWidth)
+				{
+					v = adsr.sustain;
+
+				}
+				else
+				{
+					v = ADSREnvelope.Ease(adsr.sustain,0,(i-attackWidth-decayWidth-sustainWidth)/releaseWidth,adsr.releaseEase);
+				}
+				Vector2 p = curveStart + new Vector2(i, -v * curveRect.height);
+				Handles.DrawLine(lastP,p);
+				lastP = p;
             }
 
             // Doesn't work nicely, not worth it:

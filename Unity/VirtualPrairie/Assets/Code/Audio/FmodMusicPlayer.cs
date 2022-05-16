@@ -13,7 +13,7 @@ public abstract class PrairieMusicPlayer : MonoBehaviour
 	public event System.EventHandler PlaybackStarted;
 	public event System.EventHandler PlayerbackFinished;
 
-	public UnityEvent OnBeatEvent;
+	public UnityEvent<int,int> OnBeatEvent;
 	public UnityEvent<string> OnMarkerEvent;
 
 	public abstract void PlayMusic(EventReference musicEvent);
@@ -31,6 +31,12 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	private FMOD.Studio.EVENT_CALLBACK _musicCallback;
 	private GCHandle _musicCallbackUserDataHandle;
+
+	protected int _lastBar = -1;
+	protected int _lastBeat = -1;
+	protected float _lastTempo = 0f;
+	protected int _timeSigBeatsPerBar = 4;
+	public int BeatsPerBar => _timeSigBeatsPerBar;
 	
 	public enum EFmodMusicPlayerState
 	{
@@ -120,41 +126,48 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	//Helper function for music callbacks - evets coming out of music
 	[AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
-    static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
+	static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
 	{
-        FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
+		FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
 
-    	IntPtr evUserDataPtr;
+		IntPtr evUserDataPtr;
 		FmodMusicPlayer playerInstance = null;
-        FMOD.RESULT result = instance.getUserData(out evUserDataPtr);
-        if (result != FMOD.RESULT.OK)
-        {
-            Debug.LogError("fmp: Event callback user data error: " + result);
-        }
-        else if (evUserDataPtr != IntPtr.Zero)
-        {
-            // Get the object to store beat and marker details
-            GCHandle userHandle = GCHandle.FromIntPtr(evUserDataPtr);
-            playerInstance = (FmodMusicPlayer)userHandle.Target;
+		FMOD.RESULT result = instance.getUserData(out evUserDataPtr);
+		if (result != FMOD.RESULT.OK)
+		{
+			Debug.LogError("fmp: Event callback user data error: " + result);
+		}
+		else if (evUserDataPtr != IntPtr.Zero)
+		{
+			// Get the object to store beat and marker details
+			GCHandle userHandle = GCHandle.FromIntPtr(evUserDataPtr);
+			playerInstance = (FmodMusicPlayer)userHandle.Target;
 		}
 
 		switch(type)
 		{
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
+			{
+				var beatParam = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
+				playerInstance._lastBeat = beatParam.beat-1;
+				playerInstance._lastBar = beatParam.bar -1;
+				playerInstance._lastTempo = beatParam.tempo;
+				playerInstance._timeSigBeatsPerBar = beatParam.timesignatureupper;
 				if (playerInstance != null)
 				{
-					playerInstance.OnBeatEvent?.Invoke();
+					playerInstance.OnBeatEvent?.Invoke(playerInstance._lastBar,playerInstance._lastBeat);
 				}
 				break;
+			}
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
+			{
+				var timelineParam = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+				if (playerInstance != null)
 				{
-               		var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
-                    if (playerInstance != null)
-					{
-						playerInstance.OnMarkerEvent?.Invoke(parameter.name);
-					}
+					playerInstance.OnMarkerEvent?.Invoke(timelineParam.name);
 				}
 				break;
+			}
 			default:
 				Debug.Log($"Event: {type.ToString()}");
 				break;

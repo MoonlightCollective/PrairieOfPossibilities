@@ -168,8 +168,9 @@ namespace Nothke.Utils
 			curSegTime = (attack<=0)?0f:time/attack;
 
 			// float val = Mathf.Lerp(0,1,curSegTime);
-			float val = 1-Ease(1-curSegTime,attackEase);
-
+			// float val = 1-Ease(1-curSegTime,attackEase);
+			float val = Ease(0,1,curSegTime,attackEase);
+			
 			if (!gateValue && interrupt)
 			{
 				// no gate - if I'm allowed to interrupt, move on to release
@@ -196,7 +197,8 @@ namespace Nothke.Utils
 			curSegTime = (decay <= 0)?1:((time - _lastSegStartTime)/decay);
 
 			// float val = Mathf.Lerp(1,sustain,curSegTime);
-			float val = Mathf.Lerp(sustain, 1.0f, Ease(1-(curSegTime/release),decayEase));
+			float val = Ease(1,sustain,curSegTime,decayEase);
+			// float val = Mathf.Lerp(sustain, 1.0f, Ease(1-(curSegTime/release),decayEase));
 
 			if (time >= adTime)
 			{
@@ -253,11 +255,17 @@ namespace Nothke.Utils
 				curSegment = ESegment.Idle;
 			}
 
-			curSegTime = (release<=0)?1:(time-_lastSegStartTime)/release;
-			
-			// float val = Mathf.Lerp(_releaseStart,0,curSegTime);
-			float val = Ease(1-(curSegTime/release), releaseEase) * _releaseStart;
+			if (release <= 0)
+			{
+				curSegTime = 1f;
+				return 0;
+			}
 
+			curSegTime = (time-_lastSegStartTime)/release;
+			// float val = Mathf.Lerp(_releaseStart,0,curSegTime);
+			// float val = Ease(1-(curSegTime/release), releaseEase) * _releaseStart;
+			
+			float val = Ease(_releaseStart,0,curSegTime,releaseEase);
 			envDebug($"Release:v:{val} {this.ToString()} next:{curSegment.ToString()}");
 
 			// Debug.Log($"Release:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
@@ -266,7 +274,26 @@ namespace Nothke.Utils
 			return val;
 		}
 
-        static float Ease(float p_x, float p_c)
+
+		static public float Ease(float from, float to, float t, float power)
+		{
+			float easePct = Ease(t,power);			
+			return (from + easePct * (to-from));
+		}
+
+		static float Ease(float t, float power)
+		{
+			if (power<0)
+			{
+				return Mathf.Pow(t,-1/(power-1));
+			}
+			else
+			{
+				return Mathf.Pow(t,1+power);
+			}
+		}
+
+        /*static float Ease(float p_x, float p_c)
         {
             if (p_c == 0)
             {
@@ -281,12 +308,12 @@ namespace Nothke.Utils
                 return Mathf.Pow(p_x, p_c + 1);
             }
         }
-
+		*/
 
 		//===============
 		// These are used by the property drawer function
 		//===============
-        public float EvaluateIn(float time)
+        /*public float EvaluateIn(float time)
         {
             if (time < attack)
                 return 1 - Ease(1 - time / attack, attackEase);
@@ -312,7 +339,7 @@ namespace Nothke.Utils
             else
                 return 0;
         }
-
+		*/
 
 
 

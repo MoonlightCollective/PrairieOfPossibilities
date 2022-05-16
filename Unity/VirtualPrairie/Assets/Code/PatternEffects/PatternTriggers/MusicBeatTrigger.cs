@@ -13,20 +13,25 @@ public class MusicBeatTrigger : TriggerBase
 	int _triggerCount = 0;
 	const int kDefaultModVal = 4;
 
+	FmodMusicPlayer _fmp;
 	public void Awake()
 	{
-		FmodMusicPlayer fmp = GameObject.FindObjectOfType<FmodMusicPlayer>();
-		if (fmp != null)
+		_fmp = GameObject.FindObjectOfType<FmodMusicPlayer>();
+		if (_fmp != null)
 		{
-			fmp.OnBeatEvent.AddListener(NotifyBeat);
+			_fmp.OnBeatEvent.AddListener(NotifyBeat);
 		}
 	}
 
-	public void NotifyBeat()
+	public void NotifyBeat(int barCount,int beatCount)
 	{
+		Debug.Log($"Notify Beat:{barCount}:{beatCount})");
+		if (!gameObject.activeInHierarchy)
+			return;
+
 		if (FilterBeats && !string.IsNullOrEmpty(FilterString))
 		{
-			_triggerCount = (_triggerCount + 1) % FilterString.Length;
+			_triggerCount = (barCount * _fmp.BeatsPerBar + beatCount)%FilterString.Length;
 			if (FilterString[_triggerCount] == '1')
 			{
 				TriggerTargets.EmitTrigger(new PrairieTriggerParams("Beat",(float)_triggerCount,0));
@@ -34,7 +39,7 @@ public class MusicBeatTrigger : TriggerBase
 		}
 		else
 		{
-			_triggerCount = (_triggerCount + 1) % 4;
+			_triggerCount = beatCount;
 			TriggerTargets.EmitTrigger(new PrairieTriggerParams("Beat",(float)_triggerCount,0));
 		}
 	}

@@ -53,7 +53,7 @@ public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 				// assume EOriginLoc.ThisObject
 				absDistFromR = Mathf.Abs(Vector2.Distance(p.XZVect,myXZ) - ringDistFromOrigin);
 			}
-			
+
 			float normalizedFalloffDist =  Mathf.Clamp01(absDistFromR/(Settings.FalloffRange + FalloffMod));
 			float bFromFalloff = Settings.FalloffCurve.Evaluate(normalizedFalloffDist);
 
@@ -68,6 +68,7 @@ public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 
 	public override void SetIndexedFloat(int paramDex, float newVal)
 	{
+		// Debug.Log($"SetIndexedFloat{paramDex},{newVal}");
 		switch (paramDex)
 		{
 			case 0:
