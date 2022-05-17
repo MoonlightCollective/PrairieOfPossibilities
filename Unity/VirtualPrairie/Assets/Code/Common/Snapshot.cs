@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using NaughtyAttributes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,6 +17,7 @@ public enum ESnapshotType
 	Int,
 	Bool,
 	Enum,
+	Vector3,
 }
 
 [System.Serializable]
@@ -41,6 +44,9 @@ public class SnapshotEntry
 	[AllowNesting]
 	public bool BoolVal = false;
 
+	[ShowIf("FieldType",ESnapshotType.Vector3)]
+	public Vector3 VectorVal;
+
 	public bool ObjectRef = false;
 	[ShowIf("ObjectRef")]
 	public string ObjRefFieldName = "";
@@ -50,6 +56,7 @@ public class SnapshotEntry
 
 	}
 
+	// base constructor
 	public SnapshotEntry(string fieldName,string componentName, int componentId)
 	{
 		FieldName = fieldName;
@@ -57,24 +64,35 @@ public class SnapshotEntry
 		ComponentInstanceID = componentId;
 	}
 
+	// float constructor
 	public SnapshotEntry(string fieldName,string componentName, int componentId, float floatVal) : this(fieldName,componentName,componentId)
 	{
 		FieldType = ESnapshotType.Float;
 		FloatVal = floatVal;
 	}
 
+	// bool constructor
 	public SnapshotEntry(string fieldName,string componentName, int componentId, bool boolVal) : this(fieldName,componentName,componentId)
 	{
 		FieldType = ESnapshotType.Bool;
 		BoolVal = boolVal;
 	}
 
+	// int constructor
 	public SnapshotEntry(string fieldName,string componentName, int componentId, int intVal) : this(fieldName,componentName,componentId)
 	{
 		FieldType = ESnapshotType.Int;
 		IntVal = intVal;
 	}
 
+	// Vector3 constructor
+	public SnapshotEntry(string fieldName,string componentName, int componentId, Vector3 vectorVal) : this(fieldName,componentName,componentId)
+	{
+		FieldType = ESnapshotType.Vector3;
+		VectorVal = vectorVal;
+	}
+
+	// enum constructor
 	public SnapshotEntry(string fieldName,string componentName, int componentId, Enum baseEnum, int enumVal) : this(fieldName,componentName,componentId)
 	{
 		FieldType = ESnapshotType.Enum;
@@ -88,6 +106,37 @@ public class SnapshotEntry
 	}
 }
 
+public class VectorConverter : JsonConverter
+{
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(Vector3);
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        var obj = JToken.Load(reader);
+        if (obj.Type == JTokenType.Array)
+        {
+            var arr = (JArray)obj;
+            if (arr.Count == 3 && arr.All(token => token.Type == JTokenType.Float))
+            {
+                return new Vector3(arr[0].Value<float>(), arr[1].Value<float>(), arr[2].Value<float>());
+            }
+        }
+        return null;
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        var vector = (Vector3)value;
+        writer.WriteStartArray();
+        writer.WriteValue(vector.x);
+        writer.WriteValue(vector.y);
+        writer.WriteValue(vector.z);
+        writer.WriteEndArray();
+    }
+}
 
 public class Snapshot : MonoBehaviour
 {
@@ -108,7 +157,7 @@ public class Snapshot : MonoBehaviour
 		SnapshotData data = new SnapshotData();
 		updateEntries();
 		data.Entries = _snapshotEntries;
-		string jsonStr = JsonConvert.SerializeObject(data,Formatting.Indented);
+		string jsonStr = JsonConvert.SerializeObject(data,Formatting.Indented, new VectorConverter());
 		File.WriteAllText(snapshotFileName(),jsonStr);
 		Debug.Log("Wrote snapsthot to: " + snapshotFileName());
 		LastSnapshotTime = nowStr;
@@ -152,10 +201,10 @@ public class Snapshot : MonoBehaviour
 			return;
 		}
 
-		SnapshotData data = JsonConvert.DeserializeObject<SnapshotData>(jsonStr);
+		SnapshotData data = JsonConvert.DeserializeObject<SnapshotData>(jsonStr,new VectorConverter());
 		foreach (var entry in data.Entries)
 		{
-			// Debug.Log($"Try restoring:{entry.FieldName} on {entry.ComponentInstanceID}");
+			Debug.Log($"Try restoring:{entry.FieldName} on {entry.ComponentInstanceID}");
 			var component = findComponentFromId(entry.ComponentInstanceID);
 			if (component == null)
 			{
@@ -232,7 +281,6 @@ public class Snapshot : MonoBehaviour
 		return new SnapshotEntry(fieldInfo.Name,component.GetType().ToString(), component.GetInstanceID(),(bool)fieldInfo.GetValue(objVal==null?component:objVal));
 	}
 
-
 	public static SnapshotEntry CreateSnapshotEntryEnum(FieldInfo fieldInfo, MonoBehaviour component,System.Object objVal = null)
 	{
 		Type enumType = Enum.GetUnderlyingType(fieldInfo.FieldType);
@@ -242,6 +290,11 @@ public class Snapshot : MonoBehaviour
 		var entry = new SnapshotEntry(fieldInfo.Name,component.GetType().ToString(),component.GetInstanceID(),intVal);
 		entry.FieldType = ESnapshotType.Enum;
 		return entry;
+	}
+
+	public static SnapshotEntry CreateSnapshotEntryVector3(FieldInfo fieldInfo, MonoBehaviour component,System.Object objVal = null)
+	{
+		return new SnapshotEntry(fieldInfo.Name,component.GetType().ToString(), component.GetInstanceID(), (Vector3)fieldInfo.GetValue(objVal==null?component:objVal));
 	}
 
 
@@ -262,6 +315,9 @@ public class Snapshot : MonoBehaviour
 			case ESnapshotType.Enum:
 				fieldInfo.SetValue(objVal==null?component:objVal,entry.IntVal);
 				break;
+			case ESnapshotType.Vector3:
+				fieldInfo.SetValue(objVal==null?component:objVal,entry.VectorVal);
+				break;
 		}
 	}
 
@@ -277,7 +333,8 @@ public class Snapshot : MonoBehaviour
 			s_buildDelegateDict[typeof(int)] = (fi,c,o) => CreateSnapshotEntryInt(fi,c,o);
 			s_buildDelegateDict[typeof(float)] = (fi,c,o) => CreateSnapshotEntryFloat(fi,c,o);
 			s_buildDelegateDict[typeof(bool)] = (fi,c,o) => CreateSnapshotEntryBool(fi,c,o);
-			s_buildDelegateDict[typeof(System.Enum)] = (fi,c,o) => CreateSnapshotEntryEnum(fi,c,o);
+			s_buildDelegateDict[typeof(Vector3)] = (fi,c,o) => CreateSnapshotEntryVector3(fi,c,o);
+			// s_buildDelegateDict[typeof(System.Enum)] = (fi,c,o) => CreateSnapshotEntryEnum(fi,c,o);
 		}
 	}
 
@@ -302,7 +359,7 @@ public class Snapshot : MonoBehaviour
 			var fields = mb.GetType().GetFields(BindingFlags.GetField | BindingFlags.Public | BindingFlags.Instance);
 			foreach (var field in fields)
 			{
-				if (Attribute.IsDefined(field,typeof(SnapshotAttribute)))
+				if (Attribute.IsDefined(field,typeof(SnapshotAttribute)) || Attribute.IsDefined(field,typeof(SnapshotAllAttribute)))
 				{
 					if (field.FieldType.IsClass)
 					{
@@ -341,9 +398,10 @@ public class Snapshot : MonoBehaviour
 	{
 		var fields = field.FieldType.GetFields(BindingFlags.GetField | BindingFlags.Public | BindingFlags.Instance);
 		var fieldObj = field.GetValue(mb);
+		bool snapshotAll = Attribute.IsDefined(field, typeof(SnapshotAllAttribute));
 		foreach (var subField in fields)
 		{
-			if (Attribute.IsDefined(subField,typeof(SnapshotAttribute)))
+			if (Attribute.IsDefined(subField,typeof(SnapshotAttribute)) || snapshotAll)
 			{
 				if (subField.FieldType.IsEnum)
 				{

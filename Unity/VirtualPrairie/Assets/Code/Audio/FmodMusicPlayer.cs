@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 
 public abstract class PrairieMusicPlayer : MonoBehaviour
 {
-	public event System.EventHandler PlaybackStarted;
-	public event System.EventHandler PlayerbackFinished;
+	// public event System.EventHandler PlaybackStarted;
+	// public event System.EventHandler PlaybackFinished;
 
 	public UnityEvent<int,int> OnBeatEvent;
 	public UnityEvent<string> OnMarkerEvent;

@@ -14,7 +14,8 @@ public static class NoiseS3D {
 		}
 		set {
 			seed_ = value;
-			UnityEngine.Random.seed = value;
+			// UnityEngine.Random.seed = value;
+			UnityEngine.Random.InitState(value);
 			SetupNoise();
 		}
 	}

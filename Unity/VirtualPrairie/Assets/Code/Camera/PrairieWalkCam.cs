@@ -57,7 +57,7 @@ public class PrairieWalkCam : MonoBehaviour
 		}
 	}
 	
-	bool _orthMouseDown = false;
+	// bool _orthMouseDown = false;
 	Vector3 _orthoDragOriginWorld;
 	void updateOrthoCam()
 	{

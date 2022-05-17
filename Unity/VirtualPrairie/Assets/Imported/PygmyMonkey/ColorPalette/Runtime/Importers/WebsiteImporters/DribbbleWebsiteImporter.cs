@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using System;
 
+#pragma warning disable CS0618
 namespace PygmyMonkey.ColorPalette
 {
 	public static class DribbbleWebsiteImporter

@@ -56,7 +56,6 @@ public class PrairieMusicManager : MonoBehaviour
 		_playbackQueue.OrderBy(x=>rnd.Next());
 	}
 
-	bool _started = false;
 	public void Start()
 	{
 		// playNextSong();
