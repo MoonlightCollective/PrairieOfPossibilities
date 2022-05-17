@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PatternLayerAlphaTrigger : TriggerListener
 {
+	[Snapshot]
 	public ADSREnvelope AlphaEnv = ADSREnvelope.Default();
 
 	protected PrairiePatternLayer _patternLayer = null;
@@ -27,6 +28,7 @@ public class PatternLayerAlphaTrigger : TriggerListener
 			getPatternLayer();
 
 		if (_patternLayer == null)
+
 			return;
 
 		bool signalOn = _trigger;

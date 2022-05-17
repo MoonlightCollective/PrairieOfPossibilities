@@ -25,7 +25,7 @@ public class MusicBeatTrigger : TriggerBase
 
 	public void NotifyBeat(int barCount,int beatCount)
 	{
-		Debug.Log($"Notify Beat:{barCount}:{beatCount})");
+		// Debug.Log($"Notify Beat:{barCount}:{beatCount})");
 		if (!gameObject.activeInHierarchy)
 			return;
 

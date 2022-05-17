@@ -6,12 +6,20 @@ using UnityEngine;
 
 public class PatternParamEnvelopeTrigger : TriggerListener
 {
+	[Snapshot]
 	public bool TargetSelf = true;
+
 	[HideIf("TargetSelf")]
+	[Snapshot]
 	public PrairiePatternLayer TargetPattern;
 
+	[Snapshot]
 	public int TargetParamIndex = 0;
+	
+	[Snapshot]
 	public float Multiplier = 1f;
+
+	[Snapshot]
 	public ADSREnvelope Envelope = ADSREnvelope.Default();
 
 	bool _triggered = false;
