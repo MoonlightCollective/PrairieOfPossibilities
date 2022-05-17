@@ -1,5 +1,5 @@
 ﻿///
-/// ADSREnvelope.cs by Nothke
+/// Inspired by: ADSREnvelope.cs by Nothke, but pretty much re-written.
 ///
 /// Attack-Decay-Sustain-Release envelope helper struct. 
 /// Also comes with an optional, but recommended, custom property drawer
@@ -47,6 +47,7 @@ using UnityEngine;
 namespace Nothke.Utils
 {
     [System.Serializable]
+	[Snapshot]
     public class ADSREnvelope
     {
 		const float kDefaultAttack = 1.0f;
@@ -59,9 +60,13 @@ namespace Nothke.Utils
 		const bool kDefaultInterrupt = false;
 		const bool kDefaultLoop = false;
 
-        public float attack = kDefaultAttack;
+        [Snapshot]
+		public float attack = kDefaultAttack;
+        [Snapshot]
 		public float decay = kDefaultDecay;
+        [Snapshot]
 		public float sustain = kDefaultSustain;
+        [Snapshot]
 		public float release = kDefaultRelease;
 
         public float attackEase = kDefaultAttackEase;
@@ -80,6 +85,8 @@ namespace Nothke.Utils
 
 		protected float _lastSegStartTime = 0f;
 		public float LastSegStartTime => _lastSegStartTime;
+
+		static bool s_debugEnv = false;
 
 		public enum ESegment
 		{
@@ -167,8 +174,6 @@ namespace Nothke.Utils
 			// figure out our value from the attack ramp
 			curSegTime = (attack<=0)?0f:time/attack;
 
-			// float val = Mathf.Lerp(0,1,curSegTime);
-			// float val = 1-Ease(1-curSegTime,attackEase);
 			float val = Ease(0,1,curSegTime,attackEase);
 			
 			if (!gateValue && interrupt)
@@ -195,10 +200,7 @@ namespace Nothke.Utils
 			time = Mathf.Clamp(time+deltaTime,0,adTime);
 
 			curSegTime = (decay <= 0)?1:((time - _lastSegStartTime)/decay);
-
-			// float val = Mathf.Lerp(1,sustain,curSegTime);
 			float val = Ease(1,sustain,curSegTime,decayEase);
-			// float val = Mathf.Lerp(sustain, 1.0f, Ease(1-(curSegTime/release),decayEase));
 
 			if (time >= adTime)
 			{
@@ -262,10 +264,8 @@ namespace Nothke.Utils
 			}
 
 			curSegTime = (time-_lastSegStartTime)/release;
-			// float val = Mathf.Lerp(_releaseStart,0,curSegTime);
-			// float val = Ease(1-(curSegTime/release), releaseEase) * _releaseStart;
-			
 			float val = Ease(_releaseStart,0,curSegTime,releaseEase);
+
 			envDebug($"Release:v:{val} {this.ToString()} next:{curSegment.ToString()}");
 
 			// Debug.Log($"Release:v:{val} {this.ToString()} next:{_curSegment.ToString()}");
@@ -293,57 +293,6 @@ namespace Nothke.Utils
 			}
 		}
 
-        /*static float Ease(float p_x, float p_c)
-        {
-            if (p_c == 0)
-            {
-                return p_x;
-            }
-            else if (p_c < 0)
-            {
-                return 1.0f - Mathf.Pow(1.0f - p_x, -p_c + 1);
-            }
-            else
-            {
-                return Mathf.Pow(p_x, p_c + 1);
-            }
-        }
-		*/
-
-		//===============
-		// These are used by the property drawer function
-		//===============
-        /*public float EvaluateIn(float time)
-        {
-            if (time < attack)
-                return 1 - Ease(1 - time / attack, attackEase);
-
-            else if (time < attack + decay)
-                return Mathf.Lerp(sustain, 1, Ease(1 - ((time - attack) / decay), decayEase));
-
-            else
-                return sustain;
-        }
-
-        public float EvaluateOut(float time, float from = 0)
-        {
-            // float _from = from == 0 ? sustain : from;
-			float _from = from;
-			
-            if (time < 0)
-                return _from;
-
-            else if (time < release)
-                return Ease(1 - time / release, releaseEase) * _from;
-
-            else
-                return 0;
-        }
-		*/
-
-
-
-		static bool s_debugEnv = false;
 		void envDebug(string dString)
 		{
 			if (s_debugEnv)
