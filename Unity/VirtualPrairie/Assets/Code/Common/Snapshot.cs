@@ -229,6 +229,11 @@ public class Snapshot : MonoBehaviour
 				RestoreSnapshotEntry(entry,field,component,null);
 			}
 		}
+		EditorUtility.SetDirty(gameObject);
+		foreach (var c in GetComponents<MonoBehaviour>())
+		{
+			EditorUtility.SetDirty(c);
+		}
 		LastRestoreTime = nowStr;
 	}
 
