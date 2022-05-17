@@ -5,12 +5,8 @@ using UnityEngine;
 
 public class PerlinNoisePattern : PrairiePatternMonochromaticBase
 {
-	[Space]
-	[Expandable]
-	public PerlinNoiseSettings NoiseSettingsPreset;
-
 	[SnapshotAll]	
-	public PerlinNoiseSettingsLocal NoiseSettings;
+	public PerlinNoiseSettings NoiseSettings;
 
 	protected Vector3 _offsetVect = Vector3.zero;
 	protected Vector3 _moveSpeedVect = Vector3.zero;

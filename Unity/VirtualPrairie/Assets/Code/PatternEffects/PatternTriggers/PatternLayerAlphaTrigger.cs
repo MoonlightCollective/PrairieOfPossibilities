@@ -9,6 +9,9 @@ public class PatternLayerAlphaTrigger : TriggerListener
 	[Snapshot]
 	public ADSREnvelope AlphaEnv = ADSREnvelope.Default();
 
+	[Snapshot]
+	public float Multiplier = 1.0f;
+	
 	protected PrairiePatternLayer _patternLayer = null;
 	protected bool _trigger = false;
 
@@ -32,7 +35,7 @@ public class PatternLayerAlphaTrigger : TriggerListener
 			return;
 
 		bool signalOn = _trigger;
-		_patternLayer.BlendSettings.LayerAlpha = AlphaEnv.Update(signalOn,Time.deltaTime * _patternLayer.TimeSettings.TimeMult);
+		_patternLayer.BlendSettings.LayerAlpha = Multiplier * AlphaEnv.Update(signalOn,Time.deltaTime * _patternLayer.TimeSettings.TimeMult);
 		_trigger = false;
 	}
 
