@@ -24,7 +24,7 @@ public class GateEmitter
 
 		foreach (var t in Targets)
 		{
-			var listeners = t.GetComponentsInChildren<GateListener>();
+				var listeners = t.GetComponentsInChildren<GateListener>();
 			int count = listeners.Length;
 			if (listeners.Length > 0)
 				_gateListeners.AddRange(listeners);

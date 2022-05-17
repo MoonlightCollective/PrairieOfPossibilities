@@ -6,8 +6,15 @@ using UnityEngine;
 
 public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 {
-	[Expandable]
-	public RingSettings Settings;
+	[Header("Ring Settings")]
+	[Snapshot] public EOriginLoc Origin;
+	[Snapshot] public float FalloffRange;
+
+	[CurveRange(0,0,1,300,EColor.Green)]
+	public AnimationCurve RingMovement = AnimationCurve.Linear(0,0,1,300);
+
+	[CurveRange(0,0,1,1,EColor.Yellow)] 
+	public AnimationCurve FalloffCurve = AnimationCurve.Linear(0,1.0f,1,0.0f);
 
 	[Foldout("Indexed Params")] 
 	[Range(0,1)]
@@ -24,16 +31,14 @@ public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 
 	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
-		if (Settings == null)
-			return;
 
-		float ringDistFromOrigin = Settings.RingMovement.Evaluate(NormalizedT);
+		float ringDistFromOrigin = RingMovement.Evaluate(NormalizedT);
 
 		if (PatternAlpha <= 0)
 			return;
 			
 		
-		bool useGlobalOrigin = Settings.Origin == EOriginLoc.Center;
+		bool useGlobalOrigin = Origin == EOriginLoc.Center;
 		Vector2 myXZ = Vector2.zero;
 		if (!useGlobalOrigin)
 			myXZ = new Vector2(transform.position.x,transform.position.z);
@@ -54,8 +59,8 @@ public class RingFromCenterPattern : PrairiePatternMonochromaticBase
 				absDistFromR = Mathf.Abs(Vector2.Distance(p.XZVect,myXZ) - ringDistFromOrigin);
 			}
 
-			float normalizedFalloffDist =  Mathf.Clamp01(absDistFromR/(Settings.FalloffRange + FalloffMod));
-			float bFromFalloff = Settings.FalloffCurve.Evaluate(normalizedFalloffDist);
+			float normalizedFalloffDist =  Mathf.Clamp01(absDistFromR/(FalloffRange + FalloffMod));
+			float bFromFalloff = FalloffCurve.Evaluate(normalizedFalloffDist);
 
 			if (bFromFalloff <= 0)
 				continue;

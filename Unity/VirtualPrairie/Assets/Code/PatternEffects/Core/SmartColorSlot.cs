@@ -6,16 +6,18 @@ using UnityEngine;
 [System.Serializable]
 public class SmartColorSlot
 {
+	[Snapshot]
 	public bool UsePalette = false;
 
 	[HideIf("UsePalette")]
 	[AllowNesting]
+	[Snapshot]
 	public Color StaticColor = new Color(1f,0f,0f,1f);
 	
 	[ShowIf("UsePalette")]
 	[AllowNesting]
 	[Range(0,7)]
-	public int ColorIndex = 0;
+	[Snapshot]public int ColorIndex = 0;
 
 	public Color Color(PrairieLayerGroup group)
 	{

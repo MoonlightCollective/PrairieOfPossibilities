@@ -47,7 +47,6 @@ using UnityEngine;
 namespace Nothke.Utils
 {
     [System.Serializable]
-	[Snapshot]
     public class ADSREnvelope
     {
 		const float kDefaultAttack = 1.0f;
@@ -69,8 +68,11 @@ namespace Nothke.Utils
         [Snapshot]
 		public float release = kDefaultRelease;
 
-        public float attackEase = kDefaultAttackEase;
+        [Snapshot]
+		public float attackEase = kDefaultAttackEase;
+        [Snapshot]
         public float decayEase = kDefaultDecayEase;
+        [Snapshot]
         public float releaseEase = kDefaultReleaseEase;
 
         [Tooltip("If disabled, no matter how short the signal is, it will be played until at least the end of decay time. " +

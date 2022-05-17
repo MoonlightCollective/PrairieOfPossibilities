@@ -7,33 +7,43 @@ using UnityEngine.Rendering.Universal;
 
 public class LighthousePattern : PrairiePatternMonochromaticBase
 {
-	[Space]
-	[Expandable]
-	public LighthouseSettings PatternSettings;
+	[Header("Lighthouse Settings")]
+	[Snapshot] public PrairieUtil.AxisEnum Axis;
+
+	[Snapshot] public EOriginLoc Origin;
+
+	[Range(0,1)]
+	[Snapshot] public float Speed;
+
+	[Range(0,1)]
+	[Snapshot] public float Width;
+
+	[Range(0,1)]
+	[Snapshot] public float NormAngleOffset;
 
 	protected float angle = 0; // normalized - from zero to one, for a full rotation.
 
 	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> points)
 	{
-		float falloff = 1f/ PatternSettings.Width;
-		float speed = PatternSettings.Speed;
+		float falloff = 1f/ Width;
+		float speed = Speed;
 
 		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
 		angle = (angle + speed * deltaTime)%1.0f;
-		float offsetAngle = (angle + PatternSettings.NormAngleOffset)%1;
+		float offsetAngle = (angle + NormAngleOffset)%1;
 
 		// pAngle is also normalized between zero and one, calculated based on axis.
 		float pAngle = 0;
 		float dist = 0;
 		
-		bool useCenter = PatternSettings.Origin == EOriginLoc.Center;
+		bool useCenter = Origin == EOriginLoc.Center;
 		
 		foreach (var p in points)
 		{
 			if (!filterAllowPoint(p))
 				continue;
 
-			switch (PatternSettings.Axis) 
+			switch (Axis) 
 			{
 				case PrairieUtil.AxisEnum.Y:
 					pAngle = useCenter?p.GlobalAzimuthNormalized:p.AzimuthRelativeTo(transform.position,true);

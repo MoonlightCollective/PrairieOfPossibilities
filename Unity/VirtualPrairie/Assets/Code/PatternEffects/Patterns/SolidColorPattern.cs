@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class SolidColorPattern : PrairiePatternLayer
 {
-	public SmartColorSlot SolidColor;
+	[Snapshot] public SmartColorSlot SolidColor;
 
 	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> points)
 	{

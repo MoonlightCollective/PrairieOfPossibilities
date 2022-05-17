@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PatternLayerAlphaGate : GateListener
 {
+	[Snapshot]
 	public ADSREnvelope AlphaEnv = ADSREnvelope.Default();
 
 	protected PrairiePatternLayer _patternLayer = null;
