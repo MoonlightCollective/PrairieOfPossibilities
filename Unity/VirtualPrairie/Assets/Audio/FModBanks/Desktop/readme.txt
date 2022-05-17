@@ -1,0 +1,1 @@
+This is where you should put Master.bank and Master.strings.Bank files
