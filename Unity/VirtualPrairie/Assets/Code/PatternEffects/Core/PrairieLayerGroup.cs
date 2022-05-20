@@ -4,16 +4,17 @@ using NaughtyAttributes;
 using PygmyMonkey.ColorPalette;
 using UnityEngine;
 
+[RequireComponent(typeof(ColorPaletteMixer))]
 public class PrairieLayerGroup : MonoBehaviour
 {
 	public LayerGroupSettings GroupSettings;
 	
-	protected ColorPalette _groupPalette;
-	public ColorPalette GroupPalette => _groupPalette;
+	public ColorPaletteMix GroupColors => _paletteMixer.ActiveColors;
 
 	public float GroupAlpha => GroupSettings.GroupAlpha;
 
 	protected List<PrairiePatternLayer> _layers = new List<PrairiePatternLayer>();
+	protected ColorPaletteMixer _paletteMixer;
 
 	//===============
 	// Maintain a list of patterns so we don't have to GetComponent every frame
@@ -28,6 +29,11 @@ public class PrairieLayerGroup : MonoBehaviour
 	public void Start()
 	{
 		rebuildLayerList();
+	}
+
+	public void Awake()
+	{
+		_paletteMixer = GetComponent<ColorPaletteMixer>();
 	}
 
 	//===============
@@ -72,24 +78,10 @@ public class PrairieLayerGroup : MonoBehaviour
 	// based on our settings, figure out which color palette we should be using.
 	protected void updateGroupPalette()
 	{
-		_groupPalette = null;
-		if (!GroupSettings.UseCurrentPalette)
+		if (_paletteMixer == null)
 		{
-			if (GroupSettings.SpecificPaletteIndex < ColorPaletteData.Singleton.colorPaletteList.Count)
-			{
-				// use a specific palette, as long as our index is in range.
-				_groupPalette = ColorPaletteData.Singleton.colorPaletteList[GroupSettings.SpecificPaletteIndex];
-			}
-			else
-			{
-				// out of range - fall back to current palette.
-				_groupPalette = null;
-			}
-		}
-		
-		if (GroupSettings.UseCurrentPalette || (_groupPalette==null))
-		{
-			_groupPalette = ColorPaletteData.Singleton.getCurrentPalette();
+			Debug.LogError($"LayerGroup {gameObject.name} requires a color palette mixer!");
+			_paletteMixer = gameObject.AddComponent<ColorPaletteMixer>();
 		}
 	}
 }

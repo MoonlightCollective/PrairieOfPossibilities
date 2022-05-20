@@ -16,18 +16,18 @@ public class SmartColorSlot
 	
 	[ShowIf("UsePalette")]
 	[AllowNesting]
-	[Range(0,7)]
+	[Range(0,5)]
 	[Snapshot]public int ColorIndex = 0;
 
 	public Color Color(PrairieLayerGroup group)
 	{
 		if (UsePalette)
 		{
-			if (group.GroupPalette != null && 
+			if (group.GroupColors != null && 
 				ColorIndex > -1 &&
-				ColorIndex < group.GroupPalette.colorInfoList.Count)
+				ColorIndex < ColorPaletteMix.kPrairieColorMixCount)
 			{
-				return group.GroupPalette.colorInfoList[ColorIndex].color;
+				return group.GroupColors.Colors[ColorIndex];
 			}
 		}
 
