@@ -228,6 +228,10 @@ public class PlantColorManager : WiredFixtureBase
 
 	public override string FixtureType => "PlantFixture";
 	public override int FixtureId => PlantId;
+	public override List<StemColorManager> FixtureStems()
+	{
+		return StemColors;
+	}
 
 
 }

@@ -64,7 +64,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		// now reconstruct paths.
-		if (!Application.isEditor)
+		if (!Application.isEditor || true)
 		{
 			WiredPathManager pathManager = WiredPathManager.Instance;
 			pathManager.ClearAllPaths();
@@ -119,9 +119,16 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			}
 		}
 
-		if (!Application.isEditor)
+		if (!Application.isEditor || true)
 		{
 			PlantSelectionManager.Instance.NotifyFixtureImport();
+			WiredPathManager.Instance.NotifyNewLayout();
+		}
+
+		PrairiePatternLayer[] patterns = FindObjectsOfType<PrairiePatternLayer>(true);
+		foreach (var p in patterns)
+		{
+			p.NotifyNewLayout();
 		}
 	}
 

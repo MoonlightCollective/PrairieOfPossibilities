@@ -29,6 +29,11 @@ public abstract class PrairiePatternLayer : PrairieLayer
 	//					- add something sexier with reflection
 	public virtual void SetIndexedFloat(int paramDex, float newVal) { }
 
+	public virtual void NotifyNewLayout()
+	{
+		
+	}
+
 	// called by Start(). If you override, be sure to call base.init(), 'cause
 	// we do important stuff here.
 	protected virtual void init()

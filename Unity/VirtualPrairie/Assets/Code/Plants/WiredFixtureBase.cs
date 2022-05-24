@@ -46,4 +46,9 @@ public class WiredFixtureBase : MonoBehaviour
 	{
 		// nothing in base class
 	}
+
+	public virtual List<StemColorManager> FixtureStems()
+	{
+		return new List<StemColorManager>();
+	}
 }
