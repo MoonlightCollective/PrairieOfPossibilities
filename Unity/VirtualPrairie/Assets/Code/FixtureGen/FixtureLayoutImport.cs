@@ -46,6 +46,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		var fixtureData = JsonConvert.DeserializeObject<FixtureData>(fixtureStr);
 		Debug.Log("Children found: " + fixtureData.children.Count);
 
+		// clear the current scene layout
 		ClearChildrenFrom(rootObj);
 
 		var allDevices = new List<WiredFixtureBase>();
@@ -53,6 +54,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		foreach (var item in fixtureData.children)
 		{
 			// create the plant !
+			// note: this creates an in order zero based plant index
 			GameObject newObj = AddFixture(new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z)), rootObj, prefab, true);
 
 			// need to keep an ordered list of imported plants so we can index into them for wired paths.
@@ -66,7 +68,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		// now reconstruct paths.
 		if (!Application.isEditor || true)
 		{
-			WiredPathManager pathManager = WiredPathManager.Instance;
+			WiredPathManager pathManager = WiredPathManager.Instance;			
 			pathManager.ClearAllPaths();
 			foreach (var pathData in fixtureData.wirePaths)
 			{
@@ -99,26 +101,6 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			}
 		}
 
-		// Now parse our outputs to figure out how to map DMX channels to specific points on specific fixtures.
-		// TODO - let's pull this from the wire data instead!
-		foreach (var outputItem in fixtureData.outputs)
-		{
-			if (outputItem.segments != null && outputItem.segments.Count > 0)
-			{
-				// dealing with a list of mapped ranges.
-				int universeStartDex = 0;
-				foreach (var seg in outputItem.segments)
-				{
-					setChannelsForRun(rootObj, seg.start,seg.num,outputItem.host, outputItem.universe,universeStartDex);
-					universeStartDex+=seg.num;
-				}
-			}
-			else
-			{
-				setChannelsForRun(rootObj, outputItem.start, outputItem.num, outputItem.host, outputItem.universe,0);
-			}
-		}
-
 		if (!Application.isEditor || true)
 		{
 			PlantSelectionManager.Instance.NotifyFixtureImport();
@@ -130,44 +112,12 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		{
 			p.NotifyNewLayout();
 		}
-	}
 
-	// helper function that will setup all of the dmx channels for a "run" of a single output (aka dmx controller)
-	private void setChannelsForRun(GameObject rootObj, int startPoint, int runPointCount, string host, int universe, int universePointDexStart)
-	{
-		int pointsPerFixture = FixtureLayoutBase.kPointsPerFixture;
-
-		Debug.Log($"SetChannelsForRun:sp:{startPoint},rdCnt:{runPointCount},u:{universe},UPDexStar{universePointDexStart}");
-		int curChan	 = startPoint;
-
-		// how many fixtures is this?
-		if (runPointCount % pointsPerFixture != 0)
+		PrairieDmxController[] dmxController = GameObject.FindObjectsOfType<PrairieDmxController>();
+		if (dmxController != null && dmxController.Length == 1)
 		{
-			Debug.LogWarning($"Run of length {runPointCount} not a multiple of {FixtureLayoutBase.kPointsPerFixture} - which means it's addressing a partial fixture. Is this intentional?");
-		}
-
-		if (startPoint % pointsPerFixture != 0)
-		{
-			Debug.LogWarning($"Start point not a multiple of 7 - will result in partial mapping, which will be bad");
-		}
-
-		// go through the whole run
-		for (int p = 0; p < runPointCount; p++)
-		{
-			int point = startPoint + p;
-			int fixtureDex = point / pointsPerFixture;
-			int localPointDex = point % pointsPerFixture;
-
-			// make sure that this plant fixture exists in the scene (by index)
-			if (fixtureDex >= rootObj.transform.childCount)
-			{
-				Debug.LogError($"Point out of range: Point {point}, Fixture {fixtureDex}, PointDex {localPointDex}");
-			}
-			
-			// find the right plant
-			PlantColorManager pcm = rootObj.transform.GetChild(fixtureDex).GetComponent<PlantColorManager>();
-			// update the point data
-			pcm.AssociatePointData(localPointDex, host, universe, p+universePointDexStart);
-		}
+			// rebuild the dmx universe map
+			dmxController[0].BuildUniverseMap();
+		}		
 	}
 }

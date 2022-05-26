@@ -13,8 +13,6 @@ public abstract class DmxColorPoint : MonoBehaviour
 	public string Host = "undefined";
 	// the universe of the dmx controller
 	public int Universe = -1;
-	// the point index in the entire scene 
-	public int GlobalPointIndex = -1;
-	// the point index in the local dmx universe
-	public int LocalPointIndex = -1;
+	// the channel this point starts at (universe local)
+	public int ChannelStart = -1;
 }

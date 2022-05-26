@@ -24,30 +24,6 @@ public class PlantColorManager : WiredFixtureBase
 
 	protected PlantSelectionHandler _selectionHandler;
 
-	public void AssociatePointData(int localPointDex, string host, int universe, int globalPointDex)
-	{
-		// make sure the children are loaded
-		FindChildren();
-
-		StemColors[localPointDex].Host = host;
-		StemColors[localPointDex].Universe = universe;
-		StemColors[localPointDex].LocalPointIndex = localPointDex;
-		StemColors[localPointDex].GlobalPointIndex = globalPointDex;
-		StemColors[localPointDex].gameObject.name = StemColors[localPointDex].gameObject.name + $"H{host}_U{universe}_gpd:{globalPointDex}";
-		int minDex = 999;
-		int maxDex = -1;
-
-		foreach (var sc in StemColors)
-		{
-			if (sc.GlobalPointIndex < minDex)
-				minDex = sc.GlobalPointIndex;
-
-			if (sc.GlobalPointIndex > maxDex)
-				maxDex = sc.GlobalPointIndex;
-		}
-		gameObject.name = $"Plant_{PlantId}_H{host}_U{universe}_PointRange_{minDex}-{maxDex}";
-	}
-
 	// this is safe to call multiple times.   it will only find and load the child objects once
 	public void FindChildren()
 	{
@@ -159,6 +135,21 @@ public class PlantColorManager : WiredFixtureBase
 		base.WireToPath(path, index);
 		if (index == 0)
 			_selectionHandler.EnableFirstInPathVis();
+		// update the dmx settings
+		// make sure all the children are loaded
+		FindChildren();
+		// what channel does this fixture start at?
+		int channelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint+FixtureLayoutBase.kPointsPerFixture);
+		gameObject.name = $"Plant({this.PlantId})H({path.ArtnetHost})U({path.Universe})ChannelStart({channelStart})";
+		// no go through the stems and set their details
+		foreach (var stem in StemColors)
+		{
+			stem.Host = path.ArtnetHost;
+			stem.Universe = path.Universe;
+			stem.ChannelStart = channelStart;
+			// jump to the next set of channels
+			channelStart += FixtureLayoutBase.kChannelsPerPoint;
+		}
 	}
 
 	public override void RemoveFromPath()
