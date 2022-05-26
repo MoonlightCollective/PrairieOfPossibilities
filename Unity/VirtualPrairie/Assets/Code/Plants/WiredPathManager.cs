@@ -5,7 +5,17 @@ using UnityEngine;
 public class WiredPathManager : MonoBehaviour
 {
 	static private WiredPathManager s_instance;
-	static public WiredPathManager Instance => s_instance;
+	static public WiredPathManager Instance
+	{
+		get 
+		{
+			if (s_instance == null)
+			{
+				s_instance = GameObject.FindObjectOfType<WiredPathManager>();
+			}
+			return s_instance;
+		}
+	}
 
 	public List<WiredPath> Paths = new List<WiredPath>();
 	public GameObject WiredPathFab;
@@ -38,6 +48,7 @@ public class WiredPathManager : MonoBehaviour
 
 	public void ClearAllPaths()
 	{
+		Debug.Log("Clear All Paths");
 		HideAllPaths();
 		foreach (var p in Paths)
 		{
@@ -65,7 +76,8 @@ public class WiredPathManager : MonoBehaviour
 	{
 		foreach (var path in Paths)
 		{
-			path.SetVisibility(WiredPath.EPathVisState.Hidden);
+			if (path != null)
+				path.SetVisibility(WiredPath.EPathVisState.Hidden);
 		}
 	}
 

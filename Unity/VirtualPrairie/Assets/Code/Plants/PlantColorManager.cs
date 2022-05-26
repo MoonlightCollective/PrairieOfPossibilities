@@ -157,20 +157,20 @@ public class PlantColorManager : WiredFixtureBase
 	public override void WireToPath(WiredPath path, int index = -1)
 	{
 		base.WireToPath(path, index);
-		if (index == 0)
+		if (index == 0 && _selectionHandler != null)// might be null if we imported in the editor
 			_selectionHandler.EnableFirstInPathVis();
 	}
 
 	public override void RemoveFromPath()
 	{
 		base.RemoveFromPath();
-		_selectionHandler.DisableFirstInPathVis();
+		_selectionHandler?.DisableFirstInPathVis();
 	}
 
 	public override void NotifyEnterWiringMode()
 	{
 		base.NotifyEnterWiringMode();
-		_selectionHandler.EnableHavePathVis(ParentPath != null);
+		_selectionHandler?.EnableHavePathVis(ParentPath != null);
 		if (ParentPath != null && _pathIndex == 0)
 		{
 			_selectionHandler.EnableFirstInPathVis();

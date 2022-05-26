@@ -64,7 +64,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		// now reconstruct paths.
-		if (!Application.isEditor || true)
+		if (Application.isPlaying)
 		{
 			WiredPathManager pathManager = WiredPathManager.Instance;
 			pathManager.ClearAllPaths();
@@ -119,7 +119,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			}
 		}
 
-		if (!Application.isEditor || true)
+		if (Application.isPlaying)
 		{
 			PlantSelectionManager.Instance.NotifyFixtureImport();
 			WiredPathManager.Instance.NotifyNewLayout();
