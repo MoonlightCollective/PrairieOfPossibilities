@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using ArtNet.Sockets;
 using ArtNet.Packets;
 using System;
-// Points themselves are mapped in a dictionary that maps Point Index -> DmxColorPoint
+// Points themselves are mapped in a dictionary that maps channelStart -> DmxColorPoint
 // Using dictionaries, because we may not have contguous ranges of devices in a universe, or contiguous universes
 // themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
 using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections.Generic.Dictionary<int,DmxColorPoint>>;
@@ -43,7 +43,6 @@ public class PrairieDmxController : MonoBehaviour
 
 	// A mapping of universe to byte array containing the most recently received ArtNet data for that universe.
 	// ArtNet sends a whole universe worth of data in a single packet.
-	// Note, we only keep this for the localhost controller, used during DmxSendListenMode.Listen
 	Dictionary<string,List<byte[]>> _dataMap = new Dictionary<string,List<byte[]>>();
 
 	// startup tasks at runtime. If we want to change layout at runtime, will need to re-jigger this.
@@ -57,21 +56,20 @@ public class PrairieDmxController : MonoBehaviour
 				Debug.LogError("Failed to init PrairieDmxController!");
 				return;
 			}
-
-			buildUniverseMap();
+			// this is called from import now
+			//buildUniverseMap();
 		}
 	}
 
-	public void SetDmxColor(Color color, string host, int universe, int pointIndex)
+	public void SetDmxColor(Color color, string host, int universe, int channelStart)
 	{
 		// are we in send mode?
 		if (this.DmxMode == DmxSendListenMode.Send)
 		{
 			// set the local color data
-			int channelIndex = pointIndex * ChannelsPerPoint;
-			_dataMap[host][universe][channelIndex]   = (byte)(color.r*255f);
-			_dataMap[host][universe][channelIndex+1] = (byte)(color.g*255f);
-			_dataMap[host][universe][channelIndex+2] = (byte)(color.b*255f);
+			_dataMap[host][universe][channelStart]   = (byte)(color.r*255f);
+			_dataMap[host][universe][channelStart+1] = (byte)(color.g*255f);
+			_dataMap[host][universe][channelStart+2] = (byte)(color.b*255f);
 		}
 	}
 
@@ -145,16 +143,14 @@ public class PrairieDmxController : MonoBehaviour
 						// go through dmx data, 3 points at a time, and set the apprpriate data in the device map
 						for (int c = 0; c < (_dataMap[localhost][u].Length - ChannelsPerPoint); c += ChannelsPerPoint)
 						{
-							// figure out which point this channel data will fill in
-							int pointDex = c/ChannelsPerPoint;
-							
 							// grab a reference to the one Point worth of channel data (without copying it) and send it 
 							// along to the point device so it can change its color accordingly.
 							ArraySegment<byte> dataSeg = new ArraySegment<byte>( _dataMap[localhost][u], c, ChannelsPerPoint);
 
-							if (universeMap[u].ContainsKey(pointDex))
+							// look it up in the map based on channelStart
+							if (universeMap[u].ContainsKey(c))
 							{
-								universeMap[u][pointDex].SetFromDmxColor(dataSeg);
+								universeMap[u][c].SetFromDmxColor(dataSeg);
 							}
 						}
 					}
@@ -181,7 +177,7 @@ public class PrairieDmxController : MonoBehaviour
 
 	// buildUniverseMap() - find all the devices and set up a mapping from universe,pointID -> device that can respond and change color
 	//
-	private void buildUniverseMap()
+	public void BuildUniverseMap()
 	{
 		Debug.Log($"buildUniverseMap() starting");
 
@@ -220,7 +216,7 @@ public class PrairieDmxController : MonoBehaviour
 			}
 
 			// setup a link to the color point
-			universeMap[u][colorPoint.GlobalPointIndex] = colorPoint;
+			universeMap[u][colorPoint.ChannelStart] = colorPoint;
 			// make sure the color point knows how to use this controller
 			colorPoint.Controller = this;
 		}

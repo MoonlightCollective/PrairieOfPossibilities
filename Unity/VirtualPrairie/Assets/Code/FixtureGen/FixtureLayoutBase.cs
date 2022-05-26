@@ -95,15 +95,13 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			{
 				Debug.LogWarning($"ID/Sibling mismatch {pcm.PlantId} {transform.GetSiblingIndex()}");
 			}
+			pcm.PointRangeMin = pcm.PlantId * kPointsPerFixture;
+			pcm.PointRangeMax = pcm.PointRangeMin + kPointsPerFixture;
 		}
 		else
 		{
 			Debug.LogWarning($"Not a plant: {newObj.gameObject.name}, {_lastFixtureId}");
 		}
-
-
-		// add this to the global plant list
-		GlobalPlantSettings.Instance.AddFixture(newObj);
 
 		// support creating plants at runtime, assining universes as we see them.  import files will optionally overwrite these at the end
 		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
@@ -112,11 +110,6 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			_curChannel = 0;
 		}
 		_curChannel += _channelsPerFixture;
-
-		for (int i = 0; i < kPointsPerFixture; ++i)
-		{
-			pcm.AssociatePointData(i, null, _curUniverse, pcm.PointRangeMin + i);
-		}
 
 		// ray cast down and place it on the "ground".  this supports the maps we have with terrain (hills)
 		Vector3 castStart = newObj.transform.position + Vector3.up * 40.0f;

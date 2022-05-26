@@ -76,10 +76,12 @@ public class StemColorManager : DmxColorPoint
 	public void ApplyColorToDmx()
 	{
 		// the controller is null if DMX is turned off
-		if (this.Controller != null)
+		if (this.Controller != null && 
+			this.Universe != -1 &&
+		    this.ChannelStart != -1)
 		{
 			// tell the dmx controller about the color change
-			this.Controller.SetDmxColor(_curColor, this.Host, this.Universe, this.LocalPointIndex);
+			this.Controller.SetDmxColor(_curColor, this.Host, this.Universe, this.ChannelStart);
 		}
 	}
 

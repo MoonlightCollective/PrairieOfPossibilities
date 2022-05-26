@@ -8,6 +8,7 @@ public class WiredFixtureBase : MonoBehaviour
 	public WiredPath ParentPath => _parentPath;
 	public bool IsWired => _parentPath != null;
 
+	// zero based index relative to this path
 	protected int _pathIndex = -1; 
 	public int PathIndex => _pathIndex;
 

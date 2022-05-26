@@ -57,14 +57,4 @@ public class GlobalPlantSettings : MonoBehaviour
 		PlayerPrefs.SetFloat("GlowIntensity", GlowIntensity);
 		PlayerPrefs.SetFloat("StemAlpha", StemAlpha);
 	}
-
-	public void AddFixture(GameObject fixture)
-	{
-		// Debug.Log($"GlobalPlantSettings:AddFixture");
-		PlantColorManager pcm = fixture.GetComponent<PlantColorManager>();
-		pcm.FindChildren();
-		// add this to the master plant list
-		pcm.PointRangeMin = pcm.PlantId * pcm.StemColors.Count;
-		pcm.PointRangeMax = pcm.PointRangeMin + pcm.StemColors.Count;
-	}
 }
