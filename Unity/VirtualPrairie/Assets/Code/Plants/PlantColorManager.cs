@@ -83,8 +83,10 @@ public class PlantColorManager : WiredFixtureBase
 	}
 
 
-	public void Awake()
+	public override void Awake()
 	{
+		base.Awake();
+		
 		FindChildren();
 		
 		if (!_initializedMaterials)

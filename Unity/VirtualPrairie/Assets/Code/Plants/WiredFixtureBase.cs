@@ -15,6 +15,13 @@ public class WiredFixtureBase : MonoBehaviour
 	public virtual string FixtureType => "GenericFixture";
 	public virtual int FixtureId => -1;
 
+	protected float _fixtureRandomOffset = 0f;
+	public float FixtureRandomOffset => _fixtureRandomOffset;
+
+	public virtual void Awake()
+	{
+		_fixtureRandomOffset = Random.Range(0f,1f);
+	}
 	public virtual void WireToPath(WiredPath path, int index = -1)
 	{
 		_pathIndex = index;

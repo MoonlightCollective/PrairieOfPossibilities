@@ -43,6 +43,12 @@ public class StemColorManager : DmxColorPoint
 	Vector2 _xzVect = Vector2.zero;
 	public Vector2 XZVect => _xzVect;
 
+	protected float _randomPointOffset = 1.0f;
+	public float RanomPointOffset => _randomPointOffset;
+
+	protected WiredFixtureBase _parentFixture;
+	public WiredFixtureBase ParentFixture => _parentFixture;
+
 	protected float _globalDistFromOrigin = 0f;
 	public float GlobalDistFromOrigin => _globalDistFromOrigin;
 
@@ -110,12 +116,14 @@ public class StemColorManager : DmxColorPoint
 	}
 	void updateCachedVals()
 	{
+		_parentFixture = GetComponentInParent<WiredFixtureBase>();
 		_globalAzimuth = azimuth * Mathf.Rad2Deg;
 		_globalAzimuthNormalized = _globalAzimuth / 360f;
 		_globalTheta = theta * Mathf.Rad2Deg;
 		_globalThetaNormalized = _globalTheta / 360f;
 		_globalDistFromOrigin = transform.position.magnitude;
 		_xzVect = new Vector2(transform.position.x,transform.position.z);
+		_randomPointOffset = UnityEngine.Random.Range(0,1);
 	}
 	//
 	// SetFromDmxColor - calls Set Color using the data packet passed in new Data (rgb)

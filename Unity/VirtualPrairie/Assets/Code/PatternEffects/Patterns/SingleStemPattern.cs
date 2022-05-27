@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -26,9 +27,13 @@ public class SingleStemPattern : PrairiePatternMonochromaticBase
 	[Range(0,1)]
 	public float PatternOffsetFloat = 0f;
 
+	[Snapshot]
 	[ShowIf("OffsetType", ENumberParamType.Integer)]
 	[Range(0,6)]
 	public int PatternOffsetInt = 0;
+
+	[Snapshot]
+	public bool RandomizePerFixture = false;
 
 	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
@@ -36,9 +41,15 @@ public class SingleStemPattern : PrairiePatternMonochromaticBase
 		int offset;
 		int dex;
 		if (OffsetType == ENumberParamType.Float)
+		{
 			offset = (int)(PatternOffsetFloat * (float)(StemPattern.Length-1));
+		}
 		else
+		{
 			offset = PatternOffsetInt;
+		}
+
+		string doubleStr = StemPattern + StemPattern;
 
 		foreach (var p in points)
 		{
@@ -50,8 +61,15 @@ public class SingleStemPattern : PrairiePatternMonochromaticBase
 				continue;
 
 			float b = MinBrightness;
-			dex = (StemPattern.Length - dex + offset) % (StemPattern.Length);
-			if (StemPattern[dex] != '0')
+
+			int pointOffset = offset;
+			if (RandomizePerFixture)
+			{
+				pointOffset += (int)(p.ParentFixture.FixtureRandomOffset * (float)(StemPattern.Length-1));
+			}
+			dex = (dex + pointOffset) % StemPattern.Length;
+
+			if (doubleStr[dex] != '0')
 			{
 				b = MaxBrightness;
 			}

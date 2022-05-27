@@ -625,17 +625,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 1
+    LayerAlpha: 0
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 0}
-  StemPattern: 1000000
+  StemPattern: 0000100
   MinBrightness: 0
   MaxBrightness: 1
   OffsetType: 0
   PatternOffsetFloat: 0
-  PatternOffsetInt: 0
+  PatternOffsetInt: 2
+  RandomizePerFixture: 1
 --- !u!114 &350263954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,11 +650,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 0.14
+    attack: 0.17
     decay: 0
     sustain: 1
-    release: 0.39
-    attackEase: 0
+    release: 0.3
+    attackEase: 0.55
     decayEase: 0
     releaseEase: 0.6
     interrupt: 0
@@ -1010,10 +1011,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 805433359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be1635bc15984e958da5ee4dc11d8c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0699c3e9c5b8e40d48e3c87d902053c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerTargets:
+  GateTargets:
     Targets:
     - {fileID: 2057318477}
   InjectName: 1
@@ -1062,8 +1063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TriggerTargets:
-    Targets:
-    - {fileID: 0}
+    Targets: []
   InjectName: 1
 --- !u!1 &901466384
 GameObject:
