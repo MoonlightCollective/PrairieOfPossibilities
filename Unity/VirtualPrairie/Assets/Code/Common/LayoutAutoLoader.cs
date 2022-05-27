@@ -10,10 +10,15 @@ public class LayoutAutoLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (!AutoLoadAtStartup)
+		{
+			return;
+		}
+
 		var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
 		string layoutPath = Path.Combine(Application.streamingAssetsPath,LayoutJsonFile);
 		layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
-		
+
 		if (!File.Exists(layoutPath))
 		{
 			Debug.LogError($"Unable to find file: {layoutPath} - doesn't exist!");
