@@ -35,7 +35,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		return true;
 	}
 
-	protected void ClearChildrenFrom(GameObject rootObj)
+	public void ClearChildrenFrom(GameObject rootObj)
 	{
 		PrairieUtil.Points = null;
 		// Clear existing layout if there is one.

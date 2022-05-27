@@ -32,11 +32,6 @@ public class FixtureImportWindow : EditorWindow
 
 		GUILayout.Space(10);
 
-		if (GUILayout.Button("Import Text Asset"))
-		{
-			doImportAsset();
-		}
-
 		if (GUILayout.Button("Import File..."))
 		{
 			doImportFile();
@@ -47,6 +42,13 @@ public class FixtureImportWindow : EditorWindow
 		if (GUILayout.Button("Generate"))
 		{
 			doGenerateButton();
+		}
+
+		GUILayout.Space(10);
+
+		if (GUILayout.Button("Clear Existing Layout"))
+		{
+			doClearLayout();
 		}
 	}
 
@@ -81,4 +83,9 @@ public class FixtureImportWindow : EditorWindow
 		gen.DoImportLayout(PrairieUtil.GetLayoutRoot(),AssetDatabase.GetAssetPath(FixtureFile),true);
 	}
 
+	void doClearLayout()
+	{
+		var importer = GameObject.FindObjectOfType<FixtureLayoutImport>();
+		importer.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
+	}
 }

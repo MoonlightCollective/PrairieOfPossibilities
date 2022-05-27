@@ -61,6 +61,17 @@ public class PrairieUtil
 
 	public static GameObject GetLayoutRoot()
 	{
+
+		#if UNITY_EDITOR
+		if (!Application.isPlaying && UnityEditor.Selection.activeGameObject != null)
+		{
+			if (UnityEditor.Selection.activeGameObject.name == "Layout")
+			{
+				return UnityEditor.Selection.activeGameObject;
+			}
+		}
+		#endif
+
 		// Create or find the parent object for our plants
 		GameObject layoutObj = GameObject.Find("Layout");
 		if (layoutObj == null)
