@@ -4,12 +4,14 @@ using NaughtyAttributes;
 using Nothke.Utils;
 using UnityEngine;
 
-public class PatternParamEnvelopeTrigger : TriggerListener
+[System.Serializable]
+public class PatternParamTriggerSettings
 {
 	[Snapshot]
 	public bool TargetSelf = true;
 
 	[HideIf("TargetSelf")]
+	[AllowNesting]
 	[Snapshot]
 	public PrairiePatternLayer TargetPattern;
 
@@ -18,6 +20,11 @@ public class PatternParamEnvelopeTrigger : TriggerListener
 	
 	[Snapshot]
 	public float Multiplier = 1f;
+}
+
+public class PatternParamEnvelopeTrigger : TriggerListener
+{
+	public PatternParamTriggerSettings ParamTriggerSettings;
 
 	[Snapshot]
 	public ADSREnvelope Envelope = ADSREnvelope.Default();
@@ -26,18 +33,18 @@ public class PatternParamEnvelopeTrigger : TriggerListener
 
 	public void Start()
 	{
-		if (TargetSelf)
+		if (ParamTriggerSettings.TargetSelf)
 		{
-			TargetPattern = gameObject.GetComponent<PrairiePatternLayer>();
+			ParamTriggerSettings.TargetPattern = gameObject.GetComponent<PrairiePatternLayer>();
 		}
 	}
 
 	public void Update()
 	{
-		if (TargetPattern != null)
+		if (ParamTriggerSettings.TargetPattern != null)
 		{
-			float newVal = Envelope.Update(_triggered,Time.deltaTime * TargetPattern.TimeSettings.TimeMult);
-			TargetPattern.SetIndexedFloat(TargetParamIndex,newVal*Multiplier);
+			float newVal = Envelope.Update(_triggered,Time.deltaTime * ParamTriggerSettings.TargetPattern.TimeSettings.TimeMult);
+			ParamTriggerSettings.TargetPattern.SetIndexedFloat(ParamTriggerSettings.TargetParamIndex,newVal*ParamTriggerSettings.Multiplier);
 		}
 		else
 		{

@@ -4798,10 +4798,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSelf: 1
-  TargetPattern: {fileID: 0}
-  TargetParamIndex: 0
-  Multiplier: 2
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 0
+    Multiplier: 2
   Envelope:
     attack: 3
     decay: 0
@@ -5272,10 +5273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSelf: 1
-  TargetPattern: {fileID: 0}
-  TargetParamIndex: 0
-  Multiplier: 2
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 0
+    Multiplier: 2
   Envelope:
     attack: 3
     decay: 0

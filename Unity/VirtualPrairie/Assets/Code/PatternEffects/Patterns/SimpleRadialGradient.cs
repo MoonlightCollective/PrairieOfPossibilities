@@ -37,6 +37,9 @@ public class SimpleRadialGradient : PrairiePatternMonochromaticBase
 
 		foreach (var p in points)
 		{
+			if (!filterAllowPoint(p))
+				continue;
+				
 			float absDistFromCenter = 0;
 			if (Origin == EOriginLoc.Center)
 				absDistFromCenter = Mathf.Abs(p.GlobalDistFromOrigin);

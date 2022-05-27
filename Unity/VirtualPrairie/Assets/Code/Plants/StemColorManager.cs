@@ -25,6 +25,9 @@ public class StemColorManager : DmxColorPoint
 	Color _curColor = Color.black;
 	public Color CurColor => _curColor;
 
+	// set in the prefab!
+	public int StemIndex = 0;
+
 	private Transform _rootTransform;
 	
 	protected float _globalAzimuth = 0f;

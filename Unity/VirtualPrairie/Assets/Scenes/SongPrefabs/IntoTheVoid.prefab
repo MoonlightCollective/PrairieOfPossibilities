@@ -170,6 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 1
+    Multiplier: 0.2
   TargetSelf: 1
   TargetPattern: {fileID: 829267932776083530}
   TargetParamIndex: 1
@@ -199,6 +204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 2
+    Multiplier: 10
   TargetSelf: 1
   TargetPattern: {fileID: 0}
   TargetParamIndex: 2
@@ -228,6 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 0
+    Multiplier: 1
   TargetSelf: 1
   TargetPattern: {fileID: 0}
   TargetParamIndex: 0
@@ -567,6 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829267933239044451}
   - component: {fileID: 829267933239044448}
+  - component: {fileID: 2543537327785176312}
   m_Layer: 0
   m_Name: IntoTheVoid
   m_TagString: Untagged
@@ -609,8 +625,47 @@ MonoBehaviour:
   GroupSettings:
     Enabled: 1
     GroupAlpha: 1
-    UseCurrentPalette: 1
-    SpecificPaletteIndex: 0
+--- !u!114 &2543537327785176312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829267933239044449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41588fc50129e45dbb37e36b06259f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveColors:
+    Colors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+  TargetPalette:
+    PaletteDex: 0
+  EnableAutoCycle: 0
+  DefaultTransitionTime: 2
+  PalettePlaylist: []
+  FromColors:
+    Colors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+  ToColors:
+    Colors:
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &829267933288322490
 GameObject:
   m_ObjectHideFlags: 0
