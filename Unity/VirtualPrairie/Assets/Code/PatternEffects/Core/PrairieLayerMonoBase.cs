@@ -22,6 +22,5 @@ public abstract class PrairiePatternMonochromaticBase : PrairiePatternLayer
 		{
 			return new Color(b,b,b,b * BlendSettings.LayerAlpha * group.GroupAlpha);
 		}
-
 	}
 }

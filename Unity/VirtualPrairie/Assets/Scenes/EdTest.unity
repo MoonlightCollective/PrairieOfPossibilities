@@ -1063,7 +1063,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TriggerTargets:
-    Targets: []
+    Targets:
+    - {fileID: 1043936699}
   InjectName: 1
 --- !u!1 &901466384
 GameObject:
@@ -4710,6 +4711,113 @@ MonoBehaviour:
   IsOrtho: 0
   FollowObj: {fileID: 0}
   FollowOffset: {x: 0.5, y: 0, z: 0}
+--- !u!1 &1043936699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043936700}
+  - component: {fileID: 1043936701}
+  - component: {fileID: 1043936702}
+  m_Layer: 0
+  m_Name: ParticleTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1043936700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043936699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1780580669}
+  m_Father: {fileID: 829267932870124642}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043936701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043936699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a73d1376f95e4d92b059545b4c93af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: 59ab842f76d2d46d396b9e6dbdac8ec9, type: 2}
+  ParticlePrefab: {fileID: 1171345508054593859, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+    type: 3}
+  PoolSize: 10
+  ParticleSettings:
+    Settings:
+    - Name: Falloff
+      ParamType: 1
+      FloatValue: 20
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    - Name: RingSize
+      ParamType: 2
+      FloatValue: 20
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 30
+        MaxVal: 50
+    - Name: ParticleTime
+      ParamType: 2
+      FloatValue: 20
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 3
+        MaxVal: 4
+  SlowInitParticles: 1
+--- !u!114 &1043936702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043936699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bced84430b89e4884a6f1a083b8b849b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1043936701}
+        m_TargetAssemblyTypeName: ParticlePattern, Assembly-CSharp
+        m_MethodName: EmitParticle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1286891277
 GameObject:
   m_ObjectHideFlags: 0
@@ -5134,6 +5242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42508070a1b4798bbdf1a6502c4f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1780580669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1171345509834977407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1903766303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5700,6 +5814,7 @@ Transform:
   - {fileID: 829267932974135680}
   - {fileID: 2057318478}
   - {fileID: 350263951}
+  - {fileID: 1043936700}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5734,6 +5849,105 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &1171345509834977407
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1043936700}
+    m_Modifications:
+    - target: {fileID: 1171345508054593857, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: UseAlphaEnv
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593857, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: AlphaCurve.m_Curve.Array.data[1].time
+      value: 0.099229544
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593857, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: AlphaCurve.m_Curve.Array.data[0].inSlope
+      value: 10.077643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593857, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: AlphaCurve.m_Curve.Array.data[1].inSlope
+      value: 10.077643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593857, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: AlphaCurve.m_Curve.Array.data[0].outSlope
+      value: 10.077643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.7211323
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.048704237
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.1792717
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593858, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593859, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_Name
+      value: SimpleRingParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171345508054593859, guid: 490dd1d48ad4e445e9668f5f8af6d6db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 490dd1d48ad4e445e9668f5f8af6d6db, type: 3}
 --- !u!114 &2543537327349277177
 MonoBehaviour:
   m_ObjectHideFlags: 0

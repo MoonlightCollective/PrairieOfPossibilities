@@ -146,4 +146,19 @@ public class PrairieUtil
 		if (_debugEvents)
 			Debug.Log($"Event: {debugStr}");
 	}
+
+	public static Vector2 PolarToCartesianRad(float r, float thetaRad)
+	{
+		return new Vector2(r * Mathf.Cos(thetaRad), r * Mathf.Sin(thetaRad));
+	}
+
+	public static Vector2 PolarToCartesianNorm(float r, float thetaNorm)
+	{
+		return PolarToCartesianRad(r, thetaNorm * 2f * Mathf.PI);
+	}
+
+	public static Vector2 PolarToCartesianDeg(float r, float thetaDeg)
+	{
+		return PolarToCartesianRad(r, thetaDeg * Mathf.Deg2Rad);
+	}
 }
