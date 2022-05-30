@@ -161,4 +161,14 @@ public class PrairieUtil
 	{
 		return PolarToCartesianRad(r, thetaDeg * Mathf.Deg2Rad);
 	}
+
+	public static Vector3 XZVector3(Vector2 XYVect,float yVal = 0)
+	{
+		return new Vector3(XYVect.x,yVal,XYVect.y);
+	}
+
+	public static Vector3 XZVector2(Vector3 XYZVect)
+	{
+		return new Vector3(XYZVect.x,XYZVect.z);
+	}
 }

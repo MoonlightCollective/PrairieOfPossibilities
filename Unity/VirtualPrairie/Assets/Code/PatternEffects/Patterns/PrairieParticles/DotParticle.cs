@@ -1,36 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
-using Nothke.Utils;
 using UnityEngine;
 
-public class RingParticle : PrairieParticleBase
+public class DotParticle : PrairieParticleBase
 {
-	//===============
-	// Exposed params
-	//===============
 	[Header("ParticleDefaults")]
 	public FloatRange DefaultParticleTime = new FloatRange(1f,1.5f);
-	public FloatRange DefaultRingSize = new FloatRange(5,20);
 	public FloatRange DefaultPositionTheta = new FloatRange(0,1);
 	public FloatRange DefaultPositionRadius = new FloatRange(0,100);
+	public FloatRange DefaultStartSize = new FloatRange(5,10);
 
-	public float DefaultFalloff = 10f;
+	[CurveRange(0,0,1,1,EColor.Yellow)] 
+	public AnimationCurve SizeMultAnim = AnimationCurve.Linear(0,1.0f,1,1.0f);
 
 	[CurveRange(0,0,1,1,EColor.Yellow)] 
 	public AnimationCurve FalloffCurve = AnimationCurve.Linear(0,1.0f,1,0.0f);
 
+	Vector2 posXZ = Vector2.zero;
 
 	//===============
 	// Internals
 	//===============
 	float _lifetime;
-	float _ringSize;
-	float _falloff;
+	float _size;
 
-	float _curR = 0f;
+	float _curSize = 0f;
 	float _particleAlpha = 1.0f;
-	Vector2 posXZ = Vector2.zero;
 
 	public override void InitParticle(PrairieParticleSettings settings)
 	{
@@ -38,10 +34,9 @@ public class RingParticle : PrairieParticleBase
 
 		/// allow our particle system to overrride any of our settings.
 		DefaultParticleTime = settings.GetFloatRangeSetting("ParticleTime",DefaultParticleTime);
-		DefaultRingSize = settings.GetFloatRangeSetting("RingSize",DefaultRingSize);
 		DefaultPositionTheta = settings.GetFloatRangeSetting("PositionTheta",DefaultPositionTheta);
 		DefaultPositionRadius = settings.GetFloatRangeSetting("PositionRadius",DefaultPositionRadius);
-		DefaultFalloff = settings.GetFloatSetting("Falloff",DefaultFalloff);
+		DefaultStartSize = settings.GetFloatRangeSetting("StartSize",DefaultStartSize);
 	}
 
 	public override void ResetParticle()
@@ -51,22 +46,19 @@ public class RingParticle : PrairieParticleBase
 
 		// trigger a new particle.
 		_lifetime = DefaultParticleTime.RandomVal;
-		_ringSize = DefaultRingSize.RandomVal;
-		_falloff = DefaultFalloff;
-		transform.position = PrairieUtil.XZVector3(PrairieUtil.PolarToCartesianNorm(DefaultPositionRadius.RandomVal,DefaultPositionTheta.RandomVal));
-		_curR = 0f;
-		
+		_size = DefaultStartSize.RandomVal;
+		transform.localPosition = PrairieUtil.XZVector3(PrairieUtil.PolarToCartesianNorm(DefaultPositionRadius.RandomVal,DefaultPositionTheta.RandomVal));
+		_curSize = _size * SizeMultAnim.Evaluate(0f);
+
 		resetParticleMods();
 	}
-
-	public override bool IsRunning => _isRunning;
 
 	public override void UpdateParticle(float deltaTime, PrairieLayerGroup group)
 	{
 		base.UpdateParticle(deltaTime,group);
 
 		float a = Mathf.Clamp01(_particleT/_lifetime);
-		_curR = a * _ringSize;
+		_curSize = _size + SizeMultAnim.Evaluate(a);
 		if (a >= 1)
 		{
 			_isRunning = false;
@@ -76,16 +68,16 @@ public class RingParticle : PrairieParticleBase
 		{
 			_particleAlpha = UseAlphaCurve?AlphaCurve.Evaluate(a):1.0f;
 		}
-		posXZ = new Vector2(transform.position.x,transform.position.z);
+		_curSize = _size * SizeMultAnim.Evaluate(a);
+		posXZ = PrairieUtil.XZVector2(transform.position);
 	}
+
 
 	public override Color ColorForPoint(StemColorManager point)
 	{
 		float distFromC = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ));
-		float distFromR = Mathf.Abs(distFromC - _curR);
-		float normalizedFalloffDist = Mathf.Clamp01(distFromR/_falloff);
+		float normalizedFalloffDist = Mathf.Clamp01(distFromC/_curSize);
 		float b = _particleAlpha * Mathf.Clamp01(FalloffCurve.Evaluate(normalizedFalloffDist));
 		return new Color(b,b,b,b);
 	}
-
 }

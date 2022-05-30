@@ -17,6 +17,7 @@ public abstract class PrairieParticleBase : MonoBehaviour
 
 	protected float _particleT = -1f;
 	protected bool _isRunning = false;
+	protected List<ParticleTransformMod> _mods = new List<ParticleTransformMod>();
 
 	public virtual void Initialize(PrairieParticlePool parentPool)
 	{
@@ -28,6 +29,7 @@ public abstract class PrairieParticleBase : MonoBehaviour
 	public virtual void InitParticle(PrairieParticleSettings settings)
 	{
 		UseAlphaCurve = (settings.GetIntSetting("UseAlphaCurve",UseAlphaCurve?1:0) == 1);
+		_mods = new List<ParticleTransformMod>(GetComponents<ParticleTransformMod>());
 	}
 
 	public virtual void ResetParticle()
@@ -36,9 +38,21 @@ public abstract class PrairieParticleBase : MonoBehaviour
 		_isRunning = true;
 	}
 
+	protected virtual void resetParticleMods()
+	{
+		foreach (var m in _mods)
+		{
+			m.ResetParticle(this);
+		}
+	}
+
 	public virtual void UpdateParticle(float deltaTime, PrairieLayerGroup group)
 	{
 		_particleT += deltaTime;
+		foreach (var m in _mods)
+		{
+			m.UpdateTransform(this,deltaTime,group);
+		}
 	}
 
 	public abstract Color ColorForPoint(StemColorManager point);
