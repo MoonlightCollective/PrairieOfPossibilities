@@ -73,6 +73,12 @@ public class ParticlePattern : PrairiePatternLayer
 	public virtual void EmitParticle()
 	{
 		var p = _particlePool.NewInstance(true);
+		if (p == null)
+		{
+			Debug.LogWarning($"{gameObject.name} - particle pool too small {this.PoolSize} - couldn't emit particle")
+			return;
+		}
+		
 		if (SlowInitParticles)
 		{
 			p.InitParticle(ParticleSettings);
