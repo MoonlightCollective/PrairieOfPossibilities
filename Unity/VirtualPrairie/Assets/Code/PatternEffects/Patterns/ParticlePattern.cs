@@ -75,7 +75,7 @@ public class ParticlePattern : PrairiePatternLayer
 		var p = _particlePool.NewInstance(true);
 		if (p == null)
 		{
-			Debug.LogWarning($"{gameObject.name} - particle pool too small {this.PoolSize} - couldn't emit particle")
+			Debug.LogWarning($"{gameObject.name} - particle pool too small {this.PoolSize} - couldn't emit particle");
 			return;
 		}
 		
