@@ -13,6 +13,7 @@ public class RadialTransformMod : ParticleTransformMod
 		if (localPosXZ.magnitude < 0.001)
 		{
 			_travelDir = Random.insideUnitCircle.normalized;
+			// Debug.Log($"random dir: {_travelDir}");
 		}
 		else
 		{

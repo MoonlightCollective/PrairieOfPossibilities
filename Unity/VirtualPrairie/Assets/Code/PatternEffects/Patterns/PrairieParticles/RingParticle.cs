@@ -53,7 +53,7 @@ public class RingParticle : PrairieParticleBase
 		_lifetime = DefaultParticleTime.RandomVal;
 		_ringSize = DefaultRingSize.RandomVal;
 		_falloff = DefaultFalloff;
-		transform.position = PrairieUtil.XZVector3(PrairieUtil.PolarToCartesianNorm(DefaultPositionRadius.RandomVal,DefaultPositionTheta.RandomVal));
+		transform.localPosition = PrairieUtil.XZVector3(PrairieUtil.PolarToCartesianNorm(DefaultPositionRadius.RandomVal,DefaultPositionTheta.RandomVal));
 		_curR = 0f;
 		
 		resetParticleMods();

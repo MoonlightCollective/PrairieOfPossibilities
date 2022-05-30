@@ -4,6 +4,7 @@ using UnityEngine;
 using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 /// <summary>
 /// Examples for the M2MQTT library (https://github.com/eclipse/paho.mqtt.m2mqtt),
@@ -20,6 +21,7 @@ public class MqttController : M2MqttUnityClient
 {
 	public List<TopicToEventEntry> TopicEvents;
 	
+	
 	protected Dictionary<string,UnityEvent<string>> _eventMap = new Dictionary<string,UnityEvent<string>>();
 
 	protected override void OnConnected()
@@ -28,6 +30,7 @@ public class MqttController : M2MqttUnityClient
 		Debug.Log("MQTT connected");
 	}
 
+	[Button("Resubscribe")]
 	protected override void SubscribeTopics()
 	{
 		base.SubscribeTopics();
@@ -38,7 +41,10 @@ public class MqttController : M2MqttUnityClient
 			topics.Add(entry.Topic);
 			_eventMap[entry.Topic] = entry.OnMessage;
 		}
-		client.Subscribe(topics.ToArray(),new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+		if (topics.Count > 0)
+		{
+			client.Subscribe(topics.ToArray(),new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+		}
 	}
 
 	protected override void DecodeMessage(string topic, byte[] message)
