@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031113855, g: 0.00618714, b: 0.014234937, a: 1}
+  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -369,6 +369,58 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &156151503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156151504}
+  - component: {fileID: 156151505}
+  m_Layer: 0
+  m_Name: Mqtt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &156151504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156151503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 698695000}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &156151505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156151503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8cd490b6f61e94ba6e6809a4f9d8dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokerAddress: 73.254.192.189
+  brokerPort: 41799
+  isEncrypted: 0
+  connectionDelay: 500
+  timeoutOnConnection: 30000
+  autoConnect: 1
+  mqttUserName: moonlight
+  mqttPassword: collective
 --- !u!1001 &378801782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,6 +627,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &698695000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5802906346816108686, guid: 68f10929ed4e745f69580c363905c622,
+    type: 3}
+  m_PrefabInstance: {fileID: 943498478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &770949044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,6 +2937,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802906347283139519, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: DmxMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802906347283139519, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5802906347550455283, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
