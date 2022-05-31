@@ -48,12 +48,15 @@ public class ColorPaletteMixer : MonoBehaviour
 
 	[Header("Palette Playlist")]
 	public bool EnableAutoCycle;
+	public float AutoCycleTime = 5.0f;
+
 	public float DefaultTransitionTime = 2.0f;
 	public List<ColorPaletteMixerEntry> PalettePlaylist = new List<ColorPaletteMixerEntry>();
 
 	float _transitionAlpha = 1;
 	int _curPaletteDex = -1;
 	int _targetPeltteDex = 0;
+	float _timer;
 
 	[Foldout("Debug")]
 	[ReadOnly]
@@ -70,6 +73,7 @@ public class ColorPaletteMixer : MonoBehaviour
 			p.SyncWithGlobalPalette();
 		}
 		SnapToTargetPalette();
+		_timer = AutoCycleTime;
 	}
 
 	public void Update()
@@ -79,11 +83,36 @@ public class ColorPaletteMixer : MonoBehaviour
 			startTransitionToTarget();
 		}
 
+		if (EnableAutoCycle)
+		{
+			_timer -= Time.deltaTime;
+			if (_timer < 0)
+			{
+				autoCyclePalette();
+			}
+		}
+
 		updateTransition();
+	}
+
+	void autoCyclePalette()
+	{
+		if (PalettePlaylist.Count <= 1)
+		{
+			return;
+		}
+
+		int newDex = _curPaletteDex;
+		while (newDex == _curPaletteDex)
+			newDex = Random.Range(0,PalettePlaylist.Count-1);
+
+		TargetPalette = PalettePlaylist[newDex];
+		_timer = AutoCycleTime;
 	}
 
 	void startTransitionToTarget()
 	{
+		Debug.Log($"start transition to palette:{TargetPalette.PaletteDex}");
 		_targetPeltteDex = TargetPalette.PaletteDex;
 		var palette = ColorPaletteData.Singleton.colorPaletteList[TargetPalette.PaletteDex];
 		for (int i = 0; i < ColorPaletteMix.kPrairieColorMixCount;i++)

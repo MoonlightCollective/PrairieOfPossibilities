@@ -363,6 +363,100 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &151537871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151537872}
+  - component: {fileID: 151537875}
+  - component: {fileID: 151537874}
+  - component: {fileID: 151537873}
+  m_Layer: 0
+  m_Name: SolidRed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &151537872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151537871}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 829267932870124642}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &151537873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151537871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapshotEntries: []
+--- !u!114 &151537874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151537871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+--- !u!114 &151537875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151537871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c53759cebd54b4a8f96a261ebdebbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  SolidColor:
+    UsePalette: 0
+    StaticColor: {r: 1, g: 0, b: 0, a: 1}
+    ColorIndex: 0
 --- !u!1 &154325848
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +490,7 @@ Transform:
   - {fileID: 850010375}
   - {fileID: 1694056784}
   m_Father: {fileID: 829267932870124642}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &154325850
 MonoBehaviour:
@@ -554,7 +648,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 829267932870124642}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &350263952
 MonoBehaviour:
@@ -5105,7 +5199,7 @@ Transform:
   - {fileID: 1780580669}
   - {fileID: 5324154717632874039}
   m_Father: {fileID: 829267932870124642}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1043936701
 MonoBehaviour:
@@ -6123,11 +6217,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2057318478}
-  - component: {fileID: 2057318481}
   - component: {fileID: 2057318480}
   - component: {fileID: 2057318479}
   m_Layer: 0
-  m_Name: SolidRed
+  m_Name: Spin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6146,7 +6239,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 829267932870124642}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2057318479
 MonoBehaviour:
@@ -6170,32 +6263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2057318477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlphaEnv:
-    attack: 1
-    decay: 0
-    sustain: 1
-    release: 1
-    attackEase: 0
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
---- !u!114 &2057318481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2057318477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4c53759cebd54b4a8f96a261ebdebbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ff50d822691d841f589e9ab53f1b933a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BlendSettings:
@@ -6203,11 +6271,13 @@ MonoBehaviour:
     LayerAlpha: 1
   TimeSettings:
     TimeMult: 1
-  PointFilter: {fileID: 0}
-  SolidColor:
-    UsePalette: 0
-    StaticColor: {r: 1, g: 0, b: 0, a: 1}
-    ColorIndex: 0
+  PointFilter: {fileID: 11400000, guid: 729eda774b9334df69929da7d56c8d8f, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
+  Speed: 0.29
+  Falloff: 0.194
+  MinBright: 0.015
+  MaxBright: 0.619
+  UseRandomOffset: 1
 --- !u!1 &829267932870124640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6254,6 +6324,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 829267932974135680}
+  - {fileID: 151537872}
   - {fileID: 2057318478}
   - {fileID: 350263951}
   - {fileID: 1043936700}
@@ -6413,10 +6484,14 @@ MonoBehaviour:
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
   TargetPalette:
-    PaletteDex: 0
-  EnableAutoCycle: 0
+    PaletteDex: 1
+  EnableAutoCycle: 1
+  AutoCycleTime: 5
   DefaultTransitionTime: 2
-  PalettePlaylist: []
+  PalettePlaylist:
+  - PaletteDex: 0
+  - PaletteDex: 1
+  - PaletteDex: 3
   FromColors:
     Colors:
     - {r: 0, g: 0, b: 0, a: 0}

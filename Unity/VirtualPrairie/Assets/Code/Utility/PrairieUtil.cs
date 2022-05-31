@@ -171,4 +171,30 @@ public class PrairieUtil
 	{
 		return new Vector3(XYZVect.x,XYZVect.z);
 	}
+	
+	public static void CartesianToPolar(Vector2 inXZVect, out float radius, out float theta)
+	{
+		float x = inXZVect.x;
+		float z = inXZVect.y;
+		CartesianToPolar(x,z,out radius, out theta);
+	}
+
+	public static void CartesianToPolarNorm(Vector2 inXZVect, out float radius, out float theta)
+	{
+		float x = inXZVect.x;
+		float z = inXZVect.y;
+		CartesianToPolarNorm(x,z,out radius, out theta);
+	}
+
+	public static void CartesianToPolar(float inX, float inZ, out float radius, out float theta)
+	{
+		radius = Mathf.Sqrt(inX * inX + inZ * inZ);
+		theta = Mathf.Atan2(inZ,inX);
+	}
+
+	public static void CartesianToPolarNorm(float inX, float inZ, out float radius, out float theta)
+	{
+		radius = Mathf.Sqrt(inX * inX + inZ * inZ);
+		theta = Mathf.Atan2(inZ,inX) / (2 * Mathf.PI);
+	}
 }

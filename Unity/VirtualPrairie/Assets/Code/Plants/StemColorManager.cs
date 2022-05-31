@@ -52,6 +52,15 @@ public class StemColorManager : DmxColorPoint
 	protected float _globalDistFromOrigin = 0f;
 	public float GlobalDistFromOrigin => _globalDistFromOrigin;
 
+	protected float _localTheta = 0f;
+	public float LocalTheta => _localTheta;
+
+	protected float _localThetaNorm = 0f;
+	public float LocalThetaNorm => _localThetaNorm;
+
+	protected float _localRadius = 0f;
+	public float LocalRadius => _localRadius;
+
 	public List<EStemTags> Tags = new List<EStemTags>();
 	
 	// 
@@ -121,6 +130,18 @@ public class StemColorManager : DmxColorPoint
 		_globalAzimuthNormalized = _globalAzimuth / 360f;
 		_globalTheta = theta * Mathf.Rad2Deg;
 		_globalThetaNormalized = _globalTheta / 360f;
+		
+		if (StemIndex < 5)
+		{
+			_localRadius = 0.25f;
+			_localThetaNorm = ((float)StemIndex / (float)5);
+		}
+		else
+		{
+			_localRadius = 0.02f;
+			_localThetaNorm = (StemIndex == 5)?0:.5f;
+		}
+
 		_globalDistFromOrigin = transform.position.magnitude;
 		_xzVect = new Vector2(transform.position.x,transform.position.z);
 		_randomPointOffset = UnityEngine.Random.Range(0,1);
