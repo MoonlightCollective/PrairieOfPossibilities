@@ -33,6 +33,7 @@ public class SimpleRadialGradient : PrairiePatternMonochromaticBase
 				if (dist > _maxDist)
 					_maxDist = dist;
 			}
+			_haveBounds = true;
 		}
 
 		foreach (var p in points)

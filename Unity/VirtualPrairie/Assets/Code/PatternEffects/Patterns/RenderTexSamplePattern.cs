@@ -69,8 +69,8 @@ public class RenderTexSamplePattern : PrairiePatternMonochromaticBase
 			xN = Mathf.Clamp01(xN + .5f);
 			zN = Mathf.Clamp01(zN + .5f);
 
-			int nearestX = (int) (xN * (float)(RenderTex.width-1));
-			int nearestY = (int) (zN * (float)(RenderTex.height-1));
+			int nearestX = Mathf.RoundToInt(xN * (float)(RenderTex.width-1));
+			int nearestY = Mathf.RoundToInt(zN * (float)(RenderTex.height-1));
 
 			int offset = (nearestY * RenderTex.width * 4) + nearestX * 4;
 
@@ -78,7 +78,7 @@ public class RenderTexSamplePattern : PrairiePatternMonochromaticBase
 			{
 				Color32 colorBytes = new Color32(_copyBuffer[offset + 0],_copyBuffer[offset + 1],_copyBuffer[offset+2],255);
 				Color c = colorBytes;
-
+				c.a = c.a * BlendSettings.LayerAlpha;
 				p.SetColor(ColorBlend.BlendColors(c,p.CurColor,BlendSettings.BlendMode));
 			}
 			catch
