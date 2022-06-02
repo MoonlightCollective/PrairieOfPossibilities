@@ -44,6 +44,7 @@ public class ColorPaletteMixer : MonoBehaviour
 	public ColorPaletteMix ActiveColors;
 
 	[Header("TargetPaletteSelector")]
+	[OnValueChanged("targetChanged")]
 	public ColorPaletteMixerEntry TargetPalette = new ColorPaletteMixerEntry();
 
 	[Header("Palette Playlist")]
@@ -64,6 +65,11 @@ public class ColorPaletteMixer : MonoBehaviour
 	[Foldout("Debug")]
 	[ReadOnly]
 	public ColorPaletteMix ToColors;
+
+	void targetChanged()
+	{
+		_targetPeltteDex = TargetPalette.PaletteDex;
+	}
 
 	public void Awake()
 	{
@@ -89,6 +95,7 @@ public class ColorPaletteMixer : MonoBehaviour
 			if (_timer < 0)
 			{
 				autoCyclePalette();
+				_timer = AutoCycleTime;
 			}
 		}
 
@@ -97,6 +104,7 @@ public class ColorPaletteMixer : MonoBehaviour
 
 	void autoCyclePalette()
 	{
+		Debug.Log("Auto Cycle");
 		if (PalettePlaylist.Count <= 1)
 		{
 			return;
@@ -104,9 +112,11 @@ public class ColorPaletteMixer : MonoBehaviour
 
 		int newDex = _curPaletteDex;
 		while (newDex == _curPaletteDex)
-			newDex = Random.Range(0,PalettePlaylist.Count-1);
+			newDex = Random.Range(0,PalettePlaylist.Count);
 
+		Debug.Log("New Target:" + newDex);
 		TargetPalette = PalettePlaylist[newDex];
+
 		_timer = AutoCycleTime;
 	}
 
@@ -132,6 +142,10 @@ public class ColorPaletteMixer : MonoBehaviour
 			for (int i = 0; i < ColorPaletteMix.kPrairieColorMixCount; i++)
 			{
 				ActiveColors.Colors[i] = Color.Lerp(FromColors.Colors[i],ToColors.Colors[i],_transitionAlpha);
+			}
+			if (_transitionAlpha >= 1)
+			{
+				_curPaletteDex = _targetPeltteDex;
 			}
 		}
 	}

@@ -74,6 +74,7 @@ public class RingParticle : PrairieParticleBase
 		}
 		else
 		{
+			_isRunning = true;
 			_particleAlpha = UseAlphaCurve?AlphaCurve.Evaluate(a):1.0f;
 		}
 		posXZ = new Vector2(transform.position.x,transform.position.z);

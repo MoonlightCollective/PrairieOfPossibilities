@@ -7,8 +7,8 @@ using UnityEngine.Rendering;
 public class RenderTexSamplePattern : PrairiePatternMonochromaticBase
 {
 	public RenderTexture RenderTex;
-	public float FieldRadius = 50.0f;
-	public float UpdateRate = 20.0f;
+	[Snapshot] public float FieldRadius = 50.0f;
+	[Snapshot] public float UpdateRate = 20.0f;
 
 	NativeArray<byte> _buffer;
 	byte[] _copyBuffer;
