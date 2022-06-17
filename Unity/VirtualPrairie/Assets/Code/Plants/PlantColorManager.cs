@@ -141,7 +141,7 @@ public class PlantColorManager : WiredFixtureBase
 		// make sure all the children are loaded
 		FindChildren();
 		// what channel does this fixture start at?
-		int channelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint+FixtureLayoutBase.kPointsPerFixture);
+		int channelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint*FixtureLayoutBase.kPointsPerFixture);
 		gameObject.name = $"Plant({this.PlantId})H({path.ArtnetHost})U({path.Universe})ChannelStart({channelStart})";
 		// no go through the stems and set their details
 		foreach (var stem in StemColors)
