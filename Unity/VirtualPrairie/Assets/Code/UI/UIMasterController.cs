@@ -7,7 +7,7 @@ public class UIMasterController : MonoBehaviour
 	public UIHudController HudController;
 	public UILayoutSettingsController LayoutSettingsController;
 	public UIWiringController WiringController;
-
+	public UIEventPanel EventPanel;
 
 	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
 	public bool HudActive  => HudController.gameObject.activeInHierarchy;
@@ -30,6 +30,10 @@ public class UIMasterController : MonoBehaviour
 		if (!PlantSelectionManager.Instance.IsWiring() && Input.GetKeyDown(KeyCode.L))
 		{
 			toggleLayoutUI();
+		}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			toggleEventUI();
 		}
     }
 	
@@ -67,6 +71,11 @@ public class UIMasterController : MonoBehaviour
 			HudController.gameObject.SetActive(false);
 		else
 			HudController.gameObject.SetActive(true);
+	}
+
+	void toggleEventUI()
+	{
+		EventPanel.ToggleEventUI();
 	}
 
 	void toggleWiringController()
