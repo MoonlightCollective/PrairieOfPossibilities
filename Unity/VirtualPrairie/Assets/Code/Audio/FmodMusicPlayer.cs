@@ -129,7 +129,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
 	{
 		FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
-
+		
 		IntPtr evUserDataPtr;
 		FmodMusicPlayer playerInstance = null;
 		FMOD.RESULT result = instance.getUserData(out evUserDataPtr);
@@ -162,10 +162,39 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
 			{
 				var timelineParam = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+				Debug.Log($"Event: {type.ToString()}");
 				if (playerInstance != null)
 				{
+					string pName = timelineParam.name;
+					Debug.Log($"---marker: {pName}");
 					playerInstance.OnMarkerEvent?.Invoke(timelineParam.name);
 				}
+				break;
+			}
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
+			{
+				Debug.Log("EventCommand:");
+				EventDescription ed;
+				FMOD.Studio.EventInstance inst = new FMOD.Studio.EventInstance(parameterPtr);
+				Debug.Log($"instance:{inst.isValid()}");
+				float vol;
+				var r = inst.getVolume(out vol);
+				Debug.Log($"vol: {FMOD.Error.String(r)} {vol}");
+				r = inst.getDescription(out ed);
+				Debug.Log($"desc: {FMOD.Error.String(r)}");
+				string path = "";
+				r = ed.getPath(out path);
+				Debug.Log($"path: {FMOD.Error.String(r)}");
+				Debug.Log("instance:" + path);
+				break;
+			}
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
+			{
+				var sound = new FMOD.Sound(parameterPtr); 
+				int nameLen = 1024; 
+				string sName;
+				sound.getName(out sName, nameLen);
+				Debug.Log("SoundStart:" + sName);
 				break;
 			}
 			default:

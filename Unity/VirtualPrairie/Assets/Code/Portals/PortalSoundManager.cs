@@ -10,7 +10,6 @@ public class PortalSoundManager : MonoBehaviour
 	public EventReference EntryEvent;
 	public EventReference ExitEvent;
 	protected EventInstance _curEventInstance;
-
 	public void FireEntrySound()
 	{
 		if (alreadyPlaying())
@@ -62,4 +61,5 @@ public class PortalSoundManager : MonoBehaviour
 		_curEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
 		_curEventInstance.start();
 	}
+
 }

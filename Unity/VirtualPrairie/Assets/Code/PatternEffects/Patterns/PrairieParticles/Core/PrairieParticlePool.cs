@@ -59,7 +59,7 @@ public class PrairieParticlePool
 
 		foreach (var p in _finishedList)
 		{
-			Debug.Log("Freeing:" + p.name);
+			// Debug.Log("Freeing:" + p.name);
 			FreeInstance(p);
 		}
 		

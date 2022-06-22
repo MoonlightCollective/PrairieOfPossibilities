@@ -17,6 +17,87 @@ public enum EStemTags
 	Outer,
 }
 
+
+public class StemColorManagerProxy : StemColorManager
+{
+	protected StemColorManager _realStem;
+
+	public override void Awake()
+	{
+		// normally updates cached values, but we aren't gonna do that until Init for a pro9xy.
+	}
+
+	public void Init(StemColorManager realStem)
+	{
+		_realStem = realStem;
+		updateCachedVals();
+	}
+
+	protected override void updateCachedVals()
+	{
+		if (_realStem == null)
+			return;
+
+		_realStem.ForceUpdateCachedVals();
+		
+		transform.position = _realStem.transform.position;
+		transform.localScale = _realStem.transform.localScale;
+		transform.localRotation = _realStem.transform.localRotation;
+		
+		StemIndex = _realStem.StemIndex;
+		_globalAzimuth = _realStem.GlobalAzimuth;
+		_globalAzimuthNormalized = _realStem.GlobalAzimuthNormalized;
+		_globalThetaNormalized = _realStem.GlobalThetaNormalized;
+		_globalTheta = _realStem.GlobalTheta;
+		_xzVect = _realStem.XZVect;
+		_randomPointOffset = _realStem.RanomPointOffset;
+		_parentFixture = _realStem.ParentFixture;
+		_globalDistFromOrigin = _realStem.GlobalDistFromOrigin;
+		_localTheta = _realStem.LocalTheta;
+		_localRadius = _realStem.LocalRadius;
+		Tags = new List<EStemTags>(_realStem.Tags);
+	}
+
+	public override void ApplyColorToDmx()
+	{
+		// we don't really ever want to do this.
+	}
+
+	public override void ApplyColorToMats()
+	{
+		// we don't do anything here.
+	}
+
+	public override void SetColor(Color newColor)
+	{
+		// we have our own sense of color
+		base.SetColor(newColor);
+	}
+
+	public override void LateUpdate()
+	{
+		// do NOTHING! Don't set DMX or anything. we just proxy the color.
+		// updateCachedVals();
+	}
+
+	public override void SetFromDmxColor(ArraySegment<byte> newData)
+	{
+		/// nothing
+	}
+	public override void SetFromDmxColor(byte[] newData)
+	{
+		/// nothing.
+	}
+
+	public override void InitMaterials()
+	{
+		/// NOTHING!
+	}
+
+	
+}
+
+
 public class StemColorManager : DmxColorPoint
 {
 	public List<Material> Materials = new List<Material>();
@@ -40,7 +121,7 @@ public class StemColorManager : DmxColorPoint
 	public float GlobalTheta => _globalThetaNormalized;
 	public float GlobalThetaNormalized => _globalThetaNormalized;
 
-	Vector2 _xzVect = Vector2.zero;
+	protected Vector2 _xzVect = Vector2.zero;
 	public Vector2 XZVect => _xzVect;
 
 	protected float _randomPointOffset = 1.0f;
@@ -66,12 +147,12 @@ public class StemColorManager : DmxColorPoint
 	// 
 	// SetColor - set colors in the instanced materials for all mesh renderers associated with me.
 	// 
-	public void SetColor(Color newColor)
+	public virtual void SetColor(Color newColor)
 	{
 		_curColor = newColor;
 	}
 
-	public void ApplyColorToMats()
+	public virtual void ApplyColorToMats()
 	{
 		float glow = GlobalPlantSettings.Instance.GlowIntensity;
 		float stemAlpha = GlobalPlantSettings.Instance.StemAlpha;
@@ -91,7 +172,7 @@ public class StemColorManager : DmxColorPoint
 	}
 
 
-	public void ApplyColorToDmx()
+	public virtual void ApplyColorToDmx()
 	{
 		// the controller is null if DMX is turned off
 		if (this.Controller != null && 
@@ -103,12 +184,12 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	public void Awake()
+	public virtual void Awake()
 	{
 		updateCachedVals();
 	}
 
-	public void LateUpdate()
+	public virtual void LateUpdate()
 	{
 		checkForTransformChange();
 		ApplyColorToMats();
@@ -116,14 +197,21 @@ public class StemColorManager : DmxColorPoint
 		SetColor(Color.black);
 	}
 
-	void checkForTransformChange()
+	protected virtual void checkForTransformChange()
 	{
 		if (transform.hasChanged)
 		{
 			updateCachedVals();
 		}
 	}
-	void updateCachedVals()
+	
+
+	public virtual void ForceUpdateCachedVals()
+	{
+		updateCachedVals();
+	}
+
+	protected virtual void updateCachedVals()
 	{
 		_parentFixture = GetComponentInParent<WiredFixtureBase>();
 		_globalAzimuth = azimuth * Mathf.Rad2Deg;
@@ -148,6 +236,7 @@ public class StemColorManager : DmxColorPoint
 		_xzVect = new Vector2(_parentFixture.transform.position.x + localPos.x, _parentFixture.transform.position.z + localPos.y);
 		_randomPointOffset = UnityEngine.Random.Range(0,1);
 	}
+
 	//
 	// SetFromDmxColor - calls Set Color using the data packet passed in new Data (rgb)
 	// 
@@ -174,7 +263,7 @@ public class StemColorManager : DmxColorPoint
 	// InitMaterials() - this happens separately from the construction, because we only want 
 	//  				 to do this at runtime.  Find all our materials.
 	//
-	public void InitMaterials()
+	public virtual void InitMaterials()
 	{
 		var meshes = transform.GetComponentsInChildren<MeshRenderer>();
 		foreach (var mesh in meshes)
@@ -205,7 +294,7 @@ public class StemColorManager : DmxColorPoint
 	}
 
 
-	public float AzimuthRelativeTo(Vector3 centerPoint, bool normalized = false)
+	public virtual float AzimuthRelativeTo(Vector3 centerPoint, bool normalized = false)
 	{
 		Vector3 offsetPos = transform.position - centerPoint;
 		float azRad = (float) ((2*Mathf.PI + Mathf.Atan2(offsetPos.z, offsetPos.x)) % (2*Mathf.PI));
@@ -216,7 +305,7 @@ public class StemColorManager : DmxColorPoint
 		return azRad;
 	}
 
-	public float ThetaRelativeTo(Vector3 centerPoint, bool normalized = false)
+	public virtual float ThetaRelativeTo(Vector3 centerPoint, bool normalized = false)
 	{
 		Vector3 offsetPos = transform.position-centerPoint;
 		float thetaRad = (float) ((2*Mathf.PI + Mathf.Atan2(offsetPos.y, offsetPos.x)) % (2*Mathf.PI));
@@ -227,7 +316,7 @@ public class StemColorManager : DmxColorPoint
 		return thetaRad;
 	}
 
-	protected float azimuth
+	protected virtual float azimuth
 	{
 		get
 		{		
@@ -235,7 +324,7 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	protected float theta
+	protected virtual float theta
 	{
 		get
 		{

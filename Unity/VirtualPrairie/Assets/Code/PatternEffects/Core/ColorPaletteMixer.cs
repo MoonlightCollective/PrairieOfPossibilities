@@ -68,7 +68,9 @@ public class ColorPaletteMixer : MonoBehaviour
 
 	void targetChanged()
 	{
-		_targetPeltteDex = TargetPalette.PaletteDex;
+		// Debug.Log("Target Changed");
+		// _targetPeltteDex = TargetPalette.PaletteDex;
+		// startTransitionToTarget();
 	}
 
 	public void Awake()
@@ -84,7 +86,7 @@ public class ColorPaletteMixer : MonoBehaviour
 
 	public void Update()
 	{
-		if (TargetPalette.PaletteDex != _targetPeltteDex)
+		if (TargetPalette.PaletteDex != _curPaletteDex && (_transitionAlpha >= 1f || _transitionAlpha < 0f))
 		{
 			startTransitionToTarget();
 		}
