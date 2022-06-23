@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EEnableBehavior
+{
+	On,
+	Off,
+	Toggle,
+}
+
 public class EnableTrigger : TriggerListener
 {
 	public GameObject TargetObject;
 	public EEnableBehavior TriggerBehavior = EEnableBehavior.Toggle;
-
-	public enum EEnableBehavior
-	{
-		On,
-		Off,
-		Toggle,
-	}
 
 	public override void NotifyTriggered(PrairieTriggerParams tParams)
 	{
