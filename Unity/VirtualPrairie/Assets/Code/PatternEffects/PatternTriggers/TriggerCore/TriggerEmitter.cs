@@ -10,6 +10,7 @@ public abstract class TriggerListener : MonoBehaviour
 [System.Serializable]
 public class TriggerEmitter
 {
+	public bool IncludeChildren = true;
 	public List<GameObject> Targets = new List<GameObject>();
 	protected List<TriggerListener> _triggerListeners = new List<TriggerListener>();
 	protected bool _initialized = false;
@@ -20,7 +21,16 @@ public class TriggerEmitter
 
 		foreach (var t in Targets)
 		{
-			var listeners = t.GetComponentsInChildren<TriggerListener>();
+			TriggerListener[] listeners;
+			if (IncludeChildren)
+			{
+				listeners = t.GetComponentsInChildren<TriggerListener>();
+			}
+			else
+			{
+				listeners = t.GetComponents<TriggerListener>();
+			}
+
 			if (listeners.Length > 0)
 				_triggerListeners.AddRange(listeners);
 			else

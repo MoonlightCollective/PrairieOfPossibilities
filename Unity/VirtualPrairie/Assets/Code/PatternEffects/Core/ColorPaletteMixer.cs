@@ -38,7 +38,8 @@ public class ColorPaletteMixerEntry
 	}
 }
 
-public class ColorPaletteMixer : MonoBehaviour
+
+public class ColorPaletteMixer : TriggerListener
 {
 	[ReadOnly]
 	public ColorPaletteMix ActiveColors;
@@ -51,12 +52,28 @@ public class ColorPaletteMixer : MonoBehaviour
 	public bool EnableAutoCycle;
 	public float AutoCycleTime = 5.0f;
 
-	public float DefaultTransitionTime = 2.0f;
 	public List<ColorPaletteMixerEntry> PalettePlaylist = new List<ColorPaletteMixerEntry>();
+
+	[Header("Transition Behavior")]
+	public float DefaultTransitionTime = 2.0f;
+	float _curTransitionTime;
+
+	public enum ETriggerBehavior
+	{
+		None,
+		CyclePlaylist,
+		ShufflePlaylist
+	}
+
+	[Header("Trigger Behavior")]
+	public 	ETriggerBehavior TriggerBehavior = ETriggerBehavior.None;
+
 
 	float _transitionAlpha = 1;
 	int _curPaletteDex = -1;
 	int _targetPeltteDex = 0;
+	
+	int _cycleDex = 0;
 	float _timer;
 
 	[Foldout("Debug")]
@@ -88,7 +105,7 @@ public class ColorPaletteMixer : MonoBehaviour
 	{
 		if (TargetPalette.PaletteDex != _curPaletteDex && (_transitionAlpha >= 1f || _transitionAlpha < 0f))
 		{
-			startTransitionToTarget();
+			startTransitionToTarget(_curTransitionTime);
 		}
 
 		if (EnableAutoCycle)
@@ -117,14 +134,20 @@ public class ColorPaletteMixer : MonoBehaviour
 			newDex = Random.Range(0,PalettePlaylist.Count);
 
 		Debug.Log("New Target:" + newDex);
-		TargetPalette = PalettePlaylist[newDex];
-
+		InitiateTransition(PalettePlaylist[newDex],DefaultTransitionTime);
 		_timer = AutoCycleTime;
 	}
 
-	void startTransitionToTarget()
+	public void InitiateTransition(ColorPaletteMixerEntry targetEntry, float duration)
 	{
-		Debug.Log($"start transition to palette:{TargetPalette.PaletteDex}");
+		_curTransitionTime = duration;
+		TargetPalette = targetEntry;
+	}
+
+	void startTransitionToTarget(float transitionTime)
+	{
+		Debug.Log($"start transition to palette:{TargetPalette.PaletteDex}, {transitionTime}");
+		_curTransitionTime = transitionTime;
 		_targetPeltteDex = TargetPalette.PaletteDex;
 		var palette = ColorPaletteData.Singleton.colorPaletteList[TargetPalette.PaletteDex];
 		for (int i = 0; i < ColorPaletteMix.kPrairieColorMixCount;i++)
@@ -140,7 +163,7 @@ public class ColorPaletteMixer : MonoBehaviour
 	{
 		if (_transitionAlpha < 1.0f)
 		{
-			_transitionAlpha = Mathf.Clamp01(_transitionAlpha + Time.deltaTime / DefaultTransitionTime);
+			_transitionAlpha = Mathf.Clamp01(_transitionAlpha + Time.deltaTime / _curTransitionTime);
 			for (int i = 0; i < ColorPaletteMix.kPrairieColorMixCount; i++)
 			{
 				ActiveColors.Colors[i] = Color.Lerp(FromColors.Colors[i],ToColors.Colors[i],_transitionAlpha);
@@ -166,5 +189,24 @@ public class ColorPaletteMixer : MonoBehaviour
 		_curPaletteDex = TargetPalette.PaletteDex;
 	}
 
-
+	public override void NotifyTriggered(PrairieTriggerParams tParams)
+	{
+		switch (TriggerBehavior)
+		{
+			case ETriggerBehavior.None:
+				return;
+			case ETriggerBehavior.CyclePlaylist:
+				if (PalettePlaylist.Count <= 1)
+				{
+					Debug.Log($"{gameObject.name} - attmept to cycle palette from trigger, but don't have palette playlist entries to cycle");
+				}
+				_cycleDex = (_cycleDex+1)%PalettePlaylist.Count;
+				TargetPalette = PalettePlaylist[_cycleDex];
+				startTransitionToTarget(DefaultTransitionTime);
+				break;
+			case ETriggerBehavior.ShufflePlaylist:
+				autoCyclePalette();
+				break;
+		}
+	}
 }

@@ -63,6 +63,11 @@ public class RenderTexSamplePattern : PrairiePatternMonochromaticBase
 	{
 		foreach (var p in points)
 		{
+			if (PointFilter != null && !PointFilter.AllowPoint(p))
+			{
+				continue;
+			}
+
 			float xN = Mathf.Clamp(p.XZVect.x/FieldRadius,-.5f,.5f);
 			float zN = Mathf.Clamp(p.XZVect.y/FieldRadius,-.5f,.5f);
 

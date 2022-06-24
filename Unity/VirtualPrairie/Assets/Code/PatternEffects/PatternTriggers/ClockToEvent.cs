@@ -9,6 +9,7 @@ public class ClockToEvent : ClockToTriggerBase
 
 	protected override void triggerEvent(string evName, int evParam)
 	{
-		OutEvent?.Invoke(evParam);
+		if (gameObject.activeInHierarchy)
+			OutEvent?.Invoke(evParam);
 	}
 }

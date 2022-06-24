@@ -32,7 +32,7 @@ public  class UIEventButton : MonoBehaviour
 		findRequiredObjectsCommon();
 		_message = triggerEntry.Message;
 		_mqttTarget = triggerTarget;
-		_text.text = triggerEntry.Message + $" ({triggerTarget.gameObject.name})";
+		_text.text = $"<b>{triggerEntry.Message}</b>" + $" ({triggerTarget.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMqttPressed());
 	}
 	
