@@ -10,7 +10,7 @@ public abstract class GateBase : MonoBehaviour
 {
 	public GateEmitter GateTargets;
 
-	public void Awake()
+	public virtual void Awake()
 	{
 		GateTargets.Init();
 	}

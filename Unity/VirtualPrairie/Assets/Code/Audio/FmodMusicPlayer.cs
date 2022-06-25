@@ -15,6 +15,8 @@ public abstract class PrairieMusicPlayer : MonoBehaviour
 
 	public UnityEvent<int,int> OnBeatEvent;
 	public UnityEvent<string> OnMarkerEvent;
+	public UnityEvent<string> OnStartMusicEvent;
+	public UnityEvent<string> OnStopMusicEvent;
 
 	public abstract void PlayMusic(EventReference musicEvent);
 	public abstract void StopMusic();
@@ -176,7 +178,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				Debug.Log("EventCommand:");
 				EventDescription ed;
 				FMOD.Studio.EventInstance inst = new FMOD.Studio.EventInstance(parameterPtr);
-				Debug.Log($"instance:{inst.isValid()}");
+/*				Debug.Log($"instance:{inst.isValid()}");
 				float vol;
 				var r = inst.getVolume(out vol);
 				Debug.Log($"vol: {FMOD.Error.String(r)} {vol}");
@@ -185,7 +187,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				string path = "";
 				r = ed.getPath(out path);
 				Debug.Log($"path: {FMOD.Error.String(r)}");
-				Debug.Log("instance:" + path);
+				Debug.Log("instance:" + path);*/
 				break;
 			}
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
@@ -213,6 +215,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	{
 		if (_curEventInstance.isValid())
 		{
+			OnStopMusicEvent?.Invoke("Stop"); // add the stopped event path?
 			_curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 			_curEventInstance.setTimelinePosition(0);
 			reset();
@@ -248,6 +251,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_musicCallback = new FMOD.Studio.EVENT_CALLBACK(eventCallback);
 			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
+			
+			OnStartMusicEvent?.Invoke(ev.Path);
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 		}
 		else
