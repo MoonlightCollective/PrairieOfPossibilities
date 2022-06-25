@@ -374,13 +374,13 @@ public class Snapshot : MonoBehaviour
 						}
 						else
 						{
-							Debug.Log($"Found snapshot object reference type:{field.Name}");
+							// Debug.Log($"Found snapshot object reference type:{field.Name}");
 							buildSnapshotEntriesFromObject(field,mb);
 						}
 					}
 					else if (field.FieldType.IsEnum)
 					{
-						Debug.Log($"Enum field type {field.Name}");
+						// Debug.Log($"Enum field type {field.Name}");
 						var newEntry = CreateSnapshotEntryEnum(field,mb);
 						_snapshotEntries.Add(newEntry);	
 					}
@@ -390,7 +390,7 @@ public class Snapshot : MonoBehaviour
 					}
 					else
 					{
-						Debug.Log($"Snapshot field:{field.FieldType.ToString()} {field.Name}");
+						// Debug.Log($"Snapshot field:{field.FieldType.ToString()} {field.Name}");
 						SnapshotEntry entry = (s_buildDelegateDict[field.FieldType](field,mb));
 						_snapshotEntries.Add(entry);
 					}
@@ -410,7 +410,7 @@ public class Snapshot : MonoBehaviour
 			{
 				if (subField.FieldType.IsEnum)
 				{
-					Debug.Log($"Enum sub field type {field.Name}");
+					// Debug.Log($"Enum sub field type {field.Name}");
 					var newEntry = CreateSnapshotEntryEnum(subField,mb,fieldObj);
 					newEntry.ObjectRef = true;
 					newEntry.ObjRefFieldName = field.Name;

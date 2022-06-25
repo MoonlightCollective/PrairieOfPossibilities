@@ -103,7 +103,7 @@ public class PrairieUtil
 		}		
 	}
 
-	// LXStudio had a continous array of points that effects could use.   Simluate that here
+	// LXStudio had a continous array of   that effects could use.   Simluate that here
 	private static List<StemColorManager> s_points;
 	public static List<StemColorManager> Points 
 	{ 

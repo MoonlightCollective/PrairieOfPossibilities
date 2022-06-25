@@ -9,9 +9,9 @@ public class PrairieLayerGroup : MonoBehaviour
 {
 	public LayerGroupSettings GroupSettings;
 	
-	public ColorPaletteMix GroupColors => _paletteMixer.ActiveColors;
+	public virtual ColorPaletteMix GroupColors => _paletteMixer.ActiveColors;
 
-	public float GroupAlpha => GroupSettings.GroupAlpha;
+	public virtual float GroupAlpha => GroupSettings.GroupAlpha;
 
 	protected List<PrairiePatternLayer> _layers = new List<PrairiePatternLayer>();
 	protected ColorPaletteMixer _paletteMixer;
@@ -26,12 +26,12 @@ public class PrairieLayerGroup : MonoBehaviour
 		rebuildLayerList();
 	}
 
-	public void Start()
+	public virtual void Start()
 	{
 		rebuildLayerList();
 	}
 
-	public void Awake()
+	public virtual void Awake()
 	{
 		_paletteMixer = GetComponent<ColorPaletteMixer>();
 	}
@@ -76,7 +76,7 @@ public class PrairieLayerGroup : MonoBehaviour
 	}
 
 	// based on our settings, figure out which color palette we should be using.
-	protected void updateGroupPalette()
+	protected virtual void updateGroupPalette()
 	{
 		if (_paletteMixer == null)
 		{

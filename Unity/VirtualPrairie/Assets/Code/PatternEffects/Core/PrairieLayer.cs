@@ -30,5 +30,3 @@ public class PrairieLayer : MonoBehaviour
 	[Snapshot]
 	public TimeSettings TimeSettings;
 }
-
-
