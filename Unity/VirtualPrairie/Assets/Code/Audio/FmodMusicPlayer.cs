@@ -95,6 +95,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Pause);
 	}
 
+	public bool IsPlaying()
+	{
+		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
+	}
+
 	//===============
 	// Unity Events
 	//===============
@@ -338,8 +343,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	}
 	protected void PlayingUpdate()
 	{
-	
+		PLAYBACK_STATE pbs = PLAYBACK_STATE.STOPPED;
+		_curEventInstance.getPlaybackState(out pbs);
+		if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
+		{
+			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
+		}
 	}
+
 	protected void PlayingExit() { }
 	protected void PlayingPause()
 	{
