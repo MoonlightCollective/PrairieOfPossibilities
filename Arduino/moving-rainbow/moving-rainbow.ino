@@ -17,8 +17,8 @@ float t=0;
 //CRGBPalette16 myPal = blob_gp;
 //CRGBPalette16 myPal = CloudColors_p;
 //CRGBPalette16 myPal = ForestColors_p; 
-CRGBPalette16 myPal = LavaColors_p; 
-//CRGBPalette16 myPal = Rainbow_gp ; 
+//CRGBPalette16 myPal = LavaColors_p; 
+CRGBPalette16 myPal = Rainbow_gp ; 
 
 CRGBSet top(leds(140,220));
 CRGBSet side1(leds(0,139));
@@ -55,8 +55,8 @@ void loop() {
   uint8_t index = (uint8_t)x;
 
   fill_solid(top, top.size(), ColorFromPalette(myPal, index));
-  fill_palette_circular(side1, side1.size(), index, myPal,255,LINEARBLEND,false);
-  fill_palette_circular(side2, side2.size(), index, myPal,255,LINEARBLEND,true);
+  fill_palette_circular(side1, side1.size(), index, myPal,64,LINEARBLEND,false);
+  fill_palette_circular(side2, side2.size(), index, myPal,64,LINEARBLEND,true);
   
   FastLED.show();
    
@@ -88,20 +88,24 @@ void setAll(byte red, byte green, byte blue) {
 
 void flashPortal(int delayTime)
 {
-  for (int i=0; i<10; i++)
-  {
-    for (int j=0; j<NUM_LEDS; j++)
+  for (int k=0; k<3; k++)
+  {  
+    for (int i=0; i<10; i++)
     {
-      leds[j] += CRGB(32,32,32);
+      for (int j=0; j<NUM_LEDS; j++)
+      {
+        leds[j] += CRGB(32,32,32);
+      }
+      FastLED.show();
     }
-    FastLED.show();
+    delay(delayTime);
+    for (int i=0; i<25; i++)
+    {
+      leds.fadeToBlackBy(10);
+      FastLED.show();
+    }
   }
-  delay(delayTime);
-  for (int i=0; i<25; i++)
-  {
-    leds.fadeToBlackBy(10);
-    FastLED.show();
-  }
+
 }
 
 void triggerPortal(int size)

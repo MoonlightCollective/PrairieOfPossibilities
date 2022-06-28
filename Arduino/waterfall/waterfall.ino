@@ -24,9 +24,9 @@ float timer = 0;
 
 //CRGBPalette16 myPal = blob_gp;
 //CRGBPalette16 myPal = CloudColors_p;
-//CRGBPalette16 myPal = ForestColors_p; 
+CRGBPalette16 myPal = ForestColors_p; 
 //CRGBPalette16 myPal = LavaColors_p; 
-CRGBPalette16 myPal = Rainbow_gp ; 
+//CRGBPalette16 myPal = Rainbow_gp ; 
 CRGBSet top(leds(140,220));
 CRGBSet side1(leds(0,139));
 CRGBSet side2(leds(221,NUM_LEDS-1));
@@ -61,7 +61,8 @@ int addBlob()
   int i = findEmptyBlob();
   if (i >= 0)
   {
-    lengths[i] = random(30) + 5;
+//    lengths[i] = random(30) + 5;
+    lengths[i] = 2;
     p[i] = 0;
     colors[i] = random(255);
     return lengths[i];
@@ -81,7 +82,7 @@ void updateBlobs(float dt)
   timer -= dt;
   if (timer <= 0)
   {
-    timer = 2 + addBlob();
+    timer = 10 + addBlob();
   }
   
   for (int i=0; i<10; i++)
@@ -114,7 +115,7 @@ void updateBlobs(float dt)
             } else if (j==lengths[i]) {
               bright = lastpixelbrightness;
             } else {
-              bright = 255;
+              bright = 128;
             }
 // leds[n] = ColorFromPalette(myPal, j * 255.0 / lengths[i] );
 //            leds[NUM_LEDS/2 - n - 1] = ColorFromPalette(myPal, 0);
@@ -153,10 +154,10 @@ void setup()
 }
   
 void loop() {
-  t = t + 0.1;
+  t = t + 0.2;
   if (t > 255.0) t -= 255.0;
 
-  fill_solid(leds,leds.size(), CRGB(0,0,30));
+  fill_solid(leds,leds.size(), CRGB(0,0,0));
   updateBlobs(0.3);
   FastLED.show();
    
