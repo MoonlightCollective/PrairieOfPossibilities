@@ -37,7 +37,7 @@ public class UIEventPanel : MonoBehaviour
 		ButtonRoot.DetachChildren();
 
 		rebuildMqttEventButtons();
-
+		rebuildMusicEventButtons();
 		LayoutRebuilder.ForceRebuildLayoutImmediate(LayoutGroup.GetComponent<RectTransform>());
 	}
 
@@ -55,6 +55,32 @@ public class UIEventPanel : MonoBehaviour
 				go.transform.SetParent(ButtonRoot.transform,false);
 				Debug.Log("Create button for event:" + trigEntry.Message);
 			}
+		}
+	}
+
+	void rebuildMusicEventButtons()
+	{
+		var musicTriggers = GameObject.FindObjectsOfType<MusicMarkerTrigger>();
+		foreach (var mt in musicTriggers)
+		{
+			GameObject go = GameObject.Instantiate(EventButtonFab);
+			var eb = go.GetComponentInChildren<UIEventButton>();
+			eb.initFromMusicTrigger(mt);
+			go.transform.SetParent(ButtonRoot.transform,false);
+		}
+
+		var musicGates = GameObject.FindObjectsOfType<MusicMarkerGate>();
+		foreach (var mg in musicGates)
+		{
+			GameObject go = GameObject.Instantiate(EventButtonFab);
+			var eb = go.GetComponentInChildren<UIEventButton>();
+			eb.initFromMusicGate(mg,true);
+			go.transform.SetParent(ButtonRoot.transform,false);
+
+			go = GameObject.Instantiate(EventButtonFab);
+			eb = go.GetComponentInChildren<UIEventButton>();
+			eb.initFromMusicGate(mg,false);
+			go.transform.SetParent(ButtonRoot.transform,false);
 		}
 	}
 }

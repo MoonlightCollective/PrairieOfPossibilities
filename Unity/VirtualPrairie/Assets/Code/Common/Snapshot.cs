@@ -7,8 +7,10 @@ using System.Reflection;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [System.Serializable]
 public enum ESnapshotType
@@ -188,6 +190,7 @@ public class Snapshot : MonoBehaviour
 	[Button("RestoreSnapshot")]
 	public void RestoreSnapshot()
 	{
+#if UNITY_EDITOR
 		if (!File.Exists(snapshotFileName()))
 		{
 			Debug.LogWarning($"Couldn't find snapshot file: {snapshotFileName()}");
@@ -235,6 +238,7 @@ public class Snapshot : MonoBehaviour
 			EditorUtility.SetDirty(c);
 		}
 		LastRestoreTime = nowStr;
+#endif
 	}
 
 	[Button("ClearSnapshot")]

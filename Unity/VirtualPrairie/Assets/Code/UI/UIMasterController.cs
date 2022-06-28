@@ -8,17 +8,19 @@ public class UIMasterController : MonoBehaviour
 	public UILayoutSettingsController LayoutSettingsController;
 	public UIWiringController WiringController;
 	public UIEventPanel EventPanel;
+	public GameObject SceneLoader;
 
 	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
 	public bool HudActive  => HudController.gameObject.activeInHierarchy;
 	public bool LayoutSettingsActive  => LayoutSettingsController.gameObject.activeInHierarchy;
-	
+	public bool SceneLoaderActive => SceneLoader.gameObject.activeInHierarchy;
 
 	void Start()
 	{
 		HudController.gameObject.SetActive(true);
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
+		SceneLoader.SetActive(false);
 	}
 
     void Update()
@@ -34,6 +36,10 @@ public class UIMasterController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			toggleEventUI();
+		}
+		if (Input.GetKeyDown(KeyCode.O))
+		{
+			toggleSceneLoader();
 		}
     }
 	
@@ -87,5 +93,29 @@ public class UIMasterController : MonoBehaviour
 			WiringController.gameObject.SetActive(false);
 		else
 			WiringController.gameObject.SetActive(true);
+	}
+
+	void toggleSceneLoader()
+	{
+		SceneLoader.SetActive(!SceneLoaderActive);
+	}
+
+	public void NotifyCancelSceneLoad()
+	{
+		SceneLoader.SetActive(false);
+	}
+
+	public void NotifyQuit()
+	{
+		Debug.Log("Quit Button");
+
+		FmodMusicPlayer fmp = GameObject.FindObjectOfType<FmodMusicPlayer>();
+		if (fmp != null)
+			fmp.StopMusic();
+
+		Application.Quit(0);
+		#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+		#endif
 	}
 }

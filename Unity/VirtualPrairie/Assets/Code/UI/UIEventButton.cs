@@ -9,7 +9,8 @@ public  class UIEventButton : MonoBehaviour
 	public enum EEventButtonType
 	{
 		MQTT,
-		Music,
+		MusicMarker,
+		MusicMarkerGate,
 	}
 	
 	EEventButtonType _buttonType;
@@ -18,7 +19,8 @@ public  class UIEventButton : MonoBehaviour
 
 	string _message;
 	MqttTrigger _mqttTarget;
-
+	MusicMarkerTrigger _musicMarkerTarget;
+	MusicMarkerGate _musicMarkerGateTarget;
 
 	public void findRequiredObjectsCommon()
 	{
@@ -36,6 +38,36 @@ public  class UIEventButton : MonoBehaviour
 		_button.onClick.AddListener(()=>OnMqttPressed());
 	}
 	
+	public void initFromMusicTrigger(MusicMarkerTrigger markerTrigger)
+	{
+		_buttonType = EEventButtonType.MusicMarker;
+		findRequiredObjectsCommon();
+		_message = markerTrigger.Marker;
+		_musicMarkerTarget = markerTrigger;
+		_text.text = $"<b>{_message}</b>\n({markerTrigger.gameObject.name})";
+		_button.onClick.AddListener(()=>OnMusicPressed());
+	}
+
+	public void initFromMusicGate(MusicMarkerGate markerGate, bool OnEvent)
+	{
+		_buttonType = EEventButtonType.MusicMarkerGate;
+		findRequiredObjectsCommon();
+		_message = OnEvent?markerGate.OnMarker:markerGate.OffMarker;
+		_musicMarkerGateTarget = markerGate;
+		_text.text = $"<b>{_message}</b>\n({markerGate.gameObject.name})";
+		_button.onClick.AddListener(()=>OnMusicGatePressed());
+	}
+
+	void OnMusicGatePressed()
+	{
+		_musicMarkerGateTarget.NotifyMarker(_message);
+	}
+
+	void OnMusicPressed()
+	{
+		_musicMarkerTarget.NotifyMarker(_message);
+	}
+
 	void OnMqttPressed()
 	{
 		_mqttTarget.NotifyMessage(_message);
