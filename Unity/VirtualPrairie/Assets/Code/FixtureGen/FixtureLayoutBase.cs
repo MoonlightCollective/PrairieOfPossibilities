@@ -25,7 +25,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 	public abstract void SaveSettings();
 	public abstract void LoadSettings();
 
-	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
+	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
 	{
 		GlobalPlantSettings.FindGlobalInstance();
 		ClearChildrenFrom(rootObj);
@@ -65,8 +65,6 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 	// will return null if its too close to another one.  ignores this rule for fromImportFile = true
 	protected GameObject AddFixture(Vector3 newPos, GameObject parentObj, GameObject prefabObj, bool fromImportFile = false)
     {
-		Debug.Log($"FixtureLayoutBase:AddFixture");
-
 		if (!fromImportFile) 
 		{
 			// don't add if this is too close to an existing base
