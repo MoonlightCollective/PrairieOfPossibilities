@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.00313068, g: 0.0061691664, b: 0.014243009, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -625,6 +625,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &593230636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 829267933239044449, guid: ad4ee25a388f74871ade6c5718c6ea13,
+    type: 3}
+  m_PrefabInstance: {fileID: 973950209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &593230639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593230636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c53759cebd54b4a8f96a261ebdebbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  SolidColor:
+    UsePalette: 0
+    StaticColor: {r: 1, g: 0, b: 0, a: 1}
+    ColorIndex: 0
 --- !u!1 &770949044
 GameObject:
   m_ObjectHideFlags: 0

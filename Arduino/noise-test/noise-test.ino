@@ -21,7 +21,7 @@ void loop() {
   int scale = 100;
   uint8_t hue_octaves = 2;
   uint16_t hue_x = 1;
-  int hue_scale = 10;
+  int hue_scale = 3;
   uint16_t ntime = millis() / 5;
   uint8_t hue_shift = 5;
   
