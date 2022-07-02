@@ -150,7 +150,7 @@ public class FixtureLayoutGen : MonoBehaviour
 			_importLayout = GetComponentInChildren<FixtureLayoutImport>();
 
 		_importLayout.JsonFilePath = fileName;
-		_importLayout.GenerateLayout(rootObj,FixturePrefab);
+		_importLayout.GenerateLayout(rootObj, FixturePrefab, PortalPrefab);
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
 	}

@@ -10,17 +10,18 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	public string JsonFilePath;
 
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
 	{
 		GlobalPlantSettings.FindGlobalInstance();
-		base.GenerateLayout(rootObj, fixturePrefab);
+		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab);
 
 		if (!string.IsNullOrEmpty(JsonFilePath))
 		{
+			Debug.Log($"FixtureLayoutImport:GenerateLayout- importing file '{JsonFilePath}'");
 			string jsonStr = File.ReadAllText(JsonFilePath);
 			if (!string.IsNullOrEmpty(jsonStr))
 			{
-				doFixtureImport(rootObj, jsonStr,fixturePrefab);
+				doFixtureImport(rootObj, jsonStr, fixturePrefab, portalPrefab);
 				return true;
 			}
 		}
@@ -39,12 +40,11 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	}
 
 
-	void doFixtureImport(GameObject rootObj, string fixtureStr, GameObject prefab)
+	void doFixtureImport(GameObject rootObj, string fixtureStr, GameObject prefab, GameObject portalPrefab)
 	{
 		// built our JSON structures
-		Debug.Log("Deserializing JSON");
 		var fixtureData = JsonConvert.DeserializeObject<FixtureData>(fixtureStr);
-		Debug.Log("Children found: " + fixtureData.children.Count);
+		Debug.Log($"FixtureLayoutImport:GenerateLayout- children.Count={fixtureData.children.Count}");
 
 		// clear the current scene layout
 		ClearChildrenFrom(rootObj);
@@ -62,6 +62,20 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			if (wfb != null)
 			{
 				allDevices.Add(wfb);
+			}
+		}
+
+		// now place all the portals.  we will place the portal under the "portals" root obj for now
+		GameObject portalsObj = GameObject.Find("Portals");
+		if (portalsObj != null && portalPrefab != null)
+		{
+			foreach (var item in fixtureData.portals)
+			{
+				// create the portal !
+				var newPos = new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z));
+				GameObject newObj = CreateObjFromPrefab(portalPrefab);
+				newObj.transform.SetParent(portalsObj.transform, false);
+				newObj.transform.position = newPos;
 			}
 		}
 
