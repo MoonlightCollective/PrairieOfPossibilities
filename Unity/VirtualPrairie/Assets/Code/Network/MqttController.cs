@@ -20,14 +20,29 @@ public class TopicToEventEntry
 public class MqttController : M2MqttUnityClient
 {
 	public List<TopicToEventEntry> TopicEvents;
-	
+	protected UIMqttStatus _statusUI;
 	
 	protected Dictionary<string,UnityEvent<string>> _eventMap = new Dictionary<string,UnityEvent<string>>();
+
+	protected override void Awake()
+	{
+		_statusUI = GameObject.FindObjectOfType<UIMqttStatus>();
+		base.Awake();
+	}
+
+	protected override void Start()
+	{
+		base.Start();
+		if (!autoConnect)
+		{
+			DebugLogWarning("AutoConnect Disabled");
+		}
+	}
 
 	protected override void OnConnected()
 	{
 		base.OnConnected();
-		Debug.Log("MQTT connected");
+		DebugLog("MQTT connected");
 	}
 
 	[Button("Resubscribe")]
@@ -44,6 +59,7 @@ public class MqttController : M2MqttUnityClient
 		if (topics.Count > 0)
 		{
 			client.Subscribe(topics.ToArray(),new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {topics.Count} mqtt topics");
 		}
 	}
 
@@ -52,11 +68,32 @@ public class MqttController : M2MqttUnityClient
 		base.DecodeMessage(topic, message);
 		if (_eventMap.ContainsKey(topic))
 		{
-			_eventMap[topic].Invoke(new string(System.Text.UTF8Encoding.UTF8.GetString(message)));
+			string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
+			DebugLog($"Event:{topic}.{messageStr}");
+			_eventMap[topic].Invoke(messageStr);
 		}
 		else
 		{
-			Debug.Log($"No event for topic {topic}");
+			string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
+			DebugLog($"Ignoring: {topic}/{messageStr}");
 		}
+	}
+
+	protected override void DebugLog(string dbgStr)
+	{
+		_statusUI?.NotifyDebug(dbgStr);
+		Debug.Log(dbgStr);
+	}
+
+	protected override void DebugLogWarning(string warnStr)
+	{
+		_statusUI?.NotifyWarning(warnStr);
+		Debug.LogWarning(warnStr);
+	}
+
+	protected override void DebugLogError(string errorStr)
+	{
+		_statusUI?.NotifyWarning(errorStr);
+		Debug.LogError(errorStr);
 	}
 }

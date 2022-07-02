@@ -36,6 +36,9 @@ public class ParticlePattern : PrairiePatternLayer
 
 	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
+		if (_particlePool == null)
+			return;
+		
 		_particlePool.UpdateActiveParticles(deltaTime * TimeSettings.TimeMult,group);
 		bool colorize = (ColorizeSettings != null);
 		

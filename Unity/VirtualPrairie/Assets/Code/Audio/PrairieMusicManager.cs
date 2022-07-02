@@ -77,9 +77,24 @@ public class PrairieMusicManager : MonoBehaviour
 		if (_curDex < 0)
 			return "";
 		else
-			return MusicEvents[_curDex].Path;
+			return PathFromEventRef(MusicEvents[_curDex]);
 	}
-	
+
+	public static string PathFromEventRef(EventReference ev)
+	{
+		string pathStr = "";
+		try 
+		{
+			var ed = RuntimeManager.GetEventDescription(ev);
+			ed.getPath(out pathStr);
+		}
+		catch
+		{
+			pathStr = "BAD EVENT";
+		}
+
+		return pathStr;
+	}
 
 	public void StopPlayback()
 	{

@@ -8,6 +8,7 @@ class FixtureData
 	public List<FixtureItemData> children;
 	public List<FixtureOutputItemData> outputs;
 	public List<WirePathData> wirePaths;
+	public List<PortalItemData> portals;
 }
 
 class FixtureItemData
@@ -51,4 +52,10 @@ class WirePathData
 	public int universe;
 	public int channelStart;
 	public List<WirePathItemData> items;
+}
+
+class PortalItemData
+{
+	public float x;
+	public float z;
 }

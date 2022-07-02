@@ -54,7 +54,10 @@ public class UIAudioParamController : MonoBehaviour
 		List<string> options = new List<string>();
 		foreach (var ev in MusicManager.MusicEvents)
 		{
-			string evName = ev.Path.Substring(ev.Path.LastIndexOf("/"));
+		
+			string evPath = PrairieMusicManager.PathFromEventRef(ev);
+			string evName = evPath.Substring(evPath.LastIndexOf("/"));
+			// ev.Path.Substring(ev.Path.LastIndexOf("/"));
 			Debug.Log($"Event {evName}");
 			options.Add(evName);
 		}

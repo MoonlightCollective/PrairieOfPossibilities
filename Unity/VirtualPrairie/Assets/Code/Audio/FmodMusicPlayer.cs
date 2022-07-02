@@ -95,11 +95,20 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Pause);
 	}
 
+	public bool IsPlaying()
+	{
+		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
+	}
+
 	//===============
 	// Unity Events
 	//===============
 	public void Awake()
 	{
+		// FMODUnity.RuntimeManager.setf
+		// var foo = FMODUnity.Settings.Instance.GetEditorSpeakerMode();
+		// Debug.Log("SPEAKER MODE:" + foo);
+
 		createStateMachine();
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}
@@ -234,7 +243,10 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	void startPlayingEvent(EventReference ev)
 	{
-		Debug.Log($"fmp: Trying to play:{ev.Path}");
+		string path = "";
+		var desc = RuntimeManager.GetEventDescription(ev.Guid).getPath(out path);
+		Debug.Log($"fmp: Trying to play:{path}");
+
 		if (_curEventInstance.hasHandle())
 		{
 			Debug.Log("fmp: Releasing prev music handle");
@@ -252,7 +264,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
 			
-			OnStartMusicEvent?.Invoke(ev.Path);
+			OnStartMusicEvent?.Invoke(ev.ToString());
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 		}
 		else
@@ -292,7 +304,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			return;
 		}
 		
-		if (!_curEventRef.IsNull && (ev.Path == _curEventRef.Path))
+		if (!_curEventRef.IsNull && (ev.Guid == _curEventRef.Guid))
 		{
 			if (_curEventInstance.isValid())
 			{
@@ -338,8 +350,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	}
 	protected void PlayingUpdate()
 	{
-	
+		PLAYBACK_STATE pbs = PLAYBACK_STATE.STOPPED;
+		_curEventInstance.getPlaybackState(out pbs);
+		if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
+		{
+			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
+		}
 	}
+
 	protected void PlayingExit() { }
 	protected void PlayingPause()
 	{
@@ -361,7 +379,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			return;
 		}
 		
-		if (!_curEventRef.IsNull && (ev.Path == _curEventRef.Path))
+		if (!_curEventRef.IsNull && (ev.Guid == _curEventRef.Guid))
 		{
 			// already playing
 			return;
