@@ -264,7 +264,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _snapshotEntries: []
+  _snapshotEntries:
+  - Name: PerlinNoisePattern.NoiseScale (24868)
+    ComponentInstanceID: 24868
+    FieldName: NoiseScale
+    FieldType: 4
+    FloatVal: -1
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 40, y: 10, z: 40.5}
+    ObjectRef: 1
+    ObjRefFieldName: NoiseSettings
+  - Name: PerlinNoisePattern.InitialOffsets (24868)
+    ComponentInstanceID: 24868
+    FieldName: InitialOffsets
+    FieldType: 4
+    FloatVal: -1
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: NoiseSettings
+  - Name: PerlinNoisePattern.MotionSpeedX (24868)
+    ComponentInstanceID: 24868
+    FieldName: MotionSpeedX
+    FieldType: 0
+    FloatVal: 2.58
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: NoiseSettings
+  - Name: PerlinNoisePattern.MotionSpeedY (24868)
+    ComponentInstanceID: 24868
+    FieldName: MotionSpeedY
+    FieldType: 0
+    FloatVal: 0.13
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: NoiseSettings
+  - Name: PerlinNoisePattern.MotionSpeedZ (24868)
+    ComponentInstanceID: 24868
+    FieldName: MotionSpeedZ
+    FieldType: 0
+    FloatVal: 2.32
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: NoiseSettings
+  - Name: PerlinNoisePattern.BlendMode (24868)
+    ComponentInstanceID: 24868
+    FieldName: BlendMode
+    FieldType: 3
+    FloatVal: -1
+    IntVal: 1
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: BlendSettings
+  - Name: PerlinNoisePattern.LayerAlpha (24868)
+    ComponentInstanceID: 24868
+    FieldName: LayerAlpha
+    FieldType: 0
+    FloatVal: 0.847
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: BlendSettings
+  - Name: PerlinNoisePattern.TimeMult (24868)
+    ComponentInstanceID: 24868
+    FieldName: TimeMult
+    FieldType: 0
+    FloatVal: 0.76
+    IntVal: 0
+    BoolVal: 0
+    VectorVal: {x: 0, y: 0, z: 0}
+    ObjectRef: 1
+    ObjRefFieldName: TimeSettings
 --- !u!114 &94687559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,9 +372,9 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.13916016
         inSlope: 0
-        outSlope: 1
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -303,7 +383,7 @@ MonoBehaviour:
         time: 1
         value: 1
         inSlope: 1
-        outSlope: 0
+        outSlope: 1
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -10922,54 +11002,6 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: RadialParticleB1
-    Targets:
-      IncludeChildren: 1
-      Targets:
-      - {fileID: 345363138}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: RadialParticleB2
-    Targets:
-      IncludeChildren: 1
-      Targets:
-      - {fileID: 786336053}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: Ring1Flash
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 202147001}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: Ring2Flash
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 1501291433}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: Ring3Flash
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 812685046}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: Ring4Flash
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 1006524919}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
   - Message: Ring5Flash
     Targets:
       IncludeChildren: 0
@@ -11007,14 +11039,6 @@ MonoBehaviour:
       IncludeChildren: 1
       Targets:
       - {fileID: 0}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - Message: WigglyFireballs
-    Targets:
-      IncludeChildren: 1
-      Targets:
-      - {fileID: 1014148625}
     SendParams: 0
     Param0: 0
     Param1: 0
@@ -11168,14 +11192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a85f21609774dbcb532b597eaea950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageMappings:
-  - Message: 
-    Targets:
-      IncludeChildren: 0
-      Targets: []
-    SendParams: 0
-    Param0: 0
-    Param1: 0
+  MessageMappings: []
 --- !u!4 &361004065
 Transform:
   m_ObjectHideFlags: 0
@@ -12018,9 +12035,9 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 0.14385986
         inSlope: 0
-        outSlope: 1
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -12029,7 +12046,7 @@ MonoBehaviour:
         time: 1
         value: 1
         inSlope: 1
-        outSlope: 0
+        outSlope: 1
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -24064,12 +24081,12 @@ PrefabInstance:
     - target: {fileID: 3533130841105688091, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1919.998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3533130841105688091, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0015869141
+      value: 0.0008544922
       objectReference: {fileID: 0}
     - target: {fileID: 3588333661904284332, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -25050,6 +25067,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802906347207961027, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: NumAisles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802906347207961027, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: NumFixtures
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802906347207961027, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: CenterRadiusFt
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5802906347283139519, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -26154,12 +26186,12 @@ PrefabInstance:
     - target: {fileID: 7776531843086975253, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -384
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7776531843086975253, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0022567757
+      value: 0.0012228531
       objectReference: {fileID: 0}
     - target: {fileID: 7786361644315617005, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -26239,7 +26271,7 @@ PrefabInstance:
     - target: {fileID: 7891390270664248675, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: LayoutJsonFile
-      value: Fixtures/GridPlantTest.json
+      value: Fixtures/IntegrationRing.json
       objectReference: {fileID: 0}
     - target: {fileID: 7891390270664248675, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -50127,7 +50159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeartbeatFmodParams:
   - SpeedVal: 0
-    DistVal: 0
+    DistVal: 0.1
   - SpeedVal: 0.3
     DistVal: 0.3
   - SpeedVal: 0.75
