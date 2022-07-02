@@ -42,7 +42,7 @@ public class MqttController : M2MqttUnityClient
 	protected override void OnConnected()
 	{
 		base.OnConnected();
-		DebugLog("MQTT connected");
+		DebugLog($"Connected:{this.brokerAddress} ({_eventMap.Count} mapped topics)");
 	}
 
 	[Button("Resubscribe")]
