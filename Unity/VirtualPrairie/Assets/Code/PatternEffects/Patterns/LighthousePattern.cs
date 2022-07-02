@@ -38,6 +38,9 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 		
 		bool useCenter = Origin == EOriginLoc.Center;
 		
+		if (BlendSettings.LayerAlpha <= 0f)
+			return; // save the work if we're invisible.
+		
 		foreach (var p in points)
 		{
 			if (!filterAllowPoint(p))
