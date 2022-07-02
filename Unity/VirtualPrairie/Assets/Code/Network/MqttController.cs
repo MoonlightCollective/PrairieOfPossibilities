@@ -58,7 +58,12 @@ public class MqttController : M2MqttUnityClient
 		}
 		if (topics.Count > 0)
 		{
-			client.Subscribe(topics.ToArray(),new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+			byte[] qosBytes = new byte[topics.Count];
+			for(int i = 0; i < topics.Count; i++)
+			{
+				qosBytes[i] = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE;
+			}
+			client.Subscribe(topics.ToArray(),qosBytes);
 			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {topics.Count} mqtt topics");
 		}
 	}
