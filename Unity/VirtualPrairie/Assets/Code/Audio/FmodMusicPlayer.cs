@@ -105,6 +105,10 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	//===============
 	public void Awake()
 	{
+		// FMODUnity.RuntimeManager.setf
+		// var foo = FMODUnity.Settings.Instance.GetEditorSpeakerMode();
+		// Debug.Log("SPEAKER MODE:" + foo);
+
 		createStateMachine();
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}

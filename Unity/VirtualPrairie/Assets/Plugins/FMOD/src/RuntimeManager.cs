@@ -406,7 +406,7 @@ retry:
         public static int AddListener(StudioListener listener)
         {
             // Is the listener already in the list?
-            for (int i = 0; i < Listeners.Count; i++)
+            for (int i = 0; i < Listeners.Count; i++	)
             {
                 if (Listeners[i] != null && listener.gameObject == Listeners[i].gameObject)
                 {

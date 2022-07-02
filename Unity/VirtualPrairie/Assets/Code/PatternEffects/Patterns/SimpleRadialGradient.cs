@@ -13,15 +13,17 @@ public class SimpleRadialGradient : PrairiePatternMonochromaticBase
 	[Range(0,1)]
 	public float MaxBrightness = 1.0f;
 
+	public bool RecomputeBounds;
+
 	bool _haveBounds = false;
 	float _maxDist = 100.0f;
 
 	public override void Run(float deltaTime, PrairieLayerGroup group, List<StemColorManager> points)
 	{
-		_maxDist = 0f;
 		Vector2 myXZ = new Vector2(transform.position.x, transform.position.z);
-		if (!_haveBounds)
+		if (!_haveBounds || RecomputeBounds)
 		{
+			_maxDist = 0f;
 			foreach (var p in points)
 			{
 				float dist = 0;
@@ -34,6 +36,7 @@ public class SimpleRadialGradient : PrairiePatternMonochromaticBase
 					_maxDist = dist;
 			}
 			_haveBounds = true;
+			RecomputeBounds = false;
 		}
 
 		foreach (var p in points)
@@ -51,5 +54,10 @@ public class SimpleRadialGradient : PrairiePatternMonochromaticBase
 			Color blendColor = ColorForBrightness(val,group);
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}
+	}
+	public override void NotifyNewLayout()
+	{
+		base.NotifyNewLayout();
+		RecomputeBounds = true;
 	}
 }

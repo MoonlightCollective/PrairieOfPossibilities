@@ -70,6 +70,7 @@ namespace M2MqttUnity
         private List<MqttMsgPublishEventArgs> backMessageQueue = null;
         private bool mqttClientConnectionClosed = false;
         private bool mqttClientConnected = false;
+		public bool IsClientConnected => mqttClientConnected;
 
         /// <summary>
         /// Event fired when a connection is successfully established
@@ -107,7 +108,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void OnConnecting()
         {
-            Debug.LogFormat("Connecting to broker on {0}:{1}...\n", brokerAddress, brokerPort.ToString());
+            DebugLogFormat("Connecting to broker on {0}:{1}...\n", brokerAddress, brokerPort.ToString());
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void OnConnected()
         {
-            Debug.LogFormat("Connected to {0}:{1}...\n", brokerAddress, brokerPort.ToString());
+            DebugLogFormat("Connected to {0}:{1}...\n", brokerAddress, brokerPort.ToString());
 
             SubscribeTopics();
 
@@ -130,7 +131,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void OnConnectionFailed(string errorMessage)
         {
-            Debug.LogWarning("Connection failed.");
+            DebugLogWarning("Connection failed.");
             if (ConnectionFailed != null)
             {
                 ConnectionFailed();
@@ -185,7 +186,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void DecodeMessage(string topic, byte[] message)
         {
-            Debug.LogFormat("Message received on topic: {0}", topic);
+            DebugLogFormat("Message received on topic: {0}", topic);
         }
 
         /// <summary>
@@ -193,7 +194,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void OnDisconnected()
         {
-            Debug.Log("Disconnected.");
+            DebugLog("Disconnected.");
         }
 
         /// <summary>
@@ -201,7 +202,7 @@ namespace M2MqttUnity
         /// </summary>
         protected virtual void OnConnectionLost()
         {
-            Debug.LogWarning("CONNECTION LOST!");
+            DebugLogWarning("CONNECTION LOST!");
         }
 
         /// <summary>
@@ -265,8 +266,10 @@ namespace M2MqttUnity
         /// <returns>The execution is done in a coroutine.</returns>
         private IEnumerator DoConnect()
         {
+			DebugLog("Try DO Connect");
             // wait for the given delay
             yield return new WaitForSecondsRealtime(connectionDelay / 1000f);
+
             // leave some time to Unity to refresh the UI
             yield return new WaitForEndOfFrame();
 
@@ -286,7 +289,7 @@ namespace M2MqttUnity
                 catch (Exception e)
                 {
                     client = null;
-                    Debug.LogErrorFormat("CONNECTION FAILED! {0}", e.ToString());
+                    DebugLogErrorFormat("CONNECTION FAILED! {0}", e.ToString());
                     OnConnectionFailed(e.Message);
                     yield break;
                 }
@@ -310,7 +313,7 @@ namespace M2MqttUnity
             catch (Exception e)
             {
                 client = null;
-                Debug.LogErrorFormat("Failed to connect to {0}:{1}:\n{2}", brokerAddress, brokerPort, e.ToString());
+                DebugLogErrorFormat("Failed to connect to {0}:{1}:\n{2}", brokerAddress, brokerPort, e.ToString());
                 OnConnectionFailed(e.Message);
                 yield break;
             }
@@ -366,5 +369,31 @@ namespace M2MqttUnity
             }
         }
 #endif
+
+		protected virtual void DebugLog(string dbgStr)
+		{
+			Debug.Log(dbgStr);
+		}
+
+		protected virtual void DebugLogWarning(string warnStr)
+		{
+			Debug.LogWarning(warnStr);
+		}
+
+		protected virtual void DebugLogError(string errorStr)
+		{
+			Debug.LogError(errorStr);
+		}
+
+		protected virtual void DebugLogFormat(string format, params object[] args)
+		{
+			var dbgStr = string.Format(format,args);
+			DebugLog(dbgStr);
+		}
+
+		protected virtual void DebugLogErrorFormat(string format, params object[] args)
+		{
+			DebugLogError(string.Format(format,args));
+		}
     }
 }
