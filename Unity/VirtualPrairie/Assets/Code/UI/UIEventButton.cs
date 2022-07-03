@@ -34,7 +34,7 @@ public  class UIEventButton : MonoBehaviour
 		findRequiredObjectsCommon();
 		_message = triggerEntry.Message;
 		_mqttTarget = triggerTarget;
-		_text.text = $"<b>{triggerEntry.Message}</b>" + $" ({triggerTarget.gameObject.name})";
+		_text.text = $"<b>{triggerEntry.Message}</b>" + $" (MQTT:{triggerTarget.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMqttPressed());
 	}
 	
@@ -44,7 +44,7 @@ public  class UIEventButton : MonoBehaviour
 		findRequiredObjectsCommon();
 		_message = markerTrigger.Marker;
 		_musicMarkerTarget = markerTrigger;
-		_text.text = $"<b>{_message}</b>\n({markerTrigger.gameObject.name})";
+		_text.text = $"<b>{_message}</b>\n(MusicT:{markerTrigger.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMusicPressed());
 	}
 
@@ -54,7 +54,7 @@ public  class UIEventButton : MonoBehaviour
 		findRequiredObjectsCommon();
 		_message = OnEvent?markerGate.OnMarker:markerGate.OffMarker;
 		_musicMarkerGateTarget = markerGate;
-		_text.text = $"<b>{_message}</b>\n({markerGate.gameObject.name})";
+		_text.text = $"<b>{_message}</b>\n(MusicG:{markerGate.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMusicGatePressed());
 	}
 

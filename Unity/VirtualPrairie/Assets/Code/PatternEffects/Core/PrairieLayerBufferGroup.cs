@@ -11,7 +11,7 @@ public enum EBufferClearType
 	Decay,
 }
 
-public class PrairieLayerBufferGroup : PrairieLayerGroup
+public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 {
 	public PrairieLayerGroup ParentGroup;	
 
@@ -60,15 +60,16 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup
 	//===============
 	public override void Update()
 	{
-		if (!GroupSettings.Enabled)
-		{
-			return;
-		}
-
 		if (!_bufferBuilt || _bufferPoints.Count != PrairieUtil.Points.Count)
 		{
 			// if layout changed, rebuild proxy lights.
 			buildBuffer();
+		}
+
+		if (!GroupSettings.Enabled || GroupAlpha <= 0f || BlendSettings.LayerAlpha <=0f )
+		{
+			// only do all this if we need to.
+			return;
 		}
 
 
@@ -100,7 +101,11 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup
 				float h,s,v;
 				Color.RGBToHSV(srcColor,out h,out s, out v);
 				srcColor = ColorizeSettings.ColorForBrightness(v*srcColor.a,this) * srcColor.a;
-				srcColor.a = v*BlendSettings.LayerAlpha * GroupAlpha;
+				srcColor.a = v * GroupAlpha * BlendSettings.LayerAlpha;
+			}
+			else
+			{
+				srcColor.a = srcColor.a * GroupAlpha * BlendSettings.LayerAlpha;
 			}
 			
 			Color destColor = mainPoints[i].CurColor;
@@ -196,5 +201,15 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup
 			ParentGroup.gameObject.AddComponent<ColorPaletteMixer>();
 			_paletteMixer = ParentGroup.GetComponent<ColorPaletteMixer>();
 		}
+	}
+
+	public void SetLayerAlpha(float newAlpha)
+	{
+		BlendSettings.LayerAlpha = newAlpha;
+	}
+
+	public float GetTimeMult()
+	{
+		return 1.0f;
 	}
 }

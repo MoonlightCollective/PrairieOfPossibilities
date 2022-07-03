@@ -9,7 +9,7 @@ public class PatternLayerAlphaGate : GateListener
 	[Snapshot] public ADSREnvelope AlphaEnv = ADSREnvelope.Default();
 	
 	[Snapshot] public float Mult = 1.0f;
-	protected PrairiePatternLayer _patternLayer = null;
+	protected IAlphaEnvTarget _target;
 	protected bool _gateOn = false;
 
 	public void Start()
@@ -19,18 +19,18 @@ public class PatternLayerAlphaGate : GateListener
 
 	void getPatternLayer()
 	{
-		_patternLayer = GetComponent<PrairiePatternLayer>();
+		_target = GetComponent<IAlphaEnvTarget>();
 	}
 
 	public void Update()
 	{
-		if (_patternLayer == null)
+		if (_target == null)
 			getPatternLayer();
 
-		if (_patternLayer == null)
+		if (_target == null)
 			return;
 
-		_patternLayer.BlendSettings.LayerAlpha = AlphaEnv.Update(_gateOn,Time.deltaTime) * Mult;
+		_target.SetLayerAlpha(AlphaEnv.Update(_gateOn,Time.deltaTime * _target.GetTimeMult()) * Mult);
 	}
 
 	public override void NotifyTriggeredOn(PrairieTriggerParams tParams)

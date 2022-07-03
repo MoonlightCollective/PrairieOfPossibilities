@@ -14,6 +14,12 @@ public class LayerBlendSettings
 	public float LayerAlpha = 1.0f;
 }
 
+public interface IAlphaEnvTarget
+{
+	public void SetLayerAlpha(float newAlpha);
+	public float GetTimeMult();
+}
+
 [System.Serializable]
 public class TimeSettings
 {
@@ -22,11 +28,21 @@ public class TimeSettings
 	public float TimeMult = 1.0f;
 }
 
-public class PrairieLayer : MonoBehaviour
+public class PrairieLayer : MonoBehaviour, IAlphaEnvTarget
 {
 	[Snapshot]
 	public LayerBlendSettings BlendSettings;
 
 	[Snapshot]
 	public TimeSettings TimeSettings;
+
+	public float GetTimeMult()
+	{
+		return TimeSettings.TimeMult;
+	}
+
+	public void SetLayerAlpha(float newAlpha)
+	{
+		BlendSettings.LayerAlpha = newAlpha;
+	}
 }

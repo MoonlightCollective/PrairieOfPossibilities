@@ -12,30 +12,35 @@ public class PatternLayerAlphaTrigger : TriggerListener
 	[Snapshot]
 	public float Multiplier = 1.0f;
 	
-	protected PrairiePatternLayer _patternLayer = null;
+	protected List<IAlphaEnvTarget> _patternLayers = new List<IAlphaEnvTarget>();
 	protected bool _trigger = false;
 
 	public void Start()
 	{
-		getPatternLayer();
+		getPatternLayers();
 	}
 
-	void getPatternLayer()
+	void getPatternLayers()
 	{
-		_patternLayer = GetComponent<PrairiePatternLayer>();
+		_patternLayers = new List<IAlphaEnvTarget>(GetComponents<IAlphaEnvTarget>());
 	}
 
 	public void Update()
 	{
-		if (_patternLayer == null)
-			getPatternLayer();
+		if (_patternLayers.Count < 1)
+			getPatternLayers();
 
-		if (_patternLayer == null)
-
+		if (_patternLayers.Count < 1)
+		{
+			enabled = false;
 			return;
+		}
 
 		bool signalOn = _trigger;
-		_patternLayer.BlendSettings.LayerAlpha = Multiplier * AlphaEnv.Update(signalOn,Time.deltaTime * _patternLayer.TimeSettings.TimeMult);
+		foreach (var pl in _patternLayers)
+		{
+			pl.SetLayerAlpha(Multiplier * AlphaEnv.Update(signalOn,Time.deltaTime * pl.GetTimeMult()));
+		}
 		_trigger = false;
 	}
 
