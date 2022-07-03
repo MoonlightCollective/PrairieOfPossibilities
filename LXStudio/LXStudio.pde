@@ -59,8 +59,8 @@ void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI 
   ui.preview.perspective.setValue(30);
 
   // add the main simulation
-  simulation = new UISimulation(lx);
-  ui.preview.addComponent(simulation);
+//  simulation = new UISimulation(lx);
+ // ui.preview.addComponent(simulation);
 
   midiPm = new MidiProgramChangeListener(lx);
   lx.engine.midi.addListener(midiPm);
