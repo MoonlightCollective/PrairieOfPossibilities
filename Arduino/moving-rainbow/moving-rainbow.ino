@@ -15,10 +15,10 @@ int a =0;
 float t=0; 
 
 //CRGBPalette16 myPal = blob_gp;
-//CRGBPalette16 myPal = CloudColors_p;
+CRGBPalette16 myPal = CloudColors_p;
 //CRGBPalette16 myPal = ForestColors_p; 
 //CRGBPalette16 myPal = LavaColors_p; 
-CRGBPalette16 myPal = Rainbow_gp ; 
+//CRGBPalette16 myPal = Rainbow_gp ; 
 
 CRGBSet top(leds(140,220));
 CRGBSet side1(leds(0,139));
@@ -51,7 +51,7 @@ void loop() {
   uint8_t level = 64 + (quadwave8(t) / 3);
   t = t + 0.1;
   if (t > 255.0) t -= 255.0;
-  float x = 10.0 * t;
+  float x = 5.0 * t;
   uint8_t index = (uint8_t)x;
 
   fill_solid(top, top.size(), ColorFromPalette(myPal, index));
