@@ -1,13 +1,14 @@
 #include "FastLED.h"
 #include "lib8tion.h"
 
-#define NUM_LEDS 368
+#define NUM_LEDS 364
 CRGBArray<NUM_LEDS> leds;
 #define PIN 4
 
 char dataString[50] = {0};
 int a =0;
-
+uint16_t oldtime = millis();
+uint16_t ntime = 0;
 void setup()
 {
   Serial.begin(9600);              //Starting serial communication
@@ -19,10 +20,13 @@ void loop() {
   uint8_t octaves = 1;
   uint16_t x = 0;
   int scale = 100;
-  uint8_t hue_octaves = 2;
+  uint8_t hue_octaves = 1;
   uint16_t hue_x = 1;
-  int hue_scale = 3;
-  uint16_t ntime = millis() / 5;
+  int hue_scale = 6;
+  uint16_t t = millis();
+  uint16_t dt = t - oldtime;
+  oldtime = t;
+  ntime += dt / 5;
   uint8_t hue_shift = 5;
   
   fill_noise16 (leds, NUM_LEDS/2, octaves, x, scale, hue_octaves, hue_x, hue_scale, ntime, hue_shift);
@@ -45,20 +49,27 @@ void loop() {
 
 void flashPortal(int delayTime)
 {
+  CRGBArray<NUM_LEDS> backup;
+  CRGBArray<NUM_LEDS> white;
+  
+  for (int i=0; i<NUM_LEDS; i++)
+  {
+    backup[i] = leds[i];
+    white[i] = CRGB::White;
+  }
+
   for (int i=0; i<10; i++)
   {
-    for (int j=0; j<NUM_LEDS; j++)
-    {
-      leds[j] += CRGB(32,32,32);
-    }
+    blend(backup, white, leds, NUM_LEDS, i*25);
     FastLED.show();
   }
   delay(delayTime);
-  for (int i=0; i<25; i++)
+  for (int i=0; i<64; i++)
   {
-    leds.fadeToBlackBy(10);
+    blend(white, backup, leds, NUM_LEDS, i*4);
     FastLED.show();
   }
+  oldtime = millis(); // as if no time had passed
 }
 
 void triggerPortal(int size)
