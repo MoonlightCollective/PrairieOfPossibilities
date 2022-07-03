@@ -12,6 +12,7 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 
 	[Snapshot] public EOriginLoc Origin;
 
+	[Header("Indexed params")]
 	[Range(0,1)]
 	[Snapshot] public float Speed;
 
@@ -67,6 +68,23 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 
 			// Set color on the point
 			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
+		}
+	}
+
+	public override void SetIndexedFloat(int paramDex, float newVal)
+	{
+		base.SetIndexedFloat(paramDex, newVal);
+		switch (paramDex)
+		{
+			case 0:
+				Speed = newVal;
+				break;
+			case 1:
+				Width = newVal;
+				break;
+			case 2:
+				NormAngleOffset = Mathf.Clamp(newVal,-1,1);
+				break;
 		}
 	}
 }

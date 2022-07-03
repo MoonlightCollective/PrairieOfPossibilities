@@ -92,6 +92,11 @@ public class SparklePattern : PrairiePatternMonochromaticBase
 			s.Update(deltaTime);
 		}
 
+		if (BlendSettings.LayerAlpha <= 0f)
+		{
+			return;
+		}
+
 		foreach (var p in points)
 		{
 			if (!filterAllowPoint(p))
