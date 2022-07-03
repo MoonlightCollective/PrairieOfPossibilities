@@ -59,6 +59,7 @@ public class WiredPathManager : MonoBehaviour
 
 	public void NotifyNewLayout()
 	{
+		Debug.Log("New Layout Detected");
 		if (PlantSelectionManager.Instance.IsWiring())
 		{
 			PlantSelectionManager.Instance.NotifyRereshWiring();
