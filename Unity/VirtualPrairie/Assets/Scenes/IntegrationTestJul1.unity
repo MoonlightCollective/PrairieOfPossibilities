@@ -23852,7 +23852,7 @@ PrefabInstance:
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: TopicEvents.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -23866,12 +23866,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
+      propertyPath: TopicEvents.Array.data[2].Topic
+      value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
       propertyPath: TopicEvents.Array.data[0].OnMessage.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: TopicEvents.Array.data[1].OnMessage.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
@@ -23891,12 +23901,22 @@ PrefabInstance:
       objectReference: {fileID: 422446263}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 422446263}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
       propertyPath: TopicEvents.Array.data[0].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: TopicEvents.Array.data[1].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
@@ -23911,6 +23931,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NotifyMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
       propertyPath: TopicEvents.Array.data[0].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MqttTrigger, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -23921,12 +23946,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MqttTrigger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
       propertyPath: TopicEvents.Array.data[0].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: TopicEvents.Array.data[1].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542312781174428198, guid: 68f10929ed4e745f69580c363905c622,
+        type: 3}
+      propertyPath: TopicEvents.Array.data[2].OnMessage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2618362152567511867, guid: 68f10929ed4e745f69580c363905c622,
