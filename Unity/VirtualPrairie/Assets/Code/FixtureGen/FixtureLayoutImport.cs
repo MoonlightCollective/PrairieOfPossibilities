@@ -67,8 +67,9 @@ public class FixtureLayoutImport : FixtureLayoutBase
 
 		// now place all the portals.  we will place the portal under the "portals" root obj for now
 		GameObject portalsObj = GameObject.Find("Portals");
-		if (portalsObj != null && portalPrefab != null)
+		if (portalsObj != null && portalPrefab != null && fixtureData.portals != null)
 		{
+			Debug.Log($"FixtureLayoutImport:Adding Portals.Count={fixtureData.portals.Count}");
 			foreach (var item in fixtureData.portals)
 			{
 				// create the portal !
@@ -82,8 +83,9 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		// now reconstruct paths.
 		if (Application.isPlaying)
 		{
-			WiredPathManager pathManager = WiredPathManager.Instance;			
+			WiredPathManager pathManager = WiredPathManager.Instance;
 			pathManager.ClearAllPaths();
+			Debug.Log($"FixtureLayoutImport:Adding paths.Count={fixtureData.wirePaths.Count}");
 			foreach (var pathData in fixtureData.wirePaths)
 			{
 				WiredPath newPath = WiredPathManager.NewPathInstance();
@@ -91,6 +93,8 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				newPath.Universe = pathData.universe;
 				newPath.ChannelStart = pathData.channelStart;
 				newPath.PathId = pathData.pathId;
+				Debug.Log($"Adding path IP: {newPath.ArtnetHost} Universe: {newPath.Universe} Channel: {newPath.ChannelStart}");
+
 				foreach (var pathDataItem in pathData.items)
 				{
 					if (pathDataItem.FixtureType == "PlantFixture")
@@ -116,7 +120,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		if (Application.isPlaying)
-		{
+        {
 			PlantSelectionManager.Instance.NotifyFixtureImport();
 			WiredPathManager.Instance.NotifyNewLayout();
 		}
@@ -131,6 +135,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		if (dmxController != null && dmxController.Length == 1)
 		{
 			// rebuild the dmx universe map
+			Debug.Log($"Rebuilding DMX Universe Map");
 			dmxController[0].BuildUniverseMap();
 		}		
 	}
