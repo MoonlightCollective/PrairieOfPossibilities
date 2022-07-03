@@ -38679,15 +38679,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 1
+    LayerAlpha: 0
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
   Axis: 0
   Origin: 0
-  Speed: 0.648
-  Width: 0.145
+  Speed: 0.553
+  Width: 0.323
   NormAngleOffset: 0
 --- !u!114 &1404443444
 MonoBehaviour:
@@ -38702,13 +38702,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 0.2
-    decay: 1
+    attack: 0.4
+    decay: 2
     sustain: 1
-    release: 2
+    release: 4
     attackEase: 0.36
     decayEase: 0
-    releaseEase: 0
+    releaseEase: 0.85
     interrupt: 0
     retrigger: 1
     time: 0
@@ -50656,6 +50656,7 @@ MonoBehaviour:
     IncludeChildren: 0
     Targets:
     - {fileID: 1404443439}
+    - {fileID: 1883365640}
   SingleThumpTrigger:
     IncludeChildren: 0
     Targets:
