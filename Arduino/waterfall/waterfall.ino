@@ -1,18 +1,15 @@
 #include "FastLED.h"
 #include "lib8tion.h"
 
-#define NUM_LEDS 368
+#define NUM_LEDS 364
 
-DEFINE_GRADIENT_PALETTE( sunset_gp ) {
-  0,     255,  0,  0,   //magenta
-255,   0,  0,  255 };   //violet
+DEFINE_GRADIENT_PALETTE( magenta_pink_gp ) {
+  0,    0xF0,  0x93,  0xF9,
+100,     0xE7,  0x2C,  0xF6,
+200,     0xFF,  0x08,  0x00,
+255,    0xF0,  0xFE,  0xA6};
 
-DEFINE_GRADIENT_PALETTE( blob_gp ) {
-  0,     0,  0,  64,
-  128,     255,  0,  255,
-255,   0,  0,  64 };
-
-
+CRGB colPal[4];
 
 CRGBArray<NUM_LEDS> leds;
 #define PIN 4
@@ -22,11 +19,8 @@ int a =0;
 float t=0;
 float timer = 0; 
 
-//CRGBPalette16 myPal = blob_gp;
-//CRGBPalette16 myPal = CloudColors_p;
-CRGBPalette16 myPal = ForestColors_p; 
-//CRGBPalette16 myPal = LavaColors_p; 
-//CRGBPalette16 myPal = Rainbow_gp ; 
+CRGBPalette16 myPal = magenta_pink_gp; 
+
 CRGBSet top(leds(140,220));
 CRGBSet side1(leds(0,139));
 CRGBSet side2(leds(221,NUM_LEDS-1));
@@ -62,9 +56,9 @@ int addBlob()
   if (i >= 0)
   {
 //    lengths[i] = random(30) + 5;
-    lengths[i] = 2;
+    lengths[i] = 5;
     p[i] = 0;
-    colors[i] = random(255);
+    colors[i] = random(4);
     return lengths[i];
   }
   else
@@ -117,11 +111,8 @@ void updateBlobs(float dt)
             } else {
               bright = 128;
             }
-// leds[n] = ColorFromPalette(myPal, j * 255.0 / lengths[i] );
-//            leds[NUM_LEDS/2 - n - 1] = ColorFromPalette(myPal, 0);
-//            leds[NUM_LEDS/2 + n] = ColorFromPalette(myPal, 0);
-            leds[NUM_LEDS/2 - n - 1] = ColorFromPalette(myPal, colors[i], bright);
-            leds[NUM_LEDS/2 + n] = ColorFromPalette(myPal, colors[i], bright);
+            leds[NUM_LEDS/2 - n - 1] = colPal[colors[i]];
+            leds[NUM_LEDS/2 + n] = colPal[colors[i]];
           }
         }
       }
@@ -151,6 +142,11 @@ void setup()
   FastLED.addLeds<WS2813, PIN, RGB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
   fill_solid(leds,leds.size(), CRGB::Black);
   initBlobs();
+
+  colPal[0] = CRGB(0xF0, 0x93, 0xF9);
+  colPal[1] = CRGB(0xE7, 0x2C, 0xF6);
+  colPal[2] = CRGB(0xFF, 0x08, 0x00);
+  colPal[3] = CRGB(0xF0, 0xFE, 0xA6);
 }
   
 void loop() {
