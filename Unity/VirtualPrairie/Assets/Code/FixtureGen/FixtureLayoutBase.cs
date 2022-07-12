@@ -27,8 +27,13 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 
 	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
 	{
+		// clear out existing plants, wires, and props
 		GlobalPlantSettings.FindGlobalInstance();
 		ClearChildrenFrom(rootObj);
+
+		WiredPathManager pathManager = WiredPathManager.Instance;
+		pathManager.ClearAllPaths();
+
 		_curUniverse = UniverseStart;
 		_curChannel = 0;
 		_lastFixtureId = 0;
