@@ -21,9 +21,9 @@ public class FixtureLayoutSpeakerRings : FixtureLayoutBase
 		PlayerPrefs.SetFloat("FalloffOverlapPct", FalloffOverlapPct);
 	}
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
-		base.GenerateLayout(rootObj,fixturePrefab, portalPrefab);
+		base.GenerateLayout(rootObj,fixturePrefab, portalPrefab, boothPrefab);
 
 		// start radius is falloff radius plus overlap.
 		

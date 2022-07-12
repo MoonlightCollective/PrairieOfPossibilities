@@ -37,9 +37,9 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		ClearingSize = PlayerPrefs.GetFloat("SunflowerClearingSize", kDefaultClearingSize);
 	}
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
-		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab);
+		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab, boothPrefab);
 
 		int fixturesLeft = NumFixtures;
 		float twoPi = Mathf.PI * 2f;

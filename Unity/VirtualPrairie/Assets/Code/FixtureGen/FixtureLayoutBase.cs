@@ -25,7 +25,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 	public abstract void SaveSettings();
 	public abstract void LoadSettings();
 
-	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public virtual bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
 		// clear out existing plants, wires, and props
 		GlobalPlantSettings.FindGlobalInstance();
