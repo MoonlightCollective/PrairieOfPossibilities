@@ -8,12 +8,15 @@ public class UIMasterController : MonoBehaviour
 	public UILayoutSettingsController LayoutSettingsController;
 	public UIWiringController WiringController;
 	public UIEventPanel EventPanel;
+	public UITagPanel TagPanel;
 	public GameObject SceneLoader;
 
 	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
 	public bool HudActive  => HudController.gameObject.activeInHierarchy;
 	public bool LayoutSettingsActive  => LayoutSettingsController.gameObject.activeInHierarchy;
 	public bool SceneLoaderActive => SceneLoader.gameObject.activeInHierarchy;
+	public bool TaggingActive => TagPanel.gameObject.activeInHierarchy;
+	public bool EventPanelActive => EventPanel.gameObject.activeInHierarchy;
 
 	void Start()
 	{
@@ -21,6 +24,7 @@ public class UIMasterController : MonoBehaviour
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 		SceneLoader.SetActive(false);
+		TagPanel.gameObject.SetActive(false);
 	}
 
     void Update()
@@ -40,6 +44,10 @@ public class UIMasterController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.O))
 		{
 			toggleSceneLoader();
+		}
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			toggleTagUI();
 		}
     }
 	
@@ -81,7 +89,27 @@ public class UIMasterController : MonoBehaviour
 
 	void toggleEventUI()
 	{
+		if (!EventPanelActive && TaggingActive)
+		{
+			toggleTagUI();
+		}
+		
 		EventPanel.ToggleEventUI();
+	}
+
+	void toggleTagUI()
+	{
+		if (!TaggingActive)
+		{
+			if (EventPanelActive)
+				toggleEventUI();
+			TagPanel.gameObject.SetActive(true);
+		}
+		else
+		{
+			TagPanel.gameObject.SetActive(false);
+		}
+
 	}
 
 	void toggleWiringController()
