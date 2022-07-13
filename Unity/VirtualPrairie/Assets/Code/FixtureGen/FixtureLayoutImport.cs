@@ -10,10 +10,10 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	public string JsonFilePath;
 
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
 		GlobalPlantSettings.FindGlobalInstance();
-		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab);
+		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab, boothPrefab);
 
 		if (!string.IsNullOrEmpty(JsonFilePath))
 		{
@@ -21,7 +21,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			string jsonStr = File.ReadAllText(JsonFilePath);
 			if (!string.IsNullOrEmpty(jsonStr))
 			{
-				doFixtureImport(rootObj, jsonStr, fixturePrefab, portalPrefab);
+				doFixtureImport(rootObj, jsonStr, fixturePrefab, portalPrefab, boothPrefab);
 				return true;
 			}
 		}
@@ -40,7 +40,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	}
 
 
-	void doFixtureImport(GameObject rootObj, string fixtureStr, GameObject prefab, GameObject portalPrefab)
+	void doFixtureImport(GameObject rootObj, string fixtureStr, GameObject prefab, GameObject portalPrefab, GameObject boothPrefab)
 	{
 		// built our JSON structures
 		var fixtureData = JsonConvert.DeserializeObject<FixtureData>(fixtureStr);
@@ -66,7 +66,8 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		}
 
 		// now place all the portals.  we will place the portal under the "portals" root obj for now
-		GameObject portalsObj = GameObject.Find("Portals");
+		GameObject portalsObj = PrairieUtil.GetPortalRoot();
+		PrairieUtil.ClearChildrenFrom(portalsObj);
 		if (portalsObj != null && portalPrefab != null && fixtureData.portals != null)
 		{
 			Debug.Log($"FixtureLayoutImport:Adding Portals.Count={fixtureData.portals.Count}");
@@ -77,6 +78,27 @@ public class FixtureLayoutImport : FixtureLayoutBase
 				GameObject newObj = CreateObjFromPrefab(portalPrefab);
 				newObj.transform.SetParent(portalsObj.transform, false);
 				newObj.transform.position = newPos;
+				newObj.transform.localRotation = item.rotation.QuaternionFromRot();
+				Portal p = newObj.GetComponentInChildren<Portal>();
+				p.PortalId = item.portalId;
+			}
+		}
+
+		GameObject boothRoot = PrairieUtil.GetBoothRoot();
+		PrairieUtil.ClearChildrenFrom(boothRoot);
+		if (boothRoot != null && boothPrefab != null && fixtureData.booths != null)
+		{
+			Debug.Log($"FixtureLayoutImport:Adding Booths.Count={fixtureData.booths.Count}");
+			foreach (var item in fixtureData.booths)
+			{
+				// create the portal !
+				var newPos = new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z));
+				GameObject newObj = CreateObjFromPrefab(boothPrefab);
+				newObj.transform.SetParent(boothRoot.transform, false);
+				newObj.transform.position = newPos;
+				newObj.transform.localRotation = item.rotation.QuaternionFromRot();
+				Booth b = newObj.GetComponentInChildren<Booth>();
+				b.BoothId = item.boothId;
 			}
 		}
 

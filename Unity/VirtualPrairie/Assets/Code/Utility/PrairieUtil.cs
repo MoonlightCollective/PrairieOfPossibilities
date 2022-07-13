@@ -19,6 +19,11 @@ public class PrairieUtil
 	{
 		return inches * .0254f;
 	}
+	
+	public static float MetersToInches(float meters)
+	{
+		return meters * 39.3701f;
+	}
 
 	public static float FeetToMeters(float feet)
 	{
@@ -28,6 +33,21 @@ public class PrairieUtil
 	public static float MetersToFeet(float meters)
 	{
 		return 3.28084f * meters;
+	}
+
+	public static Vector3 MetersToFeet(Vector3 meters)
+	{
+		return 3.28084f * meters;
+	}
+
+	public static Vector3 FeetToMeters(Vector3 feet)
+	{
+		return .3048f * feet;
+	}
+
+	public static Vector3 MetersToInches(Vector3 meters)
+	{
+		return meters * 39.3701f;
 	}
 
 	public static string lastExportPath
@@ -61,11 +81,25 @@ public class PrairieUtil
 
 	public static GameObject GetLayoutRoot()
 	{
+		return GetNamedRootObject("Layout");
+	}
 
+	public static GameObject GetPortalRoot()
+	{
+		return GetNamedRootObject("Portals");
+	}
+
+	public static GameObject GetBoothRoot()
+	{
+		return GetNamedRootObject("Booths");
+	}
+
+	public static GameObject GetNamedRootObject(string name)
+	{
 		#if UNITY_EDITOR
 		if (!Application.isPlaying && UnityEditor.Selection.activeGameObject != null)
 		{
-			if (UnityEditor.Selection.activeGameObject.name == "Layout")
+			if (UnityEditor.Selection.activeGameObject.name == name)
 			{
 				return UnityEditor.Selection.activeGameObject;
 			}
@@ -73,16 +107,17 @@ public class PrairieUtil
 		#endif
 
 		// Create or find the parent object for our plants
-		GameObject layoutObj = GameObject.Find("Layout");
-		if (layoutObj == null)
+		GameObject rootObjg = GameObject.Find(name);
+		if (rootObjg == null)
 		{
 			// create new parent object if there is one.
-			layoutObj = new GameObject("Layout");
-			layoutObj.transform.position = Vector3.zero;
+			rootObjg = new GameObject(name);
+			rootObjg.transform.position = Vector3.zero;
 		}
 
-		return layoutObj;
+		return rootObjg;
 	}
+
 
 	public static PrairieWalkCam GetCamera()
 	{
@@ -93,6 +128,17 @@ public class PrairieUtil
     {
 		return (GameObject.FindObjectOfType<FixtureLayoutGen>());
     }
+
+	public static void ClearChildrenFrom(GameObject rootObj)
+	{
+		// Clear existing layout if there is one.
+		int count = rootObj.transform.childCount;
+		for (int i = count -1; i >= 0; i--)
+		{
+			GameObject.Destroy(rootObj.transform.GetChild(i).gameObject);
+		}
+		rootObj.transform.DetachChildren();
+	}
 
 	public static float wrapdistf(float v1, float v2, float modulus)
 	{

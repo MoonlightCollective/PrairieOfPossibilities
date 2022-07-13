@@ -29,9 +29,9 @@ public class FixtureLayoutGrid : FixtureLayoutBase
 		NumRows = PlayerPrefs.GetInt("GridNumRows",kDefaultNumRows);
 	}
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
-		base.GenerateLayout(rootObj,fixturePrefab,portalPrefab);
+		base.GenerateLayout(rootObj,fixturePrefab,portalPrefab,boothPrefab);
 
 		int basesPerRow = (int)(NumFixtures/NumRows);
 		for (int r = 0; r < NumRows; r++)

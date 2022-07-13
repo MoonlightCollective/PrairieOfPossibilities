@@ -41,7 +41,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 			itemCount++;
 
-			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToFeet(pcm.transform.position.x) * 12f, z = PrairieUtil.MetersToFeet(pcm.transform.position.z) * 12f };			
+			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
 			items.Add(fid);
 		}
 
@@ -49,6 +49,8 @@ public class FixtureLayoutExporter : MonoBehaviour
 		List<FixtureOutputItemData> outputItems = new List<FixtureOutputItemData>();
 
 		List<WirePathData> wirePathData = buildWirePathExportData();
+		List<PortalItemData> portalData = buildPortalExportData();
+		List<BoothItemData> boothData = buildBoothExportData();
 
 		FixtureData data = new FixtureData();
 		data.label = rootObj.gameObject.name;
@@ -56,6 +58,8 @@ public class FixtureLayoutExporter : MonoBehaviour
 		data.children = items;
 		data.outputs = outputItems;
 		data.wirePaths = wirePathData;
+		data.portals = portalData;
+		data.booths = boothData;
 
 		return data;
 	}
@@ -82,6 +86,54 @@ public class FixtureLayoutExporter : MonoBehaviour
 			pathData.items = pathItemList;
 			dataList.Add(pathData);
 		}
+		return dataList;
+	}
+
+	List<PortalItemData> buildPortalExportData()
+	{
+		List<PortalItemData> dataList = new List<PortalItemData>();
+
+		var rootObj = PrairieUtil.GetPortalRoot();
+		foreach (Transform child in rootObj.transform)
+		{
+			Portal p = child.GetComponentInChildren<Portal>();
+			if (p != null)
+			{
+				Vector3 portalPosFt = PrairieUtil.MetersToInches(child.transform.position);
+				PortalItemData data = new PortalItemData{x = portalPosFt.x, z = portalPosFt.z,portalId = p.PortalId};
+				data.rotation = new RotData(child);
+				dataList.Add(data);
+			}
+			else
+			{
+				Debug.LogWarning($"Encountered a child in Portal root ({child.gameObject.name}) that doesn't have a portal script - NOT EXPORTED ");
+			}
+		}
+
+		return dataList;
+	}
+
+	List<BoothItemData> buildBoothExportData()
+	{
+		List<BoothItemData> dataList = new List<BoothItemData>();
+
+		var rootObj = PrairieUtil.GetBoothRoot();
+		foreach (Transform child in rootObj.transform)
+		{
+			Booth booth = child.GetComponentInChildren<Booth>();
+			if (booth != null)
+			{
+				Vector3 boothPosFt = PrairieUtil.MetersToInches(child.transform.position);
+				BoothItemData data = new BoothItemData{x = boothPosFt.x, z = boothPosFt.z, boothId = booth.BoothId};
+				data.rotation = new RotData(child);
+				dataList.Add(data);
+			}
+			else
+			{
+				Debug.LogWarning($"Encountered a child in Booth root ({child.gameObject.name}) that doesn't have a booth script - NOT EXPORTED ");
+			}
+		}
+
 		return dataList;
 	}
 

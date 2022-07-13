@@ -95,7 +95,6 @@ public class FixtureLayoutGen : MonoBehaviour
 
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
-
 	}
 
 	public void GenerateLayout(GameObject rootObj)
@@ -119,8 +118,8 @@ public class FixtureLayoutGen : MonoBehaviour
 		}
 
 		// add portals and booths
-		_propLayout.GenerateLayout(rootObj, PortalPrefab, BoothPrefab);
-
+		_propLayout.GenerateLayout(PortalPrefab, BoothPrefab);
+		
 		resetPlantIds(rootObj);
 		
 		updateLayoutStats();
@@ -150,7 +149,7 @@ public class FixtureLayoutGen : MonoBehaviour
 			_importLayout = GetComponentInChildren<FixtureLayoutImport>();
 
 		_importLayout.JsonFilePath = fileName;
-		_importLayout.GenerateLayout(rootObj, FixturePrefab, PortalPrefab);
+		_importLayout.GenerateLayout(rootObj, FixturePrefab, PortalPrefab, BoothPrefab);
 		updateLayoutStats();
 		OnNewLayout?.Invoke(this);
 	}

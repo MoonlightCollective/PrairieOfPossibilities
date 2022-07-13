@@ -37,9 +37,9 @@ public class FixtureLayoutRings : FixtureLayoutBase
 		NumAisles = PlayerPrefs.GetInt("RingNumAisles",kDefaultNumAisles);
 	}
 
-	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null)
+	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
-		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab);
+		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab, boothPrefab);
 
 		int fixturesLeft = NumFixtures;
 
