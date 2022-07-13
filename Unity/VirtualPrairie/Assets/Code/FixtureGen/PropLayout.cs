@@ -23,7 +23,7 @@ public class PropLayout : MonoBehaviour
 			Vector3 newPortalM = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
 			GameObject locPlant = FindClosestObject(layoutRoot, newPortalM);
 			Vector3 plantLoc = locPlant.transform.position;
-			GameObject.DestroyImmediate(locPlant);
+			// GameObject.DestroyImmediate(locPlant);		// DON'T REMOVE ANYMORE
 
 			GameObject newObj = CreateObjFromPrefab(portalPrefab);
 			newObj.transform.SetParent(portalRoot.transform, false);
