@@ -45,21 +45,40 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		float twoPi = Mathf.PI * 2f;
 		float GoldenRatio = 1.61803398875f;
 
-		// EXPERIMENT -- put circles around phone booths
+		// put a circle of lights around the center clearing
+		// figure out how many lights we need --- assume 8' spacing around the circle
+		float clearing_radius = 0.75f * ClearingSize; // in feet
+		float perimeter = 2 * Mathf.PI * clearing_radius;
+		int numPlants = (int)(perimeter / 6.0f);
+		float angleStep = Mathf.PI * 2 / numPlants; // angle step per light
+
+		float clearingAngle = 0;
+		for (int k = 0; k < numPlants; k++)
+		{
+			Vector3 newPlant = new Vector3(0, 0, 0);
+			newPlant.x += clearing_radius * Mathf.Cos(clearingAngle);
+			newPlant.y = 0;
+			newPlant.z += clearing_radius * Mathf.Sin(clearingAngle);
+
+			if (AddFixture(new Vector3(PrairieUtil.FeetToMeters(newPlant.x), 0.0f, PrairieUtil.FeetToMeters(newPlant.z)), rootObj, fixturePrefab) != null)
+				fixturesLeft--;
+
+			clearingAngle += angleStep;
+		}
+
+		// now put circles around phone booths
 		// then when placing the rest of the plants, if a new plant is too close to an existing plant we'll skip
 
 		for (int j=4; j<6; j++)
         {
-			float clearing_radius = ClearingSize; // in feet
-			if (j > 3)							// make circles for booths bigger
-				clearing_radius *= 1.0f;
+			clearing_radius = ClearingSize; // in feet
 
 			// figure out how many lights we need --- assume 8' spacing around the circle
-			float perimeter = 2 * Mathf.PI * clearing_radius;
-			int numPlants = (int)(perimeter / 6.0f);
-			float angleStep = Mathf.PI * 2 / numPlants; // angle step per light
+			perimeter = 2 * Mathf.PI * clearing_radius;
+			numPlants = (int)(perimeter / 6.0f);
+			angleStep = Mathf.PI * 2 / numPlants; // angle step per light
 
-			float clearingAngle = 0;
+			clearingAngle = 0;
 			for (int k=0; k<numPlants; k++)
             {
 				Vector3 newPlant = PrairieUtil.GetLayoutGen().Clearings[j];
