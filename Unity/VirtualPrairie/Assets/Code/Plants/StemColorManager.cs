@@ -275,11 +275,14 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	public bool HasTag(string tagName)
+	public bool HasTag(string tagName, bool fuzzyMatch = false)
 	{
 		foreach (var t in Tags)
 		{
 			if (t.Name == tagName)
+				return true;
+			
+			if (fuzzyMatch && t.Name.Contains(tagName))
 				return true;
 		}
 		return false;
