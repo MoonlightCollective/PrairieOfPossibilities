@@ -17,21 +17,25 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 	public bool Selected => _selected;
 
 	protected bool _mouseOver = false;
+	
+	protected PlantColorManager _parentPlant;
+	public PlantColorManager ParentPlant => _parentPlant;
 
 	public void Awake()
 	{
 		DisableFirstInPathVis();
 		DisableHavePathVis();
+		_parentPlant = GetComponentInParent<PlantColorManager>();
 	}
 
 	public void Start()
 	{
 		updateMouseVis();
 		updateSelectVis();
-		PlantColorManager pcm = GetComponentInParent<PlantColorManager>();
+
 		foreach (var tmp in PlantIdText)
 		{
-			tmp.text = pcm.PlantId.ToString();
+			tmp.text = _parentPlant.PlantId.ToString();
 		}
 	}
 
@@ -55,6 +59,7 @@ public class PlantSelectionHandler : MonoBehaviour, IPointerClickHandler, IPoint
 
 	public void ForceDeselect()
 	{
+		// Debug.Log("ForceDeselect:" + gameObject.name);
 		_selected = false;
 		updateSelectVis();
 	}

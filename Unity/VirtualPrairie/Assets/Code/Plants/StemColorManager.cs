@@ -11,13 +11,6 @@ using UnityEngine.Rendering.Universal;
 //  a single POINT of LXStudio, but rendered as a fiber.
 //
 
-public enum EStemTags
-{
-	Inner,
-	Outer,
-}
-
-
 public class StemColorManagerProxy : StemColorManager
 {
 	protected StemColorManager _realStem;
@@ -55,7 +48,7 @@ public class StemColorManagerProxy : StemColorManager
 		_globalDistFromOrigin = _realStem.GlobalDistFromOrigin;
 		_localTheta = _realStem.LocalTheta;
 		_localRadius = _realStem.LocalRadius;
-		Tags = new List<EStemTags>(_realStem.Tags);
+		Tags = new List<PrairieTag>(_realStem.Tags);
 	}
 
 	public override void ApplyColorToDmx()
@@ -142,7 +135,7 @@ public class StemColorManager : DmxColorPoint
 	protected float _localRadius = 0f;
 	public float LocalRadius => _localRadius;
 
-	public List<EStemTags> Tags = new List<EStemTags>();
+	public List<PrairieTag> Tags = new List<PrairieTag>();
 	
 	// 
 	// SetColor - set colors in the instanced materials for all mesh renderers associated with me.
@@ -282,17 +275,39 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	public bool HasTag(EStemTags tag)
+	public bool HasTag(string tagName)
 	{
-		return Tags.Contains(tag);
+		foreach (var t in Tags)
+		{
+			if (t.Name == tagName)
+				return true;
+		}
+		return false;
 	}
 
-	public void AddTag(EStemTags tag)
+	public void AddTag(PrairieTag newTag)
 	{
-		if (!Tags.Contains(tag))
-			Tags.Add(tag);
+		if (!HasTag(newTag.Name))
+		{
+			Tags.Add(newTag);
+		}
 	}
 
+	public void AddTag(string newTagName)
+	{
+		if (!HasTag(newTagName))
+		{
+			Tags.Add(new PrairieTag(newTagName));
+		}
+	}
+
+	public void RemoveTag(string tagName)
+	{
+		if (HasTag(tagName))
+		{
+			Tags.RemoveAll(tagObj=>tagObj.Name==tagName);
+		}
+	}
 
 	public virtual float AzimuthRelativeTo(Vector3 centerPoint, bool normalized = false)
 	{

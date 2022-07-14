@@ -33,19 +33,19 @@ public class UIMasterController : MonoBehaviour
 		{
 			toggleHud();
 		}
-		if (!PlantSelectionManager.Instance.IsWiring() && Input.GetKeyDown(KeyCode.L))
+		if (!PlantSelectionManager.Instance.IsWiring() && Input.GetKeyDown(KeyCode.L) && !PrairieUtil.AnyInputActive())
 		{
 			toggleLayoutUI();
 		}
-		if (Input.GetKeyDown(KeyCode.E))
+		if (Input.GetKeyDown(KeyCode.E) && !PrairieUtil.AnyInputActive())
 		{
 			toggleEventUI();
 		}
-		if (Input.GetKeyDown(KeyCode.O))
+		if (Input.GetKeyDown(KeyCode.O) && !PrairieUtil.AnyInputActive())
 		{
 			toggleSceneLoader();
 		}
-		if (Input.GetKeyDown(KeyCode.T))
+		if (Input.GetKeyDown(KeyCode.T) && !PrairieUtil.AnyInputActive())
 		{
 			toggleTagUI();
 		}
@@ -103,6 +103,8 @@ public class UIMasterController : MonoBehaviour
 		{
 			if (EventPanelActive)
 				toggleEventUI();
+			if (WiringActive)
+				toggleWiringController();
 			TagPanel.gameObject.SetActive(true);
 		}
 		else
@@ -110,6 +112,14 @@ public class UIMasterController : MonoBehaviour
 			TagPanel.gameObject.SetActive(false);
 		}
 
+		if (TaggingActive)
+		{
+			PlantSelectionManager.Instance.NotifyEnterTagging();
+		}
+		else
+		{
+			PlantSelectionManager.Instance.NotifyDisableSelection();
+		}
 	}
 
 	void toggleWiringController()
@@ -120,7 +130,12 @@ public class UIMasterController : MonoBehaviour
 		if (WiringController.gameObject.activeInHierarchy)
 			WiringController.gameObject.SetActive(false);
 		else
+		{
+			if (TaggingActive)
+				toggleTagUI();
 			WiringController.gameObject.SetActive(true);
+		}
+
 	}
 
 	void toggleSceneLoader()

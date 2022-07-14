@@ -183,6 +183,9 @@ public class PrairieWalkCam : MonoBehaviour
 		if (PlantSelectionManager.Instance.IsWiring())
 			return;
 
+		if (PrairieUtil.AnyInputActive())
+			return;
+			
 		if (Input.GetKeyDown(KeyCode.Alpha0))
 			teleportTo(0);
 		if (Input.GetKeyDown(KeyCode.Alpha1))

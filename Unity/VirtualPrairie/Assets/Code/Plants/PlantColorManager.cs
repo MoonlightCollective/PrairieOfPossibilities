@@ -15,6 +15,12 @@ public class PlantColorManager : WiredFixtureBase
 	public int PointRangeMax = -1;
 	public Material GlowMat;
 
+	
+	protected List<PrairieTag> _fixtureTags = new List<PrairieTag>();
+	public IEnumerable<PrairieTag> FixtureTags => _fixtureTags;
+
+
+
 	// material init has to happen before we can set any colors on our stems.
 	private bool _initializedMaterials = false;
 
@@ -31,7 +37,7 @@ public class PlantColorManager : WiredFixtureBase
 		// have we already found the children?
 		if (StemColors != null && StemColors.Count > 1)
 		{
-			applyTags();
+			applyDefaultTags();
 			return;
 		}
 
@@ -55,17 +61,17 @@ public class PlantColorManager : WiredFixtureBase
 		}
 	}
 
-	protected void applyTags()
+	protected void applyDefaultTags()
 	{
 		foreach (var scm in StemColors)
 		{
 			if (scm.gameObject.name.Contains("Center"))
 			{
-				scm.AddTag(EStemTags.Inner);
+				scm.AddTag("Inner");
 			}
 			else
 			{
-				scm.AddTag(EStemTags.Outer);
+				scm.AddTag("Outer");
 			}
 		}
 	}
@@ -226,5 +232,54 @@ public class PlantColorManager : WiredFixtureBase
 		return StemColors;
 	}
 
+	//===============
+	// Tag management
+	//===============
+	public void AddFixtureTag(string newTag)
+	{
+		if (!HasFixtureTag(newTag))
+		{
+			_fixtureTags.Add(new PrairieTag{Name = newTag});
+		}
+		foreach (var scm in StemColors)
+		{
+			if (!scm.HasTag(newTag))
+			{
+				scm.AddTag(newTag);
+			}
+		}
+	}
 
+	public void AddFixtureTags(List<string> newTags)
+	{
+		foreach (var newTag in newTags)
+		{
+			AddFixtureTag(newTag);
+		}
+	}
+
+	public bool HasFixtureTag(string tagName)
+	{
+		foreach (var ft in _fixtureTags)
+		{
+			if (ft.Name == tagName)
+				return true;
+		}
+		return false;
+	}
+
+	public void RemoveFixtureTag(string tag)
+	{
+		if (HasFixtureTag(tag))
+		{
+			_fixtureTags.RemoveAll(tagObj=>tagObj.Name==tag);
+		}
+		foreach (var scm in StemColors)
+		{
+			if (scm.HasTag(tag))
+			{
+				scm.RemoveTag(tag);
+			}
+		}
+	}
 }

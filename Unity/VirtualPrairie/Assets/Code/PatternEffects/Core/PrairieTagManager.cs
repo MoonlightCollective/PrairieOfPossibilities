@@ -6,6 +6,14 @@ using UnityEngine;
 public class PrairieTag
 {
 	public string Name;
+	public PrairieTag()
+	{
+		Name = "DefaultTag";
+	}
+	public PrairieTag(string newTagName)
+	{
+		Name = newTagName;
+	}
 }
 
 public class PrairieTagManager : MonoBehaviour
@@ -21,17 +29,12 @@ public class PrairieTagManager : MonoBehaviour
 		}
 	}
 
-	public List<PrairieTag> Tags = new List<PrairieTag>();
-	public GameObject TagRowUIFab;
-
 	public List<string> DefaultTags = new List<string>();
+	public List<PrairieTag> Tags = new List<PrairieTag>();
 
 	public void Awake()
 	{
-		foreach (var defaultTag in DefaultTags)
-		{
-			AddTag(defaultTag);
-		}
+		addDefaultTags();
 		s_instance = this;
 	}
 
@@ -53,5 +56,40 @@ public class PrairieTagManager : MonoBehaviour
 			}
 		}
 		return false;
+	}
+
+	public void addDefaultTags()
+	{
+		foreach (var defaultTag in DefaultTags)
+		{
+			AddTag(defaultTag);
+		}
+	}
+
+	public void NotifyNewLayout()
+	{
+		Tags.Clear();
+		addDefaultTags();
+
+		Transform layoutRoot = PrairieUtil.GetLayoutRoot().transform;
+		HashSet<string> newTags = new HashSet<string>();
+		foreach (Transform child in layoutRoot)
+		{
+			PlantColorManager pcm = child.GetComponent<PlantColorManager>();
+			if (pcm != null)
+			{
+				foreach (var t in pcm.FixtureTags)
+				{
+					newTags.Add(t.Name);
+				}
+			}
+		}
+
+		foreach (var newTag in newTags)
+		{
+			AddTag(newTag);
+		}
+
+		UITagPanel.Instance.NotifyTagListChanged();
 	}
 }

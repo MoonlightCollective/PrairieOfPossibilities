@@ -58,11 +58,15 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			GameObject newObj = AddFixture(new Vector3(PrairieUtil.InchesToMeters(item.x), 0.0f, PrairieUtil.InchesToMeters(item.z)), rootObj, prefab, true);
 
 			// need to keep an ordered list of imported plants so we can index into them for wired paths.
-			var wfb = newObj.GetComponentInChildren<WiredFixtureBase>();
-			if (wfb != null)
+			var pcm = newObj.GetComponentInChildren<PlantColorManager>();
+			if (pcm != null)
 			{
-				allDevices.Add(wfb);
+				allDevices.Add(pcm);
 			}
+
+			// apply tags from fixture data.
+			if (item.tags != null)
+				pcm.AddFixtureTags(item.tags);
 		}
 
 		// now place all the portals.  we will place the portal under the "portals" root obj for now
@@ -145,6 +149,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
         {
 			PlantSelectionManager.Instance.NotifyFixtureImport();
 			WiredPathManager.Instance.NotifyNewLayout();
+			PrairieTagManager.Instance.NotifyNewLayout();
 		}
 
 		PrairiePatternLayer[] patterns = FindObjectsOfType<PrairiePatternLayer>(true);

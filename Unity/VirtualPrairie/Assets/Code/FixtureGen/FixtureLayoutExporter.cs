@@ -42,6 +42,15 @@ public class FixtureLayoutExporter : MonoBehaviour
 			itemCount++;
 
 			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
+			
+			// export tags
+			List<string> tagData = new List<string>();
+			foreach (PrairieTag t in pcm.FixtureTags)
+			{
+				tagData.Add(t.Name);
+			}
+			fid.tags = tagData;
+			
 			items.Add(fid);
 		}
 
@@ -60,7 +69,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 		data.wirePaths = wirePathData;
 		data.portals = portalData;
 		data.booths = boothData;
-
+		
 		return data;
 	}
 

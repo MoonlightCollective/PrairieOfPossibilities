@@ -43,12 +43,14 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected List<PlantSelectionHandler> _measureList = new List<PlantSelectionHandler>();
 	protected List<PlantSelectionHandler> _wirePathList = new List<PlantSelectionHandler>();
+	protected List<PlantSelectionHandler> _tagList = new List<PlantSelectionHandler>();
 
 	private enum EPlantSelectionManagerState
 	{
 		Disabled,
 		Measure,
 		Wiring,
+		Tagging,
 	}
 	
 	private enum EPlantSelectionManagerAction
@@ -180,6 +182,59 @@ public class PlantSelectionManager : MonoBehaviour
 	public void NotifyFixtureImport()
 	{
 		refreshWiring();
+	}
+
+	public void NotifyClearTagSelect()
+	{
+		foreach (var handler in _tagList)
+			handler.ForceDeselect();
+
+		_tagList.Clear();
+		updateTagUI();
+	}
+
+	public void NotifyEnterTagging()
+	{
+		_stateMachine.GotoState(EPlantSelectionManagerState.Tagging);
+	}
+
+	public void NotifyDisableSelection()
+	{
+		_stateMachine.GotoState(EPlantSelectionManagerState.Disabled);
+	}
+
+	public void NotifySelectAllFromtag(PrairieTag tag)
+	{
+		NotifyClearTagSelect();
+		foreach (Transform child in PrairieUtil.GetLayoutRoot().transform)
+		{
+			var psh = child.GetComponentInChildren<PlantSelectionHandler>();
+			if (psh != null && psh.ParentPlant.HasFixtureTag(tag.Name))
+			{
+				psh.ForceSelect();
+				_tagList.Add(psh);
+			}
+		}
+		updateTagUI();
+	}
+
+
+	public void ApplyTagToSelection(PrairieTag tag)
+	{
+		foreach (var handler in _tagList)
+		{
+			handler.ParentPlant.AddFixtureTag(tag.Name);
+		}
+		updateTagUI();
+	}
+
+	public void RemvoeTagFromSelection(PrairieTag tag)
+	{
+		foreach (var handler in _tagList)
+		{
+			handler.ParentPlant.RemoveFixtureTag(tag.Name);
+		}
+		updateTagUI();
 	}
 
 	public void ForceDisable()
@@ -466,6 +521,63 @@ public class PlantSelectionManager : MonoBehaviour
 	{
 		return new StateTableValue{ Value = true };
 	}
+
+
+	//=================
+	// Tagging State
+	//=================
+	protected void TaggingEnter() 
+	{ 
+		_tagList.Clear();
+		WiringUI.gameObject.SetActive(false);
+		MeasureUI.gameObject.SetActive(false);
+		updateTagUI();
+	}
+
+	protected void TaggingUpdate()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			NotifyClearTagSelect();
+		}
+	}
+
+	protected void TaggingExit() 
+	{
+		NotifyClearTagSelect();
+	}
+
+	protected StateTableValue TaggingPlantClicked(StateTableValue v)
+	{
+		bool shifted = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
+
+
+		PlantSelectionHandler handler = (PlantSelectionHandler)v.Value;
+		if (handler.Selected)
+		{
+			_tagList.Remove(handler);
+			updateTagUI();	
+			return (StateTableValue)false;
+		}
+
+		if (!shifted)
+			NotifyClearTagSelect();
+
+		_tagList.Add(handler);
+		updateTagUI();
+		return (StateTableValue)true;
+	}
+
+	protected StateTableValue TaggingShouldShowMouseOver()
+	{
+		return (StateTableValue) true;
+	}
+
+	void updateTagUI()
+	{
+		UITagPanel.Instance.UpdateFromSelectionList(_tagList);
+	}
+	
 
 	//===============
 	// Shared helper functions for selection management
