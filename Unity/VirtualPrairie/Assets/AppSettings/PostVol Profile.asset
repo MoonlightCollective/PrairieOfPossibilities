@@ -1,5 +1,45 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9157869189904115747
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
+  m_Name: ChannelMixer
+  m_EditorClassIdentifier: 
+  active: 0
+  redOutRedIn:
+    m_OverrideState: 1
+    m_Value: -200
+  redOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 87
+  redOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -200
+  greenOutRedIn:
+    m_OverrideState: 1
+    m_Value: -200
+  greenOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 200
+  greenOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -200
+  blueOutRedIn:
+    m_OverrideState: 1
+    m_Value: -200
+  blueOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 200
+  blueOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -200
 --- !u!114 &-4255674205968870212
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,6 +80,28 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 593
+--- !u!114 &-183401715593560893
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 0
+  lift:
+    m_OverrideState: 0
+    m_Value: {x: 0.83074147, y: 1, z: 0.87844163, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.9360805, y: 1, z: 0.9961893, w: -0.3308824}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.06839633, y: 1, z: 0.39461124, w: -0.34926477}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,6 +118,8 @@ MonoBehaviour:
   - {fileID: -4255674205968870212}
   - {fileID: 9021210155723010674}
   - {fileID: 4820790112073989591}
+  - {fileID: -9157869189904115747}
+  - {fileID: -183401715593560893}
 --- !u!114 &4820790112073989591
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -73,17 +137,17 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: -0.18
   contrast:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 30
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.1710136, g: 1, b: 0, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 54
 --- !u!114 &9021210155723010674
 MonoBehaviour:
   m_ObjectHideFlags: 3
