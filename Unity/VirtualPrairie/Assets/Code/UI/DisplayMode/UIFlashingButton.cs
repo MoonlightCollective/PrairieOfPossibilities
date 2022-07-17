@@ -26,6 +26,7 @@ public enum EFlashingButtonMode
 	FlashingRange,
 	CycleAll,
 	TriggerFlash,
+	TriggerToggle,
 }
 
 public class UIFlashingButton : TriggerListener
@@ -50,7 +51,7 @@ public class UIFlashingButton : TriggerListener
 	public int RangeEnd = 1;
 
 
-	[ShowIf("FlashMode",EFlashingButtonMode.TriggerFlash)]
+	[ShowIf("FlashMode",EFlashingButtonMode.TriggerFlash|EFlashingButtonMode.TriggerToggle)]
 	public string TriggerFlashState;
 
 	protected float _timer; 
@@ -67,6 +68,7 @@ public class UIFlashingButton : TriggerListener
 		switch (FlashMode)
 		{
 			case EFlashingButtonMode.Static:
+			case EFlashingButtonMode.TriggerToggle:
 				return;
 			case EFlashingButtonMode.FlashingRange:
 				updateFlashingRange();
@@ -82,10 +84,29 @@ public class UIFlashingButton : TriggerListener
 
 	public override void NotifyTriggered(PrairieTriggerParams tParams)
 	{
-		if (FlashMode == EFlashingButtonMode.TriggerFlash)
+		switch (FlashMode)
 		{
-			switchToFlashState(TriggerFlashState);
+			case EFlashingButtonMode.TriggerFlash:
+				switchToFlashState(TriggerFlashState);
+				break;
+			case EFlashingButtonMode.TriggerToggle:
+			{
+				if (StateDefs[_flashStateDex].Name == InitialFlashState)
+				{
+					switchToFlashState(TriggerFlashState);
+				}
+				else
+				{
+					switchToFlashState(InitialFlashState);
+				}
+			}
+			break;
 		}
+	}
+
+	public void SwitchToFlashState(string newState)
+	{
+		switchToFlashState(newState);
 	}
 
 	void updateTriggerFlash()

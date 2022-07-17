@@ -8,11 +8,21 @@ using UnityEngine.Rendering.Universal;
 public class UIDisplayModeController : MonoBehaviour
 {
 	ColorAdjustments _colorAdjustments = null;
-	
+	public bool CycleCamera = true;
+	public float CycleCameraTime = 1.0f;
+
+	PrairieWalkCam _walkCam;
+	float _camCycleTimer;
+	int _curCamDex = -1;
+	UIDisplayFeedButtonMaster _feedButtons;
+
 	public void Activate()
 	{
 		enableColorEffect(true);
+		_walkCam = GameObject.FindObjectOfType<PrairieWalkCam>();
 		gameObject.SetActive(true);
+		_camCycleTimer = -1f;
+		_feedButtons = transform.GetComponentInChildren<UIDisplayFeedButtonMaster>();
 	}
 
 	public void Deactivate()
@@ -20,6 +30,33 @@ public class UIDisplayModeController : MonoBehaviour
 		enableColorEffect(false);
 		gameObject.SetActive(false);
 	}
+
+	public void Update()
+	{
+		if (CycleCamera)
+		{
+			updateCamCycle();
+		}
+	}
+
+	void updateCamCycle()
+	{
+		if (_camCycleTimer >= 0)
+		{
+			_camCycleTimer -= Time.deltaTime;
+		}
+
+		if (_camCycleTimer < 0)
+		{
+			_curCamDex = (_curCamDex+1)%_walkCam.CameraStops.Count;
+			_feedButtons.SwitchToFeed(_curCamDex);
+			_walkCam.TeleportToStop(_curCamDex);
+			_camCycleTimer = CycleCameraTime;
+		}
+	}
+
+
+
 
 	void enableColorEffect(bool doEnable)
 	{

@@ -107,6 +107,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
 	}
 
+
 	//===============
 	// Unity Events
 	//===============
@@ -157,6 +158,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		return inst;
 	}
 
+	public void OnDestroy()
+	{
+		if (_curEventInstance.isValid())
+		{
+			_curEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			_curEventInstance.release();
+		}
+	}
 
 	//===============
 	// FMod callback handler
@@ -406,7 +415,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		{
 			for (int i = 0; i < _fftWindowSize; i++)
 			{
-				RawFFTValues[i] = spectrum[0][i];
+				RawFFTValues[i] = (lin2db(spectrum[0][i]) + 80f)/80f;
 			}
 
 			if (FftBinCount > 0)

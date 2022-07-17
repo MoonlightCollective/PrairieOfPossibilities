@@ -24,7 +24,10 @@ public class PrairieWalkCam : MonoBehaviour
 
 	[Header("Camera Stops")]
 	public GameObject CameraStopRoot;
-	protected List<CameraStop> _cameraStops;
+	
+	[HideInInspector]
+	public List<CameraStop> CameraStops;
+	
 	Camera _camera;
 
 	protected float _desiredSpeed;
@@ -37,7 +40,7 @@ public class PrairieWalkCam : MonoBehaviour
 
 	public  void Start()
 	{
-		_cameraStops = new List<CameraStop>(CameraStopRoot.GetComponentsInChildren<CameraStop>());
+		CameraStops = new List<CameraStop>(CameraStopRoot.GetComponentsInChildren<CameraStop>());
 		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
 		_desiredSpeed = 0;
 		_curSpeed = 0;
@@ -185,7 +188,7 @@ public class PrairieWalkCam : MonoBehaviour
 
 		if (PrairieUtil.AnyInputActive())
 			return;
-			
+
 		if (Input.GetKeyDown(KeyCode.Alpha0))
 			teleportTo(0);
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -208,12 +211,17 @@ public class PrairieWalkCam : MonoBehaviour
 		doTeleportToStop(stop);
 	}
 
+	public void TeleportToStop(int stopDex)
+	{
+		teleportTo(stopDex);
+	}
+
 	void teleportTo(int dex)
 	{
-		if (dex >= _cameraStops.Count)
+		if (dex >= CameraStops.Count)
 			return;
 
-		doTeleportToStop(_cameraStops[dex]);
+		doTeleportToStop(CameraStops[dex]);
 	}
 
 	void doTeleportToStop(CameraStop cStop)
