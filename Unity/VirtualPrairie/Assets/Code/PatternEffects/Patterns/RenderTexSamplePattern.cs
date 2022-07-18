@@ -88,7 +88,7 @@ public class RenderTexSamplePattern : PrairiePatternMonochromaticBase
 			}
 			catch
 			{
-				Debug.Log($"Bad offset: {offset}, nX:{nearestX}, nY:{nearestY}");
+				Debug.Log($"Bad offset for plant {p.ParentFixture.FixtureId}: {offset}, nX:{nearestX}, nY:{nearestY}");
 			}
 		}
 	}

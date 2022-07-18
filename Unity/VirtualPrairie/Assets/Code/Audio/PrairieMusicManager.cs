@@ -80,6 +80,17 @@ public class PrairieMusicManager : MonoBehaviour
 			return PathFromEventRef(MusicEvents[_curDex]);
 	}
 
+	public String CurSongName()
+	{
+		string evPath = CurSongPath();
+		if (evPath.Contains("/"))
+		{
+			string evName = evPath.Substring(evPath.LastIndexOf("/"));
+			return evName;
+		}
+		return "-";
+	}
+
 	public static string PathFromEventRef(EventReference ev)
 	{
 		string pathStr = "";

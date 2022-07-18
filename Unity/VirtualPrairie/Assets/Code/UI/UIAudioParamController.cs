@@ -53,8 +53,7 @@ public class UIAudioParamController : MonoBehaviour
 		AudioSelectDropdown.ClearOptions();
 		List<string> options = new List<string>();
 		foreach (var ev in MusicManager.MusicEvents)
-		{
-		
+		{		
 			string evPath = PrairieMusicManager.PathFromEventRef(ev);
 			string evName = evPath.Substring(evPath.LastIndexOf("/"));
 			// ev.Path.Substring(ev.Path.LastIndexOf("/"));
