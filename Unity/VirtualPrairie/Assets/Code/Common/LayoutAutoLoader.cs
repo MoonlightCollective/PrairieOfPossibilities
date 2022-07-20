@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
 public class LayoutAutoLoader : MonoBehaviour
 {
 	public bool AutoLoadAtStartup = true;
 	public string LayoutJsonFile = "Layout.json";
+	
+	public bool AutoPlayMusic = true;
+	PrairieMusicManager _musicManager;
 
-    // Start is called before the first frame update
+	public bool AutoDisplayMode = true;
+	UIMasterController _ui;
+	// Start is called before the first frame update
     void Start()
     {
 		if (!AutoLoadAtStartup)
 		{
 			return;
 		}
-
 		var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
 		string layoutPath = Path.Combine(Application.streamingAssetsPath,LayoutJsonFile);
 		layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
@@ -26,5 +31,18 @@ public class LayoutAutoLoader : MonoBehaviour
 		}
 
 		layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(),layoutPath,false);
+
+		_musicManager = GameObject.FindObjectOfType<PrairieMusicManager>();
+		if (AutoPlayMusic)
+		{
+			_musicManager.StartPlayback();
+		}
+
+		_ui = GameObject.FindObjectOfType<UIMasterController>();
+		if (AutoDisplayMode)
+		{
+			_ui.ForceDisplayMode();	
+		}
     }
+
 }

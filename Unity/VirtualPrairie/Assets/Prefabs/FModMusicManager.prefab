@@ -48,6 +48,9 @@ MonoBehaviour:
   MusicEvents: []
   PlaybackStyle: 1
   MusicPlayer: {fileID: 5741546928887584785}
+  OnPlaylistCompleted:
+    m_PersistentCalls:
+      m_Calls: []
   InfiniteRepeat: 1
 --- !u!114 &5741546928887584785
 MonoBehaviour:
@@ -73,6 +76,21 @@ MonoBehaviour:
   OnStopMusicEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnSongCompleteEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5595058949814542964}
+        m_TargetAssemblyTypeName: PrairieMusicManager, Assembly-CSharp
+        m_MethodName: NotifySongComplete
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   RawFFTValues: []
   FftBinCount: 64
   FftBins: []

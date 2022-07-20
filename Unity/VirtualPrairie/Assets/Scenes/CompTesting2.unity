@@ -24632,7 +24632,7 @@ PrefabInstance:
     - target: {fileID: 3533130841105688091, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00018310547
+      value: -0.00048828125
       objectReference: {fileID: 0}
     - target: {fileID: 3588333661904284332, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -26767,7 +26767,7 @@ PrefabInstance:
     - target: {fileID: 6729203132807974750, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.5998373
+      value: 5.5998535
       objectReference: {fileID: 0}
     - target: {fileID: 6729203132807974750, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -27462,7 +27462,7 @@ PrefabInstance:
     - target: {fileID: 7776531843086975253, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0020101713
+      value: -0.0015847505
       objectReference: {fileID: 0}
     - target: {fileID: 7786361644315617005, guid: 68f10929ed4e745f69580c363905c622,
         type: 3}
@@ -47408,7 +47408,7 @@ PrefabInstance:
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: MusicEvents.Array.data[0].Path
-      value: event:/Music/BeatLoop65
+      value: event:/Music/BeatLoop128
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
@@ -47428,22 +47428,22 @@ PrefabInstance:
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: MusicEvents.Array.data[0].Guid.Data1
-      value: 2082498053
+      value: -683527910
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: MusicEvents.Array.data[0].Guid.Data2
-      value: 1319716379
+      value: 1309461476
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: MusicEvents.Array.data[0].Guid.Data3
-      value: 1085209756
+      value: -387101046
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: MusicEvents.Array.data[0].Guid.Data4
-      value: -298133033
+      value: -608680500
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
@@ -47538,7 +47538,7 @@ PrefabInstance:
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: OnPlaylistCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: CompTesting2
+      value: CompTesting
       objectReference: {fileID: 0}
     - target: {fileID: 5595058949814542964, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
@@ -47553,6 +47553,11 @@ PrefabInstance:
     - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: OnMarkerEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
@@ -47597,6 +47602,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1723440420}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NotifySongComplete
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
       propertyPath: OnBeatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIBeatIndicatorSimple, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -47607,12 +47627,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PrairieMusicManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
       propertyPath: OnBeatEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
         type: 3}
       propertyPath: OnMarkerEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741546928887584785, guid: eca944ba68e004e968171d30f4ab3b13,
+        type: 3}
+      propertyPath: OnSongCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
