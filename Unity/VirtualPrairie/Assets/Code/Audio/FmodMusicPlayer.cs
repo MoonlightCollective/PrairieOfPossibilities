@@ -245,6 +245,12 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				Debug.Log("SoundStart:" + sName);
 				break;
 			}
+
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.DESTROYED:
+			{
+				playerInstance.StopMusic();
+			}
+			break;
 			default:
 				Debug.Log($"Event: {type.ToString()}");
 				break;
