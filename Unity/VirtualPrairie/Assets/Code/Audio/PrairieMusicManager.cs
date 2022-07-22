@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEngine.Events;
 
 public enum EMusicPlaybackStyle
 {
@@ -18,7 +19,8 @@ public class PrairieMusicManager : MonoBehaviour
 	public PrairieMusicPlayer MusicPlayer;
 	
 	public System.EventHandler<int> OnSongStart;
-
+	public UnityEvent OnPlaylistCompleted;
+	
 	public bool InfiniteRepeat = true;
 
 	protected List<int> _playbackQueue = new List<int>();
@@ -80,6 +82,17 @@ public class PrairieMusicManager : MonoBehaviour
 			return PathFromEventRef(MusicEvents[_curDex]);
 	}
 
+	public String CurSongName()
+	{
+		string evPath = CurSongPath();
+		if (evPath.Contains("/"))
+		{
+			string evName = evPath.Substring(evPath.LastIndexOf("/"));
+			return evName;
+		}
+		return "-";
+	}
+
 	public static string PathFromEventRef(EventReference ev)
 	{
 		string pathStr = "";
@@ -138,5 +151,20 @@ public class PrairieMusicManager : MonoBehaviour
 		_playbackQueue.RemoveAt(0);
 		MusicPlayer.PlayMusic(MusicEvents[dex]);
 		_curDex = dex;
+	}
+
+	public void NotifySongComplete()
+	{
+		if (InfiniteRepeat)
+		{
+			playNextSong();
+			return;
+		}
+		
+		if (_playbackQueue.Count() < 1)
+		{
+			StopPlayback();
+			OnPlaylistCompleted?.Invoke();
+		}
 	}
 }

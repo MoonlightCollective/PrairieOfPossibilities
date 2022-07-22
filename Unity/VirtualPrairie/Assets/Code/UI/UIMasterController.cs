@@ -10,6 +10,7 @@ public class UIMasterController : MonoBehaviour
 	public UIEventPanel EventPanel;
 	public UITagPanel TagPanel;
 	public GameObject SceneLoader;
+	public UIDisplayModeController DisplayModeController;
 
 	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
 	public bool HudActive  => HudController.gameObject.activeInHierarchy;
@@ -17,18 +18,20 @@ public class UIMasterController : MonoBehaviour
 	public bool SceneLoaderActive => SceneLoader.gameObject.activeInHierarchy;
 	public bool TaggingActive => TagPanel.gameObject.activeInHierarchy;
 	public bool EventPanelActive => EventPanel.gameObject.activeInHierarchy;
+	public bool DisplayModeActive => DisplayModeController.gameObject.activeInHierarchy;
 
-	void Start()
+	void Awake()
 	{
 		HudController.gameObject.SetActive(true);
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 		SceneLoader.SetActive(false);
 		TagPanel.gameObject.SetActive(false);
+		DisplayModeController.Deactivate();
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			toggleHud();
@@ -49,11 +52,23 @@ public class UIMasterController : MonoBehaviour
 		{
 			toggleTagUI();
 		}
-    }
+		if (Input.GetKeyDown(KeyCode.D) && 
+			(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) &&
+			(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+		{
+			toggleDisplayModeUI();
+		}
+	}
 	
 	public void ForceDisableLayoutUI()
 	{
 		LayoutSettingsController.gameObject.SetActive(false);
+	}
+
+	public void ForceDisplayMode()
+	{
+		if (!DisplayModeActive)
+			toggleDisplayModeUI();
 	}
 
 	void toggleLayoutUI()
@@ -73,6 +88,26 @@ public class UIMasterController : MonoBehaviour
 				PlantSelectionManager.Instance.ForceDisable();
 			}
 			LayoutSettingsController.gameObject.SetActive(true);
+		}
+	}
+
+	void toggleDisplayModeUI()
+	{
+		if (!DisplayModeActive)
+		{
+			if (EventPanelActive)
+				toggleEventUI();
+			if (WiringActive)
+				toggleWiringController();
+			if (TaggingActive)
+				toggleTagUI();
+			if (HudActive)
+				toggleHud();
+			DisplayModeController.Activate();
+		}
+		else
+		{
+			DisplayModeController.Deactivate();
 		}
 	}
 

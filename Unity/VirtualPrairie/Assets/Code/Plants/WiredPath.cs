@@ -6,8 +6,8 @@ public class WiredPath : MonoBehaviour
 {
 	public string PathId = "Path";
 	public string ArtnetHost = "127.0.0.1";
-	public int Universe = -1;
-	public int ChannelStart = 0;
+	public int Universe = 1;
+	public int ChannelStart = 1;
 	
 	List<WiredFixtureBase> _fixtures = new List<WiredFixtureBase>();
 	public List<WiredFixtureBase> Fixtures => _fixtures;

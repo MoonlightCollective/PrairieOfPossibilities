@@ -17,6 +17,7 @@ public abstract class PrairieMusicPlayer : MonoBehaviour
 	public UnityEvent<string> OnMarkerEvent;
 	public UnityEvent<string> OnStartMusicEvent;
 	public UnityEvent<string> OnStopMusicEvent;
+	public UnityEvent OnSongCompleteEvent;
 
 	public abstract void PlayMusic(EventReference musicEvent);
 	public abstract void StopMusic();
@@ -39,7 +40,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	protected float _lastTempo = 0f;
 	protected int _timeSigBeatsPerBar = 4;
 	public int BeatsPerBar => _timeSigBeatsPerBar;
+
+	protected FMOD.DSP _fft;
+	protected int _fftWindowSize = 512;
+	public float[] RawFFTValues; 
 	
+	public int FftBinCount;
+	public float[] FftBins;
+
 	public enum EFmodMusicPlayerState
 	{
 		Stopped,
@@ -100,6 +108,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
 	}
 
+
 	//===============
 	// Unity Events
 	//===============
@@ -108,7 +117,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		// FMODUnity.RuntimeManager.setf
 		// var foo = FMODUnity.Settings.Instance.GetEditorSpeakerMode();
 		// Debug.Log("SPEAKER MODE:" + foo);
-
+		allocateFFTArray();
 		createStateMachine();
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}
@@ -118,6 +127,26 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Update);
 	}
 
+	void allocateFFTArray()
+	{
+		RawFFTValues = new float[_fftWindowSize];
+		FftBins = new float[FftBinCount];
+		clearFFTVals();
+	}
+
+	void clearFFTVals()
+	{
+		for(int i = 0; i < RawFFTValues.Length; i++)
+		{
+			RawFFTValues[i] = 0f;
+		}
+		
+		for (int i = 0; i < FftBins.Length; i++)
+		{
+			FftBins[i] = 0f;
+		}
+	}
+	
 	void reset()
 	{
 		Debug.Log("fmp:RESET");
@@ -130,6 +159,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		return inst;
 	}
 
+	public void OnDestroy()
+	{
+		if (_curEventInstance.isValid())
+		{
+			_curEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			_curEventInstance.release();
+		}
+	}
 
 	//===============
 	// FMod callback handler
@@ -208,6 +245,12 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				Debug.Log("SoundStart:" + sName);
 				break;
 			}
+
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.DESTROYED:
+			{
+				playerInstance.StopMusic();
+			}
+			break;
 			default:
 				Debug.Log($"Event: {type.ToString()}");
 				break;
@@ -222,6 +265,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	//=================
 	protected void StoppedEnter() 
 	{
+		clearFFTVals();
+
 		if (_curEventInstance.isValid())
 		{
 			OnStopMusicEvent?.Invoke("Stop"); // add the stopped event path?
@@ -264,6 +309,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
 			
+			FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft);
+			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWTYPE, (int)FMOD.DSP_FFT_WINDOW.HANNING);
+			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, _fftWindowSize * 2);
+
+			FMOD.ChannelGroup channelGroup;
+			FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
+			channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft);
+
 			OnStartMusicEvent?.Invoke(ev.ToString());
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
 		}
@@ -355,8 +408,54 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
 		{
 			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
+			OnSongCompleteEvent?.Invoke();
+			return;			
+		}
+
+		IntPtr unmanagedData;
+		uint length;
+		_fft.getParameterData((int)FMOD.DSP_FFT.SPECTRUMDATA, out unmanagedData, out length);
+		FMOD.DSP_PARAMETER_FFT fftData = (FMOD.DSP_PARAMETER_FFT)Marshal.PtrToStructure(unmanagedData, typeof(FMOD.DSP_PARAMETER_FFT));
+		var spectrum = fftData.spectrum;
+
+		if (fftData.numchannels > 0)
+		{
+			for (int i = 0; i < _fftWindowSize; i++)
+			{
+				RawFFTValues[i] = (lin2db(spectrum[0][i]) + 80f)/80f;
+			}
+
+			if (FftBinCount > 0)
+			{
+				int BinSize = RawFFTValues.Length / FftBinCount;
+				for (int i = 0; i < FftBinCount; i++)
+				{
+					int offset = i + BinSize;
+					float sum = 0f;
+					int count = 0;
+					for (int j = 0; j < BinSize; j++)
+					{
+						int dex = offset + j;
+						if (dex < _fftWindowSize)
+						{
+							sum += RawFFTValues[dex];
+							count++;
+						}
+					}
+					FftBins[i] = sum / (float)count;
+				}
+			}
+		}
+		else
+		{
+			clearFFTVals();
 		}
 	}
+
+	float lin2db(float linear)
+    {
+        return Mathf.Clamp(Mathf.Log10(linear) * 20.0f, -80.0f, 0.0f);
+    }
 
 	protected void PlayingExit() { }
 	protected void PlayingPause()
