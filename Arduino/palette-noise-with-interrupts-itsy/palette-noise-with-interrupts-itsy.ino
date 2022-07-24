@@ -7,8 +7,8 @@ CRGBArray<NUM_LEDS> from;
 CRGBArray<NUM_LEDS> to;
 
 #define PIN 2
-#define SENSOR_PIN1 5
-#define SENSOR_PIN2 7
+#define SENSOR_PIN1 7
+#define SENSOR_PIN2 9
 
 DEFINE_GRADIENT_PALETTE( magenta_pink_gp ) {
   0,    0xF0,  0x93,  0xF9,
