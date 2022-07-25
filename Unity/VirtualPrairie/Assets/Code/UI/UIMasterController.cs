@@ -20,7 +20,7 @@ public class UIMasterController : MonoBehaviour
 	public bool EventPanelActive => EventPanel.gameObject.activeInHierarchy;
 	public bool DisplayModeActive => DisplayModeController.gameObject.activeInHierarchy;
 
-	void Start()
+	void Awake()
 	{
 		HudController.gameObject.SetActive(true);
 		WiringController.gameObject.SetActive(false);
@@ -63,6 +63,12 @@ public class UIMasterController : MonoBehaviour
 	public void ForceDisableLayoutUI()
 	{
 		LayoutSettingsController.gameObject.SetActive(false);
+	}
+
+	public void ForceDisplayMode()
+	{
+		if (!DisplayModeActive)
+			toggleDisplayModeUI();
 	}
 
 	void toggleLayoutUI()

@@ -61,15 +61,20 @@ public class PrairieDmxController : MonoBehaviour
 		}
 	}
 
+	// universe and channelStart start with 1
 	public void SetDmxColor(Color color, string host, int universe, int channelStart)
 	{
+		if (universe < 1 || channelStart < 1)
+        {
+			Debug.LogError($"DmxPoint out of bounds: host {host} universe {universe} channelStart {channelStart}");
+        }
 		// are we in send mode?
 		if (this.DmxMode == DmxSendListenMode.Send)
 		{
 			// set the local color data
-			_dataMap[host][universe][channelStart]   = (byte)(color.r*255f);
-			_dataMap[host][universe][channelStart+1] = (byte)(color.g*255f);
-			_dataMap[host][universe][channelStart+2] = (byte)(color.b*255f);
+			_dataMap[host][universe-1][channelStart-1]   = (byte)(color.r*255f);
+			_dataMap[host][universe-1][channelStart] = (byte)(color.g*255f);
+			_dataMap[host][universe-1][channelStart+1] = (byte)(color.b*255f);
 		}
 	}
 
@@ -201,10 +206,10 @@ public class PrairieDmxController : MonoBehaviour
 			}
 			UniverseMap universeMap = _controllerMap[host];
 
-			int u = colorPoint.Universe;
+			int u = colorPoint.Universe - 1;		// dmx controller starts at 0, but the points start at 1
 			if (!universeMap.ContainsKey(u))
 			{
-				Debug.Log($"buildUniverseMap() adding host:{host},universe:{u}");
+				Debug.Log($"buildUniverseMap() adding host:{host},universe:{u+1}");
 				// first time we encounter this universe
 				universeMap[u] = new Dictionary<int, DmxColorPoint>();
 				// make sure we have space for the universe data all the way up to this universe #
@@ -216,7 +221,7 @@ public class PrairieDmxController : MonoBehaviour
 			}
 
 			// setup a link to the color point
-			universeMap[u][colorPoint.ChannelStart] = colorPoint;
+			universeMap[u][colorPoint.ChannelStart-1] = colorPoint;			// first channel in the UI is 1... but array wants 0
 			// make sure the color point knows how to use this controller
 			colorPoint.Controller = this;
 		}

@@ -17,6 +17,7 @@ public abstract class PrairieMusicPlayer : MonoBehaviour
 	public UnityEvent<string> OnMarkerEvent;
 	public UnityEvent<string> OnStartMusicEvent;
 	public UnityEvent<string> OnStopMusicEvent;
+	public UnityEvent OnSongCompleteEvent;
 
 	public abstract void PlayMusic(EventReference musicEvent);
 	public abstract void StopMusic();
@@ -244,6 +245,12 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				Debug.Log("SoundStart:" + sName);
 				break;
 			}
+
+			case FMOD.Studio.EVENT_CALLBACK_TYPE.DESTROYED:
+			{
+				playerInstance.StopMusic();
+			}
+			break;
 			default:
 				Debug.Log($"Event: {type.ToString()}");
 				break;
@@ -401,7 +408,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
 		{
 			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
-
+			OnSongCompleteEvent?.Invoke();
 			return;			
 		}
 

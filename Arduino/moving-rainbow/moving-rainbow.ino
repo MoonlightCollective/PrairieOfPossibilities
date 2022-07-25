@@ -1,7 +1,7 @@
 #include "FastLED.h"
 #include "lib8tion.h"
 
-#define NUM_LEDS 368
+#define NUM_LEDS 364
 
 DEFINE_GRADIENT_PALETTE( sunset_gp ) {
   0,     255,  0,  0,   //magenta
