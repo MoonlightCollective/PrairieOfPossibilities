@@ -9,14 +9,16 @@ using OxOD;
 public class UILayoutSettingsController : MonoBehaviour
 {
 	[Header("Base")]
-	public FixtureLayoutGen LayoutGenObj;
-
 	public FileDialog FileSelectDialog;
+
+	protected FixtureLayoutGen _layoutGenObj;
+	public FixtureLayoutGen LayoutGenObj => _layoutGenObj;
 
 	[Header("Props UI")]
 	public TMP_Dropdown PropsDropdown; 
 	public UILabelSlider PropsOffsetSlider;
-	public FixturePropLayout PropsLayoutObj;
+	protected FixturePropLayout _propsLayoutObj;
+
 	protected EPropLayoutStyle _propLayoutStyle = EPropLayoutStyle.OuterPortals;
 
 	[Header("Mode")]
@@ -54,6 +56,9 @@ public class UILayoutSettingsController : MonoBehaviour
 
 	public void Awake()
 	{
+		_propsLayoutObj = PrairieGlobals.Instance.PropLayoutRoot;
+		_layoutGenObj = PrairieGlobals.Instance.LayoutGen;
+
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 		LayoutDropdown.onValueChanged.AddListener(DropdownChanged);
 		PropsDropdown.onValueChanged.AddListener(PropDropdownChanged);
@@ -87,13 +92,13 @@ public class UILayoutSettingsController : MonoBehaviour
 		{
 			case "Rings":
 			default:
-				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Rings;
+				_layoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Rings;
 				break;
 			case "Grid":
-				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Grid;
+				_layoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Grid;
 				break;
 			case "Sunflower":
-				LayoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Sunflower;
+				_layoutGenObj.Algorithm = EFixtureLayoutAlgorithm.Sunflower;
 				break;
 		}
 		updateUIFromSettings();
@@ -115,13 +120,13 @@ public class UILayoutSettingsController : MonoBehaviour
 		}
 
 		float offsetVal = PropsOffsetSlider.Slider.value;
-		PropsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, LayoutGenObj);
+		_propsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, _layoutGenObj);
 	}
 
 	public void PropSliderChanged(float val)
 	{
 		float offsetVal = val;
-		PropsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, LayoutGenObj);
+		_propsLayoutObj.SetLayoutStyle(_propLayoutStyle,offsetVal, _layoutGenObj);
 	}
 
 	public void SliderChanged(float val)
@@ -139,7 +144,7 @@ public class UILayoutSettingsController : MonoBehaviour
 		string saveFilePath = UnityEditor.EditorUtility.SaveFilePanel("Save Layout",FixtureExportPath,"","json");
 		if (saveFilePath.Length  != 0)
 		{
-			LayoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),saveFilePath);
+			_layoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),saveFilePath);
 			FixtureExportPath = System.IO.Path.GetDirectoryName(saveFilePath);
 			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
 		}
@@ -156,7 +161,7 @@ public class UILayoutSettingsController : MonoBehaviour
 		string openFilePath = UnityEditor.EditorUtility.OpenFilePanel("Import Layout", FixtureExportPath,"json");
 		if (openFilePath.Length != 0)
 		{
-			LayoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(), openFilePath, true);
+			_layoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(), openFilePath, true);
 			FixtureExportPath = System.IO.Path.GetDirectoryName(openFilePath);
 			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
 		}
@@ -177,7 +182,7 @@ public class UILayoutSettingsController : MonoBehaviour
 			FixtureExportPath = System.IO.Path.GetDirectoryName(FileSelectDialog.result);
 			PlayerPrefs.SetString("FixtureExportPath",FixtureExportPath);
 			Debug.Log($"Do export returned: {FileSelectDialog.result}");
-			LayoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
+			_layoutGenObj.SaveLayoutToFixture(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
 		}
 	}
 
@@ -189,7 +194,7 @@ public class UILayoutSettingsController : MonoBehaviour
 		{
 			FixtureImportPath = System.IO.Path.GetDirectoryName(FileSelectDialog.result);
 			PlayerPrefs.SetString("FixtureImportPath",FixtureImportPath);
-			LayoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
+			_layoutGenObj.DoImportLayout(PrairieUtil.GetLayoutRoot(),FileSelectDialog.result);
 			Debug.Log($"Do import returned path: {FileSelectDialog.result}");
 		}
 	}
@@ -198,7 +203,7 @@ public class UILayoutSettingsController : MonoBehaviour
 	public void DoGenLayout()
 	{
 		var root = PrairieUtil.GetLayoutRoot();
-		LayoutGenObj.GenerateLayout(root);
+		_layoutGenObj.GenerateLayout(root);
 	}
 
 
@@ -213,8 +218,8 @@ public class UILayoutSettingsController : MonoBehaviour
 
 	void updateUIFromSettings()
 	{
-		LayoutGenObj.LoadLayoutSettings();
-		switch (LayoutGenObj.Algorithm)
+		_layoutGenObj.LoadLayoutSettings();
+		switch (_layoutGenObj.Algorithm)
 		{
 			case EFixtureLayoutAlgorithm.Grid:
 				RingsLayoutRoot.SetActive(false);
@@ -233,7 +238,7 @@ public class UILayoutSettingsController : MonoBehaviour
 			break;
 		}
 
-		FixtureLayoutRings flr = LayoutGenObj.RingsLayout;
+		FixtureLayoutRings flr = _layoutGenObj.RingsLayout;
 		RingsFixtureCountSlider.Slider.SetValueWithoutNotify(flr.NumFixtures);
 		RingsSpacingSlider.Slider.SetValueWithoutNotify(flr.BaseSpacingFt);
 		RingsCenterRadiusSlider.Slider.SetValueWithoutNotify(flr.CenterRadiusFt);
@@ -241,13 +246,13 @@ public class UILayoutSettingsController : MonoBehaviour
 		RingsAisleCurveSlider.Slider.SetValueWithoutNotify(flr.AisleCurve);
 		RingsAisleCountSlider.Slider.SetValueWithoutNotify(flr.NumAisles);
 
-		FixtureLayoutGrid glr = LayoutGenObj.GridLayout;
+		FixtureLayoutGrid glr = _layoutGenObj.GridLayout;
 		RowsFixtureCountSlider.Slider.SetValueWithoutNotify(glr.NumFixtures);
 		RowsSpacingSlider.Slider.SetValueWithoutNotify(glr.BaseSpacingFt);
 		RowsRowCountSlider.Slider.SetValueWithoutNotify(glr.NumRows);
 		RowsRowSpacingSlider.Slider.SetValueWithoutNotify(glr.RowSpacingFt);
 
-		FixtureLayoutSunflower fls = LayoutGenObj.SunflowerLayout;
+		FixtureLayoutSunflower fls = _layoutGenObj.SunflowerLayout;
 		SunflowerFixtureCountSlider.Slider.SetValueWithoutNotify(fls.NumFixtures);
 		SunflowerSpacingSlider.Slider.SetValueWithoutNotify(fls.BaseSpacingFt);
 		SunflowerCenterRadiusSlider.Slider.SetValueWithoutNotify(fls.CenterRadiusFt);
@@ -267,7 +272,7 @@ public class UILayoutSettingsController : MonoBehaviour
 	void updateSettingsFromUI()
 	{
 
-		FixtureLayoutRings flr = LayoutGenObj.RingsLayout;
+		FixtureLayoutRings flr = _layoutGenObj.RingsLayout;
 		flr.NumFixtures = (int) RingsFixtureCountSlider.Slider.value;
 		flr.BaseSpacingFt = RingsSpacingSlider.Slider.value;
 		flr.CenterRadiusFt = RingsCenterRadiusSlider.Slider.value;
@@ -275,13 +280,13 @@ public class UILayoutSettingsController : MonoBehaviour
 		flr.AisleCurve = RingsAisleCurveSlider.Slider.value;
 		flr.NumAisles = (int) RingsAisleCountSlider.Slider.value;
 
-		FixtureLayoutGrid glr = LayoutGenObj.GridLayout;
+		FixtureLayoutGrid glr = _layoutGenObj.GridLayout;
 		glr.NumFixtures = (int) RowsFixtureCountSlider.Slider.value;
 		glr.BaseSpacingFt = RowsSpacingSlider.Slider.value;
 		glr.NumRows = (int)RowsRowCountSlider.Slider.value;
 		glr.RowSpacingFt = RowsRowSpacingSlider.Slider.value;
 
-		FixtureLayoutSunflower fls = LayoutGenObj.SunflowerLayout;
+		FixtureLayoutSunflower fls = _layoutGenObj.SunflowerLayout;
 		fls.NumFixtures = (int) SunflowerFixtureCountSlider.Slider.value;
 		fls.BaseSpacingFt = SunflowerSpacingSlider.Slider.value;
 		fls.SpacingExp = (SunflowerSpacingExpSlider.Slider.value / 1000f) + 1.0f;
@@ -289,6 +294,6 @@ public class UILayoutSettingsController : MonoBehaviour
 		fls.ClearingOffset = SunflowerClearingOffsetSlider.Slider.value;
 		fls.ClearingSize = SunflowerClearingSizeSlider.Slider.value;
 
-		LayoutGenObj.SaveLayoutSettings();
+		_layoutGenObj.SaveLayoutSettings();
 	}
 }

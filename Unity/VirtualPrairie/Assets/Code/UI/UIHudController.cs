@@ -11,6 +11,7 @@ public class UIHudController : MonoBehaviour
 	public UILabelSlider BrightnessSlider;
 	public UILabelSlider GlowSlider;
 	public UILabelSlider AlphaSlider;
+	public UILabelSlider FrameSkipSlider;
 	public TextMeshProUGUI FlyText;
 	
 	protected GameObject _plantLayoutRoot;
@@ -31,7 +32,8 @@ public class UIHudController : MonoBehaviour
 		BrightnessSlider.Slider.value = settings.Brightness;
 		AlphaSlider.Slider.value = settings.StemAlpha;
 		GlowSlider.Slider.value = settings.GlowIntensity;
-		
+		FrameSkipSlider.Slider.value = settings.VisualsFrameSkip;
+
 		Slider[] sliders = GetComponentsInChildren<Slider>();
 		foreach (var s in sliders)
 		{
@@ -52,6 +54,7 @@ public class UIHudController : MonoBehaviour
 		settings.Brightness = BrightnessSlider.Slider.value;
 		settings.StemAlpha = AlphaSlider.Slider.value;
 		settings.GlowIntensity = GlowSlider.Slider.value;
+		settings.VisualsFrameSkip = (int)FrameSkipSlider.Slider.value;
 		GlobalPlantSettings.Instance.SavePrefs();
 	}
 }

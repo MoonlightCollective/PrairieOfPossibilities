@@ -11,35 +11,38 @@ public class UIAudioParamController : MonoBehaviour
 	public Button PlayPauseButton;
 	public Sprite PlaySprite;
 	public Sprite PauseSprite;
-	public bool AutoPlay = false;
 
 	[Header("References")]
-	public FmodMusicPlayer MusicPlayer;
-	public PrairieMusicManager MusicManager;
 
 	private bool _isPlaying = false;
 	private Image _playPauseImage;
+	private PrairieMusicManager _musicManager;
+	private FmodMusicPlayer _musicPlayer;
+	public void Awake()
+	{
+		_playPauseImage = PlayPauseButton.GetComponent<Image>();
+		_musicManager = PrairieGlobals.Instance.MusicManager;
+		_musicPlayer = PrairieGlobals.Instance.MusicPlayer;
+	}
 
 	public void Start()
 	{
-		_playPauseImage = PlayPauseButton.GetComponent<Image>();
-
 		initOptionsList();
 		AudioSelectDropdown.onValueChanged.AddListener(trackDropdownValueChange);
 		PlayPauseButton.onClick.AddListener(playPauseToggle);
+		_isPlaying = _musicPlayer.IsPlaying();
+		updatePlayButtonImage();
+	}
 
-		if (AutoPlay)
+	void OnEnable()
+	{
+		_musicPlayer = PrairieGlobals.Instance.MusicPlayer;
+		if (_musicPlayer)
 		{
-			MusicManager.QueueSongAsNext(0);
-			MusicManager.StartPlayback();
-			playPauseToggle();
+			_isPlaying = _musicPlayer.IsPlaying();
+			Debug.Log("music is playing:" + _isPlaying);
 			updatePlayButtonImage();
 			updateSongSelection();
-		}
-		else
-		{
-			_isPlaying = false;
-			updatePlayButtonImage();
 		}
 	}
 
@@ -52,7 +55,7 @@ public class UIAudioParamController : MonoBehaviour
 	{
 		AudioSelectDropdown.ClearOptions();
 		List<string> options = new List<string>();
-		foreach (var ev in MusicManager.MusicEvents)
+		foreach (var ev in _musicManager.Playlist.MusicEvents)
 		{		
 			string evPath = PrairieMusicManager.PathFromEventRef(ev);
 			string evName = evPath.Substring(evPath.LastIndexOf("/"));
@@ -65,17 +68,17 @@ public class UIAudioParamController : MonoBehaviour
 
 	public void trackDropdownValueChange(int val)
 	{
-		MusicManager.QueueSongAsNext(val);
+		_musicManager.QueueSongAsNext(val);
 
 		if (_isPlaying)
 		{
-			MusicManager.StopPlayback();
-			MusicManager.StartPlayback();
+			_musicManager.StopPlayback();
+			_musicManager.StartPlayback();
 			updateSongSelection();
 		}
 		else
 		{
-			MusicManager.StopPlayback();
+			_musicManager.StopPlayback();
 			updateSongSelection(val);
 		}
 
@@ -85,9 +88,9 @@ public class UIAudioParamController : MonoBehaviour
 	{
 		_isPlaying = !_isPlaying;
 		if (_isPlaying)
-			MusicManager.StartPlayback();
+			_musicManager.StartPlayback();
 		else
-			MusicManager.PausePlayback();
+			_musicManager.PausePlayback();
 		
 		updatePlayButtonImage();
 		updateSongSelection();
@@ -95,7 +98,7 @@ public class UIAudioParamController : MonoBehaviour
 
 	public void updateSongSelection()
 	{
-		AudioSelectDropdown.SetValueWithoutNotify(MusicManager.CurSongDex);
+		AudioSelectDropdown.SetValueWithoutNotify(_musicManager.CurSongDex);
 	}
 
 	public void updateSongSelection(int explicitVal)
@@ -106,37 +109,37 @@ public class UIAudioParamController : MonoBehaviour
 	public void OnSongNext()
 	{
 		Debug.Log(("UIapc: NextSong"));
-		MusicManager.StopPlayback();
+		_musicManager.StopPlayback();
 
 		if (_isPlaying)
 		{
-			MusicManager.QueueSongAsNext(MusicManager.CurSongDex + 1);
-			MusicManager.StartPlayback();
+			_musicManager.QueueSongAsNext(_musicManager.CurSongDex + 1);
+			_musicManager.StartPlayback();
 			updateSongSelection();
 		}
 		else
 		{
-			MusicManager.QueueSongAsNext(MusicManager.NextSongDex + 1);
-			updateSongSelection(MusicManager.NextSongDex);
+			_musicManager.QueueSongAsNext(_musicManager.NextSongDex + 1);
+			updateSongSelection(_musicManager.NextSongDex);
 		}
 	}
 
 	public void OnSongPrev()
 	{
 		Debug.Log(("UIapc: PrevSong"));
-		MusicManager.StopPlayback();
+		_musicManager.StopPlayback();
 
 
 		if (_isPlaying)
 		{
-			MusicManager.QueueSongAsNext(MusicManager.CurSongDex - 1);
-			MusicManager.StartPlayback();
+			_musicManager.QueueSongAsNext(_musicManager.CurSongDex - 1);
+			_musicManager.StartPlayback();
 			updateSongSelection();
 		}
 		else
 		{
-			MusicManager.QueueSongAsNext(MusicManager.NextSongDex - 1);
-			updateSongSelection(MusicManager.NextSongDex);
+			_musicManager.QueueSongAsNext(_musicManager.NextSongDex - 1);
+			updateSongSelection(_musicManager.NextSongDex);
 		}
 	}
 }

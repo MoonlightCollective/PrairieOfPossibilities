@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3937713385328737690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3995109255036318353}
+  - component: {fileID: 5468698072904220199}
+  m_Layer: 0
+  m_Name: UpHigh1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3995109255036318353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3937713385328737690}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8984944264077593107}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &5468698072904220199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3937713385328737690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0d0731aaddf43d1979b3f31ce56f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFlying: 1
+  IsOrtho: 1
+  FollowObj: {fileID: 0}
+  FollowOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &8984944264077593106
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +78,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8984944264839315079}
+  - {fileID: 3995109255036318353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,9 +95,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlwaysShowMouseOver: 0
+  MasterUI: {fileID: 0}
   MeasureUI: {fileID: 0}
   MeasurementText: {fileID: 0}
   MeasureLine: {fileID: 8984944264839315076}
+  WiringUI: {fileID: 0}
+  WiringPathIdInput: {fileID: 0}
+  WiringArtNetHostInput: {fileID: 0}
+  WiringUniverseInput: {fileID: 0}
+  WiringChannelStartInput: {fileID: 0}
+  WiringMeasurementText: {fileID: 0}
+  WiringCountText: {fileID: 0}
+  WiringCameraStop: {fileID: 0}
+  WalkCam: {fileID: 0}
+  TotalPathCountText: {fileID: 0}
+  TotalPathLengthText: {fileID: 0}
 --- !u!1 &8984944264839315078
 GameObject:
   m_ObjectHideFlags: 0

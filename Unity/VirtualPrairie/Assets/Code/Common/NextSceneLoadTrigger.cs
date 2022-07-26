@@ -7,10 +7,9 @@ public class NextSceneLoadTrigger : TriggerListener
 {
 	public string NextSceneName;
 
-	SceneLoader _sceneLoader;
 	public void Awake()
 	{
-		_sceneLoader = GameObject.FindObjectOfType<SceneLoader>();
+
 	}
 
 	public void GotoNextScene()
@@ -30,7 +29,7 @@ public class NextSceneLoadTrigger : TriggerListener
 		
 		if (SceneManager.GetSceneByName(NextSceneName) != null)
 		{
-			_sceneLoader.LoadScene(NextSceneName);
+			SceneLoader.LoadScene(NextSceneName);
 		}
 	}
 }
