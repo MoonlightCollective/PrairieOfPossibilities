@@ -111,36 +111,44 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		{
 			WiredPathManager pathManager = WiredPathManager.Instance;
 			pathManager.ClearAllPaths();
-			Debug.Log($"FixtureLayoutImport:Adding paths.Count={fixtureData.wirePaths.Count}");
-			foreach (var pathData in fixtureData.wirePaths)
+			if (fixtureData.wirePaths == null)
 			{
-				WiredPath newPath = WiredPathManager.NewPathInstance();
-				newPath.ArtnetHost = pathData.artnetHost;
-				newPath.Universe = pathData.universe;
-				newPath.ChannelStart = pathData.channelStart;
-				newPath.PathId = pathData.pathId;
-				Debug.Log($"Adding path IP: {newPath.ArtnetHost} Universe: {newPath.Universe} Channel: {newPath.ChannelStart}");
-
-				foreach (var pathDataItem in pathData.items)
+				Debug.Log("No wire paths in fixture data");
+			}
+			else
+			{
+				Debug.Log($"FixtureLayoutImport:Adding paths.Count={fixtureData.wirePaths.Count}");
+				
+				foreach (var pathData in fixtureData.wirePaths)
 				{
-					if (pathDataItem.FixtureType == "PlantFixture")
+					WiredPath newPath = WiredPathManager.NewPathInstance();
+					newPath.ArtnetHost = pathData.artnetHost;
+					newPath.Universe = pathData.universe;
+					newPath.ChannelStart = pathData.channelStart;
+					newPath.PathId = pathData.pathId;
+					Debug.Log($"Adding path IP: {newPath.ArtnetHost} Universe: {newPath.Universe} Channel: {newPath.ChannelStart}");
+
+					foreach (var pathDataItem in pathData.items)
 					{
-						if (pathDataItem.FixtureId < allDevices.Count)
+						if (pathDataItem.FixtureType == "PlantFixture")
 						{
-							WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
-							newPath.AddFixture(wfb);
+							if (pathDataItem.FixtureId < allDevices.Count)
+							{
+								WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
+								newPath.AddFixture(wfb);
+							}
+							else
+							{
+								Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
+							}
 						}
 						else
 						{
-							Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
+							Debug.LogWarning($"Unknown Fixture type in path {pathDataItem.FixtureType} - skipping.");
 						}
 					}
-					else
-					{
-						Debug.LogWarning($"Unknown Fixture type in path {pathDataItem.FixtureType} - skipping.");
-					}
+					pathManager.AddPath(newPath);
 				}
-				pathManager.AddPath(newPath);
 			}
 		}
 

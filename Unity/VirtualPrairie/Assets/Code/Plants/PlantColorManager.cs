@@ -59,6 +59,8 @@ public class PlantColorManager : WiredFixtureBase
 				StemColors.Add(scm);
 			}
 		}
+
+		applyDefaultTags();
 	}
 
 	protected void applyDefaultTags()
