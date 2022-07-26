@@ -22,8 +22,8 @@ public class PrairieWalkCam : MonoBehaviour
 	public float OrthoScrollMult = 1.0f;
 
 
-	[Header("Camera Stops")]
-	public GameObject CameraStopRoot;
+	// [Header("Camera Stops")]
+	// public GameObject CameraStopRoot;
 	
 	[HideInInspector]
 	public List<CameraStop> CameraStops;
@@ -40,7 +40,7 @@ public class PrairieWalkCam : MonoBehaviour
 
 	public  void Start()
 	{
-		CameraStops = new List<CameraStop>(CameraStopRoot.GetComponentsInChildren<CameraStop>());
+		CameraStops = new List<CameraStop>(PrairieGlobals.Instance.CameraStopRoot.GetComponentsInChildren<CameraStop>());
 		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
 		_desiredSpeed = 0;
 		_curSpeed = 0;

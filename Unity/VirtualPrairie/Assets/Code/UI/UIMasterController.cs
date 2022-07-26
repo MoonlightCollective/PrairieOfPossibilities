@@ -29,7 +29,7 @@ public class UIMasterController : MonoBehaviour
 
 	void Start()
 	{
-		HudController.gameObject.SetActive(true);
+		HudController.gameObject.SetActive(false);
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 		SceneLoader.SetActive(false);

@@ -134,7 +134,6 @@ public class FixtureLayoutImport : FixtureLayoutBase
 						{
 							Debug.LogWarning($"Fixture ({pathDataItem.FixtureId}) out of range in path {newPath.PathId} - skipping");
 						}
-
 					}
 					else
 					{

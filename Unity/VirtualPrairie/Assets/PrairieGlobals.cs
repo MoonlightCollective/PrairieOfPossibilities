@@ -100,7 +100,7 @@ public class PrairieGlobals : MonoBehaviour
 		}
 	}
 
-	public PrairieWalkCam _walkCam;
+	private PrairieWalkCam _walkCam;
 	public PrairieWalkCam WalkCam
 	{
 		get
@@ -109,6 +109,18 @@ public class PrairieGlobals : MonoBehaviour
 				_walkCam = GameObject.FindObjectOfType<PrairieWalkCam>();
 			
 			return _walkCam;
+		}
+	}
+
+	private Transform _cameraStopRoot = null;
+	public Transform CameraStopRoot
+	{
+		get 
+		{
+			if (_cameraStopRoot == null)
+				_cameraStopRoot = GameObject.Find("CameraStops").transform;
+			
+			return _cameraStopRoot;
 		}
 	}
 

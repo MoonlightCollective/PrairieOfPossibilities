@@ -81,7 +81,7 @@ public class UILayoutSettingsController : MonoBehaviour
 	{
 		updateUIFromSettings();
 		SunflowerLayoutRoot.SetActive(true);
-		PropDropdownChanged(0);
+		// PropDropdownChanged(0);
 		DropdownChanged(0);
 		//DoGenLayout();			// do initial generation of plants as per UI
 	}
