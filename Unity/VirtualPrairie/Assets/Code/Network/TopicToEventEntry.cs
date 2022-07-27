@@ -4,9 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
+public class TopicFilterEntry
+{
+	public string FieldName;
+	public string FieldValue;
+}
+
+[System.Serializable]
 public class TopicToEventEntry
 {
 	public string Topic;
-	public UnityEvent<string> OnMessage;
-
+	public List<TopicFilterEntry> FieldFilters;
+	public UnityEvent<string,Dictionary<string,dynamic>> OnMessage;
 }

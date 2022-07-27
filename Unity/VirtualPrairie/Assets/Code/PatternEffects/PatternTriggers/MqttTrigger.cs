@@ -22,7 +22,7 @@ public class MqttTrigger : MonoBehaviour
 {
 	public List<MessageToTriggerEntry> MessageMappings = new List<MessageToTriggerEntry>();
 
-	public void NotifyMessage(string message)
+	public void NotifyMessage(string message,Dictionary<string,dynamic> fields)
 	{
 		foreach (var entry in MessageMappings)
 		{

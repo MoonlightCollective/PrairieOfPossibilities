@@ -5,6 +5,9 @@ using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using UnityEngine.Events;
 using NaughtyAttributes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 
 /// <summary>
 /// Examples for the M2MQTT library (https://github.com/eclipse/paho.mqtt.m2mqtt),
@@ -72,9 +75,50 @@ public class MqttController : M2MqttUnityClient
 		string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
 		bool handled = false;
 
-		foreach (var meh in _eventHandlers)
+		messageStr = messageStr.TrimStart();
+		if (messageStr[0] != '{')
 		{
-			handled = handled || meh.NotifyMessage(topic, messageStr);
+			// handle non-json message
+			foreach (var meh in _eventHandlers)
+			{
+				handled = handled || meh.NotifyMessage(topic, messageStr);
+			}
+		}
+		else
+		{
+			try
+			{
+				JObject payloadObj = JObject.Parse(messageStr);
+				if (!payloadObj.ContainsKey("name"))
+				{
+					Debug.LogError($"JSON message missing 'name' field {messageStr}");
+					return;
+				}
+				if (!payloadObj.ContainsKey("fields"))
+				{
+					Debug.LogError($"JSON message missing 'fields' field {messageStr}");
+				}
+
+				string messageName = (string) payloadObj["name"];
+
+				JObject fieldObj = (JObject) payloadObj["fields"];
+				Dictionary<string,dynamic> fieldDict = fieldObj.ToObject<Dictionary<string,dynamic>>();
+				// JsonConvert.DeserializeObject<Dictionary<string,object>>(fieldObj);
+				// Dictionary<string,object> fieldDict = (Dictionary<string,object>) payloadObj["fields"].deser;
+
+				// handle non-json message
+				foreach (var meh in _eventHandlers)
+				{
+					handled = handled || meh.NotifyJsonMessage(topic,messageName,fieldDict);
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Bad JSON received {(e)}\n{messageStr}");
+				return;
+			}
+
+
 		}
 
 		if (handled)
