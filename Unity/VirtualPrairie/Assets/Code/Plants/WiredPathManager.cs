@@ -19,6 +19,7 @@ public class WiredPathManager : MonoBehaviour
 
 	public List<WiredPath> Paths = new List<WiredPath>();
 	public GameObject WiredPathFab;
+	GameObject _rootObj;
 
 	public static WiredPath NewPathInstance()
 	{
@@ -34,6 +35,8 @@ public class WiredPathManager : MonoBehaviour
 	void Awake()
 	{
 		s_instance = this;
+		_rootObj = new GameObject("WiredPathRoot");
+		_rootObj.transform.position = Vector3.zero;
 	}
 
 	public void DeletePath(WiredPath path)
@@ -55,6 +58,12 @@ public class WiredPathManager : MonoBehaviour
 			p.ClearPath();
 		}
 		Paths.Clear();
+		foreach (Transform child in _rootObj.transform)
+		{
+			// safe because it's deferred a frame.
+			GameObject.Destroy(child.gameObject);
+		}
+		_rootObj.transform.DetachChildren();
 	}
 
 	public void NotifyNewLayout()
@@ -93,6 +102,7 @@ public class WiredPathManager : MonoBehaviour
 			return;
 
 		Paths.Add(p);
+		p.transform.SetParent(_rootObj.transform,false);
 	}
 
 

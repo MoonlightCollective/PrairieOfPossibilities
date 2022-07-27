@@ -4,6 +4,7 @@ using TMPro;
 
 public class UIFpsCounter: MonoBehaviour 
 {
+	public string Prefix = "fps:";
 	TextMeshProUGUI _text;
 	string label = "";
     float updateInterval = 0.2f;
@@ -35,6 +36,6 @@ public class UIFpsCounter: MonoBehaviour
             lastInterval = timeNow;
         }
 
-        _text.text = fps.ToString("f2");
+        _text.text = Prefix + fps.ToString("f2");
     }
 }

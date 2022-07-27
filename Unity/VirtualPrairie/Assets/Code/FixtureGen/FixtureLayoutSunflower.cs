@@ -94,9 +94,17 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		}
 
 		int i = 0;
+		int iterBreak = 40000;
+
 		while (fixturesLeft > 0)
 		//while (false)
 		{
+			iterBreak--;
+			if (iterBreak < 0)
+			{
+				Debug.LogError("Iteration interrupt");
+				return false;
+			}
 			float angle = i * twoPi / (GoldenRatio * GoldenRatio);
 			float radius = Mathf.Pow(SpacingExp, i) * BaseSpacingFt * Mathf.Sqrt(i);
 			//float clearing_radius = ClearingSize; // in feet
@@ -121,10 +129,18 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc) < booth_clearing_radius ||
 				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc) < booth_clearing_radius
 				)
+			{
+				Debug.Log($"Skipping for clearing{Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc)} {Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc)}");
 				continue;
+			}
 
 			if (AddFixture(new Vector3(PrairieUtil.FeetToMeters(plant_loc.x), 0.0f, PrairieUtil.FeetToMeters(plant_loc.z)), rootObj, fixturePrefab) != null)
 				fixturesLeft--;
+			else
+			{
+				Debug.Log("Skipped fixture" + fixturesLeft + " reamaining");
+			}
+
 		}
 		return true;
 	}

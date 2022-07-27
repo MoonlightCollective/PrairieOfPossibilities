@@ -22,6 +22,7 @@ public class UITagPanel : MonoBehaviour
 
 	void Awake()
 	{
+		Debug.Log("Tag Panel AWAKE");
 		s_instance = this;
 	}
     void Start()

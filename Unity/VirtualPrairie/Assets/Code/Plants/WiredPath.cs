@@ -40,6 +40,11 @@ public class WiredPath : MonoBehaviour
 
 	public void AddFixture(WiredFixtureBase newFixture)
 	{
+		if (newFixture.gameObject == null)
+		{
+			Debug.Log("Hey - you're referencing a bad game object in a wire path - skipping");
+			return;
+		}
 		_fixtures.Add(newFixture);
 		newFixture.WireToPath(this,_fixtures.Count-1);
 		updateVisuals();

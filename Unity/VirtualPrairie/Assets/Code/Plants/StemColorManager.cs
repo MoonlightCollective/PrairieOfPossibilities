@@ -137,6 +137,11 @@ public class StemColorManager : DmxColorPoint
 
 	public List<PrairieTag> Tags = new List<PrairieTag>();
 	
+	int _mainPropId = -1;
+	int _glowPropId = -1;
+	int _glowIntensityPropId = -1;
+	int _groundGlowPropId = -1;
+	
 	// 
 	// SetColor - set colors in the instanced materials for all mesh renderers associated with me.
 	// 
@@ -147,6 +152,9 @@ public class StemColorManager : DmxColorPoint
 
 	public virtual void ApplyColorToMats()
 	{
+		if (GlobalPlantSettings.Instance.VisualsSkipThisFrame)
+			return;
+		
 		float glow = GlobalPlantSettings.Instance.GlowIntensity;
 		float stemAlpha = GlobalPlantSettings.Instance.StemAlpha;
 		float Brightness = GlobalPlantSettings.Instance.Brightness;
@@ -154,13 +162,16 @@ public class StemColorManager : DmxColorPoint
 		Color mainColor = new Color(_curColor.r * Brightness, _curColor.g * Brightness, _curColor.b * Brightness, stemAlpha);
 		foreach (var mat in Materials)
 		{
-			mat.SetColor("MainColor", mainColor);
-			mat.SetColor("GlowColor", glowColor);
-			mat.SetFloat("GlowIntensity",glow);
+			mat.SetColor(_mainPropId, mainColor);
+			// mat.SetColor(_glowPropId, glowColor);
+			// mat.SetFloat(_glowIntensityPropId, glow);
+			// mat.SetColor("MainColor", mainColor);
+			// mat.SetColor("GlowColor", glowColor);
+			// mat.SetFloat("GlowIntensity",glow);
 		}
 		foreach (var gp in _groundGlowMats)
 		{
-			gp.SetColor("_GlowColor",new Color(mainColor.r,mainColor.g,mainColor.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
+			// gp.SetColor("_GlowColor",new Color(mainColor.r,mainColor.g,mainColor.b,GlobalPlantSettings.Instance.GroundGlowAlpha));
 		}
 	}
 
@@ -195,6 +206,7 @@ public class StemColorManager : DmxColorPoint
 		if (transform.hasChanged)
 		{
 			updateCachedVals();
+			transform.hasChanged = false;
 		}
 	}
 	
@@ -206,6 +218,7 @@ public class StemColorManager : DmxColorPoint
 
 	protected virtual void updateCachedVals()
 	{
+		// Debug.Log("ucv");
 		_parentFixture = GetComponentInParent<WiredFixtureBase>();
 		_globalAzimuth = azimuth * Mathf.Rad2Deg;
 		_globalAzimuthNormalized = _globalAzimuth / 360f;
@@ -262,6 +275,13 @@ public class StemColorManager : DmxColorPoint
 		foreach (var mesh in meshes)
 		{
 			Materials.Add(mesh.material);
+		}
+		if (Materials.Count > 0)
+		{
+			_mainPropId = Shader.PropertyToID("MainColor");
+			_glowPropId = Shader.PropertyToID("GlowColor");
+			_glowIntensityPropId = Shader.PropertyToID("GlowIntensity");
+			_groundGlowPropId = Shader.PropertyToID("_GlowColor");
 		}
 
 		foreach (Transform child in transform)

@@ -27,7 +27,7 @@ public class PlantSelectionManager : MonoBehaviour
 	public TextMeshProUGUI WiringMeasurementText;
 	public TextMeshProUGUI WiringCountText;
 	public CameraStop WiringCameraStop;
-	public PrairieWalkCam WalkCam;
+
 	public TextMeshProUGUI TotalPathCountText;
 	public TextMeshProUGUI TotalPathLengthText;
 
@@ -138,8 +138,8 @@ public class PlantSelectionManager : MonoBehaviour
 #if UNITY_EDITOR
 		string saveFilePath = UnityEditor.EditorUtility.SaveFilePanel("Save Layout",MasterUI.LayoutSettingsController.FixtureExportPath,"","csv");
 		if (saveFilePath.Length  != 0)
-		{			
-			MasterUI.LayoutSettingsController.LayoutGenObj.Exporter.ExportPathDataCSV(saveFilePath);
+		{
+			PrairieGlobals.Instance.LayoutGen.Exporter.ExportPathDataCSV(saveFilePath);
 		}
 #else
 		Debug.LogError("CSV export only works from within the editor right now");
@@ -349,9 +349,9 @@ public class PlantSelectionManager : MonoBehaviour
 		WiringUI.gameObject.SetActive(true);
 		MeasureUI.gameObject.SetActive(false);
 		WiredPathManager.Instance.ShowAllPaths();
-		if (WalkCam != null && WiringCameraStop != null)
+		if (PrairieGlobals.Instance.WalkCam != null && WiringCameraStop != null)
 		{
-			WalkCam.TeleportToStop(WiringCameraStop);
+			PrairieGlobals.Instance.WalkCam.TeleportToStop(WiringCameraStop);
 		}
 		refreshWiring();
 		updatePathTotalsText();

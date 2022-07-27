@@ -24,7 +24,12 @@ public class UIMasterController : MonoBehaviour
 
 	void Awake()
 	{
-		HudController.gameObject.SetActive(true);
+		_fps = GetComponentInChildren<UIFpsCounter>();
+	}
+
+	void Start()
+	{
+		HudController.gameObject.SetActive(false);
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 		SceneLoader.SetActive(false);

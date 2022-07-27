@@ -22,6 +22,9 @@ public class EnableMultiTrigger : TriggerListener
 	public void Awake()
 	{
 		Debug.Log("Multi-Awake:" + gameObject.name);
+		if (MasterObject == null)
+			MasterObject = gameObject;
+			
 		syncSlaveObjects();
 	}
 
