@@ -70,6 +70,6 @@ public  class UIEventButton : MonoBehaviour
 
 	void OnMqttPressed()
 	{
-		_mqttTarget.NotifyMessage(_message);
+		_mqttTarget.NotifyMessage(_message, new Dictionary<string, dynamic>());
 	}
 }

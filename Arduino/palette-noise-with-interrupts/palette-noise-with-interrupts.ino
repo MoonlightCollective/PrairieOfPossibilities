@@ -18,7 +18,8 @@ DEFINE_GRADIENT_PALETTE( magenta_pink_gp ) {
 
 CRGB emotionColors[4];
 
-CRGBPalette16 currentPalette = magenta_pink_gp;
+// CRGBPalette16 currentPalette = magenta_pink_gp;
+CRGBPalette16 currentPalette = Rainbow_gp;
 
 char dataString[50] = {0};
 uint16_t oldtime = millis();
@@ -41,7 +42,12 @@ uint8_t       colorLoop = 1;
 void setup()
 {
   Serial.begin(115200);              //Starting serial communication
-  FastLED.addLeds<WS2813, PIN, RGB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
+
+// portal 1 was RGB order
+// portals 2-4 are GRB order
+  FastLED.addLeds<WS2813, PIN, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
+  FastLED.setBrightness(128);
+
   fill_solid(leds,leds.size(), CRGB::Black);
   pinMode(SENSOR_PIN1, INPUT);
   pinMode(SENSOR_PIN2, INPUT);
@@ -154,12 +160,12 @@ void loop() {
   
   if (state == 0)
   {
-    CRGB emotion = emotionColors[random(4)];
     if (pulseCount > 0)
     {
       // start another pulse
       state = 1;
 
+      CRGB emotion = emotionColors[random(4)];
       for (int i=0; i<NUM_LEDS; i++)
       {
         from[i] = leds[i];
@@ -174,6 +180,7 @@ void loop() {
       triggerEnter = false;
       pulseCount = 1;
       state = 1;
+      CRGB emotion = emotionColors[random(4)];
 
       for (int i=0; i<NUM_LEDS; i++)
       {
@@ -192,7 +199,7 @@ void loop() {
       for (int i=0; i<NUM_LEDS; i++)
       {
         from[i] = leds[i];
-        to[i] = CRGB::Red;
+        to[i] = CRGB::Blue;
       }
       Serial.println("exit");           
       // send message about state change
@@ -208,9 +215,9 @@ void loop() {
   else if (state == 1)  // doing a pulse effect
   {
     // do the pulse
-    if (loopCounter < 5)
+    if (loopCounter < 10)
     {
-      blend(from, to, leds, NUM_LEDS, loopCounter*50);
+      blend(from, to, leds, NUM_LEDS, loopCounter*25);
       FastLED.show();
       loopCounter++;
     }
@@ -229,9 +236,9 @@ void loop() {
   else if (state == 2)
   {
     // now reset back to normal
-    if (loopCounter < 128)
+    if (loopCounter < 255)
     {
-      blend(from, to, leds, NUM_LEDS, loopCounter*2);
+      blend(from, to, leds, NUM_LEDS, loopCounter);
       FastLED.show();
       loopCounter++;
     }

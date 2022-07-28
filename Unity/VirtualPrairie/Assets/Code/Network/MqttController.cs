@@ -5,27 +5,24 @@ using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using UnityEngine.Events;
 using NaughtyAttributes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 
 /// <summary>
 /// Examples for the M2MQTT library (https://github.com/eclipse/paho.mqtt.m2mqtt),
 /// </summary>
 
-[System.Serializable]
-public class TopicToEventEntry
-{
-	public string Topic;
-	public UnityEvent<string> OnMessage;
-}
 
 public class MqttController : M2MqttUnityClient
 {
-	public List<TopicToEventEntry> TopicEvents;
+	List<MqttEventHandler> _eventHandlers;
+	List<string> _topics = new List<string>();
 	protected UIMqttStatus _statusUI;
-	
-	protected Dictionary<string,UnityEvent<string>> _eventMap = new Dictionary<string,UnityEvent<string>>();
 
 	protected override void Awake()
 	{
+		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
 		_statusUI = GameObject.FindObjectOfType<UIMqttStatus>();
 		base.Awake();
 	}
@@ -42,46 +39,93 @@ public class MqttController : M2MqttUnityClient
 	protected override void OnConnected()
 	{
 		base.OnConnected();
-		DebugLog($"Connected:{this.brokerAddress} ({_eventMap.Count} mapped topics)");
+		DebugLog($"Connected:{this.brokerAddress} ({_topics.Count} mapped topics)");
 	}
 
 	[Button("Resubscribe")]
 	protected override void SubscribeTopics()
 	{
 		base.SubscribeTopics();
-		List<string> topics = new List<string>();
-		_eventMap.Clear();
-		foreach (var entry in TopicEvents)
+		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
+		_topics = new List<string>();
+		foreach (var meh in _eventHandlers)
 		{
-			topics.Add(entry.Topic);
-			_eventMap[entry.Topic] = entry.OnMessage;
+			meh.ResetEventMap();
+			foreach (var entry in meh.TopicEvents)
+			{
+				_topics.Add(entry.Topic);
+			}
 		}
-		if (topics.Count > 0)
+
+		if (_topics.Count > 0)
 		{
-			byte[] qosBytes = new byte[topics.Count];
-			for(int i = 0; i < topics.Count; i++)
+			byte[] qosBytes = new byte[_topics.Count];
+			for(int i = 0; i < _topics.Count; i++)
 			{
 				qosBytes[i] = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE;
 			}
-			client.Subscribe(topics.ToArray(),qosBytes);
-			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {topics.Count} mqtt topics");
+			client.Subscribe(_topics.ToArray(),qosBytes);
+			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {_topics.Count} mqtt topics");
 		}
 	}
 
 	protected override void DecodeMessage(string topic, byte[] message)
 	{
 		base.DecodeMessage(topic, message);
-		if (_eventMap.ContainsKey(topic))
+		string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
+		bool handled = false;
+
+		messageStr = messageStr.TrimStart();
+		if (messageStr[0] != '{')
 		{
-			string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
-			DebugLog($"Event:{topic}.{messageStr}");
-			_eventMap[topic].Invoke(messageStr);
+			// handle non-json message
+			foreach (var meh in _eventHandlers)
+			{
+				handled = handled || meh.NotifyMessage(topic, messageStr);
+			}
 		}
 		else
 		{
-			string messageStr = new string(System.Text.UTF8Encoding.UTF8.GetString(message));
-			DebugLog($"Ignoring: {topic}/{messageStr}");
+			try
+			{
+				JObject payloadObj = JObject.Parse(messageStr);
+				if (!payloadObj.ContainsKey("name"))
+				{
+					Debug.LogError($"JSON message missing 'name' field {messageStr}");
+					return;
+				}
+				if (!payloadObj.ContainsKey("fields"))
+				{
+					Debug.LogError($"JSON message missing 'fields' field {messageStr}");
+				}
+
+				string messageName = (string) payloadObj["name"];
+
+				JObject fieldObj = (JObject) payloadObj["fields"];
+				Dictionary<string,dynamic> fieldDict = fieldObj.ToObject<Dictionary<string,dynamic>>();
+				// JsonConvert.DeserializeObject<Dictionary<string,object>>(fieldObj);
+				// Dictionary<string,object> fieldDict = (Dictionary<string,object>) payloadObj["fields"].deser;
+
+				// handle non-json message
+				foreach (var meh in _eventHandlers)
+				{
+					handled = handled || meh.NotifyJsonMessage(topic,messageName,fieldDict);
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Bad JSON received {(e)}\n{messageStr}");
+				return;
+			}
+
+
 		}
+
+		if (handled)
+			DebugLog($"Event:{topic}.{messageStr}");
+		else
+			DebugLog($"Ignoring: {topic}/{messageStr}");
+
 	}
 
 	protected override void DebugLog(string dbgStr)

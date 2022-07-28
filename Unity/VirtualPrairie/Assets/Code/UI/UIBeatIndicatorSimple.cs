@@ -19,10 +19,17 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 	protected float _fadeTimer;
 	
 	void Awake()
-    {
+	{
 		_image = GetComponent<Image>();
 		_fadeTimer = FadeTime;
-    }
+	
+		var fmp = PrairieGlobals.Instance.MusicPlayer;
+		fmp.OnBeatEvent.AddListener((a,b)=>NotifyBeat());
+		if (DynamicText != null)
+		{
+			fmp.OnMarkerEvent.AddListener((e)=>NotifyMarker(e));
+		}
+	}
 
 	public void NotifyBeat()
 	{
@@ -42,10 +49,10 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 		}
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (_fadeTimer < FadeTime)
+	// Update is called once per frame
+	void Update()
+	{
+		if (_fadeTimer < FadeTime)
 			_fadeTimer += Time.unscaledDeltaTime;
 		
 		float alpha = Mathf.Clamp01(_fadeTimer/FadeTime);
@@ -55,5 +62,5 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 		{
 			DynamicText.color = Color.Lerp(TextActiveColor,TextInactiveColor,alpha);
 		}
-    }
+	}
 }

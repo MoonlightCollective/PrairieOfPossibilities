@@ -20,14 +20,23 @@ public class UIMasterController : MonoBehaviour
 	public bool EventPanelActive => EventPanel.gameObject.activeInHierarchy;
 	public bool DisplayModeActive => DisplayModeController.gameObject.activeInHierarchy;
 
+	UIFpsCounter _fps;
+
 	void Awake()
 	{
-		HudController.gameObject.SetActive(true);
+		_fps = GetComponentInChildren<UIFpsCounter>();
+	}
+
+	void Start()
+	{
+		HudController.gameObject.SetActive(false);
 		WiringController.gameObject.SetActive(false);
 		LayoutSettingsController.gameObject.SetActive(false);
 		SceneLoader.SetActive(false);
 		TagPanel.gameObject.SetActive(false);
 		DisplayModeController.Deactivate();
+		_fps = GetComponentInChildren<UIFpsCounter>();
+		_fps.gameObject.SetActive(false);
 	}
 
 	void Update()
@@ -51,6 +60,10 @@ public class UIMasterController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.T) && !PrairieUtil.AnyInputActive())
 		{
 			toggleTagUI();
+		}
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			toggleFPS();
 		}
 		if (Input.GetKeyDown(KeyCode.D) && 
 			(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) &&
@@ -155,6 +168,11 @@ public class UIMasterController : MonoBehaviour
 		{
 			PlantSelectionManager.Instance.NotifyDisableSelection();
 		}
+	}
+
+	void toggleFPS()
+	{
+		_fps.gameObject.SetActive(!_fps.gameObject.activeInHierarchy);
 	}
 
 	void toggleWiringController()

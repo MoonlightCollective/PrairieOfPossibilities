@@ -2,20 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using NaughtyAttributes;
 
 public class LayoutAutoLoader : MonoBehaviour
 {
 	public bool AutoLoadAtStartup = true;
 	public string LayoutJsonFile = "Layout.json";
-	
+
 	public bool AutoPlayMusic = true;
 	PrairieMusicManager _musicManager;
 
+	public bool DoLoadSceneOnPlaylistEnd = true;
+	[ShowIf("DoLoadSceneOnPlaylistEnd")]
+	public string DestiationScene = "TargetScene";
+
 	public bool AutoDisplayMode = true;
 	UIMasterController _ui;
+
+
 	// Start is called before the first frame update
     void Start()
     {
+		_musicManager = GameObject.FindObjectOfType<PrairieMusicManager>();
+		_ui = GameObject.FindObjectOfType<UIMasterController>();
+
+		_musicManager.OnPlaylistCompleted.AddListener(()=>NotifyPlaylistEnd());
+
 		if (!AutoLoadAtStartup)
 		{
 			return;
@@ -32,17 +44,23 @@ public class LayoutAutoLoader : MonoBehaviour
 
 		layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(),layoutPath,false);
 
-		_musicManager = GameObject.FindObjectOfType<PrairieMusicManager>();
 		if (AutoPlayMusic)
 		{
 			_musicManager.StartPlayback();
 		}
 
-		_ui = GameObject.FindObjectOfType<UIMasterController>();
 		if (AutoDisplayMode)
 		{
 			_ui.ForceDisplayMode();	
 		}
     }
+
+	void NotifyPlaylistEnd()
+	{
+		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestiationScene))
+		{
+			SceneLoader.LoadScene(DestiationScene);
+		}
+	}
 
 }

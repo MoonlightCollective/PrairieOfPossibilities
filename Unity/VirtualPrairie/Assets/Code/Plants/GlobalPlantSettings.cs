@@ -10,6 +10,14 @@ public class GlobalPlantSettings : MonoBehaviour
 	public float GlowIntensity;
 	public float GroundGlowAlpha = 0.5f;
 	
+	public int VisualsFrameSkip = 0;
+	public bool VisualsSkipThisFrame
+	{
+		get 
+		{
+			return (VisualsFrameSkip < 0 || Time.frameCount % (VisualsFrameSkip + 1) != 0);
+		}
+	}
 	[Header("DebugCycling")]
 	public bool DebugRainbow = false;
 	public float DebugRainbowCycleTime = 5.0f;

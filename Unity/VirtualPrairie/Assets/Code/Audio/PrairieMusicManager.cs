@@ -14,7 +14,6 @@ public enum EMusicPlaybackStyle
 
 public class PrairieMusicManager : MonoBehaviour
 {
-	public List<EventReference> MusicEvents;
 	public EMusicPlaybackStyle PlaybackStyle;
 	public PrairieMusicPlayer MusicPlayer;
 	
@@ -24,10 +23,13 @@ public class PrairieMusicManager : MonoBehaviour
 	public bool InfiniteRepeat = true;
 
 	protected List<int> _playbackQueue = new List<int>();
+	protected FmodPlaylist _playlist;
+	public FmodPlaylist Playlist => _playlist;
 
 	protected int _curDex = -1;
 	public int CurSongDex => _curDex;
 	public int NextSongDex => _playbackQueue[0];
+
 	public void Awake()
 	{
 		resetQueue();
@@ -36,8 +38,17 @@ public class PrairieMusicManager : MonoBehaviour
 	void resetQueue()
 	{
 		Debug.Log("MM: Reset Queue");
+		_playlist = GameObject.FindObjectOfType<FmodPlaylist>();
+		
 		_playbackQueue = new List<int>();
-		for (int i = 0; i < MusicEvents.Count; i++)
+
+		if (_playlist == null)
+		{
+			Debug.LogError("No playlist object found - music manager queue empty");
+			return;
+		}
+		
+		for (int i = 0; i < _playlist.MusicEvents.Count; i++)
 		{
 			_playbackQueue.Add(i);
 		}
@@ -66,8 +77,8 @@ public class PrairieMusicManager : MonoBehaviour
 	public void QueueSongAsNext(int songDex)
 	{
 		if (songDex < 0)
-			songDex = MusicEvents.Count()-1;
-		if (songDex >= MusicEvents.Count())
+			songDex = _playlist.MusicEvents.Count()-1;
+		if (songDex >= _playlist.MusicEvents.Count())
 			songDex = 0;
 
 		_playbackQueue.Insert(0,songDex);
@@ -79,7 +90,7 @@ public class PrairieMusicManager : MonoBehaviour
 		if (_curDex < 0)
 			return "";
 		else
-			return PathFromEventRef(MusicEvents[_curDex]);
+			return PathFromEventRef(_playlist.MusicEvents[_curDex]);
 	}
 
 	public String CurSongName()
@@ -137,9 +148,9 @@ public class PrairieMusicManager : MonoBehaviour
 	{
 		_curDex--;
 		if (_curDex < 0)
-			_curDex = _curDex = Mathf.Clamp(MusicEvents.Count()-1,0,MusicEvents.Count()-1);
+			_curDex = _curDex = Mathf.Clamp(_playlist.MusicEvents.Count()-1,0,_playlist.MusicEvents.Count()-1);
 		MusicPlayer.StopMusic();
-		MusicPlayer.PlayMusic(MusicEvents[_curDex]);
+		MusicPlayer.PlayMusic(_playlist.MusicEvents[_curDex]);
 	}
 
 	void playNextSong()
@@ -147,9 +158,9 @@ public class PrairieMusicManager : MonoBehaviour
 		if (_playbackQueue.Count() < 1)
 			resetQueue();
 
-		int dex = Mathf.Clamp(_playbackQueue[0],0,MusicEvents.Count()-1);
+		int dex = Mathf.Clamp(_playbackQueue[0],0,_playlist.MusicEvents.Count()-1);
 		_playbackQueue.RemoveAt(0);
-		MusicPlayer.PlayMusic(MusicEvents[dex]);
+		MusicPlayer.PlayMusic(_playlist.MusicEvents[dex]);
 		_curDex = dex;
 	}
 

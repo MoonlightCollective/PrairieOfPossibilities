@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-	public void LoadScene(string newSceneName)
+	public static void LoadScene(string newSceneName)
 	{
 		FmodMusicPlayer fmp = GameObject.FindObjectOfType<FmodMusicPlayer>();
 		if (fmp != null)
