@@ -64,21 +64,9 @@ public class MqttEventHandler : MonoBehaviour
 			var entry = _eventMap[topic];
 			if (entry.FieldFilters != null)
 			{
-				foreach (var filter in entry.FieldFilters)
-				{
-					if (!fields.ContainsKey(filter.FieldName))
-					{
-						// reject - we don't have the field in our json payload.
-						return false;
-					}
-					
-					// we have the field, is it the right value?
-					if ((string) fields[filter.FieldName] != filter.FieldValue)
-					{
-						// reject - wrong value!
-						return false;
-					}
-				}
+				if (!PrairieUtil.CheckFieldsAgainstFilter(fields,entry.FieldFilters))
+					return false;
+
 				// falls through to invoke the message - no failed filter checks!
 			}
 

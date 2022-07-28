@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Code.StateTable;
 using UnityEngine;
 
 
@@ -9,12 +10,143 @@ public enum ESquenceTriggerBehavior
 	LoopToggle,
 }
 
+[System.Serializable]
+public class TriggerSequenceEntry
+{
+	public string Name = "Trigger";
+	public float StepPreDelay = 0f;
+	public TriggerEmitter TriggerTargets;
+}
+
 public class TimedSequenceTrigger : TriggerListener
 {
-	public ESquenceTriggerBehavior TriggerBehavior = ESquenceTriggerBehavior.OneShot;
+	public ESquenceTriggerBehavior RunBehaviour = ESquenceTriggerBehavior.OneShot;
+	public List<TriggerSequenceEntry> SequenceTriggers;
+	public bool StartActive = false;
+	public float DelayBetweenTriggers = 1.0f;
 
+	[Range(0.1f,10)]
+	public float TimeMult = 1f;
+	private float _delayTimer = 0f;
+	private int _nextTriggerDex = 0;
+
+	protected enum ETimedSequenceTriggerState
+	{
+		Init,
+		Idle,
+		Running,
+	}
+	
+	protected enum ETimedSequenceTriggerAction
+	{
+		Enter,
+		Update,
+		NotifyTrigger,
+		Exit,
+	}
+	
+	protected StateTable<ETimedSequenceTriggerState,TimedSequenceTrigger,ETimedSequenceTriggerAction> _stateMachine;
+	
+	protected PrairieTriggerParams _triggerParams;
+
+	//===============
+	// TriggerListener events
+	//===============
 	public override void NotifyTriggered(PrairieTriggerParams tParams)
 	{
-		throw new System.NotImplementedException();
+		_stateMachine.DoStateAction(ETimedSequenceTriggerAction.NotifyTrigger, new StateTableValue{ Value = tParams});
+	}
+
+	//===============
+	// Unity Events
+	//===============
+	public void Awake()
+	{
+		createStateMachine();
+		_stateMachine.GotoState(ETimedSequenceTriggerState.Init);
+	}
+
+	protected void createStateMachine()
+	{
+		_stateMachine = new StateTable<ETimedSequenceTriggerState,TimedSequenceTrigger,ETimedSequenceTriggerAction>(this);
+		_stateMachine.InitActionTable();
+	}
+	
+	public void Update()
+	{
+		_stateMachine.DoStateAction(ETimedSequenceTriggerAction.Update);
+	}
+
+	//=================
+	// Init State
+	//=================
+	protected virtual void InitEnter(){}
+	protected virtual void InitUpdate()
+	{
+		_stateMachine.GotoState(StartActive?ETimedSequenceTriggerState.Running:ETimedSequenceTriggerState.Idle);
+	}
+
+	//=================
+	// Idle State
+	//=================
+	protected virtual void IdleEnter()
+	{
+		_delayTimer = 0f;
+		_nextTriggerDex = 0;
+	}
+	protected virtual void IdleUpdate()
+	{
+
+	}
+
+	protected virtual void IdleNotifyTrigger(StateTableValue v)
+	{
+		if (SequenceTriggers.Count > 0)
+		{
+			_triggerParams = (PrairieTriggerParams)v.Value;
+			_stateMachine.GotoState(ETimedSequenceTriggerState.Running);
+		}
+	}
+
+	//=================
+	// Running State
+	//=================
+	protected virtual void RunningEnter()
+	{
+		if (SequenceTriggers.Count < 1)
+		{
+			_stateMachine.GotoState(ETimedSequenceTriggerState.Idle);
+		}
+
+		_nextTriggerDex = 0;
+		_delayTimer = SequenceTriggers[_nextTriggerDex].StepPreDelay;
+	}
+
+	protected virtual void RunningUpdate()
+	{
+		_delayTimer -= Time.deltaTime * TimeMult;
+		if (_delayTimer < 0f)
+		{
+			SequenceTriggers[_nextTriggerDex].TriggerTargets.EmitTrigger(_triggerParams);
+			_nextTriggerDex++;
+			if (_nextTriggerDex >= SequenceTriggers.Count)
+			{
+				switch (RunBehaviour)
+				{
+					case ESquenceTriggerBehavior.OneShot:
+						_delayTimer = 0f;
+						_nextTriggerDex = 0;
+						_stateMachine.GotoState(ETimedSequenceTriggerState.Idle);
+						return;
+					case ESquenceTriggerBehavior.LoopToggle:
+						_nextTriggerDex = 0;
+						break;
+				}
+			}
+			
+			
+			_delayTimer += DelayBetweenTriggers;
+			_delayTimer += SequenceTriggers[_nextTriggerDex].StepPreDelay;
+		}
 	}
 }

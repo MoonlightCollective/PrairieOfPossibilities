@@ -243,4 +243,29 @@ public class PrairieUtil
 		radius = Mathf.Sqrt(inX * inX + inZ * inZ);
 		theta = Mathf.Atan2(inZ,inX) / (2 * Mathf.PI);
 	}
+
+	public static bool CheckFieldsAgainstFilter(Dictionary<string,dynamic> fields, List<TopicFilterEntry> filters)
+	{
+		if (filters == null || filters.Count < 1)
+			return true;
+		
+		foreach (var filter in filters)
+		{
+			if (!fields.ContainsKey(filter.FieldName))
+			{
+				// reject - we don't have the field in our json payload.
+				return false;
+			}
+			
+			// we have the field, is it the right value?
+			if ((string) fields[filter.FieldName] != filter.FieldValue)
+			{
+				// reject - wrong value!
+				return false;
+			}
+		}
+
+		// if we get here, nothing is telling us no.
+		return true;		
+	}
 }
