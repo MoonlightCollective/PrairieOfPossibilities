@@ -44,6 +44,7 @@ public class PrairieTagManager : MonoBehaviour
 		{
 			Tags.Add(new PrairieTag{Name = newTag});
 		}
+		Tags.Sort((a,b)=>a.Name.CompareTo(b.Name));
 	}
 
 	public bool TagExists(string tagName)
