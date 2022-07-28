@@ -7,6 +7,7 @@ using UnityEngine;
 public class MessageToTriggerEntry
 {
 	public string Message;
+	public string DisplayName;
 	public List<TopicFilterEntry> FieldFilters;
 	public TriggerEmitter Targets;
 	public bool SendParams = false;

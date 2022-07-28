@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MessageMappings:
   - Message: PortalAttract
+    DisplayName: 
     FieldFilters: []
     Targets:
       IncludeChildren: 0
@@ -1288,6 +1289,7 @@ MonoBehaviour:
     Param0: 0
     Param1: 0
   - Message: trigger
+    DisplayName: trigger-portal1
     FieldFilters:
     - FieldName: sender
       FieldValue: portal1
@@ -1299,6 +1301,7 @@ MonoBehaviour:
     Param0: 0
     Param1: 0
   - Message: trigger
+    DisplayName: trigger-portal2
     FieldFilters:
     - FieldName: sender
       FieldValue: portal2
@@ -1310,6 +1313,7 @@ MonoBehaviour:
     Param0: 0
     Param1: 0
   - Message: trigger
+    DisplayName: trigger-portal3
     FieldFilters:
     - FieldName: sender
       FieldValue: portal3
@@ -1321,6 +1325,7 @@ MonoBehaviour:
     Param0: 0
     Param1: 0
   - Message: trigger
+    DisplayName: trigger-portal4
     FieldFilters:
     - FieldName: sender
       FieldValue: portal4

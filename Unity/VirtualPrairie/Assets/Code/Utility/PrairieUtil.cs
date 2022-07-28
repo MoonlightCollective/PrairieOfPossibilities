@@ -249,6 +249,9 @@ public class PrairieUtil
 		if (filters == null || filters.Count < 1)
 			return true;
 		
+		if (fields == null)
+			return false;
+
 		foreach (var filter in filters)
 		{
 			if (!fields.ContainsKey(filter.FieldName))

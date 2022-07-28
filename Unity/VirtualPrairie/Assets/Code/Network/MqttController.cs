@@ -76,9 +76,11 @@ public class MqttController : M2MqttUnityClient
 		bool handled = false;
 
 		messageStr = messageStr.TrimStart();
+		string debugStr;
 		if (messageStr[0] != '{')
 		{
 			// handle non-json message
+			debugStr = messageStr;
 			foreach (var meh in _eventHandlers)
 			{
 				handled = handled || meh.NotifyMessage(topic, messageStr);
@@ -111,6 +113,9 @@ public class MqttController : M2MqttUnityClient
 				{
 					handled = handled || meh.NotifyJsonMessage(topic,messageName,fieldDict);
 				}
+				
+				
+				debugStr = messageName;
 			}
 			catch (Exception e)
 			{
@@ -122,9 +127,9 @@ public class MqttController : M2MqttUnityClient
 		}
 
 		if (handled)
-			DebugLog($"Event:{topic}.{messageStr}");
+			DebugLog($"Event:{topic}.{debugStr}");
 		else
-			DebugLog($"Ignoring: {topic}/{messageStr}");
+			DebugLog($"Ignoring: {topic}/{debugStr}");
 
 	}
 
