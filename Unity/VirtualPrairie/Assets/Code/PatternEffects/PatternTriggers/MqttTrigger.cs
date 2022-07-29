@@ -6,8 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class MessageToTriggerEntry
 {
-	public string Message;
 	public string DisplayName;
+	public string Message;
 	public List<TopicFilterEntry> FieldFilters;
 	public TriggerEmitter Targets;
 	public bool SendParams = false;
@@ -23,6 +23,7 @@ public class MessageToTriggerEntry
 public class MqttTrigger : MonoBehaviour
 {
 	public List<MessageToTriggerEntry> MessageMappings = new List<MessageToTriggerEntry>();
+	public Color EditGroupColor = new Color(.8f,.8f,.8f);
 
 	public void NotifyMessage(string message,Dictionary<string,dynamic> fields)
 	{

@@ -9948,7 +9948,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageMappings:
-  - Message: ToggleNoise
+  - DisplayName: 
+    Message: ToggleNoise
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9957,7 +9959,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: ToggleSolidColor
+  - DisplayName: 
+    Message: ToggleSolidColor
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9965,7 +9969,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: ToggleParticleSystem
+  - DisplayName: 
+    Message: ToggleParticleSystem
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9973,7 +9979,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: OuterFlash
+  - DisplayName: 
+    Message: OuterFlash
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9981,7 +9989,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: InnerFlash
+  - DisplayName: 
+    Message: InnerFlash
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9989,7 +9999,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: AisleRipple
+  - DisplayName: 
+    Message: AisleRipple
+    FieldFilters: []
     Targets:
       IncludeChildren: 1
       Targets:
@@ -9997,7 +10009,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: CyclePalette
+  - DisplayName: 
+    Message: CyclePalette
+    FieldFilters: []
     Targets:
       IncludeChildren: 0
       Targets:
@@ -10005,7 +10019,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: Indigo Palette
+  - DisplayName: 
+    Message: Indigo Palette
+    FieldFilters: []
     Targets:
       IncludeChildren: 0
       Targets:
@@ -10013,7 +10029,9 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
-  - Message: Pink Palette
+  - DisplayName: 
+    Message: Pink Palette
+    FieldFilters: []
     Targets:
       IncludeChildren: 0
       Targets:
@@ -10021,6 +10039,7 @@ MonoBehaviour:
     SendParams: 0
     Param0: 0
     Param1: 0
+  EditGroupColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
 --- !u!4 &318281453
 Transform:
   m_ObjectHideFlags: 0
@@ -10578,7 +10597,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &802381553
 GameObject:
@@ -15531,6 +15550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TopicEvents:
   - Topic: portal
+    FieldFilters: []
     OnMessage:
       m_PersistentCalls:
         m_Calls:
@@ -15547,6 +15567,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - Topic: booth
+    FieldFilters: []
     OnMessage:
       m_PersistentCalls:
         m_Calls:
@@ -15562,6 +15583,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  DebugLog: 0
 --- !u!1 &1087552457
 GameObject:
   m_ObjectHideFlags: 0
@@ -30482,7 +30504,7 @@ Transform:
   - {fileID: 1445272572}
   - {fileID: 1973739228}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852719456
 GameObject:
@@ -35682,6 +35704,75 @@ MonoBehaviour:
     ColorIndex: 3
   Alpha0: 1
   Alpha1: 0
+--- !u!1001 &2014696282
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.911999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.450977
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.783688
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373426, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370402437886373427, guid: c63030c145401704d99ef3c231cb30a3,
+        type: 3}
+      propertyPath: m_Name
+      value: PortalEventsAndPatterns
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c63030c145401704d99ef3c231cb30a3, type: 3}
 --- !u!1 &2020060355
 GameObject:
   m_ObjectHideFlags: 0
@@ -40823,6 +40914,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910960629064822744, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: brokerPort
+      value: 1883
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910960629064822744, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: brokerAddress
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: 7048435010081697877, guid: e971f0975231343f3b404f362569294d,
         type: 3}

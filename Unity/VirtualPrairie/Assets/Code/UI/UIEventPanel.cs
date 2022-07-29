@@ -10,6 +10,10 @@ public class UIEventPanel : MonoBehaviour
 	public Transform ButtonRoot;
 	public VerticalLayoutGroup LayoutGroup;
 
+	public Color MusicEventDefaultButtonColor = new Color(.8f,.8f,.8f,.8f);
+	public Color MusicEventGateOnButtonColor = new Color(1f,.8f,.8f,.8f);
+	public Color MusicEventGateOffButtonColor = new Color(.8f,1f,.8f,.8f);
+
 	public void Start()
 	{
 		gameObject.SetActive(false);
@@ -51,7 +55,7 @@ public class UIEventPanel : MonoBehaviour
 			{
 				GameObject go = GameObject.Instantiate(EventButtonFab);
 				var eb = go.GetComponentInChildren<UIEventButton>();
-				eb.InitFromMqttTriggerEntry(trigEntry,mt);
+				eb.InitFromMqttTriggerEntry(trigEntry,mt,mt.EditGroupColor);
 				go.transform.SetParent(ButtonRoot.transform,false);
 				Debug.Log("Create button for event:" + trigEntry.Message);
 			}
@@ -65,7 +69,7 @@ public class UIEventPanel : MonoBehaviour
 		{
 			GameObject go = GameObject.Instantiate(EventButtonFab);
 			var eb = go.GetComponentInChildren<UIEventButton>();
-			eb.initFromMusicTrigger(mt);
+			eb.initFromMusicTrigger(mt,MusicEventDefaultButtonColor);
 			go.transform.SetParent(ButtonRoot.transform,false);
 		}
 
@@ -74,12 +78,12 @@ public class UIEventPanel : MonoBehaviour
 		{
 			GameObject go = GameObject.Instantiate(EventButtonFab);
 			var eb = go.GetComponentInChildren<UIEventButton>();
-			eb.initFromMusicGate(mg,true);
+			eb.initFromMusicGate(mg,true,MusicEventGateOnButtonColor);
 			go.transform.SetParent(ButtonRoot.transform,false);
 
 			go = GameObject.Instantiate(EventButtonFab);
 			eb = go.GetComponentInChildren<UIEventButton>();
-			eb.initFromMusicGate(mg,false);
+			eb.initFromMusicGate(mg,false,MusicEventGateOffButtonColor);
 			go.transform.SetParent(ButtonRoot.transform,false);
 		}
 	}
