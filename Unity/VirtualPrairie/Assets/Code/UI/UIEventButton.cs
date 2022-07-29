@@ -21,7 +21,7 @@ public  class UIEventButton : MonoBehaviour
 	MqttTrigger _mqttTarget;
 	MusicMarkerTrigger _musicMarkerTarget;
 	MusicMarkerGate _musicMarkerGateTarget;
-	Dictionary<string,dynamic> _fieldDict;
+	Dictionary<string,object> _fieldDict;
 
 	public void findRequiredObjectsCommon()
 	{

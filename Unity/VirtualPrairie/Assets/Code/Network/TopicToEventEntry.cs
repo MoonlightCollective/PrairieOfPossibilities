@@ -15,5 +15,5 @@ public class TopicToEventEntry
 {
 	public string Topic;
 	public List<TopicFilterEntry> FieldFilters;
-	public UnityEvent<string,Dictionary<string,dynamic>> OnMessage;
+	public UnityEvent<string,Dictionary<string,object>> OnMessage;
 }

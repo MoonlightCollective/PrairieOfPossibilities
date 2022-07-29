@@ -244,7 +244,7 @@ public class PrairieUtil
 		theta = Mathf.Atan2(inZ,inX) / (2 * Mathf.PI);
 	}
 
-	public static bool CheckFieldsAgainstFilter(Dictionary<string,dynamic> fields, List<TopicFilterEntry> filters)
+	public static bool CheckFieldsAgainstFilter(Dictionary<string,object> fields, List<TopicFilterEntry> filters)
 	{
 		if (filters == null || filters.Count < 1)
 			return true;

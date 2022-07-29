@@ -48,7 +48,7 @@ public class MqttEventHandler : MonoBehaviour
 		}
 	}
 
-	public bool NotifyJsonMessage(string topic, string messageName, Dictionary<string,dynamic> fields)
+	public bool NotifyJsonMessage(string topic, string messageName, Dictionary<string,object> fields)
 	{	
 		if (DebugLog)
 		{
