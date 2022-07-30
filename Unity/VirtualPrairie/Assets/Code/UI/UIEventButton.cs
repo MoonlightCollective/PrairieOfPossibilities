@@ -21,7 +21,7 @@ public  class UIEventButton : MonoBehaviour
 	MqttTrigger _mqttTarget;
 	MusicMarkerTrigger _musicMarkerTarget;
 	MusicMarkerGate _musicMarkerGateTarget;
-	Dictionary<string,dynamic> _fieldDict;
+	Dictionary<string,object> _fieldDict;
 
 	public void findRequiredObjectsCommon()
 	{
@@ -29,18 +29,20 @@ public  class UIEventButton : MonoBehaviour
 		_text = GetComponentInChildren<TextMeshProUGUI>();
 	}
 
-	public void InitFromMqttTriggerEntry(MessageToTriggerEntry triggerEntry,MqttTrigger triggerTarget)
+	public void InitFromMqttTriggerEntry(MessageToTriggerEntry triggerEntry,MqttTrigger triggerTarget,Color buttonColor)
 	{
 		_buttonType = EEventButtonType.MQTT;
 		findRequiredObjectsCommon();
 		_message = triggerEntry.Message;
 		_mqttTarget = triggerTarget;
 		if (string.IsNullOrEmpty(triggerEntry.DisplayName))
-			_text.text = $"<b>{triggerEntry.Message}</b>" + $" (MQTT:{triggerTarget.gameObject.name})";
+			_text.text = $"<b>{triggerEntry.Message}</b><br>" + $"({triggerTarget.gameObject.name})";
 		else
-			_text.text = $"<b>{triggerEntry.DisplayName}</b>" + $" (MQTT:{triggerTarget.gameObject.name})";
+			_text.text = $"<b>{triggerEntry.DisplayName}</b><br>" + $"({triggerTarget.gameObject.name})";
 			
 		_button.onClick.AddListener(()=>OnMqttPressed());
+		_button.image.color = buttonColor;
+
 		_fieldDict = new Dictionary<string, dynamic>();
 		foreach (var filterEntry in triggerEntry.FieldFilters)
 		{
@@ -48,22 +50,24 @@ public  class UIEventButton : MonoBehaviour
 		}
 	}
 	
-	public void initFromMusicTrigger(MusicMarkerTrigger markerTrigger)
+	public void initFromMusicTrigger(MusicMarkerTrigger markerTrigger,Color buttonColor)
 	{
 		_buttonType = EEventButtonType.MusicMarker;
 		findRequiredObjectsCommon();
 		_message = markerTrigger.Marker;
 		_musicMarkerTarget = markerTrigger;
+		_button.image.color = buttonColor;
 		_text.text = $"<b>{_message}</b>\n(MusicT:{markerTrigger.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMusicPressed());
 		_fieldDict = new Dictionary<string, dynamic>();
 	}
 
-	public void initFromMusicGate(MusicMarkerGate markerGate, bool OnEvent)
+	public void initFromMusicGate(MusicMarkerGate markerGate, bool OnEvent,Color buttonColor)
 	{
 		_buttonType = EEventButtonType.MusicMarkerGate;
 		findRequiredObjectsCommon();
 		_message = OnEvent?markerGate.OnMarker:markerGate.OffMarker;
+		_button.image.color = buttonColor;
 		_musicMarkerGateTarget = markerGate;
 		_text.text = $"<b>{_message}</b>\n(MusicG:{markerGate.gameObject.name})";
 		_button.onClick.AddListener(()=>OnMusicGatePressed());

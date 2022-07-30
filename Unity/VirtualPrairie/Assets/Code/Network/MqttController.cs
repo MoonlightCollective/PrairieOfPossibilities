@@ -104,7 +104,7 @@ public class MqttController : M2MqttUnityClient
 				string messageName = (string) payloadObj["name"];
 
 				JObject fieldObj = (JObject) payloadObj["fields"];
-				Dictionary<string,dynamic> fieldDict = fieldObj.ToObject<Dictionary<string,dynamic>>();
+				Dictionary<string,object> fieldDict = fieldObj.ToObject<Dictionary<string,object>>();
 				// JsonConvert.DeserializeObject<Dictionary<string,object>>(fieldObj);
 				// Dictionary<string,object> fieldDict = (Dictionary<string,object>) payloadObj["fields"].deser;
 
