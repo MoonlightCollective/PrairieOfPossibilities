@@ -65,7 +65,7 @@ public class MqttController : M2MqttUnityClient
 				qosBytes[i] = MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE;
 			}
 			client.Subscribe(_topics.ToArray(),qosBytes);
-			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {_topics.Count} mqtt topics");
+			Debug.Log($"MqttControllerSubscribeTopics- subscribed to {String.Join(",",_topics.ToArray())} mqtt topics");
 		}
 	}
 
@@ -104,7 +104,7 @@ public class MqttController : M2MqttUnityClient
 				string messageName = (string) payloadObj["name"];
 
 				JObject fieldObj = (JObject) payloadObj["fields"];
-				Dictionary<string,dynamic> fieldDict = fieldObj.ToObject<Dictionary<string,dynamic>>();
+				Dictionary<string,object> fieldDict = fieldObj.ToObject<Dictionary<string,object>>();
 				// JsonConvert.DeserializeObject<Dictionary<string,object>>(fieldObj);
 				// Dictionary<string,object> fieldDict = (Dictionary<string,object>) payloadObj["fields"].deser;
 

@@ -25,7 +25,7 @@ public class MqttTrigger : MonoBehaviour
 	public List<MessageToTriggerEntry> MessageMappings = new List<MessageToTriggerEntry>();
 	public Color EditGroupColor = new Color(.8f,.8f,.8f);
 
-	public void NotifyMessage(string message,Dictionary<string,dynamic> fields)
+	public void NotifyMessage(string message,Dictionary<string,object> fields)
 	{
 		foreach (var entry in MessageMappings)
 		{			
