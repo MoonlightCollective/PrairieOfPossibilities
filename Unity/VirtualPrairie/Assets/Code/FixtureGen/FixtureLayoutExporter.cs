@@ -171,4 +171,33 @@ public class FixtureLayoutExporter : MonoBehaviour
 			stream.Flush();
 		}
 	}
+
+	public void ExportBaseDataCSV(string exportFilePath)
+	{
+		var rootObj = PrairieUtil.GetLayoutRoot();
+		string HeaderStr = "BaseId,DistFromCtr,Theta";
+		using (StreamWriter stream = new StreamWriter(exportFilePath) )
+		{
+			stream.WriteLine(HeaderStr);
+
+			foreach (Transform obj in rootObj.transform)
+			{
+				Vector3 origin = new Vector3(0, 0, 0);
+				Vector3 zAxis = new Vector3(0, 0, 1);
+
+				PlantColorManager pcm = obj.gameObject.GetComponent<PlantColorManager>();
+				if (pcm == null)
+				{
+					// Debug.LogWarning($"Skipping {obj.gameObject.name} - not a Plant fixture");
+					continue; // skip if not a plant.
+				}
+				float distM = Vector3.Distance(pcm.transform.position, origin);
+				float distFt = PrairieUtil.MetersToInches(distM);
+				float theta = Vector3.Angle(zAxis, pcm.transform.position);
+				stream.WriteLine($"{pcm.PlantId},{distFt.ToString()},{theta.ToString()}");
+			}
+			stream.Flush();
+		}
+	}
+
 }
