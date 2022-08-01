@@ -64,7 +64,7 @@ MonoBehaviour:
       Data2: 1257615517
       Data3: -133526144
       Data4: -298807516
-    Path: event:/BoothEvents/HeartbeatEvent
+    Path: event:/BoothEvents/BoothHeartbeatA
   MaxHeartbeatDist: 5.9
   MinHeartbeatDist: 2
 --- !u!1 &1826359596177037208
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebe3ab6dd10a4f67908b9b058b52ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoothId: 
 --- !u!1 &3009875757416498057
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ MonoBehaviour:
       Data2: 1241437129
       Data3: 400279726
       Data4: -357088346
-    Path: event:/RoutingEvents/BoothSpeaker1
+    Path: event:/RoutingEvents/UnityBoothSpeakerA
   Event: 
   PlayEvent: 1
   StopEvent: 0
