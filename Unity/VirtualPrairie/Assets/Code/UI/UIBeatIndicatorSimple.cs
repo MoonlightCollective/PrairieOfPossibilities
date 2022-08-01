@@ -16,6 +16,9 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 	public Color TextActiveColor = Color.white;
 	public Color TextInactiveColor = Color.clear;
 	
+	[Header("Optional Beat Counter")]
+	public TextMeshProUGUI BeatText;
+	
 	protected float _fadeTimer;
 	
 	void Awake()
@@ -24,7 +27,10 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 		_fadeTimer = FadeTime;
 	
 		var fmp = PrairieGlobals.Instance.MusicPlayer;
-		fmp.OnBeatEvent.AddListener((a,b)=>NotifyBeat());
+		if (BeatText != null)
+			fmp.OnBeatEvent.AddListener((a,b)=>NotifyBeatWithCounter(a,b));
+		else
+			fmp.OnBeatEvent.AddListener((a,b)=>NotifyBeat());
 		if (DynamicText != null)
 		{
 			fmp.OnMarkerEvent.AddListener((e)=>NotifyMarker(e));
@@ -34,6 +40,13 @@ public class UIBeatIndicatorSimple : MonoBehaviour
 	public void NotifyBeat()
 	{
 		_fadeTimer = 0.0f;
+		_image.color = ActiveColor;
+	}
+
+	public void NotifyBeatWithCounter(int measure,int beat)
+	{
+		_fadeTimer = 0.0f;
+		BeatText.text = $"{measure}.{beat}";
 		_image.color = ActiveColor;
 	}
 
