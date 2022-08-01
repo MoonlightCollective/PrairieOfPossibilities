@@ -108,9 +108,30 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	public bool IsPlaying()
 	{
-		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
+		return (_stateMachine.CurrentState == EFmodMusicPlayerState.Playing);
 	}
 
+	public void SkipBySeconds(int skipSeconds)
+	{
+		if (!_curEventInstance.isValid())
+			return;
+
+		EventDescription ed;
+		_curEventInstance.getDescription(out ed);
+
+		int lenMSec;
+		ed.getLength(out lenMSec);
+
+		int newPos = _lastTimelinePosSec +  (skipSeconds * 1000);
+		if (newPos < 0)
+			newPos = 0;
+
+		if (newPos > lenMSec)
+			newPos = lenMSec - 1000; // one second before end.
+
+
+		_curEventInstance.setTimelinePosition(newPos);
+	}
 
 	//===============
 	// Unity Events
