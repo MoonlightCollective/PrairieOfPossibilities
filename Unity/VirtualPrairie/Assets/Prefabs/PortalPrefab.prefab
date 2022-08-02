@@ -485,7 +485,7 @@ MonoBehaviour:
   OnEntryTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1152319343607071582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PortalSoundManager, Assembly-CSharp
         m_MethodName: FireEntrySound
         m_Mode: 1
@@ -500,7 +500,7 @@ MonoBehaviour:
   OnExitTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1152319343607071582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PortalSoundManager, Assembly-CSharp
         m_MethodName: FireExitSound
         m_Mode: 1
@@ -6671,14 +6671,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3060311077031973161}
-  - component: {fileID: 1152319343607071582}
   m_Layer: 0
   m_Name: PortalAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3060311077031973161
 Transform:
   m_ObjectHideFlags: 0
@@ -6699,32 +6698,6 @@ Transform:
   m_Father: {fileID: 8953970567477981732}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1152319343607071582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718153741830224254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d4d1ab25e34843879ba2d124684b609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EntryEvent:
-    Guid:
-      Data1: -788050596
-      Data2: 1308874415
-      Data3: 1383694015
-      Data4: -1083851065
-    Path: event:/EchoEvents/DessertEcho
-  ExitEvent:
-    Guid:
-      Data1: -1759998675
-      Data2: 1169331007
-      Data3: -639605876
-      Data4: -263774671
-    Path: event:/BoothEvents/BoothDoorExitA
 --- !u!1 &1722681031355113630
 GameObject:
   m_ObjectHideFlags: 0
