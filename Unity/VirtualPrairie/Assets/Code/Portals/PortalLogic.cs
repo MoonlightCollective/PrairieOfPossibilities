@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PortalLogic : MonoBehaviour
 {
 	public float CooldownTime = 5.0f;
+	public bool DebugRainbow = false;
 	public enum EPortalSensorID { SensorA, SensorB };
 	
 	public UnityEvent OnEntryTrigger;
@@ -14,6 +15,9 @@ public class PortalLogic : MonoBehaviour
 	
 	// keeping a list of sensor data - order matters, and helps us determine entry direction.
 	List<EPortalSensorID> _triggeredSensors = new List<EPortalSensorID>();
+
+	// an array/list of rgb values for each led light in the portal
+	List<int> _portalLights = new List<int>();
 
 	private enum EPortalLogicState
 	{
@@ -70,6 +74,8 @@ public class PortalLogic : MonoBehaviour
 	}
 	protected void findRequiredObjects()
 	{
+		// find all of our lights
+		
 	}
 
 	//=================
