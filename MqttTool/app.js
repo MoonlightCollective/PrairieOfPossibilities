@@ -6,7 +6,8 @@ const app = express();
 
 
 //const connectUrl = "mqtt://73.254.192.189:41799"
-const connectUrl = "mqtt://test.mosquitto.org:1883"
+//const connectUrl = "mqtt://test.mosquitto.org:1883"
+const connectUrl = "mqtt://127.0.0.1:1883"
 
 console.log('Connecting to:', connectUrl)
 const client = mqtt.connect(connectUrl, {
@@ -18,7 +19,7 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 })
 
-const topic = 'Portal'
+const topic = 'portal'
 client.on('connect', () => {
   console.log('Connected')
   client.subscribe([topic], () => {
