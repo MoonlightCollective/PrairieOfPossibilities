@@ -20,10 +20,10 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 	public override Color ColorForBrightness(float v, PrairieLayerGroup group )
 	{
 		float clampedV = Mathf.Clamp01(v);
-		if (group == null || group.GroupColors == null)
-		{
-			return simpleLerp(clampedV);
-		}
+		// if (group == null || group.GroupColors == null)
+		// {
+			// return simpleLerp(clampedV);
+		// }
 
 		if (MinColor.UsePalette && MaxColor.UsePalette)
 		{
