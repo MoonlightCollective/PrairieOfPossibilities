@@ -11,6 +11,7 @@ public class UIMasterController : MonoBehaviour
 	public UITagPanel TagPanel;
 	public GameObject SceneLoader;
 	public UIDisplayModeController DisplayModeController;
+	public UIMusicMultiEventDisplay MusicEventMonitor;
 
 	public bool WiringActive  => WiringController.gameObject.activeInHierarchy;
 	public bool HudActive  => HudController.gameObject.activeInHierarchy;
@@ -19,7 +20,7 @@ public class UIMasterController : MonoBehaviour
 	public bool TaggingActive => TagPanel.gameObject.activeInHierarchy;
 	public bool EventPanelActive => EventPanel.gameObject.activeInHierarchy;
 	public bool DisplayModeActive => DisplayModeController.gameObject.activeInHierarchy;
-
+	public bool MusicEventMonitorActive => MusicEventMonitor.gameObject.activeInHierarchy;
 	UIFpsCounter _fps;
 
 	void Awake()
@@ -65,6 +66,11 @@ public class UIMasterController : MonoBehaviour
 		{
 			toggleFPS();
 		}
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			toggleMusicMonitor();
+		}
+		
 		if (Input.GetKeyDown(KeyCode.D) && 
 			(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) &&
 			(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
@@ -143,6 +149,11 @@ public class UIMasterController : MonoBehaviour
 		}
 		
 		EventPanel.ToggleEventUI();
+	}
+
+	void toggleMusicMonitor()
+	{
+		MusicEventMonitor.gameObject.SetActive(!MusicEventMonitorActive);
 	}
 
 	void toggleTagUI()

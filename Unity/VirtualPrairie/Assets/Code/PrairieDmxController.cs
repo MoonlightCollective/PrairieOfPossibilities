@@ -64,7 +64,7 @@ public class PrairieDmxController : MonoBehaviour
 	// universe and channelStart start with 1
 	public void SetDmxColor(Color color, string host, int universe, int channelStart)
 	{
-		if (universe < 1 || channelStart < 1)
+		if (universe < 1 || channelStart < 1 || channelStart > 512)
         {
 			Debug.LogError($"DmxPoint out of bounds: host {host} universe {universe} channelStart {channelStart}");
         }

@@ -41,6 +41,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	protected int _timeSigBeatsPerBar = 4;
 	public int BeatsPerBar => _timeSigBeatsPerBar;
 
+	protected int _lastTimelinePosSec = 0;
+	public int LastTimelinePos => _lastTimelinePosSec;
+	
 	protected FMOD.DSP _fft;
 	protected int _fftWindowSize = 512;
 	public float[] RawFFTValues; 
@@ -105,9 +108,30 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	public bool IsPlaying()
 	{
-		return (_stateMachine.CurrentState != EFmodMusicPlayerState.Playing);
+		return (_stateMachine.CurrentState == EFmodMusicPlayerState.Playing);
 	}
 
+	public void SkipBySeconds(int skipSeconds)
+	{
+		if (!_curEventInstance.isValid())
+			return;
+
+		EventDescription ed;
+		_curEventInstance.getDescription(out ed);
+
+		int lenMSec;
+		ed.getLength(out lenMSec);
+
+		int newPos = _lastTimelinePosSec +  (skipSeconds * 1000);
+		if (newPos < 0)
+			newPos = 0;
+
+		if (newPos > lenMSec)
+			newPos = lenMSec - 1000; // one second before end.
+
+
+		_curEventInstance.setTimelinePosition(newPos);
+	}
 
 	//===============
 	// Unity Events
@@ -151,6 +175,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	{
 		Debug.Log("fmp:RESET");
 		_curEventInstance.clearHandle();
+		_lastTimelinePosSec = 0;
 	}
 
 	protected EventInstance createNewFmodEventInstance(EventReference eventRef)
@@ -339,6 +364,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			return;
 		}
 		_curEventInstance.setPaused(true);
+		_curEventInstance.getTimelinePosition(out _lastTimelinePosSec);
 		// _curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 	}
 	protected void PausedUpdate()
@@ -411,6 +437,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			OnSongCompleteEvent?.Invoke();
 			return;			
 		}
+
+		_curEventInstance.getTimelinePosition(out _lastTimelinePosSec);
 
 		IntPtr unmanagedData;
 		uint length;
