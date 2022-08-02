@@ -31,7 +31,6 @@ public class PatternPointFilter : PatternPointFilterBase
 
 	public override bool AllowPoint(StemColorManager point)
 	{
-
 		switch (FilterType)
 		{
 			case EPatternPointFilterType.All:

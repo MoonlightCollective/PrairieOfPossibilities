@@ -6,13 +6,21 @@ using UnityEngine;
 public class PrairieTag
 {
 	public string Name;
+	public bool RuntimeOnly = false;
 	public PrairieTag()
 	{
 		Name = "DefaultTag";
+		RuntimeOnly = false;
 	}
 	public PrairieTag(string newTagName)
 	{
 		Name = newTagName;
+		RuntimeOnly = false;
+	}
+	public PrairieTag(string newTagName, bool runtimeOnly)
+	{
+		Name = newTagName;
+		RuntimeOnly = runtimeOnly;
 	}
 }
 
@@ -72,6 +80,7 @@ public class PrairieTagManager : MonoBehaviour
 		Tags.Clear();
 		addDefaultTags();
 
+		// gather all the tags from the fixtures imported
 		Transform layoutRoot = PrairieUtil.GetLayoutRoot().transform;
 		HashSet<string> newTags = new HashSet<string>();
 		foreach (Transform child in layoutRoot)
@@ -92,5 +101,55 @@ public class PrairieTagManager : MonoBehaviour
 		}
 
 		UITagPanel.Instance.NotifyTagListChanged();
+
+		applyFilterTagsToStems();
+	}
+
+
+	void applyFilterTagsToStems()
+	{
+		// first look for all filters the patterns we might possible want to use.
+		var allLayers = GameObject.FindObjectsOfType<PrairiePatternLayer>(true);
+		HashSet<PatternPointFilterBase> foundPatternFilters = new HashSet<PatternPointFilterBase>();
+		foreach (PrairiePatternLayer layer in allLayers)
+		{
+			if (layer.PointFilter != null)
+			{
+				foundPatternFilters.Add(layer.PointFilter);
+			}
+		}
+
+		// now go through all the filters and find filters that require
+		// "fuzzy" (aka substring) matching patterns.
+
+		List<string> fuzzyStrings = new List<string>();
+		foreach (var filter in foundPatternFilters)
+		{
+			// only matters for tag filters, which have strings
+			if (filter is PatternFixtureTagFilter)	
+			{
+				PatternFixtureTagFilter pftf = ((PatternFixtureTagFilter)filter);
+				if (!pftf.PerfectMatch)
+				{
+					foreach (string fuzzyTag in pftf.RequiredTags)
+					{
+						if (!fuzzyStrings.Contains(fuzzyTag))
+							fuzzyStrings.Add(fuzzyTag);
+					}
+				}
+			}
+		}
+
+		// Now we have a list of tags that we want to do fuzzy matching on.
+		// If that fuzzy pattern actually matches, let's just add an explicit tag 
+		// that contains the fuzzy tag pattern on the light itself.
+		// These only get applied at the stem level
+		foreach (var p in PrairieUtil.Points)
+		{
+			foreach (var fuzzyTag in fuzzyStrings)
+			{
+				p.AddTag(fuzzyTag);
+			}
+		}
 	}
 }

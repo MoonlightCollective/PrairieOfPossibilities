@@ -136,7 +136,8 @@ public class StemColorManager : DmxColorPoint
 	public float LocalRadius => _localRadius;
 
 	public List<PrairieTag> Tags = new List<PrairieTag>();
-	
+	protected HashSet<string> _hashTags = new HashSet<string>();
+
 	int _mainPropId = -1;
 	int _glowPropId = -1;
 	int _glowIntensityPropId = -1;
@@ -297,15 +298,18 @@ public class StemColorManager : DmxColorPoint
 
 	public bool HasTag(string tagName, bool fuzzyMatch = false)
 	{
-		foreach (var t in Tags)
+		if (fuzzyMatch)
 		{
-			if (t.Name == tagName)
-				return true;
-			
-			if (fuzzyMatch && t.Name.Contains(tagName))
-				return true;
+			// THIS IS SLOW - Only Use during INIT sequence or AUTHORING.
+			foreach (var t in Tags)
+			{
+				if (t.Name.Contains(tagName))
+					return true;
+			}
+			return false;
 		}
-		return false;
+
+		return _hashTags.Contains(tagName);
 	}
 
 	public void AddTag(PrairieTag newTag)
@@ -313,6 +317,7 @@ public class StemColorManager : DmxColorPoint
 		if (!HasTag(newTag.Name))
 		{
 			Tags.Add(newTag);
+			_hashTags.Add(newTag.Name);
 		}
 	}
 
@@ -321,6 +326,7 @@ public class StemColorManager : DmxColorPoint
 		if (!HasTag(newTagName))
 		{
 			Tags.Add(new PrairieTag(newTagName));
+			_hashTags.Add(newTagName);
 		}
 	}
 
@@ -329,6 +335,7 @@ public class StemColorManager : DmxColorPoint
 		if (HasTag(tagName))
 		{
 			Tags.RemoveAll(tagObj=>tagObj.Name==tagName);
+			_hashTags.Remove(tagName);
 		}
 	}
 

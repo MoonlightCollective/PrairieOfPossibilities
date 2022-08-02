@@ -37,7 +37,9 @@ public class PatternFixtureTagFilter : PatternPointFilterBase
 	{
 		foreach (var tag in RequiredTags)
 		{
-			if (!point.HasTag(tag,!PerfectMatch))
+			// -eja fuzzy matching now handled by new fixture import processing
+			// if (!point.HasTag(tag,!PerfectMatch))
+			if (!point.HasTag(tag))
 			{
 				return false;
 			}
@@ -50,7 +52,9 @@ public class PatternFixtureTagFilter : PatternPointFilterBase
 	{
 		foreach (var tag in RequiredTags)
 		{
-			if (point.HasTag(tag,!PerfectMatch))
+			// -eja fuzzy matching now handled by new fixture import processing
+			// if (point.HasTag(tag,!PerfectMatch))
+			if (point.HasTag(tag))
 			{
 				return true;
 			}

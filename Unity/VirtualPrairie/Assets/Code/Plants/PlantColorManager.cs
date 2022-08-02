@@ -19,8 +19,6 @@ public class PlantColorManager : WiredFixtureBase
 	protected List<PrairieTag> _fixtureTags = new List<PrairieTag>();
 	public IEnumerable<PrairieTag> FixtureTags => _fixtureTags;
 
-
-
 	// material init has to happen before we can set any colors on our stems.
 	private bool _initializedMaterials = false;
 
