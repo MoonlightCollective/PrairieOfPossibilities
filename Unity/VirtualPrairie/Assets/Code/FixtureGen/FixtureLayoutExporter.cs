@@ -175,7 +175,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 	public void ExportBaseDataCSV(string exportFilePath)
 	{
 		var rootObj = PrairieUtil.GetLayoutRoot();
-		string HeaderStr = "BaseId,DistFromCtr,Theta";
+		string HeaderStr = "BaseId,x,z,DistFromCtr,Theta";
 		using (StreamWriter stream = new StreamWriter(exportFilePath) )
 		{
 			stream.WriteLine(HeaderStr);
@@ -194,7 +194,9 @@ public class FixtureLayoutExporter : MonoBehaviour
 				float distM = Vector3.Distance(pcm.transform.position, origin);
 				float distFt = PrairieUtil.MetersToInches(distM);
 				float theta = Vector3.Angle(zAxis, pcm.transform.position);
-				stream.WriteLine($"{pcm.PlantId},{distFt.ToString()},{theta.ToString()}");
+				float x = PrairieUtil.MetersToInches(pcm.transform.position.x);
+				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);				
+				stream.WriteLine($"{pcm.PlantId},{x.ToString()},{z.ToString()},{distFt.ToString()},{theta.ToString()}");
 			}
 			stream.Flush();
 		}
