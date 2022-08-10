@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     getApiData();
-  }, [topicFeedPortal, topicFeedBooth, topicFeedBoothSession]);  
+  }, []);
 
   return (
     <div className="App">
