@@ -14,7 +14,8 @@ public class PlantColorManager : WiredFixtureBase
 	public int PointRangeMin = -1;
 	public int PointRangeMax = -1;
 	public Material GlowMat;
-
+	public int ChannelStart = -1;
+	public string PathId = "None";
 	
 	protected List<PrairieTag> _fixtureTags = new List<PrairieTag>();
 	public IEnumerable<PrairieTag> FixtureTags => _fixtureTags;
@@ -147,16 +148,19 @@ public class PlantColorManager : WiredFixtureBase
 		// make sure all the children are loaded
 		FindChildren();
 		// what channel does this fixture start at?
-		int channelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint*FixtureLayoutBase.kPointsPerFixture);
-		gameObject.name = $"Plant({this.PlantId})H({path.ArtnetHost})U({path.Universe})ChannelStart({channelStart})";
+		ChannelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint*FixtureLayoutBase.kPointsPerFixture);
+		PathId = path.PathId;
+
+		gameObject.name = $"Plant({this.PlantId})H({path.ArtnetHost})U({path.Universe})ChannelStart({ChannelStart})";
 		// no go through the stems and set their details
+		int stemChannelStart = ChannelStart;
 		foreach (var stem in StemColors)
 		{
 			stem.Host = path.ArtnetHost;
 			stem.Universe = path.Universe;
-			stem.ChannelStart = channelStart;
+			stem.ChannelStart = stemChannelStart;
 			// jump to the next set of channels
-			channelStart += FixtureLayoutBase.kChannelsPerPoint;
+			stemChannelStart += FixtureLayoutBase.kChannelsPerPoint;
 		}
 	}
 

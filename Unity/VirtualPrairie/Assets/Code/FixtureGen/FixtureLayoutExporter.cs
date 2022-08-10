@@ -148,7 +148,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 	public void ExportPathDataCSV(string exportFilePath)
 	{
-		string HeaderStr = "PathId,Host,Universe,ChannelStart,Fixture0,Fixture1,DistanceM,DistanceFt";
+		string HeaderStr = "PathId,Host,Universe,ChannelStart,Fixture0,Fixture1,DistanceFt";
 		using (StreamWriter stream = new StreamWriter(exportFilePath) )
 		{
 			stream.WriteLine(HeaderStr);
@@ -164,7 +164,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 					Vector3 endPos = path.Fixtures[i+1].transform.position;
 					float distM = Vector3.Distance(endPos,startPos);
 					float distFt = PrairieUtil.MetersToFeet(distM);
-					stream.WriteLine($"{pathId},{host},{universe},{channelStart},{(path.Fixtures[i].FixtureId).ToString()},{(path.Fixtures[i+1].FixtureId).ToString()},{distM.ToString()},{distFt.ToString()}");
+					stream.WriteLine($"{pathId},{host},{universe},{channelStart},{(path.Fixtures[i].FixtureId).ToString()},{(path.Fixtures[i+1].FixtureId).ToString()},{distFt.ToString()}");
 				}
 				stream.Flush();
 			}
@@ -175,7 +175,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 	public void ExportBaseDataCSV(string exportFilePath)
 	{
 		var rootObj = PrairieUtil.GetLayoutRoot();
-		string HeaderStr = "BaseId,x,z,DistFromCtr,Theta";
+		string HeaderStr = "BaseId,x,z,DistFromCtr,Theta,ChannelStart,PathId";
 		using (StreamWriter stream = new StreamWriter(exportFilePath) )
 		{
 			stream.WriteLine(HeaderStr);
@@ -195,8 +195,8 @@ public class FixtureLayoutExporter : MonoBehaviour
 				float distFt = PrairieUtil.MetersToInches(distM);
 				float theta = Vector3.Angle(zAxis, pcm.transform.position);
 				float x = PrairieUtil.MetersToInches(pcm.transform.position.x);
-				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);				
-				stream.WriteLine($"{pcm.PlantId},{x.ToString()},{z.ToString()},{distFt.ToString()},{theta.ToString()}");
+				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);
+				stream.WriteLine($"{pcm.PlantId},{x.ToString()},{z.ToString()},{distFt.ToString()},{theta.ToString()},{pcm.ChannelStart.ToString()},{pcm.PathId}");
 			}
 			stream.Flush();
 		}
