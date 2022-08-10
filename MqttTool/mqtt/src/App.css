@@ -53,6 +53,11 @@
 .ButtonTable td + td, .ButtonTable th + th { width:70%; }
 .ButtonTable td + td + td, .ButtonTable th + th + th { width:15%; }
 
+.FormTable { table-layout:fixed; vertical-align: top;}
+.FormTable  td, .FormTable th { width:50%; }
+.FormTable td + td, .FormTable th + th { width:50%; }
+.FormTable select {width: 100px;}
+
 .MqttButton {
   background-color: #282c34;
   border: none;

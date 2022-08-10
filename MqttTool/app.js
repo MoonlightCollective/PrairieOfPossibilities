@@ -3,11 +3,15 @@ const mqtt = require('mqtt')
 const math = require("mathjs")
 const app = express();
 
+// for parsing application/json
+app.use(express.json()); 
 
+// for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true })); 
 
 //const connectUrl = "mqtt://73.254.192.189:41799"
-//const connectUrl = "mqtt://test.mosquitto.org:1883"
-const connectUrl = "mqtt://127.0.0.1:1883"
+const connectUrl = "mqtt://mqtt:1883"
+//const connectUrl = "mqtt://127.0.0.1:1883"
 
 console.log('Connecting to:', connectUrl)
 const client = mqtt.connect(connectUrl, {
@@ -19,19 +23,36 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 })
 
-const topic = 'portal'
 client.on('connect', () => {
   console.log('Connected')
-  client.subscribe([topic], () => {
-    console.log(`Subscribed to topic '${topic}'`)
+  client.subscribe(['portal'], () => {
+    console.log(`Subscribed to topic 'portal'`)
+  })
+  client.subscribe(['booth'], () => {
+    console.log(`Subscribed to topic 'booth'`)
+  })
+  client.subscribe(['booth_session'], () => {
+    console.log(`Subscribed to topic 'booth_session'`)
   })
 })
 
 var portalTopicFeed  = [];
+var boothTopicFeed  = [];
+var boothSessionTopicFeed  = [];
 
 client.on('message', (topic, payload) => {
   console.log('Received Message:', topic, payload.toString())
-  portalTopicFeed.push(JSON.parse(payload.toString()))
+  switch (topic) {
+    case "portal":
+      portalTopicFeed.push(JSON.parse(payload.toString()))
+      break;
+    case "booth":
+      boothTopicFeed.push(JSON.parse(payload.toString()))
+      break;
+    case "booth_session":
+      boothSessionTopicFeed.push(JSON.parse(payload.toString()))
+      break;      
+  }
 })
 
 
@@ -41,12 +62,12 @@ app.get("/", (req, res) => {
 
 app.post("/mqtt/topic/portal", (req, res) => {
   console.log("POST /mqtt/topic/portal");
-  fieldDict = { "sender":"portal1", "direction":"forward" }
+  fieldDict = { "sender":req.body.sender, "direction":req.body.direction }
   tagsDict = { "host":"PrairieMqttTool" }
   msgDict = { "name":"trigger", "fields":fieldDict, "tags":tagsDict, "timestamp":math.floor(Date.now()/1000) }
   json_object = JSON.stringify(msgDict)
 
-  client.publish(topic, json_object, { qos: 0, retain: false }, (error) => {
+  client.publish("portal", json_object, { qos: 0, retain: false }, (error) => {
     if (error) {
       console.error(error)
     }
@@ -61,7 +82,50 @@ app.get("/mqtt/topic/portal", (req, res) => {
   res.send(JSON.stringify(portalTopicFeed));
 });
 
+app.post("/mqtt/topic/booth", (req, res) => {
+  console.log("POST /mqtt/topic/booth");
+  fieldDict = { "sender":req.body.sender, "state":req.body.state }
+  tagsDict = { "host":"PrairieMqttTool" }
+  msgDict = { "name":"occupy_change", "fields":fieldDict, "tags":tagsDict, "timestamp":math.floor(Date.now()/1000) }
+  json_object = JSON.stringify(msgDict)
 
+  client.publish("booth", json_object, { qos: 0, retain: false }, (error) => {
+    if (error) {
+      console.error(error)
+    }
+  })  
+  console.log("mqtt published:", json_object);
+
+  res.redirect("/");
+});
+
+app.get("/mqtt/topic/booth", (req, res) => {
+  console.log("GET /mqtt/topic/booth returning", JSON.stringify(boothTopicFeed));
+  res.send(JSON.stringify(boothTopicFeed));
+});
+
+
+app.post("/mqtt/topic/booth_session", (req, res) => {
+  console.log("POST /mqtt/topic/booth_session");
+  fieldDict = { "sender":req.body.sender, "state":req.body.state }
+  tagsDict = { "host":"PrairieMqttTool" }
+  msgDict = { "name":req.body.message, "fields":fieldDict, "tags":tagsDict, "timestamp":math.floor(Date.now()/1000) }
+  json_object = JSON.stringify(msgDict)
+
+  client.publish("booth_session", json_object, { qos: 0, retain: false }, (error) => {
+    if (error) {
+      console.error(error)
+    }
+  })  
+  console.log("mqtt published:", json_object);
+
+  res.redirect("/");
+});
+
+app.get("/mqtt/topic/booth_session", (req, res) => {
+  console.log("GET /mqtt/topic/booth_session returning", JSON.stringify(boothSessionTopicFeed));
+  res.send(JSON.stringify(boothSessionTopicFeed));
+});
 
 
 const PORT = process.env.PORT || 8080;
