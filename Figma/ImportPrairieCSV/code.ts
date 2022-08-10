@@ -33,8 +33,8 @@ function buildMaps() {
   {
     if (i > 0)
     {
-      var cols = rows[i].split(",");
-      pathList.push(cols);
+      // store them as strings.   typescript doesnt' like arrays of arrays
+      pathList.push(rows[i]);
     }
   }
 }
@@ -907,6 +907,8 @@ function loadPathData()
       break;
   }
 
+  console.log(`done adding lights`);
+
   // and now we group the new lights together
   const map = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
   figma.currentPage.selection = nodes;
@@ -917,16 +919,24 @@ function loadPathData()
   // now we draw the wiring path lines
   var testLoopMax = 500;
   for (let path of pathList) {
+
+    var cols = path.split(",");
+    console.log(`path = ${path} cols.length = ${cols.length}`);
+
     const line = figma.createLine();
-    var startNodeId = parseInt(path[4]);
-    var endNodeId = parseInt(path[5]);
+    var startNodeId = cols[4];
+    var endNodeId = cols[5];
+
+    console.log(`startNodeId = ${startNodeId} endNodeId = ${endNodeId}`);
+
+    console.log(`(lightBaseMap.get(startNodeId) = ${lightBaseMap.get(startNodeId)} lightBaseMap.get(endNodeId) = ${lightBaseMap.get(endNodeId)}`);
 
     var startX = parseFloat(lightBaseMap.get(startNodeId)[1]);
     var startZ = parseFloat(lightBaseMap.get(startNodeId)[2]);
     var endX = parseFloat(lightBaseMap.get(endNodeId)[1]);
     var endZ = parseFloat(lightBaseMap.get(endNodeId)[2]);
 
-    console.log(`processing path from node ${path[4]} to ${path[5]}`);
+    console.log(`processing path from node ${cols[4]} to ${cols[5]}`);
 
     var length = Math.sqrt((endX - startX)*(endX - startX) + (endZ - startZ)*(endZ - startZ));
     line.resize(length,0);
@@ -940,11 +950,11 @@ function loadPathData()
       break;
   }
 
-    // and now we group the new lines together
-    figma.currentPage.selection = lines;
-    figma.viewport.scrollAndZoomIntoView(lines);
-    const newLines = figma.group(lines,map);
-    newLines.name = "Wiring Paths";
+  // and now we group the new lines together
+  figma.currentPage.selection = lines;
+  figma.viewport.scrollAndZoomIntoView(lines);
+  const newLines = figma.group(lines,map);
+  newLines.name = "Wiring Paths";
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
