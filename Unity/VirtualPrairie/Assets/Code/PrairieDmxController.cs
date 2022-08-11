@@ -19,7 +19,13 @@ public class PrairieDmxController : MonoBehaviour
 	const string localhost = "localhost";
 
 	// how many channels per point (per LED)
-	public int ChannelsPerPoint = 3;
+	public static int ChannelsPerPoint = 3;	
+	public static int PointsPerFixture = 7;
+	public static int ChannelsPerFixture = PointsPerFixture * ChannelsPerPoint; // 21
+	public static int ChannelsPerUniverse = 512;
+	public static int MaxFixturesPerUniverse = 24;
+	public static int MaxChannelsPerUniverse = 504;		// 24 * ChannelsPerFixture = 504 total channels.
+	public static int MaxChannelStartPerUniverse = 484;	// 504 total channels.  which means fixture#24 has a start of 484 (484,w/ 21 channels is 484-504)
 
 	// We support 2 main modes for DMX
 	// 	Listen: in this mode the prairie acts as a dmx controller, and listens for dmx events.

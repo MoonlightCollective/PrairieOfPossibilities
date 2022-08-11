@@ -139,7 +139,7 @@ public class PlantColorManager : WiredFixtureBase
 		}
 	}
 
-	public override void WireToPath(WiredPath path, int index = -1)
+	public override void WireToPath(WiredPath path, int index = -1, int ChannelStartOverride = -1)
 	{
 		base.WireToPath(path, index);
 		if (index == 0 && _selectionHandler != null)// might be null if we imported in the editor
@@ -147,8 +147,24 @@ public class PlantColorManager : WiredFixtureBase
 		// update the dmx settings
 		// make sure all the children are loaded
 		FindChildren();
-		// what channel does this fixture start at?
-		ChannelStart = path.ChannelStart + (index*FixtureLayoutBase.kChannelsPerPoint*FixtureLayoutBase.kPointsPerFixture);
+		// what channel does this fixture start at?  is there a channel override?
+		if (ChannelStartOverride > 0)
+		{
+			ChannelStart = ChannelStartOverride;
+			Debug.Log($"PlantColorManager.WireToPath fixture has ChannelStartOverride({ChannelStartOverride}), using it.");
+		}
+		// otherwise use the path start channel
+		else 
+		{
+			ChannelStart = path.ChannelStart + (index*PrairieDmxController.ChannelsPerFixture);
+			// did we overrun?
+			if (ChannelStart > PrairieDmxController.MaxChannelStartPerUniverse)
+			{
+				// just handle a simple single universe overrun, assume a wire path is a single universe and will fit all fixtures
+				ChannelStart -= PrairieDmxController.MaxChannelsPerUniverse;
+				Debug.Log($"PlantColorManager.WireToPath handled path overrun, path.PathId({path.PathId}), index({index}), using ChannelStart({ChannelStart})");
+			}
+		}
 		PathId = path.PathId;
 
 		gameObject.name = $"Plant({this.PlantId})H({path.ArtnetHost})U({path.Universe})ChannelStart({ChannelStart})";
@@ -160,7 +176,7 @@ public class PlantColorManager : WiredFixtureBase
 			stem.Universe = path.Universe;
 			stem.ChannelStart = stemChannelStart;
 			// jump to the next set of channels
-			stemChannelStart += FixtureLayoutBase.kChannelsPerPoint;
+			stemChannelStart += PrairieDmxController.ChannelsPerPoint;
 		}
 	}
 

@@ -9,7 +9,6 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	[Header("Import")]
 	public string JsonFilePath;
 
-
 	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
 	{
 		GlobalPlantSettings.FindGlobalInstance();
@@ -118,6 +117,8 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			else
 			{
 				Debug.Log($"FixtureLayoutImport:Adding paths.Count={fixtureData.wirePaths.Count}");
+
+				int AutoChannelStart = 1;
 				
 				foreach (var pathData in fixtureData.wirePaths)
 				{
@@ -125,8 +126,20 @@ public class FixtureLayoutImport : FixtureLayoutBase
 					newPath.ArtnetHost = pathData.artnetHost;
 					newPath.Universe = pathData.universe;
 					newPath.ChannelStart = pathData.channelStart;
+					if (newPath.ChannelStart > 0)
+					{
+						// that path has a channel start !  use this channel as our new auto channel start to keep things running.
+						Debug.Log($"FixtureLayoutImport: path has a channel start, using that as the new auto channel start ({newPath.ChannelStart})");
+						AutoChannelStart = newPath.ChannelStart;
+					}
+					else 
+					{
+						// otherwise, keep trucking with our auto run logic
+						Debug.Log($"FixtureLayoutImport: path doesnt have a channel start, using auto channel start ({AutoChannelStart})");
+						newPath.ChannelStart = AutoChannelStart;
+					}
 					newPath.PathId = pathData.pathId;
-					Debug.Log($"Adding path IP: {newPath.ArtnetHost} Universe: {newPath.Universe} Channel: {newPath.ChannelStart}");
+					Debug.Log($"Adding path.  PathId:({newPath.PathId}) IP:({newPath.ArtnetHost}) Universe:({newPath.Universe}) ChannelStart:({newPath.ChannelStart})");
 
 					foreach (var pathDataItem in pathData.items)
 					{
@@ -135,7 +148,17 @@ public class FixtureLayoutImport : FixtureLayoutBase
 							if (pathDataItem.FixtureId < allDevices.Count)
 							{
 								WiredFixtureBase wfb = allDevices[pathDataItem.FixtureId];
-								newPath.AddFixture(wfb);
+								// note: the channel override does not reset the run (but this run still skips this slot)
+								newPath.AddFixture(wfb, pathDataItem.ChannelStartOverride);
+								// update the auto counters
+								AutoChannelStart += PrairieDmxController.ChannelsPerFixture;
+								// does this new auto start have enough space for an entire fixture?
+								if (AutoChannelStart > PrairieDmxController.MaxChannelStartPerUniverse)
+								{
+									// roll over
+									Debug.Log($"FixtureLayoutImport: rolling over the auto start channel to 1");
+									AutoChannelStart = 1;
+								}
 							}
 							else
 							{

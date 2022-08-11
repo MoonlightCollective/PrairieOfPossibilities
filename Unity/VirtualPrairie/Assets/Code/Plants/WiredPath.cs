@@ -7,7 +7,9 @@ public class WiredPath : MonoBehaviour
 	public string PathId = "Path";
 	public string ArtnetHost = "127.0.0.1";
 	public int Universe = 1;
-	public int ChannelStart = 1;
+	// -1 means for the auto channel logic to take over.
+	// if you set a value other than -1, it will use that number
+	public int ChannelStart = -1;
 	
 	List<WiredFixtureBase> _fixtures = new List<WiredFixtureBase>();
 	public List<WiredFixtureBase> Fixtures => _fixtures;
@@ -38,7 +40,7 @@ public class WiredPath : MonoBehaviour
 		updateVisuals();
 	}
 
-	public void AddFixture(WiredFixtureBase newFixture)
+	public void AddFixture(WiredFixtureBase newFixture, int ChannelStartOverride = -1)
 	{
 		if (newFixture.gameObject == null)
 		{
@@ -46,7 +48,7 @@ public class WiredPath : MonoBehaviour
 			return;
 		}
 		_fixtures.Add(newFixture);
-		newFixture.WireToPath(this,_fixtures.Count-1);
+		newFixture.WireToPath(this,_fixtures.Count-1, ChannelStartOverride);
 		updateVisuals();
 	}
 

@@ -15,10 +15,6 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 
 	protected int _curUniverse;
 	protected int _curChannel;
-	public static int kChannelsPerPoint = 3;
-	public static int kPointsPerFixture = 7;
-	protected static int _channelsPerUniverse = 512;
-	protected static int _channelsPerFixture = kPointsPerFixture * kChannelsPerPoint;
 
 	protected int _lastFixtureId = 0;
 
@@ -98,8 +94,8 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			{
 				Debug.LogWarning($"ID/Sibling mismatch {pcm.PlantId} {transform.GetSiblingIndex()}");
 			}
-			pcm.PointRangeMin = pcm.PlantId * kPointsPerFixture;
-			pcm.PointRangeMax = pcm.PointRangeMin + kPointsPerFixture;
+			pcm.PointRangeMin = pcm.PlantId * PrairieDmxController.PointsPerFixture;
+			pcm.PointRangeMax = pcm.PointRangeMin + PrairieDmxController.PointsPerFixture;
 		}
 		else
 		{
@@ -107,12 +103,12 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 		}
 
 		// support creating plants at runtime, assining universes as we see them.  import files will optionally overwrite these at the end
-		if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
+		if (_curChannel + PrairieDmxController.ChannelsPerFixture >= PrairieDmxController.ChannelsPerUniverse)
 		{
 			_curUniverse++;
 			_curChannel = 0;
 		}
-		_curChannel += _channelsPerFixture;
+		_curChannel += PrairieDmxController.ChannelsPerFixture;
 
 		// ray cast down and place it on the "ground".  this supports the maps we have with terrain (hills)
 		Vector3 castStart = newObj.transform.position + Vector3.up * 40.0f;

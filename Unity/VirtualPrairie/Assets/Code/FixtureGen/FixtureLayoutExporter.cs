@@ -90,6 +90,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 				item.PathId = fixture.PathIndex;
 				item.FixtureId = fixture.FixtureId;
 				item.FixtureType = fixture.FixtureType;
+				item.ChannelStartOverride = fixture.ChannelStartOverride;
 				pathItemList.Add(item);
 			}
 			pathData.items = pathItemList;

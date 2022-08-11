@@ -45,6 +45,10 @@ class WirePathItemData
 	public string FixtureType;
 	public int FixtureId;
 	public int PathId;
+	// normally the fixture will just take its channel start from the run of the wirepath.
+	// this allows us to "sub in" a new fixture base if we have to, and get into trouble
+	// with bad equipment.  normally do not use this and let the wirepath run logic handle it
+	public int ChannelStartOverride;
 }
 
 class WirePathData

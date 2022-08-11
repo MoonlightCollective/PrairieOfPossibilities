@@ -79,7 +79,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 
 					//TODO add section, ring, and base# tags
 					
-					if (_curChannel + _channelsPerFixture >= _channelsPerUniverse)
+					if (_curChannel + PrairieDmxController.ChannelsPerFixture >= PrairieDmxController.ChannelsPerUniverse)
 					{
 						_curUniverse++;
 						_curChannel = 0;
@@ -90,7 +90,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 					
 					Debug.Log($"{angle}, {x}, {z}");
 					newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(x),0.0f,PrairieUtil.FeetToMeters(z));
-					_curChannel += _channelsPerFixture;
+					_curChannel += PrairieDmxController.ChannelsPerFixture;
 					
 					fixturesLeft--;
 					angle += anglePerFixture;
