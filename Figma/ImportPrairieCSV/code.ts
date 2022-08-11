@@ -19,6 +19,7 @@ function buildMaps() {
   {
     if (i > 0)
     {
+      rows[i] = rows[i].trim();
       var cols = rows[i].split(",");
       lightBaseMap.set(cols[0], cols);
     }
@@ -34,6 +35,7 @@ function buildMaps() {
     if (i > 0)
     {
       // store them as strings.   typescript doesnt' like arrays of arrays
+      rows[i] = rows[i].trim();
       pathList.push(rows[i]);
     }
   }
@@ -42,7 +44,7 @@ function buildMaps() {
 function loadBaseData()
 {
   var baseData = `BaseId,x,z,DistFromCtr,Theta,ChannelStart,PathId
-0,180.0005,0,180.0005,90,85,20
+        0,180.0005,0,180.0005,90,85,20
 1,164.4387,73.21281,180.0005,66,64,20
 2,120.4439,133.7664,180.0005,42,43,20
 3,55.62321,171.1907,180.0005,18,22,20
