@@ -872,54 +872,13 @@ function loadPathData()
   const nodes: SceneNode[] = [];
   const lines: SceneNode[] = [];
   const node = figma.currentPage;
-  const base = node.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
+  const map = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+
+  // first get rid of old lights & wiring path data
   const lights = node.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
   lights.remove();
   const wiringPaths = node.findOne(node => node.type === "GROUP" && node.name === "Wiring Paths") as FrameNode;
   wiringPaths.remove();
-
-
-  var testLoopMax = 500;
-  for (let key of lightBaseMap.keys()) {
-    const light = base.createInstance();
-    console.log(`processing lightbase ${key}`);
-    console.log(`    ${lightBaseMap.get(key)}`);
-    console.log(`    ${lightBaseMap.get(key)[1]}`);
-    console.log(`    ${lightBaseMap.get(key)[2]}`);
-
-    light.x = parseFloat(lightBaseMap.get(key)[1]);
-    light.y = -parseFloat(lightBaseMap.get(key)[2]);  // need to invert y because in unity, y axis runs bottom-to-top, and in figma, it runs top-to-bottom
-    const id = light.findOne(node => node.type === "TEXT" && node.name === "#ID") as TextNode;
-    id.characters = key;
-
-    const univ = light.findOne(node => node.type === "TEXT" && node.name === "#Universe") as TextNode;
-    univ.characters = `U${lightBaseMap.get(key)[6]}`;
-
-    var chanStart = parseInt(lightBaseMap.get(key)[5]);
-    var chanEnd = chanStart+20;
-
-    const range = light.findOne(node => node.type === "TEXT" && node.name === "#Range") as TextNode;
-    range.characters = `${chanStart}-${chanEnd}`;
-
-    light.name = `Light ${key}`;
-
-    // for now just put light in the main page; group later
-    node.appendChild(light);
-    nodes.push(light);
-
-    testLoopMax -=1;
-    if (testLoopMax == 0)
-      break;
-  }
-
-  console.log(`done adding lights`);
-
-  // and now we group the new lights together
-  const map = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
-  figma.currentPage.selection = nodes;
-  figma.viewport.scrollAndZoomIntoView(nodes);
-  const newLights = figma.group(nodes,map);
-  newLights.name = "Lights";
 
   // now we draw the wiring path lines
   var testLoopMax = 500;
@@ -965,6 +924,49 @@ function loadPathData()
   figma.viewport.scrollAndZoomIntoView(lines);
   const newLines = figma.group(lines,map);
   newLines.name = "Wiring Paths";
+
+  // now add new lights and group together
+  const base = node.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
+  var testLoopMax = 500;
+  for (let key of lightBaseMap.keys()) {
+    const light = base.createInstance();
+    console.log(`processing lightbase ${key}`);
+    console.log(`    ${lightBaseMap.get(key)}`);
+    console.log(`    ${lightBaseMap.get(key)[1]}`);
+    console.log(`    ${lightBaseMap.get(key)[2]}`);
+
+    light.x = parseFloat(lightBaseMap.get(key)[1]);
+    light.y = -parseFloat(lightBaseMap.get(key)[2]);  // need to invert y because in unity, y axis runs bottom-to-top, and in figma, it runs top-to-bottom
+    const id = light.findOne(node => node.type === "TEXT" && node.name === "#ID") as TextNode;
+    id.characters = key;
+
+    const univ = light.findOne(node => node.type === "TEXT" && node.name === "#Universe") as TextNode;
+    univ.characters = `U${lightBaseMap.get(key)[6]}`;
+
+    var chanStart = parseInt(lightBaseMap.get(key)[5]);
+    var chanEnd = chanStart+20;
+
+    const range = light.findOne(node => node.type === "TEXT" && node.name === "#Range") as TextNode;
+    range.characters = `${chanStart}-${chanEnd}`;
+
+    light.name = `Light ${key}`;
+
+    // for now just put light in the main page; group later
+    node.appendChild(light);
+    nodes.push(light);
+
+    testLoopMax -=1;
+    if (testLoopMax == 0)
+      break;
+  }
+
+  console.log(`done adding lights`);
+
+  // and now we group the new lights together
+  figma.currentPage.selection = nodes;
+  figma.viewport.scrollAndZoomIntoView(nodes);
+  const newLights = figma.group(nodes,map);
+  newLights.name = "Lights";
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
