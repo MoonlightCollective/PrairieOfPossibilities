@@ -467,8 +467,7 @@ function loadBaseData()
 
 function loadPathData()
 {
-  var pathData = `PathId,Host,Universe,ChannelStart,Fixture0,Fixture1,DistanceFt
-1,192.168.0.220,1,253,21,276,11.2478
+  var pathData = `1,192.168.0.220,1,253,21,276,11.2478
 1,192.168.0.220,1,253,276,307,10.62748
 1,192.168.0.220,1,253,307,340,11.21266
 1,192.168.0.220,1,253,340,374,11.83952
@@ -873,6 +872,9 @@ function loadPathData()
   const base = node.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
   const lights = node.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
   lights.remove();
+  const wiringPaths = node.findOne(node => node.type === "GROUP" && node.name === "Wiring Paths") as FrameNode;
+  wiringPaths.remove();
+
 
   var testLoopMax = 500;
   for (let key of lightBaseMap.keys()) {
@@ -932,14 +934,19 @@ function loadPathData()
     console.log(`(lightBaseMap.get(startNodeId) = ${lightBaseMap.get(startNodeId)} lightBaseMap.get(endNodeId) = ${lightBaseMap.get(endNodeId)}`);
 
     var startX = parseFloat(lightBaseMap.get(startNodeId)[1]);
-    var startZ = parseFloat(lightBaseMap.get(startNodeId)[2]);
+    var startZ = -parseFloat(lightBaseMap.get(startNodeId)[2]);
     var endX = parseFloat(lightBaseMap.get(endNodeId)[1]);
-    var endZ = parseFloat(lightBaseMap.get(endNodeId)[2]);
+    var endZ = -parseFloat(lightBaseMap.get(endNodeId)[2]);
 
     console.log(`processing path from node ${cols[4]} to ${cols[5]}`);
 
     var length = Math.sqrt((endX - startX)*(endX - startX) + (endZ - startZ)*(endZ - startZ));
+    var rot = -Math.atan2(endZ - startZ, endX - startX) * 180 / Math.PI;
+
     line.resize(length,0);
+    line.x = startX;
+    line.y = startZ;
+    line.rotation = rot;
 
     // for now just put light in the main page; group later
     node.appendChild(line);
