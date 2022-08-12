@@ -9,7 +9,8 @@ public class GlobalPlantSettings : MonoBehaviour
 	public float StemAlpha;
 	public float GlowIntensity;
 	public float GroundGlowAlpha = 0.5f;
-	
+	public bool AutoConnectMqtt = true;
+	public bool AutoConnectArtNet = true;
 	public int VisualsFrameSkip = 0;
 	public bool VisualsSkipThisFrame
 	{
@@ -57,6 +58,9 @@ public class GlobalPlantSettings : MonoBehaviour
 		Brightness = PlayerPrefs.GetFloat("Brightness",.5f);
 		GlowIntensity = PlayerPrefs.GetFloat("GlowIntensity",1.9f);
 		StemAlpha = PlayerPrefs.GetFloat("StemAlpha",.25f);
+
+		AutoConnectArtNet = PlayerPrefs.GetInt("AutoConnectArtNet",1)==1?true:false;
+		AutoConnectMqtt = PlayerPrefs.GetInt("AutoConnectMqtt",1)==1?true:false;
 	}
 
 	public void SavePrefs()
@@ -64,5 +68,7 @@ public class GlobalPlantSettings : MonoBehaviour
 		PlayerPrefs.SetFloat("Brightness", Brightness);
 		PlayerPrefs.SetFloat("GlowIntensity", GlowIntensity);
 		PlayerPrefs.SetFloat("StemAlpha", StemAlpha);
+		PlayerPrefs.SetInt("AutoConnectArtNet",AutoConnectArtNet?1:0);
+		PlayerPrefs.SetInt("AutoConnectMqtt",AutoConnectMqtt?1:0);
 	}
 }

@@ -29,6 +29,7 @@ public class MqttController : M2MqttUnityClient
 
 	protected override void Start()
 	{
+		autoConnect = GlobalPlantSettings.Instance.AutoConnectMqtt;
 		base.Start();
 		if (!autoConnect)
 		{
