@@ -84,6 +84,11 @@ public class PrairieDmxController : MonoBehaviour
 		}
 	}
 
+	public void ReInit()
+	{
+		doInit();
+	}
+
 	// doInit() - ArtNet setup.
 	private bool doInit()
 	{
@@ -179,7 +184,7 @@ public class PrairieDmxController : MonoBehaviour
 					packet.DmxData = host.Value[u];
 
 					IPAddress address = ipFromHostname(host.Key);
-					//Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
+					// Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
 					_artNet.Send(packet, new IPEndPoint(address, ArtNetSocket.Port));
 				}
 			}
