@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 607714736}
   - component: {fileID: 607714737}
   m_Layer: 0
-  m_Name: Band1
+  m_Name: Band2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 694129082}
   - component: {fileID: 694129083}
   m_Layer: 0
-  m_Name: Band2
+  m_Name: Band3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 736232277}
   - component: {fileID: 736232278}
   m_Layer: 0
-  m_Name: Band3
+  m_Name: Band4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 1072205369}
   - component: {fileID: 1072205372}
   m_Layer: 0
-  m_Name: Band0
+  m_Name: Band1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2103,7 +2103,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0005493164
+      value: -0.0012817383
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -6218,7 +6218,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0007324219
+      value: 0.00091552734
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -6596,6 +6596,11 @@ PrefabInstance:
         type: 3}
       propertyPath: brokerAddress
       value: localhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009842724972525121, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: DmxMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7048435010081697877, guid: e971f0975231343f3b404f362569294d,
         type: 3}
