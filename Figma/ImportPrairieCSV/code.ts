@@ -861,11 +861,20 @@ function loadPathData()
 
 async function importCSV() {
 
-  buildMaps();
-
   const nodes: SceneNode[] = [];
   const lines: SceneNode[] = [];
   const node = figma.currentPage;
+
+  // make sure we are on the right page
+  if (node.name != "Assets")
+  {
+    console.error(`need to be on the Assets page to run`);
+    return;
+  }
+
+  // import the CSV data
+  buildMaps();
+  
   console.log(`finding node 'Map'`);
   const mapNode = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
   //const mapNode = node.findOne(node => node.type === "GROUP" && node.name === "Map") as FrameNode;
@@ -990,6 +999,48 @@ async function importCSV() {
 }
 
 
+async function exportTags() 
+{
+
+  const pageNode = figma.currentPage;
+
+  // make sure we are on the right page
+  if (pageNode.name != "Landmarks")
+  {
+    console.error(`need to be on the Landmarks page to run`);
+    return;
+  }
+
+  var tagNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Arms / direction A") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+
+  for (let child of tagNode.children)
+  {
+    if (child.name.startsWith("Group"))
+    {
+      //console.log(`found child '${child.name}'`);
+      // find the child lights
+      var childGroup = child as FrameNode;
+      var csvLightNumbers = "";
+      for (let light of childGroup.children)
+      {
+        if (csvLightNumbers != "")
+        {
+          csvLightNumbers += ",";
+        }
+        csvLightNumbers += light.name.substring(6);
+      }
+      var groupNum = child.name.substring(6);
+      console.log(`${child.name},${csvLightNumbers}`);
+    }
+  }
+
+}
+
 // This file holds the main code for the plugins. It has access to the *document*.
 // You can access browser APIs such as the network by creating a UI which contains
 // a full browser environment (see documentation).
@@ -998,14 +1049,15 @@ async function importCSV() {
   await loadFonts();
 
   console.log(`figma.command = ${figma.command}`)
+  console.log(`figma.currentPage.name = '${figma.currentPage.name}'`);
 
   if (figma.command == "import")
-  {
+  {    
     await importCSV();
   }
   else if (figma.command == "export")
   {
-
+    await exportTags();
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
