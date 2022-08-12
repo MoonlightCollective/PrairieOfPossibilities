@@ -52,15 +52,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 10.032526
-      outSlope: 10.032526
+      inSlope: 5.9717784
+      outSlope: 5.9717784
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.08651094
-      value: 0.86792326
+      time: 0.14612703
+      value: 0.8726382
       inSlope: 1.6324154
       outSlope: 1.6324154
       tangentMode: 0
@@ -70,8 +70,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.35816246
       value: 0.96462256
-      inSlope: -0.5734697
-      outSlope: -0.5734697
+      inSlope: -0.5345459
+      outSlope: -0.5345459
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -93,31 +93,31 @@ MonoBehaviour:
     MaxVal: 4
   DefaultRingSize:
     MinVal: 5
-    MaxVal: 20
+    MaxVal: 10
   DefaultPositionTheta:
     MinVal: 0
     MaxVal: 1
   DefaultPositionRadius:
-    MinVal: 0
-    MaxVal: 120
-  DefaultFalloff: 10
+    MinVal: 10
+    MaxVal: 100
+  DefaultFalloff: 8.78
   FalloffCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: -1
+      inSlope: 0.10230994
+      outSlope: 0.10230994
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.046104927
     - serializedVersion: 3
       time: 1
       value: 0
       inSlope: -1
-      outSlope: 0
+      outSlope: -1
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

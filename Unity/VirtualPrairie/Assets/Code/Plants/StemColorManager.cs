@@ -237,10 +237,9 @@ public class StemColorManager : DmxColorPoint
 			_localThetaNorm = (StemIndex == 5)?0:.5f;
 		}
 
-		Vector2 localPos = transform.localPosition * -100.0f;
-
+		// Vector2 localPos = transform.localPosition * -100.0f;
+		_xzVect = new Vector2(transform.position.x,transform.position.z);
 		_globalDistFromOrigin = transform.position.magnitude;
-		_xzVect = new Vector2(_parentFixture.transform.position.x + localPos.x, _parentFixture.transform.position.z + localPos.y);
 		_randomPointOffset = UnityEngine.Random.Range(0,1);
 	}
 

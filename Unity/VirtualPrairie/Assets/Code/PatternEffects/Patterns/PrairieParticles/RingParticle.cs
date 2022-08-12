@@ -82,9 +82,10 @@ public class RingParticle : PrairieParticleBase
 
 	public override Color ColorForPoint(StemColorManager point)
 	{
-		float distFromC = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ));
-		float distFromR = Mathf.Abs(distFromC - _curR);
-		float normalizedFalloffDist = Mathf.Clamp01(distFromR/_falloff);
+		float absDistFromR = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ) - _curR);
+		// float distFromC = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ));
+		// float distFromR = Mathf.Abs(distFromC - _curR);
+		float normalizedFalloffDist = Mathf.Clamp01(absDistFromR/_falloff);
 		float b = _particleAlpha * Mathf.Clamp01(FalloffCurve.Evaluate(normalizedFalloffDist));
 		return new Color(b,b,b,b);
 	}

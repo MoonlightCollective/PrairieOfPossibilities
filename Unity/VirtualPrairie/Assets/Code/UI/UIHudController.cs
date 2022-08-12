@@ -8,6 +8,7 @@ public class UIHudController : MonoBehaviour
 {
 	public TextMeshProUGUI PlantCountText;
 	public TextMeshProUGUI FieldDiameterText;
+	public TextMeshProUGUI ReadmeText;
 	public UILabelSlider BrightnessSlider;
 	public UILabelSlider GlowSlider;
 	public UILabelSlider AlphaSlider;

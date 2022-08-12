@@ -10,7 +10,7 @@ public class ParticlePattern : PrairiePatternLayer
 	public ColorizeBrightnessValue ColorizeSettings;
 
 	[Required]
-	[ValidateInput("ValidateParticlePrefab","Bust be a particle prefab!")]
+	[ValidateInput("ValidateParticlePrefab","Must be a particle prefab!")]
 	public GameObject ParticlePrefab;
 
 	[MinValue(1)]
