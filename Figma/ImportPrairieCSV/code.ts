@@ -859,26 +859,41 @@ function loadPathData()
 }
 
 
-
-// This file holds the main code for the plugins. It has access to the *document*.
-// You can access browser APIs such as the network by creating a UI which contains
-// a full browser environment (see documentation).
-
-(async() => {
-  await loadFonts();
+async function importCSV() {
 
   buildMaps();
 
   const nodes: SceneNode[] = [];
   const lines: SceneNode[] = [];
   const node = figma.currentPage;
-  const map = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`finding node 'Map'`);
+  const mapNode = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  //const mapNode = node.findOne(node => node.type === "GROUP" && node.name === "Map") as FrameNode;
+  if (mapNode == null)
+  {
+    console.log(`mapNode is null !`);
+    return;
+  }
+//  else
+//  {
+//    console.log(`mapNode node.type = '${mapNode.type}'`);
+//    return;
+//  }
 
   // first get rid of old lights & wiring path data
+  console.log(`finding and deleting node 'Lights'`);
   const lights = node.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
-  lights.remove();
+  if (lights != null)
+  {
+    lights.remove();
+  }
+
+  console.log(`finding and deleting node 'Wiring Paths'`);
   const wiringPaths = node.findOne(node => node.type === "GROUP" && node.name === "Wiring Paths") as FrameNode;
-  wiringPaths.remove();
+  if (wiringPaths != null)
+  {
+    wiringPaths.remove();
+  }
 
   // now we draw the wiring path lines
   var testLoopMax = 500;
@@ -919,13 +934,17 @@ function loadPathData()
       break;
   }
 
+  console.log(`done processing paths`);
+
   // and now we group the new lines together
   figma.currentPage.selection = lines;
   figma.viewport.scrollAndZoomIntoView(lines);
-  const newLines = figma.group(lines,map);
+  console.log(`figma.group()`);
+  const newLines = figma.group(lines,mapNode);
   newLines.name = "Wiring Paths";
 
   // now add new lights and group together
+  console.log(`finding node 'Light Base'`);
   const base = node.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
   var testLoopMax = 500;
   for (let key of lightBaseMap.keys()) {
@@ -965,8 +984,29 @@ function loadPathData()
   // and now we group the new lights together
   figma.currentPage.selection = nodes;
   figma.viewport.scrollAndZoomIntoView(nodes);
-  const newLights = figma.group(nodes,map);
+  const newLights = figma.group(nodes,mapNode);
   newLights.name = "Lights";
+
+}
+
+
+// This file holds the main code for the plugins. It has access to the *document*.
+// You can access browser APIs such as the network by creating a UI which contains
+// a full browser environment (see documentation).
+
+(async() => {
+  await loadFonts();
+
+  console.log(`figma.command = ${figma.command}`)
+
+  if (figma.command == "import")
+  {
+    await importCSV();
+  }
+  else if (figma.command == "export")
+  {
+
+  }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
