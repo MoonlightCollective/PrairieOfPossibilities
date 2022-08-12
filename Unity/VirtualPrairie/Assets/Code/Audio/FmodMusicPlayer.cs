@@ -51,6 +51,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	public int FftBinCount;
 	public float[] FftBins;
 
+	bool _inCleanup = false;
 	public enum EFmodMusicPlayerState
 	{
 		Stopped,
@@ -186,6 +187,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	public void OnDestroy()
 	{
+		_inCleanup = true;
 		if (_curEventInstance.isValid())
 		{
 			_curEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
@@ -202,7 +204,6 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	static FMOD.RESULT eventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr evInstancePtr, IntPtr parameterPtr)
 	{
 		FMOD.Studio.EventInstance instance = new FMOD.Studio.EventInstance(evInstancePtr);
-		
 		IntPtr evUserDataPtr;
 		FmodMusicPlayer playerInstance = null;
 		FMOD.RESULT result = instance.getUserData(out evUserDataPtr);
@@ -215,6 +216,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			// Get the object to store beat and marker details
 			GCHandle userHandle = GCHandle.FromIntPtr(evUserDataPtr);
 			playerInstance = (FmodMusicPlayer)userHandle.Target;
+		}
+
+		if (playerInstance._inCleanup)
+		{
+			return FMOD.RESULT.OK;
 		}
 
 		switch(type)
