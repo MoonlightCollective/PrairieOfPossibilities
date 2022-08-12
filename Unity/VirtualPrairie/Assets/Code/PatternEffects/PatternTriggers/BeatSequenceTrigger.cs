@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,10 +12,17 @@ public class BeatSequenceEntry
 
 public class BeatSequenceTrigger : TriggerListener
 {
+	[Foldout("Sequencer Activation")]
 	public EEnableBehavior TriggerBehavior = EEnableBehavior.Toggle;
+	[Foldout("Sequencer Activation")]
 	public bool IsActive;
+	[Foldout("Sequencer Activation")]
 	public bool Loop = false;
-	public int SequenceIndex = 0;
+
+	[Tooltip("This is the last index fired - so start with -1 to have the first trigger fire on first beat")]
+	[Foldout("State")]
+	public int SequenceIndex = -1;
+
 	public List<BeatSequenceEntry> SequenceTriggers = new List<BeatSequenceEntry>();
 
 	FmodMusicPlayer _fmp;

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32d3feb9a69b84924903a807723ce511, type: 3}
-  m_Name: CenterOnly
+  m_Script: {fileID: 11500000, guid: c94be8ca6e747463d8fb25c6cffa79b6, type: 3}
+  m_Name: Filter-Band2
   m_EditorClassIdentifier: 
-  PerfectMatch: 1
-  OperationMode: 0
-  RequiredTags:
-  - CentralClearing
+  Name: Band
+  MinRadiusM: 20.1
+  MaxRadiusM: 30

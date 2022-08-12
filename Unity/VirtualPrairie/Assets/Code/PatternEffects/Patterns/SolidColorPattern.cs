@@ -24,7 +24,8 @@ public class SolidColorPattern : PrairiePatternLayer
 		{
 			if (!filterAllowPoint(p))
 				continue;
-			p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
+			else
+				p.SetColor(ColorBlend.BlendColors(blendColor,p.CurColor,BlendSettings.BlendMode));
 		}
 	}
 }

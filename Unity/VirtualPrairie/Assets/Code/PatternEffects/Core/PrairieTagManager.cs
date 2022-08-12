@@ -148,7 +148,10 @@ public class PrairieTagManager : MonoBehaviour
 		{
 			foreach (var fuzzyTag in fuzzyStrings)
 			{
-				p.AddTag(fuzzyTag);
+				if (p.HasTag(fuzzyTag,true))
+				{
+					p.AddTag(fuzzyTag);
+				}
 			}
 		}
 	}
