@@ -152,8 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: A dymaic version of the BandColors demo, where the beat of the music
-    drives a Sequencer that toggles the state of each band in sequence with the beat.
+  ReadmeString: MusicBeatTriggers are used with beat filters to fire events on different
+    parts of the beat into different patterns, creating the "boom chick" effect.
+    Multi-filters are used to localize the boom-chick effect to specific bands.
 --- !u!4 &353468394
 Transform:
   m_ObjectHideFlags: 0
