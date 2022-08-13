@@ -35,7 +35,7 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 
 	public override ColorPaletteMix GroupColors => ShadowParentColors?ParentGroup.GroupColors:_paletteMixer.ActiveColors;
 
-	public override float GroupAlpha => GroupSettings.GroupAlpha * ParentGroup.GroupAlpha;
+	public override float GroupAlpha => GroupSettings.GroupAlpha * ((ParentGroup==null)?1.0f:ParentGroup.GroupAlpha);
 
 	protected bool _bufferBuilt = false;
 	List<StemColorManager> _bufferPoints = new List<StemColorManager>();
@@ -186,6 +186,7 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 
 	void clearToColor(Color clearColor)
 	{
+		Debug.Log("ClearTo:" + clearColor);
 		foreach (var scm in _bufferPoints)
 		{
 			scm.SetColor(clearColor);
