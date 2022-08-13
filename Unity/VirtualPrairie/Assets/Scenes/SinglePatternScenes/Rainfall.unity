@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
+  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -496,11 +496,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicEvents:
   - Guid:
-      Data1: 246868597
-      Data2: 1132438656
-      Data3: -1008978777
-      Data4: -830714198
-    Path: event:/Music/A Spiral In Clavius
+      Data1: -683527910
+      Data2: 1309461476
+      Data3: -387101046
+      Data4: -608680500
+    Path: event:/Music/TestMusic/BeatLoop128
 --- !u!1 &616628546
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +682,7 @@ Transform:
   m_Children:
   - {fileID: 318281453}
   - {fileID: 2020060356}
+  - {fileID: 2134898473}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1144,6 +1145,87 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 815410213093546073}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2134898472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134898473}
+  - component: {fileID: 2134898475}
+  - component: {fileID: 2134898474}
+  m_Layer: 0
+  m_Name: MusicTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2134898473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134898472}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 896058323}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2134898474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134898472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: 'Listens for a pair of events in the music. When it gets "StartLoop"
+    from the music player, it will send on "ON" message to all the targets listed
+    above.  When it gets "StartLoop C" from the music, it will send an "OFF" message
+    to the target.
+
+
+    If the target is a GATE, it will hold itself on until it
+    receives an Off message.
+
+
+    If the target is a TRIGGER, it will get triggered
+    for On events, but OFF events will be ignored.  In this case, we are targeting
+    a GATE (the LayerAlphaGate on Rainfall), which means both on and off will be
+    respected.  This is a good way to handle smooth transitions in and out of effects
+    that are on for a long section of the music.
+
+'
+--- !u!114 &2134898475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134898472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603f79e90d0444c02ae0b6d06018307e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GateTargets:
+    Targets:
+    - {fileID: 0}
+  OnMarker: StartLoop
+  OffMarker: StartLoop C
+  PerfectMatch: 1
+  SendOffWithMusicStop: 1
 --- !u!4 &543450653662167452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 854387486035539136, guid: 24f9ba5f3b23e45219658ada6effbcb8,
@@ -2722,6 +2804,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2547162895953010213, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -4038,6 +4145,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4393161171491857787, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -6491,7 +6623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/CenterClearingLayoutTagTest.json
-  AutoPlayMusic: 0
+  AutoPlayMusic: 1
   DoLoadSceneOnPlaylistEnd: 0
   DestiationScene: SwapTesting2
   AutoDisplayMode: 0

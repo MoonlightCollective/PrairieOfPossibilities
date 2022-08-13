@@ -861,13 +861,22 @@ function loadPathData()
 
 async function importCSV() {
 
-  buildMaps();
-
   const nodes: SceneNode[] = [];
   const lines: SceneNode[] = [];
-  const node = figma.currentPage;
+  const pageNode = figma.currentPage;
+
+  // make sure we are on the right page
+  if (pageNode.name != "Assets")
+  {
+    console.error(`need to be on the Assets page to run`);
+    return;
+  }
+
+  // import the CSV data
+  buildMaps();
+  
   console.log(`finding node 'Map'`);
-  const mapNode = node.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  const mapNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
   //const mapNode = node.findOne(node => node.type === "GROUP" && node.name === "Map") as FrameNode;
   if (mapNode == null)
   {
@@ -882,14 +891,14 @@ async function importCSV() {
 
   // first get rid of old lights & wiring path data
   console.log(`finding and deleting node 'Lights'`);
-  const lights = node.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  const lights = pageNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
   if (lights != null)
   {
     lights.remove();
   }
 
   console.log(`finding and deleting node 'Wiring Paths'`);
-  const wiringPaths = node.findOne(node => node.type === "GROUP" && node.name === "Wiring Paths") as FrameNode;
+  const wiringPaths = pageNode.findOne(node => node.type === "GROUP" && node.name === "Wiring Paths") as FrameNode;
   if (wiringPaths != null)
   {
     wiringPaths.remove();
@@ -925,8 +934,19 @@ async function importCSV() {
     line.y = startZ;
     line.rotation = rot;
 
-    // for now just put light in the main page; group later
-    node.appendChild(line);
+    // add the length of the line
+    var lineLength = figma.createText();
+    lineLength.fontSize = 8;
+    lineLength.characters = parseFloat(cols[6]).toFixed(2) + " (ft)";
+    lineLength.x = ((startX + endX) / 2) + 10;
+    lineLength.y = (startZ + endZ) / 2;
+
+    // for now just put node in the main page; group later
+    pageNode.appendChild(lineLength);
+    lines.push(lineLength);
+
+    // for now just put node in the main page; group later
+    pageNode.appendChild(line);
     lines.push(line);
 
     testLoopMax -=1;
@@ -945,7 +965,7 @@ async function importCSV() {
 
   // now add new lights and group together
   console.log(`finding node 'Light Base'`);
-  const base = node.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
+  const base = pageNode.findOne(node => node.type === "COMPONENT" && node.name === "Light Base") as ComponentNode;
   var testLoopMax = 500;
   for (let key of lightBaseMap.keys()) {
     const light = base.createInstance();
@@ -971,7 +991,7 @@ async function importCSV() {
     light.name = `Light ${key}`;
 
     // for now just put light in the main page; group later
-    node.appendChild(light);
+    pageNode.appendChild(light);
     nodes.push(light);
 
     testLoopMax -=1;
@@ -990,6 +1010,48 @@ async function importCSV() {
 }
 
 
+async function exportTags() 
+{
+
+  const pageNode = figma.currentPage;
+
+  // make sure we are on the right page
+  if (pageNode.name != "Landmarks")
+  {
+    console.error(`need to be on the Landmarks page to run`);
+    return;
+  }
+
+  var tagNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Arms / direction A") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+
+  for (let child of tagNode.children)
+  {
+    if (child.name.startsWith("Group"))
+    {
+      //console.log(`found child '${child.name}'`);
+      // find the child lights
+      var childGroup = child as FrameNode;
+      var csvLightNumbers = "";
+      for (let light of childGroup.children)
+      {
+        if (csvLightNumbers != "")
+        {
+          csvLightNumbers += ",";
+        }
+        csvLightNumbers += light.name.substring(6);
+      }
+      var groupNum = child.name.substring(6);
+      console.log(`${child.name},${csvLightNumbers}`);
+    }
+  }
+
+}
+
 // This file holds the main code for the plugins. It has access to the *document*.
 // You can access browser APIs such as the network by creating a UI which contains
 // a full browser environment (see documentation).
@@ -998,14 +1060,15 @@ async function importCSV() {
   await loadFonts();
 
   console.log(`figma.command = ${figma.command}`)
+  console.log(`figma.currentPage.name = '${figma.currentPage.name}'`);
 
   if (figma.command == "import")
-  {
+  {    
     await importCSV();
   }
   else if (figma.command == "export")
   {
-
+    await exportTags();
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
