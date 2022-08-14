@@ -109,6 +109,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 
 	public bool IsPlaying()
 	{
+		if (_stateMachine == null)
+			return false;
+		
 		return (_stateMachine.CurrentState == EFmodMusicPlayerState.Playing);
 	}
 
@@ -147,6 +150,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
 	}
 	
+	public void Start()
+	{
+		connectToFFT();
+	}
+
 	public void Update()
 	{
 		_stateMachine.DoStateAction(EFmodMusicPlayerAction.Update);
@@ -157,6 +165,48 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		RawFFTValues = new float[_fftWindowSize];
 		FftBins = new float[FftBinCount];
 		clearFFTVals();
+
+	}
+	
+	void connectToFFT()
+	{
+			// Create a DSP of DSP_TYPE.FFT
+		if (FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft) == FMOD.RESULT.OK)
+		{
+			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWTYPE, (int)FMOD.DSP_FFT_WINDOW.HANNING);
+			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, _fftWindowSize * 2);
+			FMODUnity.RuntimeManager.StudioSystem.flushCommands();
+
+			// Get the master bus
+			FMOD.Studio.Bus selectedBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+			if (selectedBus.hasHandle())
+			{
+				// Get the channel group
+				FMOD.ChannelGroup channelGroup;
+				if (selectedBus.getChannelGroup(out channelGroup) == FMOD.RESULT.OK)
+				{
+					// Add fft to the channel group
+					if (channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft) != FMOD.RESULT.OK)
+					{
+						Debug.LogWarningFormat("FMOD: Unable to add mFFT to the master channel group");
+					}
+				}
+				else
+				{
+					Debug.LogWarningFormat("FMOD: Unable to get Channel Group from the selected bus");
+				}
+			}
+			else
+			{
+				Debug.LogWarningFormat("FMOD: Unable to get the selected bus");
+			}
+		}
+		else
+		{
+			Debug.LogWarningFormat("FMOD: Unable to create FMOD.DSP_TYPE.FFT");
+		}
+
+
 	}
 
 	void clearFFTVals()
@@ -190,9 +240,23 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_inCleanup = true;
 		if (_curEventInstance.isValid())
 		{
-			_curEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			_curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 			_curEventInstance.release();
 		}
+
+		FMOD.Studio.Bus selectedBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+		if (selectedBus.hasHandle())
+		{
+			FMOD.ChannelGroup channelGroup;
+			if (selectedBus.getChannelGroup(out channelGroup) == FMOD.RESULT.OK)
+			{
+				if(_fft.hasHandle())
+				{
+					channelGroup.removeDSP(_fft);
+				}
+			}
+		}
+
 	}
 
 	//===============
@@ -301,8 +365,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		if (_curEventInstance.isValid())
 		{
 			OnStopMusicEvent?.Invoke("Stop"); // add the stopped event path?
-			_curEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-			_curEventInstance.setTimelinePosition(0);
+			_curEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			_curEventInstance.release();
 			reset();
 		}
 	}
@@ -340,13 +404,14 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
 			
-			FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft);
-			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWTYPE, (int)FMOD.DSP_FFT_WINDOW.HANNING);
-			_fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, _fftWindowSize * 2);
+			// FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft);
+			// _fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWTYPE, (int)FMOD.DSP_FFT_WINDOW.HANNING);
+			// _fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, _fftWindowSize * 2);
+			//  FMODUnity.RuntimeManager.StudioSystem.flushCommands();
 
-			FMOD.ChannelGroup channelGroup;
-			FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
-			channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft);
+			// FMOD.ChannelGroup channelGroup;
+			// FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
+			// channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft);
 
 			OnStartMusicEvent?.Invoke(ev.ToString());
 			_stateMachine.GotoState(EFmodMusicPlayerState.Playing);
@@ -432,6 +497,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		{
 			_curEventInstance.start();
 		}
+		_inCleanup = false;
 	}
 	protected void PlayingUpdate()
 	{
@@ -487,9 +553,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	}
 
 	float lin2db(float linear)
-    {
-        return Mathf.Clamp(Mathf.Log10(linear) * 20.0f, -80.0f, 0.0f);
-    }
+	{
+		return Mathf.Clamp(Mathf.Log10(linear) * 20.0f, -80.0f, 0.0f);
+	}
 
 	protected void PlayingExit() { }
 	protected void PlayingPause()
