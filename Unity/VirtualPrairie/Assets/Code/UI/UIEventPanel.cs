@@ -11,8 +11,9 @@ public class UIEventPanel : MonoBehaviour
 	public VerticalLayoutGroup LayoutGroup;
 
 	public Color MusicEventDefaultButtonColor = new Color(.8f,.8f,.8f,.8f);
-	public Color MusicEventGateOnButtonColor = new Color(1f,.8f,.8f,.8f);
-	public Color MusicEventGateOffButtonColor = new Color(.8f,1f,.8f,.8f);
+	public Color MusicEventGateOnButtonColor = new Color(.8f,1f,.8f,.8f);
+	public Color MusicEventGateOffButtonColor = new Color(1f,.8f,.8f,.8f);
+
 
 	public void Start()
 	{
