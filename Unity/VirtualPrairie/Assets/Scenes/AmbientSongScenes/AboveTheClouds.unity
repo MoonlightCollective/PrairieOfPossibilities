@@ -565,6 +565,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ea699a0e88ed64e5f9359957eab90f37, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 150
   UpdateRate: 20
@@ -1090,6 +1092,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: 17f544f073eab434ba4397a060fb12d1, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 50
   UpdateRate: 20
@@ -1242,6 +1246,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: cf602a39b821043ad9683f657086b496, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 200
   UpdateRate: 20
@@ -1465,6 +1471,8 @@ MonoBehaviour:
     TimeMult: 0.76
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   NoiseSettings:
     NoiseScale: {x: 40, y: 10, z: 40.5}
     InitialOffsets: {x: 0, y: 0, z: 0}
@@ -1628,6 +1636,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: 17f544f073eab434ba4397a060fb12d1, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 50
   UpdateRate: 20
@@ -6722,6 +6732,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: 429c0a6f199a94689abf22a3bb32e45d, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 100
   UpdateRate: 20
@@ -12839,8 +12851,8 @@ MonoBehaviour:
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/CenterClearingLayoutTagTest.json
   AutoPlayMusic: 1
-  DoLoadSceneOnPlaylistEnd: 0
-  DestiationScene: SwapTesting2
+  DoLoadSceneOnPlaylistEnd: 1
+  DestiationScene: BeforeSunrise
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
