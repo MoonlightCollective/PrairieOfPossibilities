@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031113855, g: 0.00618714, b: 0.014234937, a: 1}
+  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,6 +215,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 3.01
   FalloffCurve:
@@ -335,6 +337,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 4
   FalloffCurve:
@@ -537,6 +541,8 @@ MonoBehaviour:
     TimeMult: 0.1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 16.07
   RingMovement:
@@ -875,6 +881,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3
   FalloffCurve:
@@ -1058,6 +1066,8 @@ MonoBehaviour:
     TimeMult: 0.15
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 40
   RingMovement:
@@ -1221,6 +1231,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 3.5
   FalloffCurve:
@@ -1341,6 +1353,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 93981382ecb8042b8a1ca2aa02a68f76, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 4
   FalloffCurve:
@@ -2084,6 +2098,8 @@ MonoBehaviour:
     TimeMult: 0.22
   PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 30
   RingMovement:
@@ -2229,6 +2245,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3.5
   FalloffCurve:
@@ -2349,6 +2367,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3.01
   FalloffCurve:
@@ -2500,6 +2520,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 4
   FalloffCurve:
@@ -2997,6 +3019,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3
   FalloffCurve:
@@ -3117,6 +3141,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3.01
   FalloffCurve:
@@ -3672,6 +3698,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 93981382ecb8042b8a1ca2aa02a68f76, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 4
   FalloffCurve:
@@ -3976,6 +4004,8 @@ MonoBehaviour:
     TimeMult: 0.1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 16.07
   RingMovement:
@@ -4121,6 +4151,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   NoiseSettings:
     NoiseScale: {x: 40, y: 10, z: 40.5}
     InitialOffsets: {x: 50, y: 50, z: 50}
@@ -4314,6 +4346,8 @@ MonoBehaviour:
     TimeMult: 0.76
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   NoiseSettings:
     NoiseScale: {x: 40, y: 10, z: 40.5}
     InitialOffsets: {x: 0, y: 0, z: 0}
@@ -4510,6 +4544,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 3
   FalloffCurve:
@@ -4630,6 +4666,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 4
   FalloffCurve:
@@ -10108,6 +10146,8 @@ MonoBehaviour:
     TimeMult: 0.1
   PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 0
   FalloffRange: 16.07
   RingMovement:
@@ -10577,6 +10617,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 0}
+  AlphaMode: 0
+  FixedAlpha: 1
   RenderTex: {fileID: 8400000, guid: d3cb16b1d9780473fa73661c5ace1506, type: 2}
   FieldRadius: 120
   UpdateRate: 50
@@ -10835,6 +10877,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 93981382ecb8042b8a1ca2aa02a68f76, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 4
   FalloffCurve:
@@ -15799,6 +15843,8 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
   Origin: 1
   FalloffRange: 3.5
   FalloffCurve:
@@ -16925,6 +16971,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446174622295778199, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2547162895953010213, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -17735,6 +17806,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457342271156654622, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4498694077927046715, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -18130,6 +18226,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5592747006934338882, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -18939,6 +19060,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831762165452460966, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -365.81006
       objectReference: {fileID: 0}
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -19224,9 +19350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/CenterClearingLayoutTagTest.json
-  AutoPlayMusic: 0
+  AutoPlayMusic: 1
   DoLoadSceneOnPlaylistEnd: 1
-  DestiationScene: CompTesting
+  DestiationScene: AboveTheClouds
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
