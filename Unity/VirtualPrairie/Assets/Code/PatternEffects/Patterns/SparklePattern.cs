@@ -89,7 +89,7 @@ public class SparklePattern : PrairiePatternMonochromaticBase
 
 		foreach (var s in _fixtureStates)
 		{
-			s.Update(deltaTime);
+			s.Update(deltaTime * TimeSettings.TimeMult);
 		}
 
 		if (BlendSettings.LayerAlpha <= 0f)
