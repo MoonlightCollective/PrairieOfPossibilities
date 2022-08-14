@@ -40,6 +40,11 @@ public class PrairieLayerGroup : MonoBehaviour
 		_paletteMixer = GetComponent<ColorPaletteMixer>();
 	}
 
+	public virtual void NotifyNewLayout()
+	{
+		rebuildLayerList();
+	}
+
 	//===============
 	// Update - update all our patterns.
 	//===============

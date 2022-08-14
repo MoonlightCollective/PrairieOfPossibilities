@@ -24,7 +24,7 @@ public class ColorBlend
 			case EBlendMode.AlphaBlend:
 				return ((srcColor * srcColor.a) + (destColor * (1f-srcColor.a)));
 			case EBlendMode.Add:
-				return srcColor + destColor;
+				return (srcColor * srcColor.a) + destColor;
 			case EBlendMode.AddClamped:
 				return new Color(Mathf.Clamp01(srcColor.r + destColor.r),
 									Mathf.Clamp01(srcColor.g + destColor.b),

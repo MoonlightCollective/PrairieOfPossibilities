@@ -45,6 +45,7 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 	public override void Start()
 	{
 		base.Start();
+		// Debug.Log("Start");
 		if (!_bufferBuilt)
 			buildBuffer();
 	}
@@ -55,11 +56,18 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 		_paletteMixer = GetComponent<ColorPaletteMixer>();
 	}
 
+	public override void NotifyNewLayout()
+	{
+		base.NotifyNewLayout();
+		buildBuffer();
+	}
+
 	//===============
 	// Update - update all our patterns.
 	//===============
 	public override void Update()
 	{
+		// Debug.Log("BG:Update");
 		if (!_bufferBuilt || _bufferPoints.Count != PrairieUtil.Points.Count)
 		{
 			// if layout changed, rebuild proxy lights.
@@ -71,10 +79,12 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 			// only do all this if we need to.
 			return;
 		}
+		// Debug.Log("BG:Eabled");
 
 
 		// clear buffer based on clear settings (might not do a full clear)
 		clearBuffer();
+		// Debug.Log("BG:Cleared");
 
 		// update our color palette
 		updateGroupPalette();
@@ -83,11 +93,13 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 		{
 			if (layer.gameObject.activeInHierarchy)
 			{
+				// Debug.Log("BG:Run - " + layer.gameObject.name);
 				layer.Run(Time.deltaTime * layer.TimeSettings.TimeMult, this, _bufferPoints);
 			}
 		}
 
 		var mainPoints = PrairieUtil.Points;
+		int blendedPoints = 0;
 		for(int i = 0; i < _bufferPoints.Count; i++)
 		{
 			if (PointFilter != null && !PointFilter.AllowPoint(_bufferPoints[i]))
@@ -111,7 +123,9 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 			Color destColor = mainPoints[i].CurColor;
 
 			mainPoints[i].SetColor(ColorBlend.BlendColors(srcColor,destColor,BlendSettings.BlendMode));
+			blendedPoints++;
 		}
+		// Debug.Log("BG: blended - " + blendedPoints);
 	}
 	
 	//===============
@@ -120,6 +134,7 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 
 	protected void buildBuffer()
 	{
+		// Debug.Log("BuildBuffer");
 		_bufferPoints.Clear();
 
 		if (_bufferRoot != null)
@@ -176,17 +191,17 @@ public class PrairieLayerBufferGroup : PrairieLayerGroup, IAlphaEnvTarget
 		}
 
 		float subAmt = DecayPerSec * Time.deltaTime;
-		Color subGrey = new Color(subAmt,subAmt,subAmt);
+		Color subGrey = new Color(subAmt,subAmt,subAmt,subAmt);
 		foreach (var scm in _bufferPoints)
 		{
 			var newColor = scm.CurColor - subGrey;
-			scm.SetColor(new Color(Mathf.Clamp01(newColor.r),Mathf.Clamp01(newColor.g),Mathf.Clamp01(newColor.b)));
+			scm.SetColor(new Color(Mathf.Clamp01(newColor.r),Mathf.Clamp01(newColor.g),Mathf.Clamp01(newColor.b),Mathf.Clamp01(newColor.a)));
 		}
 	}
 
 	void clearToColor(Color clearColor)
 	{
-		Debug.Log("ClearTo:" + clearColor);
+		// Debug.Log("ClearTo:" + clearColor);
 		foreach (var scm in _bufferPoints)
 		{
 			scm.SetColor(clearColor);

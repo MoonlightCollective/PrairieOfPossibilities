@@ -46,7 +46,8 @@ public class SubgroupPattern : PrairiePatternLayer
 
 		foreach (var l in _layers)
 		{
-			l.Run(deltaTime * GetTimeMult(), group, points);
+			if (l.gameObject.activeInHierarchy)
+				l.Run(deltaTime * GetTimeMult(), group, points);
 		}
 
 		group.SetSubgroupAlpha(prevSubgroupAlpha);
