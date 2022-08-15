@@ -173,10 +173,96 @@ public class FixtureLayoutExporter : MonoBehaviour
 		}
 	}
 
+	// returns an angle in 0-360 from the x axis origin
+	private float AngleBetweenVector2(Vector3 vec1, Vector3 vec2)
+	{
+		Vector2 vec21 = new Vector2(vec1.x, vec1.z);
+		Vector2 vec22 = new Vector2(vec2.x, vec2.z);
+		Vector2 diference = vec22 - vec21;
+        float sign = (vec22.x < vec21.x)? -1.0f : 1.0f;
+		float angle = Vector2.Angle(Vector2.right, diference);
+		if (sign < 0)
+			return 360.0f - angle;
+        return angle;
+	}
+
+	private float DegreesToRadians(float angle)
+	{
+		return (float)(Mathf.PI / 180.0 * angle);
+	}
+	private float RadianstoDegrees(float angle)
+	{
+		return (float)(angle * 180.0 / Mathf.PI);
+	}
+
+	private Vector2 GetIntersection(Vector2 point, float theta, float radius)
+	{
+		// express the line as a normalized unit vector
+		float dx = radius * Mathf.Cos(theta) - 0;
+		float dy = radius * Mathf.Sin(theta) - 0;
+		float mag = Mathf.Sqrt(dx * dx + dy * dy);
+		dx /= mag;
+		dy /= mag;
+
+		// translate the point and get the dot product
+		float lambda = (dx * (point.x - 0)) + (dy * (point.y - 0));
+		Vector2 intersectPoint = new Vector2();
+		intersectPoint.x = (dx * lambda) + 0;
+		intersectPoint.y = (dy * lambda) + 0;
+
+		return intersectPoint;
+	}
+
+	private void FiveDegreeMath(
+		float theta, 
+		float radius, 
+		float x, 
+		float y, 
+		out float NearestTheta5, 
+		out float DistFromCenterOnTheta5,
+		out float DistFromTheta5)
+	{
+		Vector2 fixturePoint = new Vector2(x,y);
+
+		// round theta down
+		int thetaFloor = Mathf.FloorToInt(theta);
+		// the nearest 5(degree) angle below theta
+		float theta1 = thetaFloor - (thetaFloor % 5);
+		// the nearest 5(degree) angle above theta
+		float theta2 = theta1 + 5.0f;
+		// convert to radians
+		theta1 = DegreesToRadians(theta1);
+		theta2 = DegreesToRadians(theta2);
+
+		// make a line from the origin out theta1 to double the radius (just a big line) and get the intersection
+		Vector2 theta1Point = GetIntersection(fixturePoint, theta1, 2 * radius);
+		// how far to that intersection
+		float distance1 = Vector2.Distance(fixturePoint, theta1Point);
+
+		// same thing for theta2
+		Vector2 theta2Point = GetIntersection(fixturePoint, theta2, 2 * radius);
+		// how far to that intersection
+		float distance2 = Vector2.Distance(fixturePoint, theta2Point);
+
+		Vector2 origin = new Vector2(0,0);
+		if (distance1 < distance2)
+		{
+			NearestTheta5 = RadianstoDegrees(theta1);
+			DistFromCenterOnTheta5 = Vector2.Distance(origin, theta1Point);
+			DistFromTheta5 = distance1;
+		}
+		else
+		{
+			NearestTheta5 = RadianstoDegrees(theta2);
+			DistFromCenterOnTheta5 = Vector2.Distance(origin, theta2Point);
+			DistFromTheta5 = distance2;
+		}
+	}	
+
 	public void ExportBaseDataCSV(string exportFilePath)
 	{
 		var rootObj = PrairieUtil.GetLayoutRoot();
-		string HeaderStr = "BaseId,x,z,DistFromCtr,Theta,ChannelStart,PathId";
+		string HeaderStr = "BaseId,x,z,DistFromCtr,Theta,ChannelStart,PathId,NearestTheta5,DistFromCenterOnTheta5,DistFromTheta5";
 		using (StreamWriter stream = new StreamWriter(exportFilePath) )
 		{
 			stream.WriteLine(HeaderStr);
@@ -184,7 +270,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 			foreach (Transform obj in rootObj.transform)
 			{
 				Vector3 origin = new Vector3(0, 0, 0);
-				Vector3 zAxis = new Vector3(0, 0, 1);
+				Vector3 xAxis = new Vector3(1, 0, 0);
 
 				PlantColorManager pcm = obj.gameObject.GetComponent<PlantColorManager>();
 				if (pcm == null)
@@ -194,10 +280,13 @@ public class FixtureLayoutExporter : MonoBehaviour
 				}
 				float distM = Vector3.Distance(pcm.transform.position, origin);
 				float distFt = PrairieUtil.MetersToInches(distM);
-				float theta = Vector3.Angle(zAxis, pcm.transform.position);
+				float theta = AngleBetweenVector2(xAxis, pcm.transform.position);
 				float x = PrairieUtil.MetersToInches(pcm.transform.position.x);
 				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);
-				stream.WriteLine($"{pcm.PlantId},{x.ToString()},{z.ToString()},{distFt.ToString()},{theta.ToString()},{pcm.ChannelStart.ToString()},{pcm.PathId}");
+            	float NearestTheta5, DistFromCenterOnTheta5, DistFromTheta5;
+				// do the 5(deg) math !
+				FiveDegreeMath(theta, distFt, x, z, out NearestTheta5, out DistFromCenterOnTheta5, out DistFromTheta5);
+				stream.WriteLine($"{pcm.PlantId},{x.ToString()},{z.ToString()},{distFt.ToString()},{theta.ToString()},{pcm.ChannelStart.ToString()},{pcm.PathId},{NearestTheta5},{DistFromCenterOnTheta5},{DistFromTheta5}");
 			}
 			stream.Flush();
 		}
