@@ -13,7 +13,7 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 	[Snapshot] public EOriginLoc Origin;
 
 	[Header("Indexed params")]
-	[Range(0,1)]
+	[Range(-1,1)]
 	[Snapshot] public float Speed;
 
 	[Range(0,1)]
@@ -30,7 +30,11 @@ public class LighthousePattern : PrairiePatternMonochromaticBase
 		float speed = Speed;
 
 		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
-		angle = (angle + speed * deltaTime)%1.0f;
+		angle = angle + speed * deltaTime;
+		if (angle < 0)
+			angle += 1;
+		angle = angle%1.0f;
+
 		float offsetAngle = (angle + NormAngleOffset)%1;
 
 		// pAngle is also normalized between zero and one, calculated based on axis.
