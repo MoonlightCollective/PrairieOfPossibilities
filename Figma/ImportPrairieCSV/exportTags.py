@@ -36,6 +36,9 @@ print(f'found {len(tags)} fixtures to tag')
 
 addedTagCount = 0
 skippedTagCount = 0
+removedTagCount = 0
+
+preRemoveTagPrefix = "Arm"
 
 for row in tags:
     rowTag = row[0]
@@ -45,21 +48,28 @@ for row in tags:
             skippedFirst = True
             continue
         existingTags = children[int(num)]['tags']
+        newTags = []
         found = False
         for tag in existingTags:
             if tag == rowTag:
                 found = True
                 skippedTagCount += 1
+                newTags.append(tag)
+            elif tag.startswith(preRemoveTagPrefix):
+                removedTagCount += 1
+            else:
+                newTags.append(tag)
+
         if found is False:
-            existingTags.append(rowTag)
-            children[int(num)]['tags'] = existingTags
             addedTagCount += 1
+            newTags.append(rowTag)
+            children[int(num)]['tags'] = newTags
 
 #for fixture in children:
 #    existTags = fixture['tags']
 #    print(f'fixture.tags = {existTags}')
 
-print(f'added ({addedTagCount}) tags skipped ({skippedTagCount}) tags to output.json')
+print(f'addedTagCount ({addedTagCount}); skippedTagCount ({skippedTagCount}); removedTagCount ({removedTagCount}); => output.json')
 
 with open("output.json", "w") as outputFile:
     json.dump(jsonData , outputFile, indent=2)

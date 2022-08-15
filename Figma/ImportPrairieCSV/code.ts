@@ -1031,7 +1031,7 @@ async function exportTags()
 
   for (let child of tagNode.children)
   {
-    if (child.name.startsWith("Arm"))
+    if (child.name.startsWith("CWArm"))
     {
       //console.log(`found child '${child.name}'`);
       // find the child lights
