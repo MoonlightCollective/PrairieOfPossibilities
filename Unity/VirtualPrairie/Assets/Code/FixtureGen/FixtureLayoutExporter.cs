@@ -174,16 +174,28 @@ public class FixtureLayoutExporter : MonoBehaviour
 	}
 
 	// returns an angle in 0-360 from the x axis origin
-	private float AngleBetweenVector2(Vector3 vec1, Vector3 vec2)
+	private float AngleBetweenVector3(Vector3 vec1, Vector3 vec2)
 	{
-		Vector2 vec21 = new Vector2(vec1.x, vec1.z);
-		Vector2 vec22 = new Vector2(vec2.x, vec2.z);
-		Vector2 diference = vec22 - vec21;
-        float sign = (vec22.x < vec21.x)? -1.0f : 1.0f;
-		float angle = Vector2.Angle(Vector2.right, diference);
-		if (sign < 0)
-			return 360.0f - angle;
-        return angle;
+		// lets use these as Vector2's
+		var A = new Vector2(vec1.x, vec1.z);
+		var B = new Vector2(vec2.x, vec2.z);
+		// normalize the vectors
+		A.Normalize();
+		B.Normalize();
+		// get the dot product
+		var Dot = Vector2.Dot(A, B);
+		// get the determinant
+		var Det = A.x * B.y - A.y * B.x;
+		// get the angle
+		var radians = Mathf.Atan2(Det, Dot);
+		// convert to degrees
+		var degrees = RadianstoDegrees(radians);
+		// where is it ?
+		if (degrees < 0.0f)
+			degrees = -1.0f * degrees;
+		else if (degrees != 0)
+			degrees = 360.0f - degrees;
+		return degrees;
 	}
 
 	private float DegreesToRadians(float angle)
@@ -280,7 +292,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 				}
 				float distM = Vector3.Distance(pcm.transform.position, origin);
 				float distFt = PrairieUtil.MetersToInches(distM);
-				float theta = AngleBetweenVector2(xAxis, pcm.transform.position);
+				float theta = AngleBetweenVector3(xAxis, pcm.transform.position);
 				float x = PrairieUtil.MetersToInches(pcm.transform.position.x);
 				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);
             	float NearestTheta5, DistFromCenterOnTheta5, DistFromTheta5;
