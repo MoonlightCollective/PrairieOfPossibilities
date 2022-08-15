@@ -21,6 +21,15 @@ function buildMaps() {
     {
       rows[i] = rows[i].trim();
       var cols = rows[i].split(",");
+      // now apply 135 degree rotation
+      var theta = -Math.PI * 135 / 180;
+      //var theta = 0;
+      var oldX = parseFloat(cols[1]);
+      var oldZ = parseFloat(cols[2]);
+      var newX = oldX * Math.cos(theta) - oldZ * Math.sin(theta);
+      var newZ = oldZ * Math.cos(theta) + oldX * Math.sin(theta);
+      cols[1] = newX.toString();
+      cols[2] = newZ.toString(); 
       lightBaseMap.set(cols[0], cols);
     }
   }
