@@ -90,6 +90,11 @@ public class StemColorManagerProxy : StemColorManager
 	
 }
 
+public enum EArmTagType 
+{
+	ArmCW,
+	ArmCCW,
+}
 
 public class StemColorManager : DmxColorPoint
 {
@@ -137,6 +142,9 @@ public class StemColorManager : DmxColorPoint
 
 	public List<PrairieTag> Tags = new List<PrairieTag>();
 	protected HashSet<string> _hashTags = new HashSet<string>();
+	
+	protected Dictionary<EArmTagType,HashSet<int>>_armTags = new Dictionary<EArmTagType, HashSet<int>>();
+	protected Dictionary<EArmTagType,int> _primaryArmTags = new Dictionary<EArmTagType, int>();
 
 	int _mainPropId = -1;
 	int _glowPropId = -1;
@@ -191,6 +199,11 @@ public class StemColorManager : DmxColorPoint
 
 	public virtual void Awake()
 	{
+		foreach (EArmTagType tagType in Enum.GetValues(typeof(EArmTagType)))
+		{
+			_armTags[tagType] = new HashSet<int>();
+			_primaryArmTags[tagType] = -1;
+		}
 		updateCachedVals();
 	}
 
@@ -311,12 +324,55 @@ public class StemColorManager : DmxColorPoint
 		return _hashTags.Contains(tagName);
 	}
 
+	public bool HasArmTagID(EArmTagType type, int id)
+	{
+		return _armTags[type].Contains(id);
+	}
+
+	public int PrimaryArmTagId(EArmTagType type)
+	{
+		return _primaryArmTags[type];
+	}
+
+	// public bool HasArmTagId(int tagId, bool CW)
+
 	public void AddTag(PrairieTag newTag)
 	{
 		if (!HasTag(newTag.Name))
 		{
 			Tags.Add(newTag);
 			_hashTags.Add(newTag.Name);
+		}
+
+		if (newTag.Name.Contains("Arm"))
+		{
+			addArmTag(newTag.Name);
+		}
+	}
+
+	EArmTagType armTypeFromTagName(string tagName)
+	{
+		if (tagName.Contains("CCW"))
+		{
+			return EArmTagType.ArmCCW;
+		}
+		else
+		{
+			return EArmTagType.ArmCW;
+		}
+	}
+
+	void addArmTag(string tagName)
+	{
+		var startDex = tagName.IndexOf("Arm");
+		var armIdStr = tagName.Substring(startDex+3,tagName.Length-(3+startDex));
+		int id = -1;
+		if (Int32.TryParse(armIdStr,out id))
+		{
+			EArmTagType tagType = armTypeFromTagName(tagName);
+			_armTags[tagType].Add(id);
+			_primaryArmTags[tagType] = id;
+			// Debug.Log($"Applied arm tag type:{tagType}, id:{id}");
 		}
 	}
 
@@ -326,6 +382,11 @@ public class StemColorManager : DmxColorPoint
 		{
 			Tags.Add(new PrairieTag(newTagName));
 			_hashTags.Add(newTagName);
+		}
+		
+		if (newTagName.Contains("Arm"))
+		{
+			addArmTag(newTagName);
 		}
 	}
 
