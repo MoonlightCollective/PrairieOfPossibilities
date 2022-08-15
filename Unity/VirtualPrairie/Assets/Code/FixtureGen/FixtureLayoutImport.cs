@@ -188,6 +188,12 @@ public class FixtureLayoutImport : FixtureLayoutBase
 			p.NotifyNewLayout();
 		}
 
+		PrairieLayerGroup[] groups = FindObjectsOfType<PrairieLayerGroup>(true);
+		foreach(var g in groups)
+		{
+			g.NotifyNewLayout();
+		}
+
 		PrairieDmxController[] dmxController = GameObject.FindObjectsOfType<PrairieDmxController>();
 		if (dmxController != null && dmxController.Length == 1)
 		{

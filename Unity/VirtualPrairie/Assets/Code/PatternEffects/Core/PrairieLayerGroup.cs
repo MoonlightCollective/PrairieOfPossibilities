@@ -11,10 +11,14 @@ public class PrairieLayerGroup : MonoBehaviour
 	
 	public virtual ColorPaletteMix GroupColors => _paletteMixer.ActiveColors;
 
-	public virtual float GroupAlpha => GroupSettings.GroupAlpha;
+	public virtual float GroupAlpha => GroupSettings.GroupAlpha * _subgroupAlpha;
 
 	protected List<PrairiePatternLayer> _layers = new List<PrairiePatternLayer>();
 	protected ColorPaletteMixer _paletteMixer;
+	protected float _subgroupAlpha = 1.0f;
+
+	public float SubgroupAlpha => _subgroupAlpha;
+	public void SetSubgroupAlpha(float newVal) { _subgroupAlpha = Mathf.Clamp01(newVal); }
 
 	//===============
 	// Maintain a list of patterns so we don't have to GetComponent every frame
@@ -36,6 +40,11 @@ public class PrairieLayerGroup : MonoBehaviour
 		_paletteMixer = GetComponent<ColorPaletteMixer>();
 	}
 
+	public virtual void NotifyNewLayout()
+	{
+		rebuildLayerList();
+	}
+
 	//===============
 	// Update - update all our patterns.
 	//===============
@@ -47,7 +56,8 @@ public class PrairieLayerGroup : MonoBehaviour
 		}
 
 		updateGroupPalette();
-		
+		_subgroupAlpha = 1.0f;	// reset subgroup alpha, allowing subgroups to set a multiplier
+
 		foreach (var layer in _layers)
 		{
 			if (layer.gameObject.activeInHierarchy)
