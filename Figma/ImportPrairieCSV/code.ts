@@ -1069,6 +1069,34 @@ async function exportTags()
     }
   }
 
+  var tagNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Portal Placemen / Aisles") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+
+  for (let child of tagNode.children)
+  {
+    if (child.name.startsWith("Portal"))
+    {
+      //console.log(`found child '${child.name}'`);
+      // find the child lights
+      var childGroup = child as FrameNode;
+      var csvLightNumbers = "";
+      for (let light of childGroup.children)
+      {
+        if (csvLightNumbers != "")
+        {
+          csvLightNumbers += ",";
+        }
+        csvLightNumbers += light.name.substring(6);
+      }
+      var groupNum = child.name.substring(6);
+      console.log(`${child.name},${csvLightNumbers}`);
+    }
+  }
+
 }
 
 // This file holds the main code for the plugins. It has access to the *document*.
