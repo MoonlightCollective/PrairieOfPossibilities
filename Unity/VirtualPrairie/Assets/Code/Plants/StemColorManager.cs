@@ -219,7 +219,7 @@ public class StemColorManager : DmxColorPoint
 		{
 			_armTags[tagType] = new HashSet<int>();
 			_primaryArmTags[tagType] = -1;
-			Debug.Log("init Arm type:" + tagType);
+			// Debug.Log("init Arm type:" + tagType);
 		}
 		updateCachedVals();
 	}

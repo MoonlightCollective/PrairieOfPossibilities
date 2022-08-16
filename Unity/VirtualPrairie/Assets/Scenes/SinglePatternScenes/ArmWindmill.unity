@@ -14921,7 +14921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &843494665
 Transform:
   m_ObjectHideFlags: 0
@@ -14998,6 +14998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976123097}
   - component: {fileID: 976123098}
+  - component: {fileID: 976123099}
   m_Layer: 0
   m_Name: Windmill
   m_TagString: Untagged
@@ -15012,13 +15013,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976123096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1595966802}
-  m_RootOrder: 0
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &976123098
 MonoBehaviour:
@@ -15042,9 +15043,66 @@ MonoBehaviour:
   AlphaMode: 0
   FixedAlpha: 1
   ArmType: 0
-  WindmillArms: 1
-  Speed: 0.5
-  Falloff: 2
+  WindmillArms: 2
+  FalloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0071542114
+      value: 1.009434
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.521913
+      value: 0.076183386
+      inSlope: -0.7457489
+      outSlope: -0.7457489
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07514431
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Speed: 0.25
+  FalloffMult: 1
+--- !u!114 &976123099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976123096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: 'A windmill based on CW or CCW arms.  The Falloff Curve lets you
+    specify the falloff from a windmill "spine". Like in the Lighthouse, this is
+    both on the leading and trailing edge (so it''s mirrored)
+
+
+    Using PatternPraramEvenvelopeTriggers,
+    you could animate the speed of the windmill or the falloff multiplier for a more
+    dynamic effect.
+
+
+
+'
 --- !u!1 &1077716562
 GameObject:
   m_ObjectHideFlags: 0
@@ -20062,8 +20120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: A simple example of the "Spin" comp that also uses Subgroups to show
-    how you can change the blending and timing of a group of patterns.
+  ReadmeString: 'Simple example of an ambient arm-based windmill effect.  Like lighthouse,
+    but respecting arm definitions.
+
+'
 --- !u!4 &1178321124
 Transform:
   m_ObjectHideFlags: 0
@@ -29829,8 +29889,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1595966802}
   - component: {fileID: 1595966803}
-  - component: {fileID: 1595966805}
-  - component: {fileID: 1595966804}
   m_Layer: 0
   m_Name: EffectSubgroup
   m_TagString: Untagged
@@ -29849,10 +29907,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 976123097}
+  m_Children: []
   m_Father: {fileID: 2020060356}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1595966803
 MonoBehaviour:
@@ -29872,50 +29929,6 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 0.7
   PointFilter: {fileID: 0}
---- !u!114 &1595966804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595966801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CommentString: 'Controlling the alpha or time mult of the subgroup controls will
-    affect children.  This allows us to fade an effect over time.
-
-
-    NOTE: POINT
-    FILTER AND BLEND MODE HAVE NO EFFECT ON SUBGROUPS.'
---- !u!114 &1595966805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595966801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlphaEnv:
-    attack: 2
-    decay: 0
-    sustain: 1
-    release: 1
-    attackEase: 0
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
-  Mult: 0.7
 --- !u!1 &1694103767
 GameObject:
   m_ObjectHideFlags: 0
@@ -35137,6 +35150,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 843494665}
+  - {fileID: 976123097}
   - {fileID: 1595966802}
   m_Father: {fileID: 896058323}
   m_RootOrder: 0
@@ -35444,6 +35458,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281383941789419881, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.649658
       objectReference: {fileID: 0}
     - target: {fileID: 314241996705777023, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -40388,7 +40407,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0.00030517578
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
