@@ -48,7 +48,23 @@ public class StemColorManagerProxy : StemColorManager
 		_globalDistFromOrigin = _realStem.GlobalDistFromOrigin;
 		_localTheta = _realStem.LocalTheta;
 		_localRadius = _realStem.LocalRadius;
+
 		Tags = new List<PrairieTag>(_realStem.Tags);
+	}
+
+	public override bool HasArmTagID(EArmTagType type, int id)
+	{
+		return _realStem.HasArmTagID(type,id);
+	}
+
+	public override bool HasTag(string tagName, bool fuzzyMatch = false)
+	{
+		return _realStem.HasTag(tagName, fuzzyMatch);
+	}
+
+	public override int PrimaryArmTagId(EArmTagType type)
+	{
+		return _realStem.PrimaryArmTagId(type);
 	}
 
 	public override void ApplyColorToDmx()
@@ -203,6 +219,7 @@ public class StemColorManager : DmxColorPoint
 		{
 			_armTags[tagType] = new HashSet<int>();
 			_primaryArmTags[tagType] = -1;
+			Debug.Log("init Arm type:" + tagType);
 		}
 		updateCachedVals();
 	}
@@ -308,7 +325,7 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
-	public bool HasTag(string tagName, bool fuzzyMatch = false)
+	public virtual bool HasTag(string tagName, bool fuzzyMatch = false)
 	{
 		if (fuzzyMatch)
 		{
@@ -324,12 +341,12 @@ public class StemColorManager : DmxColorPoint
 		return _hashTags.Contains(tagName);
 	}
 
-	public bool HasArmTagID(EArmTagType type, int id)
+	public virtual bool HasArmTagID(EArmTagType type, int id)
 	{
 		return _armTags[type].Contains(id);
 	}
 
-	public int PrimaryArmTagId(EArmTagType type)
+	public virtual int PrimaryArmTagId(EArmTagType type)
 	{
 		return _primaryArmTags[type];
 	}

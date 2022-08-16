@@ -14,6 +14,14 @@ public class FmodEmitterTrigger : TriggerListener
 		_inst = FMODUnity.RuntimeManager.CreateInstance(FmodEvent);
 	}
 
+	public void OnDestroy()
+	{
+		if (_inst.isValid())
+		{
+			_inst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+			_inst.release();
+		}
+	}
 	public override void NotifyTriggered(PrairieTriggerParams tParams)
 	{
 		Debug.Log("Attempt to play event");

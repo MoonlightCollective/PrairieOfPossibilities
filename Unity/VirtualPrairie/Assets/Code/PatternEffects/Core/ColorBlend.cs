@@ -26,10 +26,13 @@ public class ColorBlend
 			case EBlendMode.Add:
 				return (srcColor * srcColor.a) + destColor;
 			case EBlendMode.AddClamped:
-				return new Color(Mathf.Clamp01(srcColor.r + destColor.r),
-									Mathf.Clamp01(srcColor.g + destColor.b),
-									Mathf.Clamp01(srcColor.b + destColor.b),
-									Mathf.Clamp01(srcColor.a + destColor.a));
+			{
+				var c = (srcColor * srcColor.a) + destColor;
+				return new Color(Mathf.Clamp01(c.r),
+									Mathf.Clamp01(c.g),
+									Mathf.Clamp01(c.b),
+									Mathf.Clamp01(c.a));
+			}
 			case EBlendMode.Subtract:
 				return new Color(Mathf.Clamp01(destColor.r - srcColor.r),
 									Mathf.Clamp01(destColor.g - srcColor.b),
