@@ -200,11 +200,14 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 	private float DegreesToRadians(float angle)
 	{
-		return (float)(Mathf.PI / 180.0 * angle);
+		return Mathf.PI / 180.0f * angle;
 	}
 	private float RadianstoDegrees(float angle)
 	{
-		return (float)(angle * 180.0 / Mathf.PI);
+		float degrees = angle * 180.0f / Mathf.PI;
+		if (degrees == 360)
+			degrees = 0;
+		return degrees;
 	}
 
 	private Vector2 GetIntersection(Vector2 point, float theta, float radius)
@@ -271,6 +274,16 @@ public class FixtureLayoutExporter : MonoBehaviour
 		}
 	}	
 
+	private Vector3 FindContainer()
+	{
+		// find the camera stops
+		var CameraStops = new List<CameraStop>(PrairieGlobals.Instance.CameraStopRoot.GetComponentsInChildren<CameraStop>());
+		// find the container
+		var ContainerCameraStop = CameraStops[3];
+		// grab the transform position vector
+		return ContainerCameraStop.FollowObj.position;		
+	}
+
 	public void ExportBaseDataCSV(string exportFilePath)
 	{
 		var rootObj = PrairieUtil.GetLayoutRoot();
@@ -282,7 +295,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 			foreach (Transform obj in rootObj.transform)
 			{
 				Vector3 origin = new Vector3(0, 0, 0);
-				Vector3 xAxis = new Vector3(1, 0, 0);
+				Vector3 container = FindContainer();
 
 				PlantColorManager pcm = obj.gameObject.GetComponent<PlantColorManager>();
 				if (pcm == null)
@@ -292,7 +305,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 				}
 				float distM = Vector3.Distance(pcm.transform.position, origin);
 				float distFt = PrairieUtil.MetersToInches(distM);
-				float theta = AngleBetweenVector3(xAxis, pcm.transform.position);
+				float theta = AngleBetweenVector3(container, pcm.transform.position);
 				float x = PrairieUtil.MetersToInches(pcm.transform.position.x);
 				float z = PrairieUtil.MetersToInches(pcm.transform.position.z);
             	float NearestTheta5, DistFromCenterOnTheta5, DistFromTheta5;
