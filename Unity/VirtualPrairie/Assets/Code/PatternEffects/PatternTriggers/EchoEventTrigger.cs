@@ -142,7 +142,7 @@ public class EchoEventTrigger : TriggerListener
 			{
 				PLAYBACK_STATE pbs = PLAYBACK_STATE.STOPPED;
 				_inst.getPlaybackState(out pbs);
-				Debug.Log("Playback state:" + pbs.ToString());
+				// Debug.Log("Playback state:" + pbs.ToString());
 				if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
 				{
 					Debug.Log("Not playing any more");
@@ -152,7 +152,7 @@ public class EchoEventTrigger : TriggerListener
 			}
 			else
 			{
-				Debug.Log("Invalid Instance");
+				Debug.Log("EchoEvent: Invalid Instance - immediate cooldown");
 				_stateMachine.GotoState(EEchoEventTriggerState.Cooldown);
 				return;			
 			}
