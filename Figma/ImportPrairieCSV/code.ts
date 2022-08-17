@@ -1002,10 +1002,16 @@ async function importCSV() {
     angle.characters = `A=${parseFloat(lightBaseMap.get(key)[7]).toFixed(1)}°`;
 
     const radius1 = light.findOne(node => node.type === "TEXT" && node.name === "#R1") as TextNode;
-    radius1.characters = `R1=${parseFloat(lightBaseMap.get(key)[8]).toFixed(1)}"`;
+    var R1I = parseInt(lightBaseMap.get(key)[8]);
+    var R1F = Math.floor(R1I/12);
+    R1I = R1I - (R1F*12);
+    radius1.characters = `R1=${R1F}'-${R1I}"`;
 
     const radius2 = light.findOne(node => node.type === "TEXT" && node.name === "#R2") as TextNode;
-    radius2.characters = `R2=${parseFloat(lightBaseMap.get(key)[9]).toFixed(1)}"`;
+    var R2I = parseInt(lightBaseMap.get(key)[9]);
+    var R2F = Math.floor(R2I/12);
+    R2I = R2I - (R2F*12);
+    radius2.characters = `R2=${R2F}'-${R2I}"`;
 
     light.name = `Light ${key}`;
 
