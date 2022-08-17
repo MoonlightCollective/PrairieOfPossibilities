@@ -76,9 +76,13 @@ for row in tags:
             newTags.append(rowTag)
             children[int(num)]['tags'] = newTags
 
-#for fixture in children:
-#    existTags = fixture['tags']
-#    print(f'fixture.tags = {existTags}')
+DumpAllTags = False
+if DumpAllTags is True:
+    i = 0
+    for fixture in children:
+        existTags = fixture['tags']
+        print(f'fixture[{i}].tags = {existTags}')
+        i += 1
 
 print(f'addedTagCount ({addedTagCount}); skippedTagCount ({skippedTagCount}); => output.json')
 
