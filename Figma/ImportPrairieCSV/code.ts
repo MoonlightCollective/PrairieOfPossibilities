@@ -1009,8 +1009,8 @@ async function importCSV() {
 
     const radius2 = light.findOne(node => node.type === "TEXT" && node.name === "#R2") as TextNode;
     var R2I = parseInt(lightBaseMap.get(key)[9]);
-    var R2F = Math.floor(R2I/12);
-    R2I = R2I - (R2F*12);
+    var R2F = Math.trunc(R2I/12);
+    R2I = Math.abs(R2I - (R2F*12));
     radius2.characters = `R2=${R2F}'-${R2I}"`;
 
     light.name = `Light ${key}`;
