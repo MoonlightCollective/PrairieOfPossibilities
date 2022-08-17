@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 87213625}
   - component: {fileID: 87213628}
   - component: {fileID: 87213624}
-  - component: {fileID: 87213629}
   - component: {fileID: 87213630}
   m_Layer: 0
   m_Name: Rainfall
@@ -157,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 1
+    LayerAlpha: 0.5
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
@@ -222,32 +221,6 @@ MonoBehaviour:
     and hold there until it gets an off event.  When it gets an Off event, it will
     decay according to the Release.  See MusicTriggers game object for how the gate
     is triggered.
---- !u!114 &87213629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87213622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlphaEnv:
-    attack: 1
-    decay: 1.35
-    sustain: 0.66
-    release: 3.25
-    attackEase: 0.75
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
-  Mult: 1
 --- !u!114 &87213630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +357,7 @@ MonoBehaviour:
     Targets:
       IncludeChildren: 0
       Targets:
-      - {fileID: 0}
+      - {fileID: 87213622}
     SendParams: 0
     Param0: 0
     Param1: 0
@@ -394,7 +367,7 @@ MonoBehaviour:
     Targets:
       IncludeChildren: 0
       Targets:
-      - {fileID: 0}
+      - {fileID: 87213622}
     SendParams: 0
     Param0: 0
     Param1: 0
@@ -1066,6 +1039,7 @@ MonoBehaviour:
   GateTargets:
     Targets:
     - {fileID: 968873813}
+    IncludeChildren: 0
   OnMarker: Section A
   OffMarker: FadeOut
   PerfectMatch: 1
@@ -1862,6 +1836,7 @@ MonoBehaviour:
   GateTargets:
     Targets:
     - {fileID: 1148764244}
+    IncludeChildren: 0
   OnMarker: Section B
   OffMarker: Section C
   PerfectMatch: 1
@@ -1881,6 +1856,7 @@ MonoBehaviour:
   GateTargets:
     Targets:
     - {fileID: 2035875513}
+    IncludeChildren: 0
   OnMarker: Section D
   OffMarker: Section E
   PerfectMatch: 1
@@ -1900,6 +1876,7 @@ MonoBehaviour:
   GateTargets:
     Targets:
     - {fileID: 1287220307}
+    IncludeChildren: 0
   OnMarker: Section C
   OffMarker: Section D
   PerfectMatch: 1
@@ -7721,7 +7698,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0005493164
+      value: 0.0012207031
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
