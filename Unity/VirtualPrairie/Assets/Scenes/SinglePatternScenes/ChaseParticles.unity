@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 84103878}
+  - component: {fileID: 84103881}
   - component: {fileID: 84103879}
   - component: {fileID: 84103880}
   m_Layer: 0
@@ -195,6 +196,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &84103881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Fire a number of chasers down different arms at the same time, as
+    defined in the ArmIds list.  See SingleChaseEmitter above for more on how to
+    configure particle speeds, etc.
 --- !u!1 &243520528
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,9 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: MusicBeatTriggers are used with beat filters to fire events on different
-    parts of the beat into different patterns, creating the "boom chick" effect.
-    Multi-filters are used to localize the boom-chick effect to specific bands.
+  ReadmeString: Chase Particles! Send chasers down arms in either direction. Lots
+    of ways to fire these - individual, simultaneously down specific arms, skip every
+    N arms, or spray like a sprinkler!
 --- !u!4 &353468394
 Transform:
   m_ObjectHideFlags: 0
@@ -307,6 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 360393771}
+  - component: {fileID: 360393774}
   - component: {fileID: 360393773}
   - component: {fileID: 360393772}
   m_Layer: 0
@@ -372,6 +389,21 @@ MonoBehaviour:
   StartArm: 14
   EndArm: 1
   Skip: 1
+--- !u!114 &360393774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360393770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Sprays particles down arms like a sprinkler. Every time this is
+    triggered, it will fire down an arm and skip to the next arm within Start/End
+    range.
 --- !u!1001 &378801782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,6 +607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 743450445}
+  - component: {fileID: 743450450}
   - component: {fileID: 743450446}
   - component: {fileID: 743450449}
   - component: {fileID: 743450448}
@@ -681,6 +714,20 @@ MonoBehaviour:
     - {fileID: 888625982}
   Marker: StartLoop B
   PerfectMatch: 1
+--- !u!114 &743450450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743450444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Moments in the music are used to fire off Sequencers. Each single
+    trigger starts off a timed squeence of events.
 --- !u!1 &770949044
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,6 +768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 843852073}
+  - component: {fileID: 843852075}
   - component: {fileID: 843852074}
   m_Layer: 0
   m_Name: SpraySequencer
@@ -768,6 +816,22 @@ MonoBehaviour:
   StartActive: 0
   DelayBetweenTriggers: 0.1
   TimeMult: 1
+--- !u!114 &843852075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843852072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Timed sequencers allow for periodic triggers to be fired.  Here
+    we use "LoopCount" as the Run behavior, allowing us to loop through our sequence
+    N times.  In this case, our sequence is just one event - so this results in 40
+    events being fired at 0.1 second interval.
 --- !u!1 &888625982
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1009053138}
+  - component: {fileID: 1009053141}
   - component: {fileID: 1009053140}
   - component: {fileID: 1009053139}
   m_Layer: 0
@@ -944,6 +1009,22 @@ MonoBehaviour:
   SlowInitParticles: 0
   Skip: 5
   Offset: 0
+--- !u!114 &1009053141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009053137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: "Just like MultiChase Emitter, except instead of definiting specific
+    arms, use a \"skip\" value to just fire one down every N arms.  \n\nAlso, and
+    example of setting negative speed.  With a start distance far out, and a negative
+    speed, you get chasers that start from outside and chase in to the middle."
 --- !u!1 &1077716562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1155743962}
+  - component: {fileID: 1155743964}
   - component: {fileID: 1155743963}
   m_Layer: 0
   m_Name: SingleChaseSequencer
@@ -1080,6 +1162,22 @@ MonoBehaviour:
   StartActive: 0
   DelayBetweenTriggers: 1
   TimeMult: 1
+--- !u!114 &1155743964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155743961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Timed sequencers allow for periodic triggers to be fired.  Here
+    we use "LoopCount" as the Run behavior, allowing us to loop through our sequence
+    N times.  In this case, our sequence is just one event - so this results in 4
+    events being fired, 1 second apart.
 --- !u!1 &1173503054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1236582372}
+  - component: {fileID: 1236582375}
   - component: {fileID: 1236582373}
   - component: {fileID: 1236582374}
   m_Layer: 0
@@ -1186,6 +1285,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1236582375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236582371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: "Fire a single particle down a row.  You can override the default
+    particle settings in \"Particle Settings\". See ArmChaseParticle.cs for the settings
+    you can override (and what strings to use). I\n\n\"Lifetime\" (float type) \n\"StartDist\",(float)\n\"Speed\",
+    (float)\n\"Length\",(float)\n\"ArmId\", (int)\n\nThe type of arm (CW vs CCW is
+    set in the prefab itself and isn't overrideable (enums don't work). So you need
+    a different prefab for each direction.\n"
 --- !u!1 &1694103767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,7 +2574,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.5999756
+      value: 0.00036621094
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
