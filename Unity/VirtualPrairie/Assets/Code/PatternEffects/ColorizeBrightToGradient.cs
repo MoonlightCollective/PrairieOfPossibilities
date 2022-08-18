@@ -16,6 +16,7 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 {
 	public SmartColorSlot MinColor;
 	public SmartColorSlot MaxColor;
+	public bool UseInterimColors = true;
 
 	public override Color ColorForBrightness(float v, PrairieLayerGroup group )
 	{
@@ -28,23 +29,31 @@ public class ColorizeBrightToGradient : ColorizeBrightnessValue
 		if (MinColor.UsePalette && MaxColor.UsePalette)
 		{
 			ColorPaletteMix mix = group.GroupColors;
+			int MaxColorDex = Mathf.Min(Mathf.Max(MaxColor.ColorIndex, MinColor.ColorIndex), ColorPaletteMix.kPrairieColorMixCount);
+			int MinColorDex = Mathf.Min(Mathf.Min(MaxColor.ColorIndex, MinColor.ColorIndex), ColorPaletteMix.kPrairieColorMixCount);
 
-			// special case - do a palette gradient
-			int MaxColorDex = Mathf.Min(Mathf.Max(MaxColor.ColorIndex,MinColor.ColorIndex),ColorPaletteMix.kPrairieColorMixCount);
-			int MinColorDex = Mathf.Min(Mathf.Min(MaxColor.ColorIndex,MinColor.ColorIndex),ColorPaletteMix.kPrairieColorMixCount);
-			
-			float colorDexDelta = (float)MaxColorDex - (float)MinColorDex;
-			if (colorDexDelta <= 0)
-				return MinColor.Color(group);
+			if (UseInterimColors)
+			{
+				// special case - do a palette gradient
+				float colorDexDelta = (float)MaxColorDex - (float)MinColorDex;
+				if (colorDexDelta <= 0)
+					return MinColor.Color(group);
 
-			// If I could pick a floating point index, where would I sit?
-			float floatDex = Mathf.Lerp(MinColorDex,MaxColorDex,clampedV);
+				// If I could pick a floating point index, where would I sit?
+				float floatDex = Mathf.Lerp(MinColorDex, MaxColorDex, clampedV);
 
-			// now Color lerp between the bookending indicies.
-			int minLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex),0,mix.Colors.Length-1);
-			int maxLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex+1),0,mix.Colors.Length-1);
+				// now Color lerp between the bookending indicies.
+				int minLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex), 0, mix.Colors.Length - 1);
+				int maxLerpDex = Mathf.Clamp(Mathf.FloorToInt(floatDex + 1), 0, mix.Colors.Length - 1);
 
-			return Color.Lerp(mix.Colors[minLerpDex],mix.Colors[maxLerpDex],floatDex -(float)minLerpDex);
+				return Color.Lerp(mix.Colors[minLerpDex], mix.Colors[maxLerpDex], floatDex - (float)minLerpDex);
+			}
+            else
+            {
+				// don't interpolate between the entire range
+				// interpolate directly between the two chosen colors
+				return Color.Lerp(mix.Colors[MinColorDex], mix.Colors[MaxColorDex], clampedV);
+            }
 		}
 
 		// one or the other might come from the palette, but we aren't lerping through palette stops.
