@@ -278,7 +278,8 @@ public class FixtureLayoutExporter : MonoBehaviour
 		{
 			NearestTheta5 = Mathf.Round(RadianstoDegrees(angle1));
 			DistFromCenterOnTheta5 = Vector2.Distance(origin, angle1Point);
-			DistFromTheta5 = distance1;
+			// negative numbers mean go "backwards" from that nearest theta
+			DistFromTheta5 = -1 * distance1;
 		}
 		else
 		{

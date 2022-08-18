@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1171345508054593859
+--- !u!1 &7154542215777383006
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1171345508054593858}
-  - component: {fileID: 1171345508054593857}
-  - component: {fileID: -3109112622514687962}
+  - component: {fileID: 7154542215777383007}
+  - component: {fileID: 5599305530560094752}
   m_Layer: 0
-  m_Name: RaindropParticle
+  m_Name: CWChaseParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1171345508054593858
+--- !u!4 &7154542215777383007
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171345508054593859}
+  m_GameObject: {fileID: 7154542215777383006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.7211323, y: -0.048704237, z: 5.1792717}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,82 +32,84 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1171345508054593857
+--- !u!114 &5599305530560094752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171345508054593859}
+  m_GameObject: {fileID: 7154542215777383006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04d49430690f4437eb06854f2f8ee5d1, type: 3}
+  m_Script: {fileID: 11500000, guid: a22a6d18339b0410f85aa2940af61eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseAlphaCurve: 1
+  UseAlphaCurve: 0
   AlphaCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 14.834906
-      outSlope: 14.834906
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.0868988
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.086310476
-      value: 0.88207436
-      inSlope: 3.1803644
-      outSlope: 1.4696386
-      tangentMode: 1
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.26531008
-      outWeight: 0.03857511
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.9653984
-      outSlope: -0.9653984
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  DefaultParticleTime:
-    MinVal: 2
-    MaxVal: 4
-  DefaultRingSize:
-    MinVal: 5
-    MaxVal: 10
-  DefaultPositionTheta:
-    MinVal: 0
-    MaxVal: 1
-  DefaultPositionRadius:
-    MinVal: 10
-    MaxVal: 100
-  DefaultFalloff: 8.78
-  FalloffCurve:
+  DefaultSpeed: 40
+  DefaultLength: 30
+  DefaultStartDist: 3
+  DefaultLifetime: 3
+  ArmType: 0
+  DefaultArmId: 5
+  BrightnessRamp:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1.9399495
-      outSlope: -1.9399495
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.041335452
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -1
-      outSlope: -1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -116,16 +117,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-3109112622514687962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171345508054593859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa57732c4ad84cb393ccb3f02b71b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TravelSpeed: 0

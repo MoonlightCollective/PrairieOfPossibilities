@@ -36,7 +36,7 @@ public class PrairieParticlePool
 	{
 		if (_freeParticles.Count < 1)
 		{
-			Debug.Log($"Particle pool is empty! {_activeParticles} active particles");
+			Debug.Log($"Particle pool is empty! {_activeParticles.Count} active particles");
 			return null;
 		}
 

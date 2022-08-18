@@ -14,7 +14,8 @@ public class GateEmitter
 	protected List<GateListener> _gateListeners = new List<GateListener>();
 	protected List<TriggerListener> _triggerListeners = new List<TriggerListener>();
 	public List<GameObject> Targets = new List<GameObject>();
-
+	public bool IncludeChildren = false;
+	
 	bool _initialized = false;
 	
 	public void Init()
@@ -25,14 +26,49 @@ public class GateEmitter
 		foreach (var t in Targets)
 		{
 			var listeners = t.GetComponentsInChildren<GateListener>();
-			int count = listeners.Length;
+			int count = 0;
 			if (listeners.Length > 0)
-				_gateListeners.AddRange(listeners);
+			{
+				if (IncludeChildren)
+				{
+					// add them all
+					count += listeners.Length;
+					_gateListeners.AddRange(listeners);
+				}
+				else
+				{
+					foreach (var l in listeners)
+					{
+						if (l.gameObject == t)
+						{
+							count++;
+							_gateListeners.Add(l);
+						}
+					}
+				}
+			}
 			
 			var trigListeners = t.GetComponentsInChildren<TriggerListener>();
-			count += trigListeners.Length;
 			if (trigListeners.Length > 0)
-				_triggerListeners.AddRange(trigListeners);
+			{
+				if (IncludeChildren)
+				{
+					count += trigListeners.Length;
+					_triggerListeners.AddRange(trigListeners);
+				}
+				else
+				{
+					foreach (var l in trigListeners)
+					{
+						if (l.gameObject == t)
+						{
+							count++;
+							_triggerListeners.Add(l);
+						}
+					}
+				}
+
+			}
 
 			if (count < 1)
 			{

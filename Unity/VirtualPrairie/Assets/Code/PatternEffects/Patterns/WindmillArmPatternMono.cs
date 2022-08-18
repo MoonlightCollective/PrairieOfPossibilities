@@ -9,12 +9,13 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 	[Header("Windmill Settings")]
 	[Snapshot] public EArmTagType ArmType;
 	[Snapshot] public int WindmillArms = 1;
+	[Snapshot] public AnimationCurve FalloffCurve;
 	
 	[Header("Indexed Params")]
 	[Range(-1,1)]
 	[Snapshot] public float Speed = 0.5f;
-	[Range(0,34)]
-	[Snapshot] public float Falloff = 2.0f;
+	[Snapshot] public float FalloffMult = 1.0f;
+
 
 	const int kNumArms = 34;
 
@@ -23,16 +24,23 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> points)
 	{
 		// what is the spacing between arms?
-		int armModVal = kNumArms/WindmillArms;
- 		Debug.Log($"MODVAL:{armModVal}");
+		float armModVal = kNumArms/WindmillArms;
+
+		float sp = Speed;
+		if (ArmType == EArmTagType.ArmCW)
+			sp = -sp;
 
 		// Angle is normalized between zero and one. Floating point modulus wraps around at 1.
-		_curAngleNorm = _curAngleNorm + Speed * deltaTime;
+		_curAngleNorm = _curAngleNorm + sp * deltaTime;
+		// handle negative speed wrap-around
 		if (_curAngleNorm < 0)
 			_curAngleNorm += 1;
+
+		// wrap at 1.0f (normalized 360 degrees)
 		_curAngleNorm = _curAngleNorm%1.0f;
 
-		int offset = (int)(_curAngleNorm * kNumArms);
+		// how many arms make up a single windmill arm?
+		float ArmsPerWindmill = (kNumArms / WindmillArms);
 
 		foreach (var p in points)
 		{
@@ -41,21 +49,21 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 				continue;
 			}
 
-			// what arm am I (include offset, for spinning)
-			int pointArm = p.PrimaryArmTagId(ArmType);
+			// What arm is this point on?
+			float pointArm = (float) p.PrimaryArmTagId(ArmType);
 			if (pointArm < 0)
 				continue;
 			
-			pointArm += offset;
+			// What's my delta from a windmil spine?
+			float pointArmMod = (float)pointArm % armModVal;
 
-			// What's my delta from a "lead" arm?
-			int pointArmMod = pointArm % armModVal;
-			float fPointArm = (float)pointArmMod;
-			float b = 0;
-			if (fPointArm < Falloff)
-			{
-				b = 1.0f - (fPointArm/Falloff);
-			}
+			// assume my spine is at the current rotation angle
+			// how far from that should this arm be (wrapping).
+			float dist = PrairieUtil.wrapdistf(_curAngleNorm,pointArmMod/ArmsPerWindmill,1.0f);
+
+			// Evaluate brighness from the falloff curve, 
+			// including a multiplier, so we can animate falloff with envelopes.
+			float b = FalloffCurve.Evaluate(Mathf.Clamp01(dist * FalloffMult));
 
 			// convert to brightness based on our colorize settings (see base class)
 			Color blendColor = ColorForBrightness(b,group);
@@ -74,7 +82,7 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 				Speed = newVal;
 				break;
 			case 1:
-				Falloff = newVal;
+				FalloffMult = newVal;
 				break;
 		}
 	}
