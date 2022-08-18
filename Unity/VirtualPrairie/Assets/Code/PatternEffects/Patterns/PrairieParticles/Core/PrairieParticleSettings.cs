@@ -50,8 +50,9 @@ public class PrairieParticleSettings
 {
 	public List<PrairieParticleSettingEntry> Settings = new List<PrairieParticleSettingEntry>();
 	protected Dictionary<string,PrairieParticleSettingEntry> _paramDict = new Dictionary<string, PrairieParticleSettingEntry>();
-	bool needRebuild = true;
-	public void SetDirty() { needRebuild = true; }
+	
+	public bool NeedsRebuild = true;
+	public void SetDirty() { NeedsRebuild = true; }
 
 	void rebuildDictionary()
 	{
@@ -60,11 +61,45 @@ public class PrairieParticleSettings
 		{
 			_paramDict[s.Name] = s;
 		}
+		NeedsRebuild = false;
+	}
+
+	public void SetFloatSetting(string name, float value)
+	{
+		if (NeedsRebuild)
+			rebuildDictionary();
+
+		if (!_paramDict.ContainsKey(name))
+			_paramDict.Add(name, new PrairieParticleSettingEntry());
+
+		_paramDict[name].FloatValue = value;
+	}
+
+	public void SetFloatRangeSetting(string name, FloatRange fr)
+	{
+		if (NeedsRebuild)
+			rebuildDictionary();
+
+		if (!_paramDict.ContainsKey(name))
+			_paramDict.Add(name, new PrairieParticleSettingEntry());
+
+		_paramDict[name].FloatRangeValue = fr;
+	}
+
+	public void SetIntSetting(string name, int iVal)
+	{
+		if (NeedsRebuild)
+			rebuildDictionary();
+
+		if (!_paramDict.ContainsKey(name))
+			_paramDict.Add(name, new PrairieParticleSettingEntry());
+
+		_paramDict[name].IntValue = iVal;
 	}
 
 	public float GetFloatSetting(string name, float defaultVal)
 	{
-		if (needRebuild)
+		if (NeedsRebuild)
 			rebuildDictionary();
 
 		if (_paramDict.ContainsKey(name) && _paramDict[name].ParamType == EParticleParamType.Float)
@@ -75,7 +110,7 @@ public class PrairieParticleSettings
 
 	public int GetIntSetting(string name, int defaultValue)
 	{
-		if (needRebuild)
+		if (NeedsRebuild)
 			rebuildDictionary();
 		
 		if (_paramDict.ContainsKey(name) && _paramDict[name].ParamType == EParticleParamType.Integer)
@@ -87,7 +122,7 @@ public class PrairieParticleSettings
 
 	public FloatRange GetFloatRangeSetting(string name, FloatRange defaultValue)
 	{
-		if (needRebuild)
+		if (NeedsRebuild)
 			rebuildDictionary();
 
 		if (_paramDict.ContainsKey(name) && _paramDict[name].ParamType == EParticleParamType.FloatRange)
@@ -98,7 +133,7 @@ public class PrairieParticleSettings
 
 	public bool HaveSetting(string name)
 	{
-		if (needRebuild)
+		if (NeedsRebuild)
 			rebuildDictionary();
 		
 		return _paramDict.ContainsKey(name);
@@ -106,7 +141,7 @@ public class PrairieParticleSettings
 
 	public bool HaveSetting(string name, EParticleParamType pType)
 	{
-		if (needRebuild)
+		if (NeedsRebuild)
 			rebuildDictionary();
 		
 		return (_paramDict.ContainsKey(name) && _paramDict[name].ParamType == pType);

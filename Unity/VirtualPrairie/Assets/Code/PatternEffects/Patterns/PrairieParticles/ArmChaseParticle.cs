@@ -18,6 +18,7 @@ public class ArmChaseParticle : PrairieParticleBase
 	float _lifeTime;
 	float _speed;
 	int _armId;
+
 	public override void InitParticle(PrairieParticleSettings settings)
 	{
 		base.InitParticle(settings);
@@ -48,12 +49,24 @@ public class ArmChaseParticle : PrairieParticleBase
 			return new Color(0,0,0,0);
 		}
 
-		float distFromC = _curDist - point.GlobalDistFromOrigin;
+		float distFromC;
+		if (_speed < 0)
+			distFromC = _curDist - point.GlobalDistFromOrigin;
+		else
+ 			distFromC = _curDist - point.GlobalDistFromOrigin;
+
 		float b = 0;
 		if (distFromC > 0 && distFromC < _len)
 		{
 			float normDist = Mathf.Clamp01(distFromC / _len);
-			b = BrightnessRamp.Evaluate(normDist);
+			if (_speed < 0)
+			{
+				b = BrightnessRamp.Evaluate(1-normDist);
+			}
+			else
+			{
+				b = BrightnessRamp.Evaluate(normDist);
+			}
 		}
 
 		return new Color(b,b,b,b);

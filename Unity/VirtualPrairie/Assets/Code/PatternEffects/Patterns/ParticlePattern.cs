@@ -25,7 +25,7 @@ public class ParticlePattern : PrairiePatternLayer
 	protected Transform _particleRoot;
 
 	// Start is called before the first frame update
-	void Start()
+	protected virtual void Start()
     {
 		_particlePool = new PrairieParticlePool();
 		_particleRoot = new GameObject("Particles").transform;
@@ -41,7 +41,7 @@ public class ParticlePattern : PrairiePatternLayer
 		
 		_particlePool.UpdateActiveParticles(deltaTime * TimeSettings.TimeMult,group);
 		bool colorize = (ColorizeSettings != null);
-		
+
 		float layerAlpha = BlendSettings.LayerAlpha * group.GroupAlpha;
 
 
@@ -75,6 +75,9 @@ public class ParticlePattern : PrairiePatternLayer
 
 	public virtual void EmitParticle()
 	{
+		if (!gameObject.activeInHierarchy)
+			return;
+			
 		var p = _particlePool.NewInstance(true);
 		if (p == null)
 		{

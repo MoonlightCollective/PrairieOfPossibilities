@@ -123,6 +123,150 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &84103877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84103878}
+  - component: {fileID: 84103881}
+  - component: {fileID: 84103879}
+  - component: {fileID: 84103880}
+  m_Layer: 0
+  m_Name: MultiChaseEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &84103878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84103879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22100982c3fb1409ba782d77ff12131a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 30
+  ParticleSettings:
+    Settings: []
+    NeedsRebuild: 1
+  SlowInitParticles: 1
+  ArmIds: 0200000004000000060000000f0000001100000013000000
+--- !u!114 &84103880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &84103881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Fire a number of chasers down different arms at the same time, as
+    defined in the ArmIds list.  See SingleChaseEmitter above for more on how to
+    configure particle speeds, etc.
+--- !u!1 &243520528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243520529}
+  - component: {fileID: 243520530}
+  m_Layer: 0
+  m_Name: MultiSkipSequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &243520529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243520528}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 743450445}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &243520530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243520528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 4
+  SequenceTriggers:
+  - Name: FireMultiSkip
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 1009053137}
+  StartActive: 0
+  DelayBetweenTriggers: 1
+  TimeMult: 1
 --- !u!1 &353468392
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,9 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: MusicBeatTriggers are used with beat filters to fire events on different
-    parts of the beat into different patterns, creating the "boom chick" effect.
-    Multi-filters are used to localize the boom-chick effect to specific bands.
+  ReadmeString: Chase Particles! Send chasers down arms in either direction. Lots
+    of ways to fire these - individual, simultaneously down specific arms, skip every
+    N arms, or spray like a sprinkler!
 --- !u!4 &353468394
 Transform:
   m_ObjectHideFlags: 0
@@ -170,6 +314,96 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &360393770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 360393771}
+  - component: {fileID: 360393774}
+  - component: {fileID: 360393773}
+  - component: {fileID: 360393772}
+  m_Layer: 0
+  m_Name: MultiSprayEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &360393771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360393770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360393772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360393770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &360393773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360393770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ef0003bf51e473bba671477cb1b40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 40
+  ParticleSettings:
+    Settings: []
+    NeedsRebuild: 1
+  SlowInitParticles: 1
+  StartArm: 14
+  EndArm: 1
+  Skip: 1
+--- !u!114 &360393774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360393770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Sprays particles down arms like a sprinkler. Every time this is
+    triggered, it will fire down an arm and skip to the next arm within Start/End
+    range.
 --- !u!1001 &378801782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -373,7 +607,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 743450445}
+  - component: {fileID: 743450450}
+  - component: {fileID: 743450446}
   - component: {fileID: 743450449}
+  - component: {fileID: 743450448}
   - component: {fileID: 743450447}
   m_Layer: 0
   m_Name: MusicEvents
@@ -393,10 +630,33 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1155743962}
+  - {fileID: 888625983}
+  - {fileID: 243520529}
+  - {fileID: 843852073}
   m_Father: {fileID: 896058323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &743450446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743450444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: SingleEmitterTrigger
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 1155743961}
+  Marker: StartLoop
+  PerfectMatch: 1
 --- !u!114 &743450447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,19 +666,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 743450444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbee7322fd364f8cbdae70babbdeaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: BeatTrig
+  Name: SprayTrigger
   TriggerTargets:
     IncludeChildren: 1
     Targets:
-    - {fileID: 1236582371}
-  FilterBeats: 0
-  FilterString: 1111
-  BeatDividerType: 1
-  DivMultFactor: 1
+    - {fileID: 843852072}
+  Marker: StartLoop D
+  PerfectMatch: 1
+--- !u!114 &743450448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743450444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: MultiSkipEmitter
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 243520528}
+  Marker: StartLoop C
+  PerfectMatch: 1
 --- !u!114 &743450449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743450444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: MultiEmitterTrigger
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 888625982}
+  Marker: StartLoop B
+  PerfectMatch: 1
+--- !u!114 &743450450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -430,17 +726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommentString: '3 MusicBeatTriggers for different parts of the beat. Each Music
-    Beat Trigger listens for the beat and sends triggers out to different parts of
-    the prairie. HOWEVER each beat trigger is using the Filter String to select only
-    specific beats to use for triggering.  Booms use the string "1010" to say "send
-    triggers out on the first and third beat".  Chick''s use "0101" for beats 2 and
-    4.
-
-
-    Finally HiHatTrig does the same thing, but it is using a beat multiplier
-    to convert the beat triggers to 8th notes. The filter string still works, so
-    every other eigth note will be used to send a trigger out of the HiHatTrig.'
+  CommentString: Moments in the music are used to fire off Sequencers. Each single
+    trigger starts off a timed squeence of events.
 --- !u!1 &770949044
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +759,135 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &843852072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 843852073}
+  - component: {fileID: 843852075}
+  - component: {fileID: 843852074}
+  m_Layer: 0
+  m_Name: SpraySequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &843852073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843852072}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 743450445}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843852074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843852072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 40
+  SequenceTriggers:
+  - Name: FireSpray
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 360393770}
+  StartActive: 0
+  DelayBetweenTriggers: 0.1
+  TimeMult: 1
+--- !u!114 &843852075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843852072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Timed sequencers allow for periodic triggers to be fired.  Here
+    we use "LoopCount" as the Run behavior, allowing us to loop through our sequence
+    N times.  In this case, our sequence is just one event - so this results in 40
+    events being fired at 0.1 second interval.
+--- !u!1 &888625982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 888625983}
+  - component: {fileID: 888625984}
+  m_Layer: 0
+  m_Name: MultiChaseSequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &888625983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888625982}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 743450445}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &888625984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888625982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 4
+  SequenceTriggers:
+  - Name: FireMultiChase
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 84103877}
+  StartActive: 0
+  DelayBetweenTriggers: 1
+  TimeMult: 1
 --- !u!1 &896058322
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +921,110 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1009053137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1009053138}
+  - component: {fileID: 1009053141}
+  - component: {fileID: 1009053140}
+  - component: {fileID: 1009053139}
+  m_Layer: 0
+  m_Name: MultiSkipEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1009053138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009053137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1009053139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009053137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1009053140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009053137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc635250bb2b4634bf6a80947790910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 40
+  ParticleSettings:
+    Settings:
+    - Name: StartDist
+      ParamType: 1
+      FloatValue: 80
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    - Name: Speed
+      ParamType: 1
+      FloatValue: -40
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    NeedsRebuild: 1
+  SlowInitParticles: 0
+  Skip: 5
+  Offset: 0
+--- !u!114 &1009053141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009053137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: "Just like MultiChase Emitter, except instead of definiting specific
+    arms, use a \"skip\" value to just fire one down every N arms.  \n\nAlso, and
+    example of setting negative speed.  With a start distance far out, and a negative
+    speed, you get chasers that start from outside and chase in to the middle."
 --- !u!1 &1077716562
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +1105,79 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   DebugLog: 0
+--- !u!1 &1155743961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155743962}
+  - component: {fileID: 1155743964}
+  - component: {fileID: 1155743963}
+  m_Layer: 0
+  m_Name: SingleChaseSequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155743962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155743961}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 743450445}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155743963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155743961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 4
+  SequenceTriggers:
+  - Name: FireSingleChase
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 1236582371}
+  StartActive: 0
+  DelayBetweenTriggers: 1
+  TimeMult: 1
+--- !u!114 &1155743964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155743961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Timed sequencers allow for periodic triggers to be fired.  Here
+    we use "LoopCount" as the Run behavior, allowing us to loop through our sequence
+    N times.  In this case, our sequence is just one event - so this results in 4
+    events being fired, 1 second apart.
 --- !u!1 &1173503054
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +1222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1236582372}
+  - component: {fileID: 1236582375}
   - component: {fileID: 1236582373}
   - component: {fileID: 1236582374}
   m_Layer: 0
@@ -677,6 +1271,7 @@ MonoBehaviour:
   PoolSize: 20
   ParticleSettings:
     Settings: []
+    NeedsRebuild: 1
   SlowInitParticles: 1
 --- !u!114 &1236582374
 MonoBehaviour:
@@ -687,24 +1282,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236582371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bced84430b89e4884a6f1a083b8b849b, type: 3}
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1236582373}
-        m_TargetAssemblyTypeName: ParticlePattern, Assembly-CSharp
-        m_MethodName: EmitParticle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &1236582375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236582371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: "Fire a single particle down a row.  You can override the default
+    particle settings in \"Particle Settings\". See ArmChaseParticle.cs for the settings
+    you can override (and what strings to use). I\n\n\"Lifetime\" (float type) \n\"StartDist\",(float)\n\"Speed\",
+    (float)\n\"Length\",(float)\n\"ArmId\", (int)\n\nThe type of arm (CW vs CCW is
+    set in the prefab itself and isn't overrideable (enums don't work). So you need
+    a different prefab for each direction.\n"
 --- !u!1 &1694103767
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +1516,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1236582372}
+  - {fileID: 84103878}
+  - {fileID: 1009053138}
+  - {fileID: 360393771}
   m_Father: {fileID: 896058323}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1224,6 +1825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 281383941789419881, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.649658
       objectReference: {fileID: 0}
     - target: {fileID: 314241996705777023, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -1973,7 +2579,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.00030517578
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -3478,7 +4084,7 @@ PrefabInstance:
     - target: {fileID: 3762579146604760630, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 457.0002
       objectReference: {fileID: 0}
     - target: {fileID: 3762579146604760630, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -3488,7 +4094,7 @@ PrefabInstance:
     - target: {fileID: 3762579146604760630, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 243.5001
       objectReference: {fileID: 0}
     - target: {fileID: 3762579146604760630, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -6188,7 +6794,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0004272461
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}

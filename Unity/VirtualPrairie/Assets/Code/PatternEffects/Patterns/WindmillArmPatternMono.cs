@@ -16,15 +16,13 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 	[Snapshot] public float Speed = 0.5f;
 	[Snapshot] public float FalloffMult = 1.0f;
 
-
-	const int kNumArms = 34;
-
 	float _curAngleNorm = 0f;
 
 	public override void Run(float deltaTime,PrairieLayerGroup group, List<StemColorManager> points)
 	{
 		// what is the spacing between arms?
-		float armModVal = kNumArms/WindmillArms;
+		int numArms = PrairieGlobals.Instance.NumArms;
+		float armModVal = PrairieGlobals.Instance.NumArms/WindmillArms;
 
 		float sp = Speed;
 		if (ArmType == EArmTagType.ArmCW)
@@ -40,7 +38,7 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 		_curAngleNorm = _curAngleNorm%1.0f;
 
 		// how many arms make up a single windmill arm?
-		float ArmsPerWindmill = (kNumArms / WindmillArms);
+		float ArmsPerWindmill = (numArms / WindmillArms);
 
 		foreach (var p in points)
 		{
