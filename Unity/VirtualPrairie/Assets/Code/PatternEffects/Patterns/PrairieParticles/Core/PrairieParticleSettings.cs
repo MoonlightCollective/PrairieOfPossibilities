@@ -73,7 +73,7 @@ public class PrairieParticleSettings
 		return defaultVal;
 	}
 
-	public float GetIntSetting(string name, int defaultValue)
+	public int GetIntSetting(string name, int defaultValue)
 	{
 		if (needRebuild)
 			rebuildDictionary();
