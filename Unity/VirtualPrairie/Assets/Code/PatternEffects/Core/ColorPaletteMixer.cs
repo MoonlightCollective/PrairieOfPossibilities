@@ -199,6 +199,7 @@ public class ColorPaletteMixer : TriggerListener
 				if (PalettePlaylist.Count <= 1)
 				{
 					Debug.Log($"{gameObject.name} - attmept to cycle palette from trigger, but don't have palette playlist entries to cycle");
+					return;
 				}
 				_cycleDex = (_cycleDex+1)%PalettePlaylist.Count;
 				TargetPalette = PalettePlaylist[_cycleDex];
