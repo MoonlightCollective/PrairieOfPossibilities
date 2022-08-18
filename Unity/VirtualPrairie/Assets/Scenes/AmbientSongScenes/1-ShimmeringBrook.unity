@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 587976200}
   - component: {fileID: 587976201}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Toggle Noise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -936,10 +936,10 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 11400000, guid: b41e003328eea4329928e5228bd147ee, type: 2}
-  AlphaMode: 0
+  AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
-    NoiseScale: {x: 1, y: 1, z: 1}
+    NoiseScale: {x: 30, y: 30, z: 30}
     InitialOffsets: {x: 0, y: 0, z: 0}
     BrightnessCurve:
       serializedVersion: 2
@@ -966,7 +966,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     MotionSpeedX: 0
-    MotionSpeedY: 0
+    MotionSpeedY: 5
     MotionSpeedZ: 0
 --- !u!114 &1781635651
 MonoBehaviour:
@@ -1040,11 +1040,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Trigger
   TriggerTargets:
-    IncludeChildren: 1
+    IncludeChildren: 0
     Targets:
     - {fileID: 2020060355}
   Marker: Chord
   PerfectMatch: 0
+--- !u!1 &1941727053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1941727054}
+  - component: {fileID: 1941727055}
+  m_Layer: 0
+  m_Name: ColorChangeTrigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1941727054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941727053}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2134898473}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1941727055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941727053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Trigger
+  TriggerTargets:
+    IncludeChildren: 0
+    Targets:
+    - {fileID: 2020060355}
+  Marker: Fade Out
+  PerfectMatch: 1
 --- !u!850595691 &1966153815
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1252,6 +1303,7 @@ MonoBehaviour:
   AutoCycleTime: 5
   PalettePlaylist:
   - PaletteDex: 20
+  - PaletteDex: 20
   - PaletteDex: 23
   - PaletteDex: 25
   - PaletteDex: 20
@@ -1313,6 +1365,7 @@ Transform:
   m_Children:
   - {fileID: 1924444007}
   - {fileID: 587976200}
+  - {fileID: 1941727054}
   m_Father: {fileID: 896058323}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2346,12 +2399,12 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.599724
+      value: -0.0017442703
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00012207031
+      value: -0.0025024414
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
