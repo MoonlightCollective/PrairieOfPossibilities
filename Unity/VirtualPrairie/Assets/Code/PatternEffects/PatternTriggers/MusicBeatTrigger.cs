@@ -32,8 +32,9 @@ public class MusicBeatTrigger : TriggerBase
 	[Foldout("Clock Divider/Mult")]
 	[Range(1,4)]
 	public int DivMultFactor;
-
+	
 	FmodMusicPlayer _fmp;
+	float _lastEmitFrame = -1;
 
 	//
 	// Awake - initalize. Get Music Player object and attach our callback handler
@@ -77,10 +78,12 @@ public class MusicBeatTrigger : TriggerBase
 	// notifyBeatInternal - handle a beat, filtering it through our filter string
 	// 						if we have one and then fire triggers.
 	//===============
+
 	void notifyBeatInternal(int barCount, int beatCount)
 	{
 		_lastBarCount = barCount;
 		_lastBeatCount = beatCount;
+
 		if (FilterBeats && !string.IsNullOrEmpty(FilterString))
 		{
 			if (BeatDividerType == EBeatDividerType.None)
@@ -96,6 +99,7 @@ public class MusicBeatTrigger : TriggerBase
 		else
 		{
 			_triggerCount = beatCount;
+			_lastEmitFrame = Time.frameCount;
 			TriggerTargets.EmitTrigger(new PrairieTriggerParams("Beat",(float)_triggerCount,0));
 		}
 	}
@@ -124,6 +128,8 @@ public class MusicBeatTrigger : TriggerBase
 	int _divBar = 0;
 	void notifyBeatInternalDivider(int barCount, int beatCount)
 	{
+		_lastEmitFrame = Time.frameCount;
+
 		// clock division - only count every x beats.
 		int trigCount = barCount * _fmp.BeatsPerBar + beatCount;
 		int beatsPerReset = _fmp.BeatsPerBar * DivMultFactor; // reset at a multiple of number of bar count.
@@ -163,7 +169,7 @@ public class MusicBeatTrigger : TriggerBase
 		_clockMultTimer = 0f;
 	}
 
-	public void Update()
+	public void FixedUpdate()
 	{
 		switch (BeatDividerType)
 		{
@@ -173,13 +179,16 @@ public class MusicBeatTrigger : TriggerBase
 		}
 
 		// multiplier!
-		_clockMultTimer += Time.deltaTime;
+		_clockMultTimer += Time.fixedDeltaTime;
 		if (_clockMultTimer >= _timePerClockTick)
 		{
 			_lastBeatCount++;
-			_clockMultTimer -= _timePerClockTick;
+			_clockMultTimer = 0;
 			if (_lastBeatCount < DivMultFactor * 4)
+			{
+				// Debug.Log($"{_lastBeatCount} BEAT {Time.frameCount}");
 				notifyBeatInternal(_lastBarCount,_lastBeatCount);
+			}
 		}
 		
 		return;

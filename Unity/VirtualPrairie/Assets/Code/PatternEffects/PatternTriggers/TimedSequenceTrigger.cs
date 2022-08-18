@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Code.StateTable;
+using NaughtyAttributes;
 using UnityEngine;
 
 
@@ -8,6 +9,7 @@ public enum ESquenceTriggerBehavior
 {
 	OneShot,
 	LoopToggle,
+	LoopCount,
 }
 
 [System.Serializable]
@@ -21,6 +23,9 @@ public class TriggerSequenceEntry
 public class TimedSequenceTrigger : TriggerListener
 {
 	public ESquenceTriggerBehavior RunBehaviour = ESquenceTriggerBehavior.OneShot;
+	[ShowIf("RunBehaviour", ESquenceTriggerBehavior.LoopCount)]
+	public int LoopCount = 1;
+
 	public List<TriggerSequenceEntry> SequenceTriggers;
 	public bool StartActive = false;
 	public float DelayBetweenTriggers = 1.0f;
@@ -111,15 +116,24 @@ public class TimedSequenceTrigger : TriggerListener
 	//=================
 	// Running State
 	//=================
+	int _loopsRemaining = 0;
 	protected virtual void RunningEnter()
 	{
 		if (SequenceTriggers.Count < 1)
 		{
 			_stateMachine.GotoState(ETimedSequenceTriggerState.Idle);
 		}
-
+		_loopsRemaining = LoopCount;
 		_nextTriggerDex = 0;
 		_delayTimer = SequenceTriggers[_nextTriggerDex].StepPreDelay;
+	}
+
+	protected virtual void RunningNotifyTrigger(StateTableValue v)
+	{
+		if (RunBehaviour == ESquenceTriggerBehavior.LoopToggle)
+		{
+			_stateMachine.GotoState(ETimedSequenceTriggerState.Idle);
+		}
 	}
 
 	protected virtual void RunningUpdate()
@@ -141,10 +155,17 @@ public class TimedSequenceTrigger : TriggerListener
 					case ESquenceTriggerBehavior.LoopToggle:
 						_nextTriggerDex = 0;
 						break;
+					case ESquenceTriggerBehavior.LoopCount:
+						_loopsRemaining--;
+						_nextTriggerDex = 0;
+						if (_loopsRemaining < 1)
+						{
+							_stateMachine.GotoState(ETimedSequenceTriggerState.Idle);
+							break;
+						}
+						break;
 				}
 			}
-			
-			
 			_delayTimer += DelayBetweenTriggers;
 			_delayTimer += SequenceTriggers[_nextTriggerDex].StepPreDelay;
 		}

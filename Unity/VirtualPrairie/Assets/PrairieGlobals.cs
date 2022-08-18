@@ -129,7 +129,8 @@ public class PrairieGlobals : MonoBehaviour
 		s_instance = this;
 	}
 
-	
+	const int kNumArms = 34;
+	public int NumArms => kNumArms;
 
 	// Start is called before the first frame update
 	void Start()
