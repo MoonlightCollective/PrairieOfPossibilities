@@ -123,6 +123,101 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &84103877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84103878}
+  - component: {fileID: 84103881}
+  - component: {fileID: 84103879}
+  - component: {fileID: 84103880}
+  m_Layer: 0
+  m_Name: MultiChaseEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &84103878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84103879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22100982c3fb1409ba782d77ff12131a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 30
+  ParticleSettings:
+    Settings:
+    - Name: Speed
+      ParamType: 1
+      FloatValue: 25
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    NeedsRebuild: 1
+  SlowInitParticles: 1
+  ArmIds: 0200000004000000060000000f0000001100000013000000
+--- !u!114 &84103880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &84103881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84103877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: ChaseMarkerTrigs overrides the settings for which arms and colors
+    to use here, to make it easy to fire a sequence of differently colored chases
+    down different arms.
 --- !u!1 &353468392
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,9 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: Chase Particles! Send chasers down arms in either direction. Lots
-    of ways to fire these - individual, simultaneously down specific arms, skip every
-    N arms, or spray like a sprinkler!
+  ReadmeString: A single MultiChaseEmitter is used with a special triggger type to
+    fire different sets of chasers at specific times in the music.
 --- !u!4 &353468394
 Transform:
   m_ObjectHideFlags: 0
@@ -364,205 +458,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87eddcdea36af4c9592b852c639f432b, type: 3}
---- !u!1 &727135842
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 727135843}
-  - component: {fileID: 727135848}
-  - component: {fileID: 727135847}
-  - component: {fileID: 727135846}
-  - component: {fileID: 727135845}
-  - component: {fileID: 727135844}
-  m_Layer: 0
-  m_Name: RippleCenterOut
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &727135843
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2020060356}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &727135844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snapshotEntries: []
---- !u!114 &727135845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParamTriggerSettings:
-    TargetSelf: 1
-    TargetPattern: {fileID: 0}
-    TargetParamIndex: 0
-    Multiplier: 1
-  Envelope:
-    attack: 0.1
-    decay: 1
-    sustain: 1
-    release: 1
-    attackEase: 0
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
---- !u!114 &727135846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParamTriggerSettings:
-    TargetSelf: 1
-    TargetPattern: {fileID: 0}
-    TargetParamIndex: 1
-    Multiplier: 1
-  Envelope:
-    attack: 2
-    decay: 0
-    sustain: 1
-    release: 0
-    attackEase: -0.68
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
---- !u!114 &727135847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93a9ca26edc8b47c9baf51b6358b77e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ColorizeSettings:
-  - {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
-  - {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
-  - {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
---- !u!114 &727135848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727135842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67aa7ae9128fa475ca5063cd345c22df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BlendSettings:
-    BlendMode: 1
-    LayerAlpha: 1
-  TimeSettings:
-    TimeMult: 0.3
-  PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 0}
-  AlphaMode: 0
-  FixedAlpha: 1
-  Origin: 0
-  FalloffRange: 10
-  RingMovement:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 75
-      outSlope: 75
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 75
-      inSlope: 75
-      outSlope: 75
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  FalloffCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: -1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  PatternAlpha: 0
-  NormalizedT: 0
-  FalloffMod: 0
 --- !u!1 &743450444
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +467,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 743450445}
-  - component: {fileID: 743450446}
   m_Layer: 0
   m_Name: MusicEvents
   m_TagString: Untagged
@@ -596,27 +490,6 @@ Transform:
   m_Father: {fileID: 896058323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &743450446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743450444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbee7322fd364f8cbdae70babbdeaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Trigger
-  TriggerTargets:
-    IncludeChildren: 1
-    Targets:
-    - {fileID: 727135842}
-  FilterBeats: 1
-  FilterString: 1010
-  BeatDividerType: 0
-  DivMultFactor: 0
 --- !u!1 &770949044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,7 +881,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 727135843}
+  - {fileID: 84103878}
   m_Father: {fileID: 896058323}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1082,6 +955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2073494819}
   - component: {fileID: 2073494820}
+  - component: {fileID: 2073494821}
   m_Layer: 0
   m_Name: ChaseMarkerTrigs
   m_TagString: Untagged
@@ -1118,24 +992,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarkerEntries:
   - Name: 30,31,12,13
-    TargetChasePattern: {fileID: 0}
+    TargetChasePattern: {fileID: 84103879}
     ArmIds: 1e0000001f0000000c0000000d000000
     OverrideColorize: 1
     ColorizeSettings: {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
     MusicMarker: MusicStart
   - Name: 26,27,8,9
-    TargetChasePattern: {fileID: 0}
+    TargetChasePattern: {fileID: 84103879}
     ArmIds: 1a0000001b0000000800000009000000
     OverrideColorize: 1
     ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
     MusicMarker: IntroChords A
   - Name: 22,23,4,5
-    TargetChasePattern: {fileID: 0}
+    TargetChasePattern: {fileID: 84103879}
     ArmIds: 16000000170000000400000005000000
     OverrideColorize: 1
     ColorizeSettings: {fileID: 11400000, guid: 93981382ecb8042b8a1ca2aa02a68f76, type: 2}
     MusicMarker: IntroChords B
   NeedsRebuild: 0
+--- !u!114 &2073494821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073494818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: Each entry above listens for a specific music marker and fires a
+    set of arm chasers as defined by the ID list in the entry. Lets you reuse the
+    same arm chaser pattern but fire chasers in different colors down different arms
+    based on music markers.
 --- !u!20 &2116549861 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1955358698467406569, guid: 69cd4de30e7df4516bdce9c43e9bff61,
@@ -2128,7 +2018,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00036621094
+      value: 5.5999756
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}

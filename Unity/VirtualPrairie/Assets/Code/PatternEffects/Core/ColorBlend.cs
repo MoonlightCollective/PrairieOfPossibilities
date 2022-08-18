@@ -12,6 +12,7 @@ public class ColorBlend
 		AddClamped,
 		Subtract,
 		Multiply,
+		AlphaOverwrite,
 	}
 
 	public static Color BlendColors(Color srcColor, Color destColor, EBlendMode blendMode)
@@ -44,6 +45,8 @@ public class ColorBlend
 									Mathf.Clamp01(destColor.a -  srcColor.a));
 			case EBlendMode.Multiply:
 				return srcColor * destColor;
+			case EBlendMode.AlphaOverwrite:
+				return new Color(destColor.r,destColor.g,destColor.b,srcColor.a);
 		}
 	}
 }
