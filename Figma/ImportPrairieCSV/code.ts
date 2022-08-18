@@ -1070,7 +1070,7 @@ async function exportTags()
         }
         csvLightNumbers += light.name.substring(6);
       }
-      var groupNum = child.name.substring(6);
+      //var groupNum = child.name.substring(6);
       console.log(`${child.name},${csvLightNumbers}`);
     }
   }
@@ -1098,12 +1098,99 @@ async function exportTags()
         }
         csvLightNumbers += light.name.substring(6);
       }
-      var groupNum = child.name.substring(6);
+      //var groupNum = child.name.substring(6);
       console.log(`${child.name},${csvLightNumbers}`);
     }
   }
 
+  var tagNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Arms / direction B") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+
+  console.log('exporting direction B!');
+  for (let child of tagNode.children)
+  {
+    if (child.name.startsWith("Arm"))
+    {
+      //console.log(`found child '${child.name}'`);
+      // find the child lights
+      var childGroup = child as FrameNode;
+      if (childGroup != null)
+      {
+        var csvLightNumbers = "";
+        for (let light of childGroup.children)
+        {
+          if (csvLightNumbers != "")
+          {
+            csvLightNumbers += ",";
+          }
+          csvLightNumbers += light.name.substring(6);
+        }
+        //var groupNum = child.name.substring(6);
+        console.log(`${child.name},${csvLightNumbers}`);
+      }
+    }
+  }
+  console.log('finished exporting direction B!');
+
 }
+
+async function numberRadials() {
+
+  const pageNode = figma.currentPage;
+  const nodes: SceneNode[] = [];
+
+  // make sure we are on the right page
+  if (pageNode.name != "Assets")
+  {
+    console.error(`need to be on the Assets page to run`);
+    return;
+  }
+  
+  console.log(`finding node 'Map'`);
+  const mapNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  if (mapNode == null)
+  {
+    console.log(`mapNode is null !`);
+    return;
+  }
+
+  // first get rid of old numbers
+  console.log(`finding and deleting node 'Numbers'`);
+  const numbers = pageNode.findOne(node => node.type === "GROUP" && node.name === "Numbers") as GroupNode;
+  if (numbers != null)
+  {
+    numbers.remove();
+  }
+
+  // now we draw the numbers
+  for (let i=0; i < 360; i+=5) {
+    const text = figma.createText();
+    var x = 1560 * Math.cos((i-90) * Math.PI / 180);
+    var y = 1560 * Math.sin((i-90) * Math.PI / 180);
+    text.x = x;
+    text.y = y;
+    text.fontSize = 20;
+    text.characters = i.toString() + "°";
+    
+    // for now just put node in the main page; group later
+    pageNode.appendChild(text);
+    nodes.push(text);
+  }
+
+  console.log(`done drawing numbers`);
+
+  // and now we group the new lines together
+  figma.currentPage.selection = nodes;
+  figma.viewport.scrollAndZoomIntoView(nodes);
+  console.log(`figma.group()`);
+  const numberGroup = figma.group(nodes,mapNode);
+  numberGroup.name = "Numbers";
+}
+
 
 // This file holds the main code for the plugins. It has access to the *document*.
 // You can access browser APIs such as the network by creating a UI which contains
@@ -1122,6 +1209,10 @@ async function exportTags()
   else if (figma.command == "export")
   {
     await exportTags();
+  }
+  else if (figma.command == "radials")
+  {
+    await numberRadials();
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
