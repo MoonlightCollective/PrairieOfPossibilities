@@ -1070,7 +1070,7 @@ async function exportTags()
         }
         csvLightNumbers += light.name.substring(6);
       }
-      var groupNum = child.name.substring(6);
+      //var groupNum = child.name.substring(6);
       console.log(`${child.name},${csvLightNumbers}`);
     }
   }
@@ -1098,10 +1098,43 @@ async function exportTags()
         }
         csvLightNumbers += light.name.substring(6);
       }
-      var groupNum = child.name.substring(6);
+      //var groupNum = child.name.substring(6);
       console.log(`${child.name},${csvLightNumbers}`);
     }
   }
+
+  var tagNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Arms / direction B") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+  tagNode = tagNode.findOne(node => node.type === "GROUP" && node.name === "Lights") as FrameNode;
+  console.log(`found tagNode '${tagNode.name}'`);
+
+  console.log('exporting direction B!');
+  for (let child of tagNode.children)
+  {
+    if (child.name.startsWith("Arm"))
+    {
+      //console.log(`found child '${child.name}'`);
+      // find the child lights
+      var childGroup = child as FrameNode;
+      if (childGroup != null)
+      {
+        var csvLightNumbers = "";
+        for (let light of childGroup.children)
+        {
+          if (csvLightNumbers != "")
+          {
+            csvLightNumbers += ",";
+          }
+          csvLightNumbers += light.name.substring(6);
+        }
+        //var groupNum = child.name.substring(6);
+        console.log(`${child.name},${csvLightNumbers}`);
+      }
+    }
+  }
+  console.log('finished exporting direction B!');
 
 }
 

@@ -39,7 +39,7 @@ skippedTagCount = 0
 removedTagCount = 0
 
 #preRemoveTagPrefix = "Arm"
-preRemoveTagPrefix = "Portal"
+preRemoveTagPrefix = "CCWArm"
 for fixture in children:
     existingTags = fixture['tags']
     #print(f'fixture.tags = {existTags}')
