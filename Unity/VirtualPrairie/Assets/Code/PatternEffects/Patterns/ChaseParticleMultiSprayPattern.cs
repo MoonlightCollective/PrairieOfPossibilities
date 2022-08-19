@@ -11,7 +11,7 @@ public class ChaseParticleMultiSprayPattern : ParticlePattern
 	[Range(1,33)]
 	public int EndArm = 10;
 	
-	[Range(1,34)]
+	[Range(-33,33)]
 	public int Skip = 1;
 	int _curDex = 0;
 
@@ -19,6 +19,11 @@ public class ChaseParticleMultiSprayPattern : ParticlePattern
 	{
 		base.Start();
 		_curDex = StartArm % PrairieGlobals.Instance.NumArms;
+	}
+
+	public void ResetArm()
+	{
+		_curDex = StartArm;
 	}
 
 	public override void EmitParticle()
@@ -38,18 +43,43 @@ public class ChaseParticleMultiSprayPattern : ParticlePattern
 		p.InitParticle(ParticleSettings);
 		p.ResetParticle();
 
-		if (EndArm > StartArm)
+		if (Skip < 0)
 		{
+			bool couldWrap = (_curDex >= EndArm);
 			_curDex += Skip;
-			if (_curDex > EndArm)
-				_curDex = StartArm;
-		}
-		else
-		{
-			_curDex -= Skip;
-			if (_curDex < EndArm)
-				_curDex = StartArm;
-		}
+			if (_curDex < 0)
+			{
+				// fell off the left edge. Wrap around 
+				_curDex+=PrairieGlobals.Instance.NumArms-1;
+				couldWrap = true;
+			}
 
+			if (couldWrap)
+			{
+				if (_curDex < EndArm)
+				{
+					// we went to the left of the end arm
+					_curDex = StartArm;
+				}
+			}
+		}
+		else if (Skip > 0)
+		{
+			bool couldWrap = (_curDex <= EndArm);
+			_curDex += Skip;
+			if (_curDex >= PrairieGlobals.Instance.NumArms)
+			{
+				couldWrap = true;
+				_curDex -= PrairieGlobals.Instance.NumArms;
+			}
+
+			if (couldWrap)
+			{
+				if (_curDex > EndArm)
+				{
+					_curDex = StartArm;
+				}
+			}
+		}
 	}
 }
