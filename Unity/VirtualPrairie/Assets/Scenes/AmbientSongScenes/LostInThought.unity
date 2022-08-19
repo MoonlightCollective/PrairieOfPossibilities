@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1679173391}
+  m_Father: {fileID: 1519146841}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &37015649
@@ -169,6 +169,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 1118182045}
   TriggerBehavior: 1
+--- !u!1 &134123414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134123415}
+  - component: {fileID: 134123416}
+  m_Layer: 0
+  m_Name: BaseNoise-1-2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134123415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134123414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524434988}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &134123416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134123414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c010b5a0e1384e5595d57961d03046e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 0.31
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
+  AlphaMode: 1
+  FixedAlpha: 1
+  NoiseSettings:
+    NoiseScale: {x: 40, y: 50, z: 40}
+    InitialOffsets: {x: 0, y: 0, z: 0}
+    BrightnessCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.37087265
+        outSlope: 0.37087265
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.0381558
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    MotionSpeedX: 0.61
+    MotionSpeedY: 1.92
+    MotionSpeedZ: 0
 --- !u!1 &137876435
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +426,7 @@ MonoBehaviour:
   TargetMixer: {fileID: 2020060358}
   Entry:
     PaletteDex: 24
-  TransitionTime: 1
+  TransitionTime: 0.5
 --- !u!1 &253717490
 GameObject:
   m_ObjectHideFlags: 0
@@ -10060,7 +10143,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 524434988}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &274906977
 MonoBehaviour:
@@ -10075,19 +10158,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 0.05
-    decay: 0
-    sustain: 1
-    release: 1
+    attack: 0.03
+    decay: 0.06
+    sustain: 0.73
+    release: 0.5
     attackEase: -0.33
-    decayEase: 0
+    decayEase: 0.43
     releaseEase: 0
     interrupt: 0
     retrigger: 1
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 1
+  Multiplier: 0.7
 --- !u!114 &274906978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10232,6 +10315,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea99f5a97e3d4463c879e1c1d4f10450, type: 3}
+--- !u!1 &407496112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407496113}
+  - component: {fileID: 407496114}
+  m_Layer: 0
+  m_Name: SpraySequencerS4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407496113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407496112}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 669142918}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &407496114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407496112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 16
+  SequenceTriggers:
+  - Name: SingleSprayTrig
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 669142917}
+  StartActive: 0
+  DelayBetweenTriggers: 0.8
+  TimeMult: 1
 --- !u!1 &410938677
 GameObject:
   m_ObjectHideFlags: 0
@@ -10325,6 +10464,37 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &459888772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459888773}
+  m_Layer: 0
+  m_Name: SectionC-Triggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &459888773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459888772}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 896058323}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490331520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10386,8 +10556,9 @@ GameObject:
   m_Component:
   - component: {fileID: 524434988}
   - component: {fileID: 524434987}
+  - component: {fileID: 524434989}
   m_Layer: 0
-  m_Name: SG-BoomChicks
+  m_Name: SG-BoomChicks-S1-S2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10424,11 +10595,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1118182046}
+  - {fileID: 134123415}
   - {fileID: 2112836860}
   - {fileID: 274906976}
   m_Father: {fileID: 2020060356}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &524434989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524434986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 2
+    decay: 0
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Mult: 1
 --- !u!1 &620063093
 GameObject:
   m_ObjectHideFlags: 0
@@ -10458,7 +10656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1679173391}
+  m_Father: {fileID: 1519146841}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &620063095
@@ -10475,6 +10673,95 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 1118182045}
   TriggerBehavior: 0
+--- !u!1 &669142917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 669142918}
+  - component: {fileID: 669142920}
+  - component: {fileID: 669142919}
+  m_Layer: 0
+  m_Name: SprayPattern-S4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &669142918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669142917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 407496113}
+  m_Father: {fileID: 1776202265}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &669142919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669142917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &669142920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669142917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ef0003bf51e473bba671477cb1b40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 16
+  ParticleSettings:
+    Settings:
+    - Name: Speed
+      ParamType: 1
+      FloatValue: 25
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    - Name: StartDist
+      ParamType: 1
+      FloatValue: 8
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    NeedsRebuild: 1
+  SlowInitParticles: 0
+  StartArm: 29
+  EndArm: 21
+  Skip: -1
 --- !u!1001 &685931713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15562,6 +15849,7 @@ Transform:
   m_Children:
   - {fileID: 178175084}
   - {fileID: 1082435068}
+  - {fileID: 459888773}
   - {fileID: 2020060356}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -15675,6 +15963,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1679173391}
+  - {fileID: 1519146841}
+  - {fileID: 2022089393}
+  - {fileID: 1587926518}
   m_Father: {fileID: 896058323}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25656,6 +25947,62 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1340721510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340721511}
+  - component: {fileID: 1340721512}
+  m_Layer: 0
+  m_Name: SpraySequencerS3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1340721511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340721510}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2025806111}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1340721512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340721510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6177ba5b6ce674781803fde955753459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunBehaviour: 2
+  LoopCount: 16
+  SequenceTriggers:
+  - Name: SingleSprayTrig
+    StepPreDelay: 0
+    TriggerTargets:
+      IncludeChildren: 0
+      Targets:
+      - {fileID: 2025806110}
+  StartActive: 0
+  DelayBetweenTriggers: 0.8
+  TimeMult: 1
 --- !u!1 &1445272571
 GameObject:
   m_ObjectHideFlags: 0
@@ -30621,6 +30968,150 @@ MonoBehaviour:
     - {fileID: 1623799883}
   Marker: Intro Loop A
   PerfectMatch: 1
+--- !u!1 &1519146840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1519146841}
+  - component: {fileID: 1519146843}
+  - component: {fileID: 1519146842}
+  m_Layer: 0
+  m_Name: B-BoomChicks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1519146841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519146840}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 620063094}
+  - {fileID: 37015648}
+  m_Father: {fileID: 1082435068}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519146842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519146840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DrumLoop C
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 37015647}
+  Marker: DrumLoop C
+  PerfectMatch: 1
+--- !u!114 &1519146843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519146840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Drum Start A
+  TriggerTargets:
+    IncludeChildren: 0
+    Targets:
+    - {fileID: 620063093}
+  Marker: Drum Start A
+  PerfectMatch: 1
+--- !u!1 &1587926517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587926518}
+  - component: {fileID: 1587926519}
+  - component: {fileID: 1587926520}
+  m_Layer: 0
+  m_Name: B-SprayTrigs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587926518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587926517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1082435068}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587926519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587926517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PianoSeq A
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 1340721510}
+  Marker: PianoSeq A
+  PerfectMatch: 1
+--- !u!114 &1587926520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587926517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PianoSeq B
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 407496112}
+  Marker: PianoSeq B
+  PerfectMatch: 1
 --- !u!1 &1623799883
 GameObject:
   m_ObjectHideFlags: 0
@@ -30668,7 +31159,7 @@ MonoBehaviour:
   TargetMixer: {fileID: 2020060358}
   Entry:
     PaletteDex: 18
-  TransitionTime: 1
+  TransitionTime: 0.5
 --- !u!1 &1660168770
 GameObject:
   m_ObjectHideFlags: 0
@@ -30753,7 +31244,7 @@ MonoBehaviour:
     Multiplier: 1
   Envelope:
     attack: 2
-    decay: 0
+    decay: 3
     sustain: 1
     release: 0
     attackEase: 0.25
@@ -30917,10 +31408,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1679173391}
-  - component: {fileID: 1679173393}
-  - component: {fileID: 1679173392}
+  - component: {fileID: 1679173394}
   m_Layer: 0
-  m_Name: SectionB-StartStop
+  m_Name: B-StartStop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30937,13 +31427,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 620063094}
-  - {fileID: 37015648}
+  m_Children: []
   m_Father: {fileID: 1082435068}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1679173392
+--- !u!114 &1679173394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30952,35 +31440,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1679173390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Script: {fileID: 11500000, guid: 603f79e90d0444c02ae0b6d06018307e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Drum Stop A
-  TriggerTargets:
-    IncludeChildren: 1
+  GateTargets:
     Targets:
-    - {fileID: 37015647}
-  Marker: Drum Stop A
-  PerfectMatch: 1
---- !u!114 &1679173393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679173390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Drum Start A
-  TriggerTargets:
+    - {fileID: 524434986}
     IncludeChildren: 0
-    Targets:
-    - {fileID: 620063093}
-  Marker: Drum Start A
+  OnMarker: Drum Start A
+  OffMarker: Drum Stop A
   PerfectMatch: 1
+  SendOffWithMusicStop: 1
 --- !u!1 &1694103767
 GameObject:
   m_ObjectHideFlags: 0
@@ -31032,6 +31502,58 @@ Transform:
   m_Father: {fileID: 1173503055}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1776202264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1776202265}
+  - component: {fileID: 1776202266}
+  m_Layer: 0
+  m_Name: SG-ArmSpray
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1776202265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776202264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2025806111}
+  - {fileID: 669142918}
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776202266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776202264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88310e811974c5581d7aa860e01bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
 --- !u!1 &1811983202
 GameObject:
   m_ObjectHideFlags: 0
@@ -36392,8 +36914,9 @@ Transform:
   - {fileID: 894103968}
   - {fileID: 1090508825}
   - {fileID: 524434988}
+  - {fileID: 1776202265}
   m_Father: {fileID: 896058323}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2020060357
 MonoBehaviour:
@@ -36455,6 +36978,166 @@ MonoBehaviour:
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
+--- !u!1 &2022089392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022089393}
+  - component: {fileID: 2022089395}
+  - component: {fileID: 2022089394}
+  m_Layer: 0
+  m_Name: B-PaletteTrigs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022089393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022089392}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1082435068}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2022089394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022089392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DrumLoop C
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 2080923731}
+  Marker: DrumLoop C
+  PerfectMatch: 1
+--- !u!114 &2022089395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022089392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DrumLoop A
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 1623799883}
+  Marker: DrumLoop A
+  PerfectMatch: 1
+--- !u!1 &2025806110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2025806111}
+  - component: {fileID: 2025806112}
+  - component: {fileID: 2025806113}
+  m_Layer: 0
+  m_Name: SprayPattern-S3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2025806111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025806110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1340721511}
+  m_Father: {fileID: 1776202265}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2025806112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025806110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ef0003bf51e473bba671477cb1b40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+    type: 3}
+  PoolSize: 20
+  ParticleSettings:
+    Settings:
+    - Name: Speed
+      ParamType: 1
+      FloatValue: 25
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    - Name: StartDist
+      ParamType: 1
+      FloatValue: 8
+      IntValue: 0
+      FloatRangeValue:
+        MinVal: 0
+        MaxVal: 0
+    NeedsRebuild: 0
+  SlowInitParticles: 0
+  StartArm: 13
+  EndArm: 5
+  Skip: -1
+--- !u!114 &2025806113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025806110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080923731
 GameObject:
   m_ObjectHideFlags: 0
@@ -36502,7 +37185,7 @@ MonoBehaviour:
   TargetMixer: {fileID: 2020060358}
   Entry:
     PaletteDex: 21
-  TransitionTime: 1
+  TransitionTime: 0.5
 --- !u!1 &2112836859
 GameObject:
   m_ObjectHideFlags: 0
@@ -36535,7 +37218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 524434988}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2112836861
 MonoBehaviour:
@@ -36550,11 +37233,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 0.05
+    attack: 0
     decay: 0
     sustain: 1
     release: 1
-    attackEase: -0.33
+    attackEase: -0.39
     decayEase: 0
     releaseEase: 0
     interrupt: 0
@@ -36562,7 +37245,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.36
+  Multiplier: 0.42
 --- !u!114 &2112836862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37580,7 +38263,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.5999756
+      value: -0.0015869141
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
