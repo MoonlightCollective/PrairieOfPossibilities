@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20efc3a52af984d57a5bc3eb05cec7ba, type: 3}
-  m_Name: Filter-Arms-NorthAndSouthRanges
+  m_Script: {fileID: 11500000, guid: f76ce8c7b6bec443ca9c352368888eb4, type: 3}
+  m_Name: Filter-CWArmTags-1through5
   m_EditorClassIdentifier: 
   ArmType: 0
-  Ranges:
-  - MinId: 1
-    MaxId: 5
-  - MinId: 18
-    MaxId: 23
+  Ids: 0100000002000000030000000400000005000000
+  FilterOpMode: 0

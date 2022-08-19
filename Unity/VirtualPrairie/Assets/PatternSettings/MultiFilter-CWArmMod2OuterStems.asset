@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76ce8c7b6bec443ca9c352368888eb4, type: 3}
-  m_Name: Filter-ArmTags-Mirror12-6
+  m_Script: {fileID: 11500000, guid: 35cf8ba784f494210826d2da485aeb6f, type: 3}
+  m_Name: MultiFilter-CWArmMod2OuterStems
   m_EditorClassIdentifier: 
-  ArmType: 0
-  Ids: 010000000200000003000000110000001200000013000000
-  FilterOpMode: 0
+  Filters:
+  - {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
+  - {fileID: 11400000, guid: f8311877bfd5a43d5b92197aedac6540, type: 2}
+  FilterOpMode: 1

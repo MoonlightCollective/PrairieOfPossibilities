@@ -187,6 +187,7 @@ MonoBehaviour:
       FloatRangeValue:
         MinVal: 10
         MaxVal: 30
+    NeedsRebuild: 1
   SlowInitParticles: 1
 --- !u!4 &87213625
 Transform:
@@ -3416,7 +3417,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00036621094
+      value: 5.599236
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -7959,7 +7960,7 @@ MonoBehaviour:
   LayoutJsonFile: Fixtures/CenterClearingLayoutTagTest.json
   AutoPlayMusic: 1
   DoLoadSceneOnPlaylistEnd: 1
-  DestiationScene: 5-BeforeSunrise
+  DestiationScene: 3-LostInThought
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
