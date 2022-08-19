@@ -47,6 +47,7 @@ public class StemColorManagerProxy : StemColorManager
 		_parentFixture = _realStem.ParentFixture;
 		_globalDistFromOrigin = _realStem.GlobalDistFromOrigin;
 		_localTheta = _realStem.LocalTheta;
+		_localThetaNorm = _realStem.LocalThetaNorm;
 		_localRadius = _realStem.LocalRadius;
 
 		Tags = new List<PrairieTag>(_realStem.Tags);
