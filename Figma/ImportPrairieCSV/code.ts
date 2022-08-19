@@ -884,9 +884,17 @@ async function importCSV() {
   // import the CSV data
   buildMaps();
   
+  console.log(`finding node 'Wiring Plan'`);
+  const planNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Wiring Plan") as FrameNode;
+  if (planNode == null)
+  {
+    console.log(`planNode is null !`);
+    return;
+  }
+
   console.log(`finding node 'Map'`);
-  const mapNode = pageNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
-  //const mapNode = node.findOne(node => node.type === "GROUP" && node.name === "Map") as FrameNode;
+  const mapNode = planNode.findOne(node => node.type === "FRAME" && node.name === "Map") as FrameNode;
+
   if (mapNode == null)
   {
     console.log(`mapNode is null !`);
@@ -928,10 +936,10 @@ async function importCSV() {
 
     console.log(`(lightBaseMap.get(startNodeId) = ${lightBaseMap.get(startNodeId)} lightBaseMap.get(endNodeId) = ${lightBaseMap.get(endNodeId)}`);
 
-    var startX = parseFloat(lightBaseMap.get(startNodeId)[1]);
-    var startZ = -parseFloat(lightBaseMap.get(startNodeId)[2]);
-    var endX = parseFloat(lightBaseMap.get(endNodeId)[1]);
-    var endZ = -parseFloat(lightBaseMap.get(endNodeId)[2]);
+    var startX = parseFloat(lightBaseMap.get(startNodeId)[1])-452;
+    var startZ = -parseFloat(lightBaseMap.get(startNodeId)[2])-379;
+    var endX = parseFloat(lightBaseMap.get(endNodeId)[1])-452;
+    var endZ = -parseFloat(lightBaseMap.get(endNodeId)[2])-379;
 
     console.log(`processing path from node ${cols[4]} to ${cols[5]}`);
 
@@ -983,8 +991,8 @@ async function importCSV() {
     console.log(`    ${lightBaseMap.get(key)[1]}`);
     console.log(`    ${lightBaseMap.get(key)[2]}`);
 
-    light.x = parseFloat(lightBaseMap.get(key)[1]);
-    light.y = -parseFloat(lightBaseMap.get(key)[2]);  // need to invert y because in unity, y axis runs bottom-to-top, and in figma, it runs top-to-bottom
+    light.x = parseFloat(lightBaseMap.get(key)[1]) -452;
+    light.y = -parseFloat(lightBaseMap.get(key)[2]) -379;  // need to invert y because in unity, y axis runs bottom-to-top, and in figma, it runs top-to-bottom
     const id = light.findOne(node => node.type === "TEXT" && node.name === "#ID") as TextNode;
     id.characters = key;
 
@@ -1002,13 +1010,13 @@ async function importCSV() {
     angle.characters = `A=${parseFloat(lightBaseMap.get(key)[7]).toFixed(1)}°`;
 
     const radius1 = light.findOne(node => node.type === "TEXT" && node.name === "#R1") as TextNode;
-    var R1I = parseInt(lightBaseMap.get(key)[8]);
+    var R1I = Math.round(lightBaseMap.get(key)[8]);
     var R1F = Math.floor(R1I/12);
     R1I = R1I - (R1F*12);
     radius1.characters = `R1=${R1F}'-${R1I}"`;
 
     const radius2 = light.findOne(node => node.type === "TEXT" && node.name === "#R2") as TextNode;
-    var R2I = parseInt(lightBaseMap.get(key)[9]);
+    var R2I = Math.round(lightBaseMap.get(key)[9]);
     // var R2F = Math.trunc(R2I/12);
     // R2I = Math.abs(R2I - (R2F*12));
     // radius2.characters = `R2=${R2F}'-${R2I}"`;
