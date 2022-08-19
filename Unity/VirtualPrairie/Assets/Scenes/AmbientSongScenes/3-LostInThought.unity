@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
+  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -38263,7 +38263,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0015869141
+      value: 5.598931
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -42810,8 +42810,8 @@ MonoBehaviour:
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/CenterClearingLayoutTagTest.json
   AutoPlayMusic: 1
-  DoLoadSceneOnPlaylistEnd: 0
-  DestiationScene: SwapTesting2
+  DoLoadSceneOnPlaylistEnd: 1
+  DestiationScene: 5-BeforeSunrise
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
