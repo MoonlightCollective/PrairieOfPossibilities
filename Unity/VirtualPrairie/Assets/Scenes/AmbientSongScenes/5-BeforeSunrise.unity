@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,99 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &66398313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 66398314}
+  - component: {fileID: 66398315}
+  m_Layer: 0
+  m_Name: InnerSparkle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &66398314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66398313}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1375800936}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66398315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66398313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466a84a9d96734bc8a7253f10ebda61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 0.492
+  TimeSettings:
+    TimeMult: 0.73
+  PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 6c61d62cf90a84a49a945f89f36f50fb, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  MinBrightness: 0
+  SparkleFrequency:
+    MinVal: 0.4
+    MaxVal: 0.4
+  SparkleDuration:
+    MinVal: 1
+    MaxVal: 1
+  FlickerShape:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.028305054
+      inSlope: 6.883483
+      outSlope: 6.883483
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.16552
+    - serializedVersion: 3
+      time: 0.43168467
+      value: 1.3627164
+      inSlope: -0.39888066
+      outSlope: -0.39888066
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &223140425
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +263,7 @@ MonoBehaviour:
   GateTargets:
     Targets:
     - {fileID: 1375800933}
+    IncludeChildren: 0
   OnMarker: MusicStart
   OffMarker: MusicEnd
   PerfectMatch: 1
@@ -9870,7 +9964,7 @@ GameObject:
   - component: {fileID: 262503061}
   - component: {fileID: 262503062}
   m_Layer: 0
-  m_Name: Palette6Trig
+  m_Name: RiverBluePalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10150,7 +10244,7 @@ GameObject:
   - component: {fileID: 514088366}
   - component: {fileID: 514088367}
   m_Layer: 0
-  m_Name: Palette5Trig
+  m_Name: CadRedPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10236,7 +10330,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 1791927074}
+    - {fileID: 262503060}
   Marker: Cycle J
   PerfectMatch: 1
 --- !u!1001 &685931713
@@ -15263,15 +15357,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.65
+    LayerAlpha: 0.644
   TimeSettings:
     TimeMult: 0.61
-  PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: 638d6f3f77135488592333698cb42afd, type: 2}
-  AlphaMode: 0
+  PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
+  AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
-    NoiseScale: {x: 40, y: 40, z: 40}
+    NoiseScale: {x: 80, y: 80, z: 80}
     InitialOffsets: {x: 20, y: 20, z: 0}
     BrightnessCurve:
       serializedVersion: 2
@@ -15297,9 +15391,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: 2.1
-    MotionSpeedY: -1.6
-    MotionSpeedZ: 1.4
+    MotionSpeedX: 3.2
+    MotionSpeedY: -3.7
+    MotionSpeedZ: 3
 --- !u!114 &806677761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15396,7 +15490,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 262503060}
+    - {fileID: 514088365}
   Marker: Cycle I
   PerfectMatch: 1
 --- !u!1 &1077716562
@@ -20414,9 +20508,9 @@ MonoBehaviour:
   EnableAutoCycle: 0
   AutoCycleTime: 5
   PalettePlaylist:
-  - PaletteDex: 3
-  - PaletteDex: 4
-  - PaletteDex: 5
+  - PaletteDex: 22
+  - PaletteDex: 25
+  - PaletteDex: 19
   DefaultTransitionTime: 2
   TriggerBehavior: 1
   FromColors:
@@ -25328,10 +25422,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 2
+    attack: 5
     decay: 0
     sustain: 1
-    release: 1
+    release: 2
     attackEase: 0
     decayEase: 0
     releaseEase: 0
@@ -25340,7 +25434,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Mult: 0.7
+  Mult: 1
 --- !u!114 &1375800935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25373,6 +25467,7 @@ Transform:
   m_Children:
   - {fileID: 1440640660}
   - {fileID: 806677759}
+  - {fileID: 66398314}
   m_Father: {fileID: 2020060356}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25423,11 +25518,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.7
+    LayerAlpha: 0.831
   TimeSettings:
     TimeMult: 1
-  PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
+  PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 15f013bfa70284c20b21336231789e1c, type: 2}
   AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
@@ -25457,9 +25552,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: 0.4
-    MotionSpeedY: 0.9
-    MotionSpeedZ: 0.9
+    MotionSpeedX: 0.1
+    MotionSpeedY: 2.4
+    MotionSpeedZ: -0.8
 --- !u!114 &1440640662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30396,7 +30491,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 514088365}
+    - {fileID: 262503060}
   Marker: Cycle E
   PerfectMatch: 1
 --- !u!1 &1694103767
@@ -30577,7 +30672,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 0.63
   PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: 93981382ecb8042b8a1ca2aa02a68f76, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: c89ed59be963d41999d1a8f2e5dcefe6, type: 2}
   AlphaMode: 0
   FixedAlpha: 1
   Origin: 0
@@ -30707,7 +30802,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 262503060}
+    - {fileID: 1791927074}
   Marker: Cycle D
   PerfectMatch: 1
 --- !u!1 &1791927074
@@ -30721,7 +30816,7 @@ GameObject:
   - component: {fileID: 1791927075}
   - component: {fileID: 1791927076}
   m_Layer: 0
-  m_Name: Palette4Trig
+  m_Name: PlumPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35945,7 +36040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroupSettings:
     Enabled: 1
-    GroupAlpha: 0.501
+    GroupAlpha: 0.601
 --- !u!114 &2020060358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35971,9 +36066,9 @@ MonoBehaviour:
   EnableAutoCycle: 0
   AutoCycleTime: 5
   PalettePlaylist:
-  - PaletteDex: 3
-  - PaletteDex: 4
-  - PaletteDex: 5
+  - PaletteDex: 19
+  - PaletteDex: 22
+  - PaletteDex: 25
   DefaultTransitionTime: 2
   TriggerBehavior: 1
   FromColors:
@@ -36041,7 +36136,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 1791927074}
+    - {fileID: 514088365}
   Marker: Cycle F
   PerfectMatch: 1
 --- !u!20 &2116549861 stripped
@@ -36099,7 +36194,7 @@ MonoBehaviour:
     IncludeChildren: 1
     Targets:
     - {fileID: 1733273591}
-    - {fileID: 262503060}
+    - {fileID: 1791927074}
   Marker: Cycle G
   PerfectMatch: 1
 --- !u!4 &543450653662167452 stripped
@@ -37083,7 +37178,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0015869141
+      value: 5.5980225
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
