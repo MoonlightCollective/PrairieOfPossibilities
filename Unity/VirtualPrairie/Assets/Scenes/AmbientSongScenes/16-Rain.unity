@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11062,6 +11062,7 @@ MonoBehaviour:
       FloatRangeValue:
         MinVal: 10
         MaxVal: 40
+    NeedsRebuild: 1
   SlowInitParticles: 1
 --- !u!1 &423042612
 GameObject:
@@ -11417,6 +11418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunBehaviour: 0
+  LoopCount: 1
   SequenceTriggers:
   - Name: Band4On
     StepPreDelay: 0
@@ -17647,7 +17649,7 @@ GameObject:
   - component: {fileID: 826508397}
   - component: {fileID: 826508396}
   m_Layer: 0
-  m_Name: TangerinePalette
+  m_Name: PineGreenPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17667,7 +17669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetMixer: {fileID: 2020060358}
   Entry:
-    PaletteDex: 11
+    PaletteDex: 23
   TransitionTime: 1
 --- !u!4 &826508397
 Transform:
@@ -17719,7 +17721,7 @@ MonoBehaviour:
     decay: 3.23
     sustain: 0.76
     release: 9
-    attackEase: -0.99
+    attackEase: 1.15
     decayEase: 0.9
     releaseEase: 0.55
     interrupt: 0
@@ -34887,7 +34889,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.5
+  Multiplier: 0.7
 --- !u!114 &1633647645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35545,13 +35547,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.54
+    LayerAlpha: 1
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 53e10ad26c24942caab9052ebeda57bd, type: 2}
   AlphaMode: 0
-  FixedAlpha: 0.84
+  FixedAlpha: 0.763
   NoiseSettings:
     NoiseScale: {x: 50, y: 100, z: 70}
     InitialOffsets: {x: 0, y: 0, z: 0}
@@ -35580,7 +35582,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     MotionSpeedX: 6.1
-    MotionSpeedY: 0
+    MotionSpeedY: -2.7
     MotionSpeedZ: 1.3
 --- !u!1 &1740166653
 GameObject:
@@ -36123,13 +36125,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 3
-    LayerAlpha: 0.291
+    LayerAlpha: 0.584
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
   AlphaMode: 2
-  FixedAlpha: 0.64
+  FixedAlpha: 0.857
   NoiseSettings:
     NoiseScale: {x: 70, y: 100, z: 70}
     InitialOffsets: {x: 0, y: 0, z: 0}
@@ -36157,9 +36159,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: 0
+    MotionSpeedX: 0.9
     MotionSpeedY: -3.1
-    MotionSpeedZ: 0
+    MotionSpeedZ: -0.9
 --- !u!1 &1959654909
 GameObject:
   m_ObjectHideFlags: 0
@@ -41525,7 +41527,7 @@ GameObject:
   - component: {fileID: 2145925276}
   - component: {fileID: 2145925275}
   m_Layer: 0
-  m_Name: FiretruckPalette
+  m_Name: AmathystAltPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41545,7 +41547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetMixer: {fileID: 2020060358}
   Entry:
-    PaletteDex: 8
+    PaletteDex: 29
   TransitionTime: 2
 --- !u!4 &2145925276
 Transform:
@@ -42548,7 +42550,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00036621094
+      value: 5.5980225
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -46778,7 +46780,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.001159668
+      value: -0.00061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
