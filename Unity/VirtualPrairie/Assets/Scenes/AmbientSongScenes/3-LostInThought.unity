@@ -1715,7 +1715,7 @@ MonoBehaviour:
       Targets:
       - {fileID: 669142917}
   StartActive: 0
-  DelayBetweenTriggers: 0.8
+  DelayBetweenTriggers: 0.789
   TimeMult: 1
 --- !u!1 &410938677
 GameObject:
@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 2
+    attack: 0.1
     decay: 0
     sustain: 1
     release: 1
@@ -2429,7 +2429,7 @@ MonoBehaviour:
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
   ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
     type: 3}
-  PoolSize: 16
+  PoolSize: 20
   ParticleSettings:
     Settings:
     - Name: Speed
@@ -4940,7 +4940,7 @@ MonoBehaviour:
       Targets:
       - {fileID: 2025806110}
   StartActive: 0
-  DelayBetweenTriggers: 0.8
+  DelayBetweenTriggers: 0.789
   TimeMult: 1
 --- !u!1 &1359307426
 GameObject:
@@ -5181,8 +5181,8 @@ MonoBehaviour:
     BlendMode: 1
     LayerAlpha: 1
   TimeSettings:
-    TimeMult: 1.1
-  PointFilter: {fileID: 11400000, guid: 5474f7ead46304eda8cae95dc224b7a7, type: 2}
+    TimeMult: 0.64
+  PointFilter: {fileID: 11400000, guid: 9216eb7b88b984b619b58916be47530c, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
   AlphaMode: 0
   FixedAlpha: 1
@@ -5254,8 +5254,8 @@ MonoBehaviour:
     BlendMode: 1
     LayerAlpha: 1
   TimeSettings:
-    TimeMult: 1.1
-  PointFilter: {fileID: 11400000, guid: f9d3c8f297e7e436e8f1dfe96e208330, type: 2}
+    TimeMult: 0.64
+  PointFilter: {fileID: 11400000, guid: b58f12e880bc349599c6d9161f4d6c08, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: cde81ca9d8b72493c874a71d0adc20f8, type: 2}
   AlphaMode: 0
   FixedAlpha: 1
@@ -7366,7 +7366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 2
+    attack: 0.1
     decay: 0
     sustain: 1
     release: 1
@@ -9243,7 +9243,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0015869141
+      value: 5.5980225
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
