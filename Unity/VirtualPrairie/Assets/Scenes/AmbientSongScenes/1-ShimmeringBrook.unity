@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,11 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 87213625}
-  - component: {fileID: 87213628}
-  - component: {fileID: 87213627}
   - component: {fileID: 87213624}
   - component: {fileID: 87213626}
-  - component: {fileID: 87213629}
   m_Layer: 0
   m_Name: Rainfall
   m_TagString: Untagged
@@ -165,7 +162,7 @@ MonoBehaviour:
   ColorizeSettings: {fileID: 11400000, guid: b41e003328eea4329928e5228bd147ee, type: 2}
   ParticlePrefab: {fileID: 1171345508054593859, guid: d7e4b8ea8562e45b7ae289371360c7f0,
     type: 3}
-  PoolSize: 25
+  PoolSize: 30
   ParticleSettings:
     Settings:
     - Name: RingSize
@@ -173,23 +170,23 @@ MonoBehaviour:
       FloatValue: 0
       IntValue: 0
       FloatRangeValue:
-        MinVal: 4
-        MaxVal: 15
+        MinVal: 8
+        MaxVal: 10
     - Name: ParticleTime
       ParamType: 2
       FloatValue: 0
       IntValue: 0
       FloatRangeValue:
-        MinVal: 3
-        MaxVal: 5
+        MinVal: 4
+        MaxVal: 4.5
     - Name: PositionRadius
       ParamType: 2
       FloatValue: 0
       IntValue: 0
       FloatRangeValue:
-        MinVal: 10
-        MaxVal: 30
-    NeedsRebuild: 1
+        MinVal: 7
+        MaxVal: 26
+    NeedsRebuild: 0
   SlowInitParticles: 1
 --- !u!4 &87213625
 Transform:
@@ -198,12 +195,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87213622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2020060356}
+  m_Father: {fileID: 1755109504}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87213626
@@ -235,56 +232,71 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &87213627
+--- !u!1 &195301414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 195301415}
+  - component: {fileID: 195301419}
+  - component: {fileID: 195301418}
+  - component: {fileID: 195301417}
+  - component: {fileID: 195301416}
+  m_Layer: 0
+  m_Name: RippleCenterOutStalksOnly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &195301415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195301414}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.1560063, y: 0.1090889, z: -2.8418522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1315319926}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &195301416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87213622}
+  m_GameObject: {fileID: 195301414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CommentString: ClockToEvent listens to events on the global clock, much like BeatTriggers
-    listen to music beats.  Each time it gets a "tick" it calls "Emit Particle" to
-    fire a single particle.  You could do this in sync with the beat, or just use
-    a clock to trigger it periodically (like we do here).
---- !u!114 &87213628
+  _snapshotEntries: []
+--- !u!114 &195301417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87213622}
+  m_GameObject: {fileID: 195301414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CommentString: "Particle Pattern is a homebrew particle system like we had in LX
-    Studio. It spawns particles defined in a Particle Prefab every time the \"Emit
-    Particle\" event is called on the system. \n\nThis whole game object is turned
-    on and off by triggers coming into two child objects which have EnableTriggers
-    attached to them.  See RainfallOnTrigger and RainfallOffTrigger."
---- !u!114 &87213629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87213622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AlphaEnv:
-    attack: 1
-    decay: 0
+    attack: 0.1
+    decay: 0.5
     sustain: 1
-    release: 1
+    release: 0.28
     attackEase: 0
     decayEase: 0
     releaseEase: 0
@@ -293,120 +305,111 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Mult: 1
---- !u!1 &318281451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 318281453}
-  - component: {fileID: 318281452}
-  m_Layer: 0
-  m_Name: ManualTriggers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &318281452
+  Multiplier: 1
+--- !u!114 &195301418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318281451}
+  m_GameObject: {fileID: 195301414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63a85f21609774dbcb532b597eaea950, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d13d63dd153547a0aacf655535fcc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageMappings:
-  - DisplayName: Rainfall On
-    Message: On
-    FieldFilters: []
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 0}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  - DisplayName: Rainfall Off
-    Message: Off
-    FieldFilters: []
-    Targets:
-      IncludeChildren: 0
-      Targets:
-      - {fileID: 0}
-    SendParams: 0
-    Param0: 0
-    Param1: 0
-  EditGroupColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
---- !u!4 &318281453
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318281451}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -207.6978, y: -198.0688, z: 6.444578}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 896058323}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &353468392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 353468394}
-  - component: {fileID: 353468393}
-  m_Layer: 0
-  m_Name: README
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &353468393
+  ParamTriggerSettings:
+    TargetSelf: 1
+    TargetPattern: {fileID: 0}
+    TargetParamIndex: 1
+    Multiplier: 1
+  Envelope:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 0
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+--- !u!114 &195301419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353468392}
+  m_GameObject: {fileID: 195301414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 240f2f7a0b5314e4c8ba8ef754051ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: 67aa7ae9128fa475ca5063cd345c22df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadmeString: Uses a Prairie Particle System wired up to a clock to simulate individual
-    raindrops falling with a regular frequency. EnableTriggers are used for immediate
-    On/Off behavior.
---- !u!4 &353468394
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353468392}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 0.1
+  PointFilter: {fileID: 11400000, guid: e4c019a251b4f4af89d2b1c697179af5, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  Origin: 0
+  FalloffRange: 16.07
+  RingMovement:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 118.27813
+      outSlope: 118.27813
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04054054
+    - serializedVersion: 3
+      time: 1
+      value: 47.40565
+      inSlope: 47.40565
+      outSlope: 47.40565
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  FalloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1.1380209
+      outSlope: 1.1380209
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.058028616
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  PatternAlpha: 1
+  NormalizedT: 0
+  FalloffMod: 0
 --- !u!1001 &378801782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -476,6 +479,130 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea99f5a97e3d4463c879e1c1d4f10450, type: 3}
+--- !u!1 &394058996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 394058997}
+  - component: {fileID: 394058998}
+  m_Layer: 0
+  m_Name: RainTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &394058997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394058996}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2134898473}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394058998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394058996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603f79e90d0444c02ae0b6d06018307e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GateTargets:
+    Targets:
+    - {fileID: 1755109503}
+    IncludeChildren: 0
+  OnMarker: Chord A
+  OffMarker: Chord D
+  PerfectMatch: 1
+  SendOffWithMusicStop: 1
+--- !u!1 &398427265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 398427266}
+  - component: {fileID: 398427268}
+  - component: {fileID: 398427267}
+  m_Layer: 0
+  m_Name: BandPulse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &398427266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398427265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 537687540}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &398427267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398427265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c90ce4ee8f141df99ac581643ea7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FilterSettings:
+  - {fileID: 11400000, guid: 2f2eb3f1da8a74c39896f46c8fdfa52b, type: 2}
+  - {fileID: 11400000, guid: a2b7383ed820a4875942e5e8b0f9d351, type: 2}
+  - {fileID: 11400000, guid: 7540c7123c9024ba68857e438306b1bc, type: 2}
+  - {fileID: 11400000, guid: 9bdc8e2b8324c48c1bf1791981a93983, type: 2}
+--- !u!114 &398427268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398427265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
 --- !u!1 &490331520
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +654,102 @@ MonoBehaviour:
       Data3: 971895207
       Data4: -286835946
     Path: event:/Music/ShimmeringBrook
+--- !u!1 &537687539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537687540}
+  - component: {fileID: 537687541}
+  - component: {fileID: 537687543}
+  - component: {fileID: 537687542}
+  m_Layer: 0
+  m_Name: SG-SinglePulse-S4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537687540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537687539}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 398427266}
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &537687541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537687539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88310e811974c5581d7aa860e01bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+--- !u!114 &537687542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537687539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1645712249faa4c729374b97a176a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentString: 'Trigger this with "Include Children" - there''s a trigger on the
+    BandPulse object that needs to be triggered to cycle the band filter that is
+    applied to the pulse.
+
+'
+--- !u!114 &537687543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537687539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.5
+    decay: 0.5
+    sustain: 1
+    release: 5
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 1
 --- !u!1 &587976199
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,10 +796,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GateTargets:
     Targets:
-    - {fileID: 1781635648}
+    - {fileID: 1641815839}
     IncludeChildren: 0
   OnMarker: Chord D
-  OffMarker: MusicEnd
+  OffMarker: Fade Out
   PerfectMatch: 1
   SendOffWithMusicStop: 1
 --- !u!1001 &685931713
@@ -712,9 +935,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 318281453}
-  - {fileID: 2020060356}
+  - {fileID: 1694103769}
   - {fileID: 2134898473}
+  - {fileID: 2020060356}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -768,7 +991,7 @@ MonoBehaviour:
     OnMessage:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 318281452}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MqttTrigger, Assembly-CSharp
           m_MethodName: NotifyMessage
           m_Mode: 0
@@ -785,7 +1008,7 @@ MonoBehaviour:
     OnMessage:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 318281452}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MqttTrigger, Assembly-CSharp
           m_MethodName: NotifyMessage
           m_Mode: 0
@@ -829,10 +1052,230 @@ Transform:
   - {fileID: 6922065703739011426}
   - {fileID: 1077716563}
   - {fileID: 490331521}
-  - {fileID: 1694103769}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1315319925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1315319926}
+  m_Layer: 0
+  m_Name: SG-RippleCenterOut-InnersOnly-S4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1315319926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315319925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 195301415}
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1519713732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1519713733}
+  - component: {fileID: 1519713737}
+  - component: {fileID: 1519713736}
+  - component: {fileID: 1519713735}
+  - component: {fileID: 1519713734}
+  m_Layer: 0
+  m_Name: ChordPulseTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1519713733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519713732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2134898473}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519713734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519713732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Chord E
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 537687539}
+  Marker: Chord E
+  PerfectMatch: 1
+--- !u!114 &1519713735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519713732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Chord D
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 537687539}
+  Marker: Chord D
+  PerfectMatch: 1
+--- !u!114 &1519713736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519713732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Chord C
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 537687539}
+  Marker: Chord C
+  PerfectMatch: 1
+--- !u!114 &1519713737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519713732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Chord B
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 537687539}
+  Marker: Chord B
+  PerfectMatch: 1
+--- !u!1 &1641815839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641815840}
+  - component: {fileID: 1641815842}
+  - component: {fileID: 1641815841}
+  m_Layer: 0
+  m_Name: SG-NoiseOnly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1641815840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641815839}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1831472934}
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641815841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641815839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 3
+    decay: 0
+    sustain: 1
+    release: 5.5
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Mult: 1
+--- !u!114 &1641815842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641815839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88310e811974c5581d7aa860e01bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
 --- !u!1 &1694103767
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +1287,7 @@ GameObject:
   - component: {fileID: 1694103769}
   - component: {fileID: 1694103768}
   m_Layer: 0
-  m_Name: GlobalClock
+  m_Name: RainClock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,7 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac396e8a68c64697bd0e8376496a57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 120
+  BPM: 160
   BeatPerMeasure: 4
   CurMeasure: 0
   CurQuarterInMeasure: 0
@@ -881,9 +1324,88 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1173503055}
-  m_RootOrder: 3
+  m_Father: {fileID: 896058323}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1755109503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755109504}
+  - component: {fileID: 1755109506}
+  - component: {fileID: 1755109505}
+  m_Layer: 0
+  m_Name: SG-Rain-withAddedNoise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755109504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755109503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 87213625}
+  - {fileID: 1781635649}
+  m_Father: {fileID: 2020060356}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1755109505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755109503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 2
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Mult: 1
+--- !u!114 &1755109506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755109503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88310e811974c5581d7aa860e01bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
 --- !u!1 &1781635648
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +1418,7 @@ GameObject:
   - component: {fileID: 1781635650}
   - component: {fileID: 1781635651}
   m_Layer: 0
-  m_Name: Noise
+  m_Name: RainBackupNoise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,12 +1431,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781635648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2020060356}
+  m_Father: {fileID: 1755109504}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1781635650
@@ -931,16 +1453,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 1
+    LayerAlpha: 0.226
   TimeSettings:
-    TimeMult: 1
+    TimeMult: 1.33
   PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: b41e003328eea4329928e5228bd147ee, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 15f013bfa70284c20b21336231789e1c, type: 2}
   AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
-    NoiseScale: {x: 30, y: 30, z: 30}
-    InitialOffsets: {x: 0, y: 0, z: 0}
+    NoiseScale: {x: 50, y: 50, z: 50}
+    InitialOffsets: {x: 0, y: 20, z: 0}
     BrightnessCurve:
       serializedVersion: 2
       m_Curve:
@@ -965,9 +1487,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: 0
-    MotionSpeedY: 5
-    MotionSpeedZ: 0
+    MotionSpeedX: -3.2
+    MotionSpeedY: 3.2
+    MotionSpeedZ: -0.8
 --- !u!114 &1781635651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,23 +1499,107 @@ MonoBehaviour:
   m_GameObject: {fileID: 1781635648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlphaEnv:
-    attack: 1
-    decay: 0
-    sustain: 1
-    release: 1
-    attackEase: 0
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
-  Mult: 1
+  _snapshotEntries: []
+--- !u!1 &1831472933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1831472934}
+  - component: {fileID: 1831472937}
+  - component: {fileID: 1831472935}
+  m_Layer: 0
+  m_Name: ForegroundNoise
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1831472934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831472933}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641815840}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1831472935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831472933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6458bf0c84ec44f09ad598a1b7a77527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snapshotEntries: []
+--- !u!114 &1831472937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831472933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c010b5a0e1384e5595d57961d03046e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 0.747
+  TimeSettings:
+    TimeMult: 1.33
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: 15f013bfa70284c20b21336231789e1c, type: 2}
+  AlphaMode: 1
+  FixedAlpha: 1
+  NoiseSettings:
+    NoiseScale: {x: 70, y: 80, z: 70}
+    InitialOffsets: {x: 0, y: 20, z: 0}
+    BrightnessCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.684688
+        outSlope: 0.684688
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.041335452
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.4944964
+        outSlope: 0.4944964
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.0429253
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    MotionSpeedX: -1.2
+    MotionSpeedY: -0.1
+    MotionSpeedZ: -0.8
 --- !u!1 &1924444006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +1630,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2134898473}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1924444008
 MonoBehaviour:
@@ -1056,7 +1662,7 @@ GameObject:
   - component: {fileID: 1941727054}
   - component: {fileID: 1941727055}
   m_Layer: 0
-  m_Name: ColorChangeTrigger (1)
+  m_Name: FadeoutTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1075,7 +1681,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2134898473}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1941727055
 MonoBehaviour:
@@ -1257,10 +1863,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 87213625}
-  - {fileID: 1781635649}
+  - {fileID: 1755109504}
+  - {fileID: 1641815840}
+  - {fileID: 537687540}
+  - {fileID: 1315319926}
   m_Father: {fileID: 896058323}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2020060357
 MonoBehaviour:
@@ -1342,7 +1950,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2134898473}
-  - component: {fileID: 2134898475}
   - component: {fileID: 2134898474}
   m_Layer: 0
   m_Name: MusicTriggers
@@ -1363,11 +1970,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1924444007}
+  - {fileID: 394058997}
   - {fileID: 587976200}
+  - {fileID: 1924444007}
   - {fileID: 1941727054}
+  - {fileID: 1519713733}
   m_Father: {fileID: 896058323}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2134898474
 MonoBehaviour:
@@ -1398,26 +2007,6 @@ MonoBehaviour:
     that are on for a long section of the music.
 
 '
---- !u!114 &2134898475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134898472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 603f79e90d0444c02ae0b6d06018307e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GateTargets:
-    Targets:
-    - {fileID: 87213622}
-    IncludeChildren: 0
-  OnMarker: Chord A
-  OffMarker: Chord D
-  PerfectMatch: 1
-  SendOffWithMusicStop: 1
 --- !u!4 &543450653662167452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 854387486035539136, guid: 24f9ba5f3b23e45219658ada6effbcb8,
@@ -2399,12 +2988,12 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.5987735
+      value: 0.0011172295
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0006713867
+      value: 0.0010375977
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -6605,6 +7194,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831762165452460966, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -365.81006
       objectReference: {fileID: 0}
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
