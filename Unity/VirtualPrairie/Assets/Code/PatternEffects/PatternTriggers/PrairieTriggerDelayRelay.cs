@@ -15,6 +15,7 @@ public class PrairieTriggerDelayRelay : TriggerListener
 	
 	public override void NotifyTriggered(PrairieTriggerParams tParams)
 	{
+		Debug.Log("DELAY TRIGGER");
 		_triggered = true;
 		_delayTimer = DelayTime;
 		_cachedParams = tParams;

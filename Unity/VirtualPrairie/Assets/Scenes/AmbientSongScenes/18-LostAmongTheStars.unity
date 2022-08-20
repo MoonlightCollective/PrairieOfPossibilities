@@ -322,6 +322,87 @@ MonoBehaviour:
     MotionSpeedX: 0
     MotionSpeedY: 2.4
     MotionSpeedZ: 0
+--- !u!1 &198510129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 198510132}
+  - component: {fileID: 198510131}
+  - component: {fileID: 198510130}
+  m_Layer: 0
+  m_Name: Spot-SyncCenterRingPulseInnersC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &198510130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198510129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.09
+    decay: 0.5
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 0.5
+--- !u!114 &198510131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198510129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 11400000, guid: 63b23ba102bad48cca8ef41e90084654, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
+--- !u!4 &198510132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198510129}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1009282123}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &246876664
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +532,7 @@ GameObject:
   - component: {fileID: 381721254}
   - component: {fileID: 381721253}
   - component: {fileID: 381721252}
+  - component: {fileID: 381721255}
   m_Layer: 0
   m_Name: SpotEffectA
   m_TagString: Untagged
@@ -471,7 +553,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1337719818}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &381721252
 MonoBehaviour:
@@ -551,6 +633,23 @@ MonoBehaviour:
   AlphaMode: 0
   FixedAlpha: 1
   brightness: 1
+--- !u!114 &381721255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381721250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be1635bc15984e958da5ee4dc11d8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 719667818}
+  InjectName: 1
 --- !u!1 &391627738
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +934,7 @@ GameObject:
   - component: {fileID: 437763963}
   - component: {fileID: 437763966}
   - component: {fileID: 437763965}
-  - component: {fileID: 437763964}
+  - component: {fileID: 437763967}
   m_Layer: 0
   m_Name: CWArmChaseEmitter-OutsideIn
   m_TagString: Untagged
@@ -858,18 +957,6 @@ Transform:
   m_Father: {fileID: 1856840129}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &437763964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437763962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &437763965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,14 +983,14 @@ MonoBehaviour:
     Settings:
     - Name: Speed
       ParamType: 1
-      FloatValue: -30
+      FloatValue: -39
       IntValue: 0
       FloatRangeValue:
         MinVal: 0
         MaxVal: 0
     - Name: StartDist
       ParamType: 1
-      FloatValue: 65
+      FloatValue: 60
       IntValue: 80
       FloatRangeValue:
         MinVal: 0
@@ -933,6 +1020,24 @@ MonoBehaviour:
   CommentString: ChaseMarkerTrigs overrides the settings for which arms and colors
     to use here, to make it easy to fire a sequence of differently colored chases
     down different arms.
+--- !u!114 &437763967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437763962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a21b448e9948129ee0cde9fc6a83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 0
+    Targets:
+    - {fileID: 1725872253}
+  InjectName: 1
+  DelayTime: 0.65
 --- !u!1 &490331520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,36 +1173,42 @@ MonoBehaviour:
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 1c0000001a0000000a00000008000000
     OverrideColorize: 0
+    FireTriggerAlso: 0
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells K
   - Name: Bells L
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 17000000150000000500000003000000
     OverrideColorize: 0
+    FireTriggerAlso: 0
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells L
   - Name: Bells M
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 120000000f000000220000001f000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells M
   - Name: Bells N
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 0c000000090000001c00000019000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells N
   - Name: Bells O
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 06000000020000001600000012000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells O
   - Name: Bells P
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 210000001d0000000f0000000b000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells P
   NeedsRebuild: 0
@@ -1338,6 +1449,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87eddcdea36af4c9592b852c639f432b, type: 3}
+--- !u!1 &719667818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 719667819}
+  - component: {fileID: 719667821}
+  - component: {fileID: 719667820}
+  m_Layer: 0
+  m_Name: Spot-SyncCenterRingPulseInners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &719667819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719667818}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337719818}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &719667820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719667818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.09
+    decay: 0.5
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 0.5
+--- !u!114 &719667821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719667818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 11400000, guid: 63b23ba102bad48cca8ef41e90084654, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
 --- !u!1 &720926634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,6 +1625,7 @@ GameObject:
   - component: {fileID: 880746995}
   - component: {fileID: 880746994}
   - component: {fileID: 880746993}
+  - component: {fileID: 880746996}
   m_Layer: 0
   m_Name: SpotEffectB
   m_TagString: Untagged
@@ -1453,7 +1646,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176200097}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &880746993
 MonoBehaviour:
@@ -1530,6 +1723,23 @@ MonoBehaviour:
   AlphaMode: 0
   FixedAlpha: 1
   brightness: 1
+--- !u!114 &880746996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880746991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be1635bc15984e958da5ee4dc11d8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 935383164}
+  InjectName: 1
 --- !u!1 &896058322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,6 +1884,87 @@ MonoBehaviour:
     - {fileID: 2137863080}
   Marker: Bells C
   PerfectMatch: 1
+--- !u!1 &935383164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935383167}
+  - component: {fileID: 935383166}
+  - component: {fileID: 935383165}
+  m_Layer: 0
+  m_Name: Spot-SyncCenterRingPulseInnersB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935383165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935383164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.09
+    decay: 0.5
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 0.5
+--- !u!114 &935383166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935383164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 11400000, guid: 63b23ba102bad48cca8ef41e90084654, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
+--- !u!4 &935383167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935383164}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1176200097}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941660083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +1995,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1176200097}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &941660085
 MonoBehaviour:
@@ -1753,6 +2044,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 198510132}
   - {fileID: 1378250065}
   - {fileID: 2033089822}
   m_Father: {fileID: 432018267}
@@ -2120,6 +2412,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 935383167}
   - {fileID: 941660084}
   - {fileID: 880746992}
   m_Father: {fileID: 432018267}
@@ -2192,36 +2485,42 @@ MonoBehaviour:
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 1e0000001f0000000c0000000d000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells A
   - Name: Bells B
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 1a0000001b0000000800000009000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells B
   - Name: Bells C
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 16000000170000000400000005000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells C
   - Name: Bells D
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 12000000130000002200000001000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells D
   - Name: Bells E
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 0e0000000f0000001e0000001f000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells E
   - Name: Bells F
     TargetChasePattern: {fileID: 437763965}
     ArmIds: 0a0000000b0000001a0000001b000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells F
   NeedsRebuild: 0
@@ -2254,6 +2553,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 719667819}
   - {fileID: 381721251}
   m_Father: {fileID: 432018267}
   m_RootOrder: 3
@@ -2306,7 +2606,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1009282123}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1378250066
 MonoBehaviour:
@@ -2375,24 +2675,28 @@ MonoBehaviour:
     TargetChasePattern: {fileID: 1949392888}
     ArmIds: 07000000080000001200000013000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells G
   - Name: Bells H
     TargetChasePattern: {fileID: 1949392888}
     ArmIds: 0b0000000c0000000100000001000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells H
   - Name: Bells I
     TargetChasePattern: {fileID: 1949392888}
     ArmIds: 0f000000100000000500000006000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells I
   - Name: Bells J
     TargetChasePattern: {fileID: 1949392888}
     ArmIds: 13000000140000000600000007000000
     OverrideColorize: 0
+    FireTriggerAlso: 1
     ColorizeSettings: {fileID: 0}
     MusicMarker: Bells J
   NeedsRebuild: 0
@@ -2681,6 +2985,7 @@ GameObject:
   - component: {fileID: 1495755632}
   - component: {fileID: 1495755631}
   - component: {fileID: 1495755630}
+  - component: {fileID: 1495755633}
   m_Layer: 0
   m_Name: SpotEffectD
   m_TagString: Untagged
@@ -2701,7 +3006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1900469295}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1495755630
 MonoBehaviour:
@@ -2766,6 +3071,23 @@ MonoBehaviour:
   AlphaMode: 0
   FixedAlpha: 1
   brightness: 1
+--- !u!114 &1495755633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495755628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be1635bc15984e958da5ee4dc11d8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 1738138483}
+  InjectName: 1
 --- !u!1 &1496545616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,7 +3521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac396e8a68c64697bd0e8376496a57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 90
+  BPM: 105
   BeatPerMeasure: 4
   CurMeasure: 0
   CurQuarterInMeasure: 0
@@ -3269,6 +3591,168 @@ MonoBehaviour:
   Entry:
     PaletteDex: 0
   TransitionTime: 1
+--- !u!1 &1725872253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725872254}
+  - component: {fileID: 1725872256}
+  - component: {fileID: 1725872255}
+  m_Layer: 0
+  m_Name: CenterRingPulseFull
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1725872254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725872253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1856840129}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725872255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725872253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.09
+    decay: 0.5
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 0.65
+--- !u!114 &1725872256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725872253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 11400000, guid: edd5e8449756c4568b4e75c91c1d82fc, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 6c61d62cf90a84a49a945f89f36f50fb, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
+--- !u!1 &1738138483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1738138486}
+  - component: {fileID: 1738138485}
+  - component: {fileID: 1738138484}
+  m_Layer: 0
+  m_Name: Spot-SyncCenterRingPulseInnersD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1738138484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738138483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 0.09
+    decay: 0.5
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 0.5
+--- !u!114 &1738138485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738138483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782a15298a15b4465a4aa1f7fe1b58ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 11400000, guid: 63b23ba102bad48cca8ef41e90084654, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: b96ba75a9ed9d4c49a82ba38c587a021, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  brightness: 1
+--- !u!4 &1738138486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738138483}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1900469295}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749250652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,7 +3818,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1900469295}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1824188504
 MonoBehaviour:
@@ -3499,6 +3983,7 @@ Transform:
   - {fileID: 1471665857}
   - {fileID: 437763963}
   - {fileID: 1949392886}
+  - {fileID: 1725872254}
   m_Father: {fileID: 896058323}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3615,6 +4100,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1738138486}
   - {fileID: 1824188503}
   - {fileID: 1495755629}
   m_Father: {fileID: 432018267}
@@ -3702,7 +4188,7 @@ GameObject:
   - component: {fileID: 1949392886}
   - component: {fileID: 1949392889}
   - component: {fileID: 1949392888}
-  - component: {fileID: 1949392887}
+  - component: {fileID: 1949392890}
   m_Layer: 0
   m_Name: CCWArmChaseEmitter-OutsideIn
   m_TagString: Untagged
@@ -3725,18 +4211,6 @@ Transform:
   m_Father: {fileID: 1856840129}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1949392887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949392885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6132a914bd094f25bc78852fd19ddae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1949392888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3763,21 +4237,21 @@ MonoBehaviour:
     Settings:
     - Name: Speed
       ParamType: 1
-      FloatValue: -33
+      FloatValue: -41
       IntValue: 0
       FloatRangeValue:
         MinVal: 0
         MaxVal: 0
     - Name: StartDist
       ParamType: 1
-      FloatValue: 70
+      FloatValue: 65
       IntValue: 80
       FloatRangeValue:
         MinVal: 0
         MaxVal: 0
     - Name: Lifetime
       ParamType: 1
-      FloatValue: 6
+      FloatValue: 6.3
       IntValue: 80
       FloatRangeValue:
         MinVal: 0
@@ -3800,6 +4274,24 @@ MonoBehaviour:
   CommentString: ChaseMarkerTrigs overrides the settings for which arms and colors
     to use here, to make it easy to fire a sequence of differently colored chases
     down different arms.
+--- !u!114 &1949392890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949392885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5a21b448e9948129ee0cde9fc6a83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 0
+    Targets:
+    - {fileID: 1725872253}
+  InjectName: 1
+  DelayTime: 0.65
 --- !u!850595691 &1966153815
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -4066,6 +4558,7 @@ GameObject:
   - component: {fileID: 2033089825}
   - component: {fileID: 2033089824}
   - component: {fileID: 2033089823}
+  - component: {fileID: 2033089826}
   m_Layer: 0
   m_Name: SpotEffectC
   m_TagString: Untagged
@@ -4086,7 +4579,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1009282123}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2033089823
 MonoBehaviour:
@@ -4150,6 +4643,23 @@ MonoBehaviour:
   AlphaMode: 0
   FixedAlpha: 1
   brightness: 1
+--- !u!114 &2033089826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033089821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0be1635bc15984e958da5ee4dc11d8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerTargets:
+    IncludeChildren: 1
+    Targets:
+    - {fileID: 198510129}
+  InjectName: 1
 --- !u!1 &2037701925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,12 +5748,12 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.598694
+      value: 5.6026
       objectReference: {fileID: 0}
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0.0018310547
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
