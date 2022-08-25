@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.003140541, g: 0.006170615, b: 0.014241756, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -688,6 +688,7 @@ MonoBehaviour:
       FloatRangeValue:
         MinVal: 15
         MaxVal: 15
+    NeedsRebuild: 1
   SlowInitParticles: 0
 --- !u!114 &103379370
 MonoBehaviour:
@@ -1534,7 +1535,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1173503055}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &490331522
 MonoBehaviour:
@@ -3353,6 +3354,7 @@ MonoBehaviour:
       FloatRangeValue:
         MinVal: 15
         MaxVal: 15
+    NeedsRebuild: 1
   SlowInitParticles: 0
 --- !u!114 &1076133689
 MonoBehaviour:
@@ -3418,52 +3420,6 @@ MonoBehaviour:
     - {fileID: 1496251441}
   Marker: Pings3
   PerfectMatch: 1
---- !u!1 &1077716562
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1077716563}
-  - component: {fileID: 1077716564}
-  m_Layer: 0
-  m_Name: MqttSubscriptions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1077716563
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077716562}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1173503055}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1077716564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077716562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c737e79385934e0c8914856cbadf399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TopicEvents: []
-  DebugLog: 0
 --- !u!1 &1097851944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,7 +3714,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6922065703739011426}
-  - {fileID: 1077716563}
   - {fileID: 490331521}
   - {fileID: 1694103769}
   m_Father: {fileID: 0}
@@ -9870,7 +9825,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1173503055}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1695773222
 GameObject:
@@ -16481,7 +16436,12 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0009217262
+      value: 5.600641
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.001953125
       objectReference: {fileID: 0}
     - target: {fileID: 1686487607888972384, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -18253,6 +18213,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5550229185412336950, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5550336407730546802, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -19151,7 +19116,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0015869141
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
