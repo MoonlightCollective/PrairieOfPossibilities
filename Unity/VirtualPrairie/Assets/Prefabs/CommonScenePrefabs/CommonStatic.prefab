@@ -623,8 +623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8cd490b6f61e94ba6e6809a4f9d8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: 73.254.192.189
-  brokerPort: 41799
+  brokerAddress: mqtt
+  brokerPort: 1883
   isEncrypted: 0
   connectionDelay: 200
   timeoutOnConnection: 300
@@ -675,7 +675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe7cf2732e22b24b9c88788de720c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChannelsPerPoint: 3
   DmxMode: 1
 --- !u!1 &5009842725031547905
 GameObject:
@@ -897,6 +896,8 @@ MonoBehaviour:
   StemAlpha: 1
   GlowIntensity: 3.4
   GroundGlowAlpha: 0.02
+  AutoConnectMqtt: 1
+  AutoConnectArtNet: 1
   VisualsFrameSkip: 0
   DebugRainbow: 0
   DebugRainbowCycleTime: 6.88
