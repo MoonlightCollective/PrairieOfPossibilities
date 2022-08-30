@@ -7,7 +7,7 @@ public class ArmTagModFilter : PatternPointFilterBase
 {
 	public EArmTagType ArmType = EArmTagType.ArmCW;
 	public int ModVal;
-	bool Invert = false;
+	public bool Invert = false;
 
 	public override bool AllowPoint(StemColorManager point)
 	{
