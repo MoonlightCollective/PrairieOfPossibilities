@@ -51,7 +51,7 @@ public class MusicMarkerGate : GateBase
 		{
 			if (eventMarker.Contains(OnMarker))
 			{
-				GateTargets.EmitOffEvent(new PrairieTriggerParams(OnMarker,0,0));
+				GateTargets.EmitOnEvent(new PrairieTriggerParams(OnMarker,0,0));
 			}
 			else if (eventMarker.Contains(OffMarker))
 			{
