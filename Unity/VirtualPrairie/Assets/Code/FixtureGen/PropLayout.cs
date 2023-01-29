@@ -21,16 +21,16 @@ public class PropLayout : MonoBehaviour
 			// experiment with finding the closest plant to the desired portal location, then replacing that plant with a portal
 			Vector3 newPortal = PrairieUtil.GetLayoutGen().Clearings[j];
 			Vector3 newPortalM = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
-			GameObject locPlant = FindClosestObject(layoutRoot, newPortalM);
-			Vector3 plantLoc = locPlant.transform.position;
+		//	GameObject locPlant = FindClosestObject(layoutRoot, newPortalM);
+		//	Vector3 plantLoc = locPlant.transform.position;
 			// GameObject.DestroyImmediate(locPlant);		// DON'T REMOVE ANYMORE
 
 			GameObject newObj = CreateObjFromPrefab(portalPrefab);
 			newObj.transform.SetParent(portalRoot.transform, false);
 			Portal p = newObj.GetComponentInChildren<Portal>();
 			p.PortalId = $"Portal{j}";
-			//newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
-			newObj.transform.position = plantLoc;
+			newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
+			//newObj.transform.position = plantLoc;
 
 			float rotAngle = 90 + (180 * Mathf.Atan2(newPortal.x, newPortal.z) / Mathf.PI);
 			newObj.transform.Rotate (0, rotAngle, 0);

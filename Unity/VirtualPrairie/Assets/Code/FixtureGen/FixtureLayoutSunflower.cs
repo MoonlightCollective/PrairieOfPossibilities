@@ -9,6 +9,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
     public float SpacingExp = 1.001f;
 	public float ClearingOffset = 0;
 	public float ClearingSize = 30;
+	public float CenterClearingSpacing = 8.0f;
 
 	public override void SaveSettings()
 	{
@@ -18,6 +19,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		PlayerPrefs.SetFloat("SunflowerSpacingExp", SpacingExp);
 		PlayerPrefs.SetFloat("SunflowerClearingOffset", ClearingOffset);
 		PlayerPrefs.SetFloat("SunflowerClearingSize", ClearingSize);
+		PlayerPrefs.SetFloat("SunflowerCenterClearingSpacing", CenterClearingSpacing);
 	}
 
 	static int kDefaultNumFixtures = 420;
@@ -26,6 +28,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
     static float kDefaultSpacingExp = 1.001f;
 	static float kDefaultClearingOffset = 0;
 	static float kDefaultClearingSize = 15;
+	static float kDefaultCenterClearingSpacing = 6.0f;
 
 	public override void LoadSettings()
 	{
@@ -35,6 +38,7 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
         SpacingExp = PlayerPrefs.GetFloat("SunflowerSpacingExp",kDefaultSpacingExp);
 		ClearingOffset = PlayerPrefs.GetFloat("SunflowerClearingOffset", kDefaultClearingOffset);
 		ClearingSize = PlayerPrefs.GetFloat("SunflowerClearingSize", kDefaultClearingSize);
+		CenterClearingSpacing = PlayerPrefs.GetFloat("SunflowerCenterClearingSpacing", kDefaultCenterClearingSpacing);
 	}
 
 	public override bool GenerateLayout(GameObject rootObj, GameObject fixturePrefab, GameObject portalPrefab = null, GameObject boothPrefab = null)
@@ -47,9 +51,9 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 
 		// put a circle of lights around the center clearing
 		// figure out how many lights we need --- assume 8' spacing around the circle
-		float clearing_radius = 0.75f * ClearingSize; // in feet
+		float clearing_radius = ClearingSize; // in feet
 		float perimeter = 2 * Mathf.PI * clearing_radius;
-		int numPlants = (int)(perimeter / 6.0f);
+		int numPlants = (int)(perimeter / CenterClearingSpacing);
 		float angleStep = Mathf.PI * 2 / numPlants; // angle step per light
 
 		float clearingAngle = 0;
@@ -69,13 +73,15 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 		// now put circles around phone booths
 		// then when placing the rest of the plants, if a new plant is too close to an existing plant we'll skip
 
-		for (int j=4; j<6; j++)
+		// temp disable
+		//for (int j=4; j<6; j++)
+		for (int j=4; j<4; j++)
         {
 			clearing_radius = ClearingSize; // in feet
 
 			// figure out how many lights we need --- assume 8' spacing around the circle
 			perimeter = 2 * Mathf.PI * clearing_radius;
-			numPlants = (int)(perimeter / 6.0f);
+			numPlants = (int)(perimeter / CenterClearingSpacing);
 			angleStep = Mathf.PI * 2 / numPlants; // angle step per light
 
 			clearingAngle = 0;
@@ -120,14 +126,16 @@ public class FixtureLayoutSunflower : FixtureLayoutBase
 				continue;
 
 			// create clearings for portals and hot spots
-			if (
+			if ( false
 				// only create clearings for booths
 				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[0], plant_loc) < portal_clearing_radius ||
 				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[1], plant_loc) < portal_clearing_radius ||
 				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[2], plant_loc) < portal_clearing_radius ||
 				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[3], plant_loc) < portal_clearing_radius ||
-				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc) < booth_clearing_radius ||
-				Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc) < booth_clearing_radius
+				
+				// don't even create clearings for booths
+				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc) < booth_clearing_radius ||
+				//Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc) < booth_clearing_radius
 				)
 			{
 				Debug.Log($"Skipping for clearing{Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[4], plant_loc)} {Vector3.Distance(PrairieUtil.GetLayoutGen().Clearings[5], plant_loc)}");

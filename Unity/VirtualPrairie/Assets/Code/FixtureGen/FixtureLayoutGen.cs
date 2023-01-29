@@ -65,7 +65,7 @@ public class FixtureLayoutGen : MonoBehaviour
 	{
 		// first create clearings for the 4 portals
 
-		float clearing_distance = 90; // portal distance from center
+		float clearing_distance = 140; // portal distance from center
 		float clearing_angle = 0;
 		float angle_offset = Mathf.PI / 2; // 90 degrees
 
@@ -82,7 +82,7 @@ public class FixtureLayoutGen : MonoBehaviour
 
 		// now create clearings for phone booths
 
-		clearing_distance = 55; // phone booth distance from center
+		clearing_distance = 140; // phone booth distance from center
 		clearing_angle = Mathf.PI * 3 / 4; // 45 degrees
 
 		_clearings[4] = new Vector3(clearing_distance * Mathf.Cos(clearing_angle), 0, clearing_distance * Mathf.Sin(clearing_angle));
