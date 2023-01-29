@@ -14,7 +14,7 @@ public class LayoutAutoLoader : MonoBehaviour
 
 	public bool DoLoadSceneOnPlaylistEnd = true;
 	[ShowIf("DoLoadSceneOnPlaylistEnd")]
-	public string DestiationScene = "TargetScene";
+	public string DestinationScene = "TargetScene";
 
 	public bool AutoDisplayMode = true;
 	UIMasterController _ui;
@@ -57,9 +57,9 @@ public class LayoutAutoLoader : MonoBehaviour
 
 	void NotifyPlaylistEnd()
 	{
-		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestiationScene))
+		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestinationScene))
 		{
-			SceneLoader.LoadScene(DestiationScene);
+			SceneLoader.LoadScene(DestinationScene);
 		}
 	}
 
