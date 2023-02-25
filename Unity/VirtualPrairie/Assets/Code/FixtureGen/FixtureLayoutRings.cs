@@ -42,6 +42,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 		base.GenerateLayout(rootObj, fixturePrefab, portalPrefab, boothPrefab);
 
 		int fixturesLeft = NumFixtures;
+		int numLights = 0;
 
 		float radius = CenterRadiusFt;
 		float angleOffset = 0;
@@ -63,7 +64,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 			if (arcBaseCt > 1)
 				anglePerFixture = ((arcLen / Mathf.Max(1,(arcBaseCt -1))) / perimeter) * twoPi;
 			
-			float angle = angleOffset;
+			float angle = (angleOffset + (aisleAngle / 2.0f));
 
 			for (int k = 0; k < numArcs; k++)
 			{
@@ -88,11 +89,12 @@ public class FixtureLayoutRings : FixtureLayoutBase
 					GameObject newObj = CreateObjFromPrefab(fixturePrefab);
 					newObj.transform.SetParent(rootObj.transform,false);
 					
-					Debug.Log($"{angle}, {x}, {z}");
+					Debug.Log($"{numLights}, a:{angle}, x:{x}, z:{z}");
 					newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(x),0.0f,PrairieUtil.FeetToMeters(z));
 					_curChannel += PrairieDmxController.ChannelsPerFixture;
 					
 					fixturesLeft--;
+					numLights++;
 					angle += anglePerFixture;
 				}
 				angle += aisleAngle;
@@ -100,6 +102,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 			}
 			radius += BaseSpacingFt;
 			angleOffset += ((AisleCurve/10) * Mathf.PI/180.0f);
+			// angleOffset += (anglePerFixture / 2.0f);
 			ring++;
 		}
 
