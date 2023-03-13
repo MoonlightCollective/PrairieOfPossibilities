@@ -307,10 +307,12 @@ public class FixtureLayoutExporter : MonoBehaviour
 		{
 			stream.WriteLine(HeaderStr);
 
-			Vector3 container = FindContainer();
+			// Vector3 container = FindContainer();
 			Vector3 xAxis = new Vector3(1, 0, 0);
-			float containerOffset = AngleBetweenVector3(xAxis, container);
-			Debug.Log($"ExportBaseDataCSV: AngleBetweenVector3(xAxis, container) = {containerOffset}");
+			//float containerOffset = AngleBetweenVector3(xAxis, container);
+			float containerOffset = 90;
+
+			// Debug.Log($"ExportBaseDataCSV: AngleBetweenVector3(xAxis, container) = {containerOffset}");
 
 			foreach (Transform obj in rootObj.transform)
 			{
