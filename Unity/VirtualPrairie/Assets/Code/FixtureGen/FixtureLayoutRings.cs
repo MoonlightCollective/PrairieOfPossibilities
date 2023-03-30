@@ -47,6 +47,7 @@ public class FixtureLayoutRings : FixtureLayoutBase
 		float radius = CenterRadiusFt;
 		float angleOffset = 0;
 		int ring = 0;
+		int arcBaseCt = 0;
 
 		float twoPi = Mathf.PI * 2f;
 
@@ -58,7 +59,12 @@ public class FixtureLayoutRings : FixtureLayoutBase
 			int numAisles = Mathf.Max(0,NumAisles);
 			float arcLen = ((perimeter - (numAisles * AisleWidthFt)) / numArcs);
 
-			int arcBaseCt = (int)(arcLen / BaseSpacingFt) + 1; 			// # bases used in this run, err on the side of density
+			// hack to create higher density for the innermost ring
+			if (ring == 0)
+				arcBaseCt = (int)(arcLen / 6.0f) + 1; 			// set spacing to just 6' for the innermost ring
+			else
+				arcBaseCt = (int)(arcLen / BaseSpacingFt) + 1;          // # bases used in this run, err on the side of density
+
 			float aisleAngle = (AisleWidthFt / perimeter) * twoPi;
 			float anglePerFixture = 0f;
 			if (arcBaseCt > 1)

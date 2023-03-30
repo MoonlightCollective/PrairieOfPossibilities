@@ -16,33 +16,45 @@ public class PropLayout : MonoBehaviour
 		
 		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
 
+		// float portals_distance = PrairieUtil.GetLayoutGen().MaxDistFromOrigin; // portal distance from center, in meters
+		float portals_distance = PrairieUtil.FeetToMeters(120.0f); // portal distance from center, in meters
+
+		float portals_angle = 0;
+		float angle_offset = Mathf.PI / 2; // 90 degrees
+
 		for (int j = 0; j < 4; j++)
 		{
+			Vector3 newPortal = new Vector3(portals_distance * Mathf.Cos(portals_angle), 0, portals_distance * Mathf.Sin(portals_angle));
+			portals_angle += angle_offset;
+
+			// REPLACED FOR 2023
 			// experiment with finding the closest plant to the desired portal location, then replacing that plant with a portal
-			Vector3 newPortal = PrairieUtil.GetLayoutGen().Clearings[j];
-			Vector3 newPortalM = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
-		//	GameObject locPlant = FindClosestObject(layoutRoot, newPortalM);
-		//	Vector3 plantLoc = locPlant.transform.position;
+			// GameObject locPlant = FindClosestObject(layoutRoot, newPortalM);
+			// Vector3 plantLoc = locPlant.transform.position;
 			// GameObject.DestroyImmediate(locPlant);		// DON'T REMOVE ANYMORE
 
 			GameObject newObj = CreateObjFromPrefab(portalPrefab);
 			newObj.transform.SetParent(portalRoot.transform, false);
 			Portal p = newObj.GetComponentInChildren<Portal>();
 			p.PortalId = $"Portal{j}";
-			newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(newPortal.x), 0.0f, PrairieUtil.FeetToMeters(newPortal.z));
+			newObj.transform.position = new Vector3(newPortal.x, 0.0f, newPortal.z);
 			//newObj.transform.position = plantLoc;
 
 			float rotAngle = 90 + (180 * Mathf.Atan2(newPortal.x, newPortal.z) / Mathf.PI);
 			newObj.transform.Rotate (0, rotAngle, 0);
-		} 
+		}
+
+		float booth_distance = PrairieUtil.FeetToMeters(150); // phone booth distance from center
+		float booth_angle = Mathf.PI * 3 / 4; // 45 degrees
+
 		for (int j = 0; j < 2; j++)
 		{
-			Vector3 newBooth = PrairieUtil.GetLayoutGen().Clearings[j+4];
+			Vector3 newBooth = new Vector3(booth_distance * Mathf.Cos(booth_angle), 0, booth_distance * Mathf.Sin(booth_angle));
 			GameObject newObj = CreateObjFromPrefab(boothPrefab);
 			Booth b = newObj.GetComponentInChildren<Booth>();
 			b.BoothId = $"Booth{j}";
 			newObj.transform.SetParent(BoothRoot.transform, false);
-			newObj.transform.position = new Vector3(PrairieUtil.FeetToMeters(newBooth.x), 0.0f, PrairieUtil.FeetToMeters(newBooth.z));
+			newObj.transform.position = new Vector3(newBooth.x, 0.0f, newBooth.z);
 		}
 		return true;
 	}
