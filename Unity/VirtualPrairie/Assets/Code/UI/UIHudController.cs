@@ -61,7 +61,7 @@ public class UIHudController : MonoBehaviour
     {
 		PlantCountText.text = $"Fixtures:{_plantLayoutRoot.transform.childCount}";
 		FlyText.text = $"Flying:{_cam.isFlying}";
-		FieldDiameterText.text = $"Radius:{_fixtureLayoutGen.MaxDistFromOrigin.ToString("F1")}m";
+		FieldDiameterText.text = $"Radius:{PrairieUtil.MetersToFeet(_fixtureLayoutGen.MaxDistFromOrigin).ToString("F1")}ft";
 	}
 
 	public void OnUpdateArtnetVal(bool newVal)
