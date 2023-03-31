@@ -17,7 +17,7 @@ public class PropLayout : MonoBehaviour
 		GameObject layoutRoot = PrairieUtil.GetLayoutRoot();
 
 		// float portals_distance = PrairieUtil.GetLayoutGen().MaxDistFromOrigin; // portal distance from center, in meters
-		float portals_distance = PrairieUtil.FeetToMeters(120.0f); // portal distance from center, in meters
+		float portals_distance = PrairieUtil.FeetToMeters(105.0f); // portal distance from center, in meters
 
 		float portals_angle = 0;
 		float angle_offset = Mathf.PI / 2; // 90 degrees
@@ -44,7 +44,7 @@ public class PropLayout : MonoBehaviour
 			newObj.transform.Rotate (0, rotAngle, 0);
 		}
 
-		float booth_distance = PrairieUtil.FeetToMeters(150); // phone booth distance from center
+		float booth_distance = PrairieUtil.FeetToMeters(130); // phone booth distance from center
 		float booth_angle = Mathf.PI * 3 / 4; // 45 degrees
 
 		for (int j = 0; j < 2; j++)
