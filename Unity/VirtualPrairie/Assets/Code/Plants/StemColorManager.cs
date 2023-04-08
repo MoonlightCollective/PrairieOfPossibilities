@@ -162,6 +162,7 @@ public class StemColorManager : DmxColorPoint
 	
 	protected Dictionary<EArmTagType,HashSet<int>>_armTags = new Dictionary<EArmTagType, HashSet<int>>();
 	protected Dictionary<EArmTagType,int> _primaryArmTags = new Dictionary<EArmTagType, int>();
+	public int RingId = -1;
 
 	int _mainPropId = -1;
 	int _glowPropId = -1;
@@ -366,6 +367,11 @@ public class StemColorManager : DmxColorPoint
 		{
 			addArmTag(newTag.Name);
 		}
+
+		if (newTag.Name.Contains("Ring"))
+		{
+			addRingTag(newTag.Name);
+		}
 	}
 
 	EArmTagType armTypeFromTagName(string tagName)
@@ -394,6 +400,18 @@ public class StemColorManager : DmxColorPoint
 		}
 	}
 
+	void addRingTag(string tagName)
+	{
+		Debug.Log($"Adding ring tag {tagName}");
+		var startDex = tagName.IndexOf("Ring");
+		var ringIdStr = tagName.Substring(startDex+4,tagName.Length-(4+startDex));
+		int id = -1;
+		if (Int32.TryParse(ringIdStr,out id))
+		{
+			this.RingId = id;
+		}
+	}
+
 	public void AddTag(string newTagName)
 	{
 		if (!HasTag(newTagName))
@@ -405,6 +423,11 @@ public class StemColorManager : DmxColorPoint
 		if (newTagName.Contains("Arm"))
 		{
 			addArmTag(newTagName);
+		}
+
+		if (newTagName.Contains("Ring"))
+		{
+			addRingTag(newTagName);
 		}
 	}
 
