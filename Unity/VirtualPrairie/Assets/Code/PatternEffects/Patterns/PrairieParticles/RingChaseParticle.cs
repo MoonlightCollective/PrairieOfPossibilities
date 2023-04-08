@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmChaseParticle : PrairieParticleBase
+public class RingChaseParticle : PrairieParticleBase
 {
 	public float DefaultSpeed = 40.0f;
-	public float DefaultLength = 30f;
-	public float DefaultStartDist = 3.0f;
+	public float DefaultLength = 30.0f;
+	public float DefaultStartDist = 0.0f;
 	public float DefaultLifetime = 3.0f;
-	public EArmTagType ArmType = EArmTagType.ArmCW;
 	public int DefaultId = 5;
 	public AnimationCurve BrightnessRamp = new AnimationCurve(new Keyframe(0,1),new Keyframe(1,0));
 
@@ -39,26 +38,28 @@ public class ArmChaseParticle : PrairieParticleBase
 			_isRunning = false;
 		
 		_curDist += _speed * deltaTime;
-
 	}
 
 	public override Color ColorForPoint(StemColorManager point)
 	{
-		if (point.PrimaryArmTagId(ArmType) != _Id)
+        // particle goes around the ring... travels at speed X
+        // need to translate into angles... use angle to compute movement and brightness
+        // arcTheta = (len/totalCircumferance) = len / (2 * pi * r);
+        // speedTheta = (speed / r); // add this many radians each second
+
+		if (point.RingId != _Id)
 		{
 			return new Color(0,0,0,0);
 		}
 
-		float distFromC;
-		if (_speed < 0)
-			distFromC = _curDist - point.GlobalDistFromOrigin;
-		else
- 			distFromC = _curDist - point.GlobalDistFromOrigin;
+        float arcTheta = _len / point.GlobalDistFromOrigin; // size of particle in radians
+        float curTheta = (_curDist / point.GlobalDistFromOrigin) % (2 * Mathf.PI); // location of particle in radians going around circle
+		float thetaFromC = curTheta - (point.GlobalTheta * Mathf.Deg2Rad);
 
 		float b = 0;
-		if (distFromC > 0 && distFromC < _len)
+		if (thetaFromC > 0 && thetaFromC < arcTheta)
 		{
-			float normDist = Mathf.Clamp01(distFromC / _len);
+			float normDist = Mathf.Clamp01(thetaFromC / arcTheta);
 			if (_speed < 0)
 			{
 				b = BrightnessRamp.Evaluate(1-normDist);

@@ -6,24 +6,24 @@ using NaughtyAttributes;
 public class ChaseParticleMultiSprayPattern : ParticlePattern
 {
 	[Header("Spray")]
-	[Range(1,33)]
-	public int StartArm = 1;
-	[Range(1,33)]
-	public int EndArm = 10;
+	[Range(1,10)]
+	public int StartId = 1;
+	[Range(1,10)]
+	public int EndId = 10;
 	
-	[Range(-33,33)]
+	[Range(-10,10)]
 	public int Skip = 1;
 	int _curDex = 0;
 
 	protected override void Start()
 	{
 		base.Start();
-		_curDex = StartArm % PrairieGlobals.Instance.NumArms;
+		_curDex = StartId % PrairieGlobals.Instance.NumRings;
 	}
 
 	public void ResetArm()
 	{
-		_curDex = StartArm;
+		_curDex = StartId;
 	}
 
 	public override void EmitParticle()
@@ -39,45 +39,45 @@ public class ChaseParticleMultiSprayPattern : ParticlePattern
 		}
 
 		// always do slow init, because we are override a setting
-		ParticleSettings.SetIntSetting("ArmId",_curDex);
+		ParticleSettings.SetIntSetting("Id",_curDex);
 		p.InitParticle(ParticleSettings);
 		p.ResetParticle();
 
 		if (Skip < 0)
 		{
-			bool couldWrap = (_curDex >= EndArm);
+			bool couldWrap = (_curDex >= EndId);
 			_curDex += Skip;
 			if (_curDex < 0)
 			{
 				// fell off the left edge. Wrap around 
-				_curDex+=PrairieGlobals.Instance.NumArms-1;
+				_curDex+=PrairieGlobals.Instance.NumRings-1;
 				couldWrap = true;
 			}
 
 			if (couldWrap)
 			{
-				if (_curDex < EndArm)
+				if (_curDex < EndId)
 				{
 					// we went to the left of the end arm
-					_curDex = StartArm;
+					_curDex = StartId;
 				}
 			}
 		}
 		else if (Skip > 0)
 		{
-			bool couldWrap = (_curDex <= EndArm);
+			bool couldWrap = (_curDex <= EndId);
 			_curDex += Skip;
-			if (_curDex >= PrairieGlobals.Instance.NumArms)
+			if (_curDex >= PrairieGlobals.Instance.NumRings)
 			{
 				couldWrap = true;
-				_curDex -= PrairieGlobals.Instance.NumArms;
+				_curDex -= PrairieGlobals.Instance.NumRings;
 			}
 
 			if (couldWrap)
 			{
-				if (_curDex > EndArm)
+				if (_curDex > EndId)
 				{
-					_curDex = StartArm;
+					_curDex = StartId;
 				}
 			}
 		}

@@ -176,14 +176,14 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 0}
-  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+  ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
     type: 3}
   PoolSize: 30
   ParticleSettings:
     Settings: []
     NeedsRebuild: 1
   SlowInitParticles: 1
-  ArmIds: 0200000004000000060000000f0000001100000013000000
+  Ids: 02000000040000000600000008000000
 --- !u!114 &84103880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,15 +379,15 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 0}
-  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+  ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
     type: 3}
   PoolSize: 40
   ParticleSettings:
     Settings: []
     NeedsRebuild: 1
   SlowInitParticles: 1
-  StartArm: 14
-  EndArm: 1
+  StartId: 1
+  EndId: 10
   Skip: 1
 --- !u!114 &360393774
 MonoBehaviour:
@@ -1007,7 +1007,7 @@ MonoBehaviour:
         MaxVal: 0
     NeedsRebuild: 1
   SlowInitParticles: 0
-  Skip: 5
+  Skip: 3
   Offset: 0
 --- !u!114 &1009053141
 MonoBehaviour:
@@ -1266,7 +1266,7 @@ MonoBehaviour:
     TimeMult: 1
   PointFilter: {fileID: 0}
   ColorizeSettings: {fileID: 0}
-  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+  ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
     type: 3}
   PoolSize: 20
   ParticleSettings:
@@ -7528,7 +7528,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: -0.00024414062
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}

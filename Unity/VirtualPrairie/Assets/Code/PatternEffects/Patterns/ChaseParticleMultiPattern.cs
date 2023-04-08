@@ -6,31 +6,31 @@ using NaughtyAttributes;
 public class ChaseParticleMultiPattern : ParticlePattern
 {
 	[Header("Multi Settings")]
-	public List<int> ArmIds = new List<int>();
+	public List<int> Ids = new List<int>();
 
 	public override void EmitParticle()
 	{
 		if (!gameObject.activeInHierarchy)
 			return;
 
-		foreach (var id in ArmIds)
+		foreach (var id in Ids)
 		{
-			emitParticleForArm(id);
+			emitParticleForId(id);
 		}
 	}
 
-	public void EmitParticleList(List<int> armIds)
+	public void EmitParticleList(List<int> Ids)
 	{
 		if (!gameObject.activeInHierarchy)
 			return;
 
-		foreach(int id in armIds)
+		foreach(int id in Ids)
 		{
-			emitParticleForArm(id);
+			emitParticleForId(id);
 		}
 	}
 
-	void emitParticleForArm(int id)
+	void emitParticleForId(int id)
 	{
 		var p = _particlePool.NewInstance(true);
 		if (p == null)
@@ -40,7 +40,7 @@ public class ChaseParticleMultiPattern : ParticlePattern
 		}
 
 		// always do slow init, because we are override a setting
-		ParticleSettings.SetIntSetting("ArmId",id);
+		ParticleSettings.SetIntSetting("Id",id);
 		p.InitParticle(ParticleSettings);
 		p.ResetParticle();
 	}

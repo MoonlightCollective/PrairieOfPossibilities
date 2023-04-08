@@ -132,6 +132,9 @@ public class PrairieGlobals : MonoBehaviour
 	const int kNumArms = 34;
 	public int NumArms => kNumArms;
 
+	const int kNumRings = 10;
+	public int NumRings = kNumRings;
+	
 	// Start is called before the first frame update
 	void Start()
 	{
