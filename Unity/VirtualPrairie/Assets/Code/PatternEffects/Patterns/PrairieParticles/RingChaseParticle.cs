@@ -54,7 +54,7 @@ public class RingChaseParticle : PrairieParticleBase
 
         float arcTheta = _len / point.GlobalDistFromOrigin; // size of particle in radians
         float curTheta = (_curDist / point.GlobalDistFromOrigin) % (2 * Mathf.PI); // location of particle in radians going around circle
-		float thetaFromC = curTheta - (point.GlobalTheta * Mathf.Deg2Rad);
+		float thetaFromC = curTheta - (point.GlobalAzimuth * Mathf.Deg2Rad);
 
 		float b = 0;
 		if (thetaFromC > 0 && thetaFromC < arcTheta)
