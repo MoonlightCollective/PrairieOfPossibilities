@@ -3,7 +3,7 @@
 ## decoder ring for the player app
 - wasd                - walks around the field
 - up,down,left,right  - moves the camera
-- F                   - toggles "flying" mode
+- Q                   - toggles "flying" mode
 - "tab"               - toggles the heads-up-display
 - 0,1,2,3,4,5,6       - toggles camera views between 7 preset locations
 - L                   - toggles the layout UI
