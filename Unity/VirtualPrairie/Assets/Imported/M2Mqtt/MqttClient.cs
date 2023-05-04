@@ -22,6 +22,7 @@ using System;
 using System.Net;
 #if !(WINDOWS_APP || WINDOWS_PHONE_APP || (!UNITY_EDITOR&&UNITY_WSA_10_0&&!ENABLE_IL2CPP))
 using System.Net.Sockets;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 #endif
 using System.Threading;
