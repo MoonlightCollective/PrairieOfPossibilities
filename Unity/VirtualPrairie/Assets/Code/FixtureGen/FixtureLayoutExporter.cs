@@ -41,7 +41,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 			itemCount++;
 
-			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
+			FixtureItemData fid = new FixtureItemData { id = pcm.PlantId, x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
 			
 			// export tags
 			List<string> tagData = new List<string>();
