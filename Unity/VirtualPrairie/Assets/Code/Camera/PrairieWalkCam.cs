@@ -170,6 +170,15 @@ public class PrairieWalkCam : MonoBehaviour
 		retDelta.x += Input.GetAxis("Look H") * KeyLookSensitivity;
 		retDelta.y += Input.GetAxis("Look V") * KeyLookSensitivity;
 
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
+			retDelta.x += -5.0f;
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
+			retDelta.x += 5.0f;
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickUp))
+			retDelta.y += -5.0f;
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickDown))
+			retDelta.y += 5.0f;
+
 		return retDelta;
 	}
 
@@ -249,6 +258,16 @@ public class PrairieWalkCam : MonoBehaviour
 	{
 		float lr = Input.GetAxis("Horizontal");
 		float fb = Input.GetAxis("Vertical");
+
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft))
+			lr = -1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight))
+			lr = 1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp))
+			fb = 1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown))
+			fb = -1.0f;
+
 		return new Vector3(lr, 0, fb);
 	}
 }

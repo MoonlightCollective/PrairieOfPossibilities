@@ -35,13 +35,6 @@ public class LayoutAutoLoader : MonoBehaviour
 		var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
 		string layoutPath = Path.Combine(Application.streamingAssetsPath,LayoutJsonFile);
 		layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
-
-		if (!File.Exists(layoutPath))
-		{
-			Debug.LogError($"Unable to find file: {layoutPath} - doesn't exist!");
-			return;
-		}
-
 		layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(),layoutPath,false);
 
 		if (AutoPlayMusic)
@@ -55,7 +48,20 @@ public class LayoutAutoLoader : MonoBehaviour
 		}
     }
 
-	void NotifyPlaylistEnd()
+    private void Update()
+    {
+		if (OVRInput.GetUp(OVRInput.Button.One))
+		{
+			// force scene reload
+			var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
+			string layoutPath = Path.Combine(Application.streamingAssetsPath, LayoutJsonFile);
+			layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
+			layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(), layoutPath, false);
+		}
+	}
+
+
+    void NotifyPlaylistEnd()
 	{
 		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestinationScene))
 		{

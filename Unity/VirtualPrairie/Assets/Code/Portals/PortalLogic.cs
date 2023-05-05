@@ -17,7 +17,7 @@ public class PortalLogic : MonoBehaviour
 	List<EPortalSensorID> _triggeredSensors = new List<EPortalSensorID>();
 
 	// an array/list of rgb values for each led light in the portal
-	List<int> _portalLights = new List<int>();
+	// List<int> _portalLights = new List<int>();
 
 	private enum EPortalLogicState
 	{

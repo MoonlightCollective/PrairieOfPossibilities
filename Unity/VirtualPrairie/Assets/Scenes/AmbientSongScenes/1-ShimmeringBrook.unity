@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031313049, g: 0.0061682523, b: 0.014192762, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: b41e003328eea4329928e5228bd147ee, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 15f013bfa70284c20b21336231789e1c, type: 2}
   ParticlePrefab: {fileID: 1171345508054593859, guid: d7e4b8ea8562e45b7ae289371360c7f0,
     type: 3}
   PoolSize: 30
@@ -2158,6 +2158,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 281383941789419881, guid: 69cd4de30e7df4516bdce9c43e9bff61,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.649902
+      objectReference: {fileID: 0}
     - target: {fileID: 314241996705777023, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2906,7 +2911,7 @@ PrefabInstance:
     - target: {fileID: 1641608704142098537, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00079345703
+      value: 0.0007324219
       objectReference: {fileID: 0}
     - target: {fileID: 1648758592158794502, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -8072,6 +8077,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471823066204893143, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.8768
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471823066204893143, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.8768
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907986386512248523, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.9624
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907986386512248523, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.9624
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f9ba5f3b23e45219658ada6effbcb8, type: 3}
 --- !u!1001 &6443828366434019396
@@ -8156,7 +8181,8 @@ PrefabInstance:
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 343
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6443828366728745593, guid: 7a1d6aa21496e41339c08e51fc1a7c99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7a1d6aa21496e41339c08e51fc1a7c99, type: 3}
 --- !u!4 &6922065703739011426
 Transform:
