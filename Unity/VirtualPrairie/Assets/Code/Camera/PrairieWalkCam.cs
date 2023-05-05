@@ -10,6 +10,7 @@ public class PrairieWalkCam : MonoBehaviour
 	public float KeyLookSensitivity = 1.0f;
 	public float WalkSpeed = 1.0f;
 	public float HeadHeight = 1.65f;
+	public float SitHeight = 1.0f;
 	public float FloatSpeed = 3.0f;
 
 	public float AccelRate = 1.0f;
@@ -97,7 +98,7 @@ public class PrairieWalkCam : MonoBehaviour
 		Vector2 lookDirDelta = getLookDirDeltaFromMouse();
 
 		float mult = 1;
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.0f))
 		{
 			mult = 2.5f;
 		}
@@ -151,11 +152,15 @@ public class PrairieWalkCam : MonoBehaviour
 	void setHeightFromWalk()
 	{
 		Vector3 castStart = transform.position;
+		float height_off_ground = HeadHeight;
+		if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.0f || Input.GetKey(KeyCode.LeftControl))
+			height_off_ground = SitHeight;
+
 		RaycastHit hit;
 		if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
-			transform.position = new Vector3(transform.position.x, hit.point.y + HeadHeight, transform.position.z);
+			transform.position = new Vector3(transform.position.x, hit.point.y + height_off_ground, transform.position.z);
 		else
-			transform.position = new Vector3(transform.position.x, HeadHeight, transform.position.z);
+			transform.position = new Vector3(transform.position.x, height_off_ground, transform.position.z);
 	}
 
 	Vector2 getLookDirDeltaFromMouse()
@@ -171,13 +176,9 @@ public class PrairieWalkCam : MonoBehaviour
 		retDelta.y += Input.GetAxis("Look V") * KeyLookSensitivity;
 
 		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
-			retDelta.x += -5.0f;
+			retDelta.x += -1.0f;
 		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
-			retDelta.x += 5.0f;
-		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickUp))
-			retDelta.y += -5.0f;
-		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickDown))
-			retDelta.y += 5.0f;
+			retDelta.x += 1.0f;
 
 		return retDelta;
 	}
