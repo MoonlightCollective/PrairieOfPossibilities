@@ -50,13 +50,10 @@ public class LayoutAutoLoader : MonoBehaviour
 
     private void Update()
     {
-		if (OVRInput.GetUp(OVRInput.Button.One))
+		if (OVRInput.Get(OVRInput.Button.One) && !string.IsNullOrEmpty(DestinationScene))
 		{
-			// force scene reload
-			var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
-			string layoutPath = Path.Combine(Application.streamingAssetsPath, LayoutJsonFile);
-			layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
-			layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(), layoutPath, false);
+			// load next scene
+			SceneLoader.LoadScene(DestinationScene);
 		}
 	}
 
