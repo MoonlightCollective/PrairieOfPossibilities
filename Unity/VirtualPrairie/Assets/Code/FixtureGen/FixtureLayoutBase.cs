@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class FixtureLayoutBase : MonoBehaviour
 {
@@ -66,7 +68,7 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 	// will return null if its too close to another one.  ignores this rule for fromImportFile = true
 	protected GameObject AddFixture(Vector3 newPos, GameObject parentObj, GameObject prefabObj, bool fromImportFile = false)
     {
-		if (!fromImportFile) 
+        if (!fromImportFile) 
 		{
 			// don't add if this is too close to an existing base
 			// currently using "2 meters" as the threshold
@@ -81,9 +83,17 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			}
 		}
 
-		GameObject newObj = CreateObjFromPrefab(prefabObj);
+
+        // we need to orient the base so it's oriented toward the center
+        // figure out degree of rotation around Y axis
+        float theta = Mathf.Atan2(newPos.x, newPos.z) * Mathf.Rad2Deg;	// in degrees
+        float newRot = 90.0f + theta;
+
+        GameObject newObj = CreateObjFromPrefab(prefabObj);
 		newObj.transform.SetParent(parentObj.transform, false);
 		newObj.transform.position = newPos;
+		newObj.transform.Rotate(0, newRot, 0);
+
 		// Debug.Log($"{newPosFt.x}, {newPosFt.z}");
 
 		PlantColorManager pcm = newObj.GetComponentInChildren<PlantColorManager>();
