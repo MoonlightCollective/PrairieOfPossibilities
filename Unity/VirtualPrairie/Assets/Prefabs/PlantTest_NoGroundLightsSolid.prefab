@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 8717744020765725225}
   - component: {fileID: 1969020997641712253}
   m_Layer: 0
-  m_Name: StalkGroup7
+  m_Name: StalkGroup5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,11 +97,11 @@ Transform:
   m_GameObject: {fileID: 683434279204438165}
   m_LocalRotation: {x: -0.31268036, y: -0.31891027, z: 0.63421685, w: 0.63110715}
   m_LocalPosition: {x: 0.114, y: 0.002, z: 0.091}
-  m_LocalScale: {x: 100, y: 100.000015, z: 100}
+  m_LocalScale: {x: 120, y: 100.000015, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1908496796671599676
 MeshFilter:
@@ -171,8 +171,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 6
+  StemIndex: 4
   Tags: []
+  RingId: -1
 --- !u!1 &1094486950667524122
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +187,7 @@ GameObject:
   - component: {fileID: 1647092544138093833}
   - component: {fileID: 8911690677533493405}
   m_Layer: 0
-  m_Name: StalkGroup3
+  m_Name: StalkGroup6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,11 +202,11 @@ Transform:
   m_GameObject: {fileID: 1094486950667524122}
   m_LocalRotation: {x: 0.29341412, y: 0.26084206, z: 0.63970745, w: 0.6607904}
   m_LocalPosition: {x: 0.09284401, y: 0.0080451965, z: -0.08757782}
-  m_LocalScale: {x: 100, y: 100.000015, z: 100}
+  m_LocalScale: {x: 120, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1911274206328915706
 MeshFilter:
@@ -275,8 +276,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 2
+  StemIndex: 5
   Tags: []
+  RingId: -1
 --- !u!1 &1201454538420852194
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +292,7 @@ GameObject:
   - component: {fileID: 2142584212915730269}
   - component: {fileID: 1138971684346419771}
   m_Layer: 0
-  m_Name: StalkGroup4
+  m_Name: StalkGroup7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 1201454538420852194}
   m_LocalRotation: {x: 0.44401595, y: 0.3819867, z: 0.5853762, w: 0.56059855}
   m_LocalPosition: {x: -0.027586937, y: 0.027623177, z: -0.1520958}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 120, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
@@ -379,8 +381,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 3
+  StemIndex: 6
   Tags: []
+  RingId: -1
 --- !u!1 &2126305052238223532
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +502,7 @@ GameObject:
   - component: {fileID: 8593032511523080604}
   - component: {fileID: 7696626795966502689}
   m_Layer: 0
-  m_Name: StalkGroup6
+  m_Name: StalkGroup4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -514,11 +517,11 @@ Transform:
   m_GameObject: {fileID: 2658076215420768755}
   m_LocalRotation: {x: 0.4975322, y: 0.50245583, z: -0.5024557, w: -0.49753216}
   m_LocalPosition: {x: -0.084, y: 0.002, z: 0.108181}
-  m_LocalScale: {x: 100.000015, y: 100, z: 100.000015}
+  m_LocalScale: {x: 120, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4404527492604332144
 MeshFilter:
@@ -588,8 +591,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 5
+  StemIndex: 3
   Tags: []
+  RingId: -1
 --- !u!1 &3499053406550592050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,7 +1504,7 @@ GameObject:
   - component: {fileID: 1189623635810120850}
   - component: {fileID: 4790955219732167254}
   m_Layer: 0
-  m_Name: CenterStalk2
+  m_Name: CenterStalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1514,12 +1518,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5752336854917072019}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.014491081, y: 0.015924454, z: 0.0008468628}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: -0.014491081, y: 0.015924454, z: 0.0011405945}
+  m_LocalScale: {x: 100, y: 100, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3154628541098100546
 MeshFilter:
@@ -1589,8 +1593,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 1
+  StemIndex: 0
   Tags: []
+  RingId: -1
 --- !u!1 &6009204970873195852
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,18 +1933,18 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6972691233989155126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.907129, y: 10.304171, z: -21.399633}
+  m_LocalPosition: {x: -10.931, y: 10.001, z: -21.399633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1015895508534588217}
   - {fileID: 139451504362223445}
-  - {fileID: 7123242220439035057}
   - {fileID: 5544349629733910747}
-  - {fileID: 5065761605062048829}
-  - {fileID: 3727775725217460599}
+  - {fileID: 7123242220439035057}
   - {fileID: 519209321651976018}
+  - {fileID: 5065761605062048829}
   - {fileID: 9005010220801147989}
+  - {fileID: 3727775725217460599}
   - {fileID: 395703004534064396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1961,6 +1966,8 @@ MonoBehaviour:
   PointRangeMin: -1
   PointRangeMax: -1
   GlowMat: {fileID: 0}
+  ChannelStart: -1
+  PathId: None
 --- !u!1 &7446601698459556032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +1981,7 @@ GameObject:
   - component: {fileID: 1224459932759184739}
   - component: {fileID: 7717898446792460002}
   m_Layer: 0
-  m_Name: StalkGroup5
+  m_Name: StalkGroup3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1989,11 +1996,11 @@ Transform:
   m_GameObject: {fileID: 7446601698459556032}
   m_LocalRotation: {x: 0.6940603, y: 0.7059287, z: -0.11660955, w: -0.07966944}
   m_LocalPosition: {x: -0.105716705, y: 0.017682076, z: 0.01811409}
-  m_LocalScale: {x: 100, y: 100, z: 100.00002}
+  m_LocalScale: {x: 120, y: 100, z: 100.00002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3739117670268647236
 MeshFilter:
@@ -2063,8 +2070,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 4
+  StemIndex: 2
   Tags: []
+  RingId: -1
 --- !u!1 &8240770770729923741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,7 +2086,7 @@ GameObject:
   - component: {fileID: 9189005183782916973}
   - component: {fileID: 5969451566042365676}
   m_Layer: 0
-  m_Name: CenterStalk1
+  m_Name: CenterStalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2093,11 +2101,11 @@ Transform:
   m_GameObject: {fileID: 8240770770729923741}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0.028877258, y: 0.004942894, z: 0.0011405945}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 100, y: 100, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7748488310151381900}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2962635128659047802
 MeshFilter:
@@ -2167,8 +2175,9 @@ MonoBehaviour:
   ChannelStart: -1
   Materials: []
   GlowMat: {fileID: 0}
-  StemIndex: 0
+  StemIndex: 1
   Tags: []
+  RingId: -1
 --- !u!1 &8624862336883749209
 GameObject:
   m_ObjectHideFlags: 0
