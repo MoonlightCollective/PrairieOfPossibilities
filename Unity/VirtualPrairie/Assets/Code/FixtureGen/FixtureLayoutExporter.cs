@@ -342,4 +342,23 @@ public class FixtureLayoutExporter : MonoBehaviour
 		}
 	}
 
+    public void ExportStalkDataCSV(string exportFilePath)
+    {
+        var rootObj = PrairieUtil.GetLayoutRoot();
+        string HeaderStr = "StalkId,PlantId,x,z,ChannelStart,Universe,IPAddress,StemIndex";
+        using (StreamWriter stream = new StreamWriter(exportFilePath))
+        {
+			int stemId = 0;
+            stream.WriteLine(HeaderStr);
+            foreach (StemColorManager stem in PrairieUtil.Points)
+            {
+                float x = PrairieUtil.MetersToInches(stem.transform.position.x);
+                float z = PrairieUtil.MetersToInches(stem.transform.position.z);
+                stream.WriteLine($"{stemId},{stem.ParentFixture.FixtureId.ToString()},{x.ToString()},{z.ToString()},{stem.ChannelStart.ToString()},{stem.Universe.ToString()},{stem.Host},{stem.StemIndex.ToString()}");
+				stemId++;
+            }
+            stream.Flush();
+        }
+    }
+
 }
