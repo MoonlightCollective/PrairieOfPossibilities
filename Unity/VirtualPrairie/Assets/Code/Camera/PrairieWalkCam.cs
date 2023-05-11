@@ -33,6 +33,7 @@ public class PrairieWalkCam : MonoBehaviour
 
 	protected float _desiredSpeed;
 	protected float _curSpeed;
+	protected int curCameraStop;
 
 	public void Awake()
 	{
@@ -42,7 +43,9 @@ public class PrairieWalkCam : MonoBehaviour
 	public  void Start()
 	{
 		CameraStops = new List<CameraStop>(PrairieGlobals.Instance.CameraStopRoot.GetComponentsInChildren<CameraStop>());
-		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
+		curCameraStop = 0;
+		TeleportToStop(curCameraStop);
+//		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
 		_desiredSpeed = 0;
 		_curSpeed = 0;
 	}
@@ -213,6 +216,13 @@ public class PrairieWalkCam : MonoBehaviour
 			teleportTo(5);
 		if (Input.GetKeyDown(KeyCode.Alpha6))
 			teleportTo(6);
+		if (OVRInput.Get(OVRInput.Button.Two) || Input.GetKeyDown(KeyCode.N))
+		{
+			curCameraStop++;
+			if (curCameraStop >= CameraStops.Count)
+				curCameraStop = 0;
+			teleportTo(curCameraStop);
+		}
 	}
 
 
