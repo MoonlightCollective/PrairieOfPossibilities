@@ -28,6 +28,7 @@ public class PrairieWalkCam : MonoBehaviour
 	
 	[HideInInspector]
 	public List<CameraStop> CameraStops;
+
 	
 	Camera _camera;
 
@@ -156,7 +157,7 @@ public class PrairieWalkCam : MonoBehaviour
 	{
 		Vector3 castStart = transform.position;
 		float height_off_ground = HeadHeight;
-		if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.0f || Input.GetKey(KeyCode.LeftControl))
+		if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.0f || Input.GetKey(KeyCode.X))
 			height_off_ground = SitHeight;
 
 		RaycastHit hit;
