@@ -16,6 +16,7 @@ using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections
 // downloaded from github. 
 public class PrairieDmxController : MonoBehaviour
 {
+	// for listen mode to work, set this to the IP address for the device listening (e.g., headset)
 	const string localhost = "192.168.1.48";
 
 	// how many channels per point (per LED)
