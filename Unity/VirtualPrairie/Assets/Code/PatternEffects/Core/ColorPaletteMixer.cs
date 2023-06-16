@@ -36,6 +36,11 @@ public class ColorPaletteMixerEntry
 	{
 		PaletteDex = Mathf.Min(PaletteDex,ColorPaletteData.Singleton.colorPaletteList.Count-1);
 	}
+
+	public string GetName()
+    {
+		return ColorPaletteData.Singleton.colorPaletteList[PaletteDex].name;
+	}
 }
 
 
@@ -71,9 +76,9 @@ public class ColorPaletteMixer : TriggerListener
 
 	float _transitionAlpha = 1;
 	int _curPaletteDex = -1;
-	int _targetPeltteDex = 0;
+	int _targetPaletteDex = 0;
 	
-	int _cycleDex = 0;
+	int _cycleDex = -1;			// first time it's triggered, transition to the first entry in the playlist, then proceed from there.
 	float _timer;
 
 	[Foldout("Debug")]
@@ -146,9 +151,9 @@ public class ColorPaletteMixer : TriggerListener
 
 	void startTransitionToTarget(float transitionTime)
 	{
-		Debug.Log($"start transition to palette:{TargetPalette.PaletteDex}, {transitionTime}");
+		Debug.Log($"start transition to palette:{TargetPalette.GetName()}, {transitionTime}");
 		_curTransitionTime = transitionTime;
-		_targetPeltteDex = TargetPalette.PaletteDex;
+		_targetPaletteDex = TargetPalette.PaletteDex;
 		var palette = ColorPaletteData.Singleton.colorPaletteList[TargetPalette.PaletteDex];
 		for (int i = 0; i < ColorPaletteMix.kPrairieColorMixCount;i++)
 		{
@@ -170,7 +175,7 @@ public class ColorPaletteMixer : TriggerListener
 			}
 			if (_transitionAlpha >= 1)
 			{
-				_curPaletteDex = _targetPeltteDex;
+				_curPaletteDex = _targetPaletteDex;
 			}
 		}
 	}
@@ -185,7 +190,7 @@ public class ColorPaletteMixer : TriggerListener
 		}
 
 		_transitionAlpha = 1.0f;
-		_targetPeltteDex = TargetPalette.PaletteDex;
+		_targetPaletteDex = TargetPalette.PaletteDex;
 		_curPaletteDex = TargetPalette.PaletteDex;
 	}
 
