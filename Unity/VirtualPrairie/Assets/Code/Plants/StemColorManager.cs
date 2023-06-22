@@ -411,7 +411,7 @@ public class StemColorManager : DmxColorPoint
 
 	void addRingTag(string tagName)
 	{
-		Debug.Log($"Adding ring tag {tagName}");
+		// Debug.Log($"Adding ring tag {tagName}");
 		var startDex = tagName.IndexOf("Ring");
 		var ringIdStr = tagName.Substring(startDex+4,tagName.Length-(4+startDex));
 		int id = -1;
