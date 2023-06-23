@@ -86,8 +86,8 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 
         // we need to orient the base so it's oriented toward the center
         // figure out degree of rotation around Y axis
-        float theta = Mathf.Atan2(newPos.x, newPos.z) * Mathf.Rad2Deg;	// in degrees
-        float newRot = 90.0f + theta;
+        float azimuth = Mathf.Atan2(newPos.x, newPos.z) * Mathf.Rad2Deg;	// in degrees -- between -180 and 180
+        float newRot = 90.0f + azimuth;
 
         GameObject newObj = CreateObjFromPrefab(prefabObj);
 		newObj.transform.SetParent(parentObj.transform, false);
@@ -106,6 +106,13 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			}
 			pcm.PointRangeMin = pcm.PlantId * PrairieDmxController.PointsPerFixture;
 			pcm.PointRangeMax = pcm.PointRangeMin + PrairieDmxController.PointsPerFixture;
+
+			// set arm tag based on new position
+			int armID = (int)((azimuth + 180.0f) / 10.0f) + 1;
+			string armTag = "CWArm" + armID;
+			pcm.AddFixtureTag(armTag);
+			armTag = "CCWArm" + armID;
+			pcm.AddFixtureTag(armTag);
 		}
 		else
 		{
