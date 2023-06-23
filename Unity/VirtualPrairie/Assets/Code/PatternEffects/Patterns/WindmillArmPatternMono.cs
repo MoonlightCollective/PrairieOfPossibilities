@@ -52,7 +52,7 @@ public class WindmillArmPatternMono : PrairiePatternMonochromaticBase
 			if (pointArm < 0)
 				continue;
 			
-			// What's my delta from a windmil spine?
+			// What's my delta from a windmill spine?
 			float pointArmMod = (float)pointArm % armModVal;
 
 			// assume my spine is at the current rotation angle
