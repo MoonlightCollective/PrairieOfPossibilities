@@ -217,11 +217,18 @@ public class PrairieWalkCam : MonoBehaviour
 			teleportTo(5);
 		if (Input.GetKeyDown(KeyCode.Alpha6))
 			teleportTo(6);
-		if (OVRInput.Get(OVRInput.Button.Two) || Input.GetKeyDown(KeyCode.N))
+		if (OVRInput.Get(OVRInput.Button.Three) || Input.GetKeyDown(KeyCode.N))
 		{
 			curCameraStop++;
 			if (curCameraStop >= CameraStops.Count)
 				curCameraStop = 0;
+			teleportTo(curCameraStop);
+		}
+		if (OVRInput.Get(OVRInput.Button.Four) || Input.GetKeyDown(KeyCode.B))
+		{
+			curCameraStop--;
+			if (curCameraStop < 0)
+				curCameraStop = CameraStops.Count - 1;
 			teleportTo(curCameraStop);
 		}
 	}

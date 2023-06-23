@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using NaughtyAttributes;
+using UnityEngine.SceneManagement;
 
 public class LayoutAutoLoader : MonoBehaviour
 {
@@ -55,10 +56,15 @@ public class LayoutAutoLoader : MonoBehaviour
 			// load next scene
 			SceneLoader.LoadScene(DestinationScene);
 		}
+		if (OVRInput.Get(OVRInput.Button.Two) && !string.IsNullOrEmpty(DestinationScene))
+		{
+			// restart current scene
+			SceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
 	}
 
 
-    void NotifyPlaylistEnd()
+	void NotifyPlaylistEnd()
 	{
 		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestinationScene))
 		{
