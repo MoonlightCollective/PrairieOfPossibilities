@@ -41,7 +41,7 @@ public class FixtureLayoutExporter : MonoBehaviour
 
 			itemCount++;
 
-			FixtureItemData fid = new FixtureItemData { x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
+			FixtureItemData fid = new FixtureItemData { id = pcm.PlantId, x = PrairieUtil.MetersToInches(pcm.transform.position.x), z = PrairieUtil.MetersToInches(pcm.transform.position.z) };			
 			
 			// export tags
 			List<string> tagData = new List<string>();
@@ -341,5 +341,24 @@ public class FixtureLayoutExporter : MonoBehaviour
 			stream.Flush();
 		}
 	}
+
+    public void ExportStalkDataCSV(string exportFilePath)
+    {
+        var rootObj = PrairieUtil.GetLayoutRoot();
+        string HeaderStr = "StalkId,PlantId,x,z,ChannelStart,Universe,IPAddress,StemIndex";
+        using (StreamWriter stream = new StreamWriter(exportFilePath))
+        {
+			int stemId = 0;
+            stream.WriteLine(HeaderStr);
+            foreach (StemColorManager stem in PrairieUtil.Points)
+            {
+                float x = PrairieUtil.MetersToInches(stem.transform.position.x);
+                float z = PrairieUtil.MetersToInches(stem.transform.position.z);
+                stream.WriteLine($"{stemId},{stem.ParentFixture.FixtureId.ToString()},{x.ToString()},{z.ToString()},{stem.ChannelStart.ToString()},{stem.Universe.ToString()},{stem.Host},{stem.StemIndex.ToString()}");
+				stemId++;
+            }
+            stream.Flush();
+        }
+    }
 
 }

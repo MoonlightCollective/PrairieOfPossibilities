@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using NaughtyAttributes;
+using UnityEngine.SceneManagement;
 
 public class LayoutAutoLoader : MonoBehaviour
 {
@@ -35,13 +36,6 @@ public class LayoutAutoLoader : MonoBehaviour
 		var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
 		string layoutPath = Path.Combine(Application.streamingAssetsPath,LayoutJsonFile);
 		layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
-
-		if (!File.Exists(layoutPath))
-		{
-			Debug.LogError($"Unable to find file: {layoutPath} - doesn't exist!");
-			return;
-		}
-
 		layoutGen.DoImportLayout(PrairieUtil.GetLayoutRoot(),layoutPath,false);
 
 		if (AutoPlayMusic)
@@ -54,6 +48,21 @@ public class LayoutAutoLoader : MonoBehaviour
 			_ui.ForceDisplayMode();	
 		}
     }
+
+    private void Update()
+    {
+		if (OVRInput.Get(OVRInput.Button.One) && !string.IsNullOrEmpty(DestinationScene))
+		{
+			// load next scene
+			SceneLoader.LoadScene(DestinationScene);
+		}
+		if (OVRInput.Get(OVRInput.Button.Two) && !string.IsNullOrEmpty(DestinationScene))
+		{
+			// restart current scene
+			SceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+	}
+
 
 	void NotifyPlaylistEnd()
 	{

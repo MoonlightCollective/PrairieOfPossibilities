@@ -15,6 +15,7 @@ class FixtureData
 
 class FixtureItemData
 {
+	public int id;
 	public float x;
 	public float z;
 	public List<string> tags;

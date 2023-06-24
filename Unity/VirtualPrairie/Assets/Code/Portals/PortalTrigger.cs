@@ -17,7 +17,7 @@ public class PortalTrigger : MonoBehaviour
 		{
 			_portal.NotifySensorEnter(SensorID);
 		}
-		// Debug.Log($"{gameObject.name} - Collision enter: {c.gameObject.name}");
+		Debug.Log($"{gameObject.name} - Collision enter: {c.gameObject.name}");
 	}
 
 	public void OnTriggerExit(Collider c)
@@ -26,6 +26,5 @@ public class PortalTrigger : MonoBehaviour
 		{
 			_portal.NotifySensorExit(SensorID);
 		}
-	}
-
+    }
 }

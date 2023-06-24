@@ -10,6 +10,7 @@ public class PrairieWalkCam : MonoBehaviour
 	public float KeyLookSensitivity = 1.0f;
 	public float WalkSpeed = 1.0f;
 	public float HeadHeight = 1.65f;
+	public float SitHeight = 1.0f;
 	public float FloatSpeed = 3.0f;
 
 	public float AccelRate = 1.0f;
@@ -27,11 +28,13 @@ public class PrairieWalkCam : MonoBehaviour
 	
 	[HideInInspector]
 	public List<CameraStop> CameraStops;
+
 	
 	Camera _camera;
 
 	protected float _desiredSpeed;
 	protected float _curSpeed;
+	protected int curCameraStop;
 
 	public void Awake()
 	{
@@ -41,7 +44,9 @@ public class PrairieWalkCam : MonoBehaviour
 	public  void Start()
 	{
 		CameraStops = new List<CameraStop>(PrairieGlobals.Instance.CameraStopRoot.GetComponentsInChildren<CameraStop>());
-		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
+		curCameraStop = 0;
+		TeleportToStop(curCameraStop);
+//		transform.position = new Vector3(transform.position.x,HeadHeight,transform.position.z);
 		_desiredSpeed = 0;
 		_curSpeed = 0;
 	}
@@ -97,7 +102,7 @@ public class PrairieWalkCam : MonoBehaviour
 		Vector2 lookDirDelta = getLookDirDeltaFromMouse();
 
 		float mult = 1;
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.0f))
 		{
 			mult = 2.5f;
 		}
@@ -151,11 +156,15 @@ public class PrairieWalkCam : MonoBehaviour
 	void setHeightFromWalk()
 	{
 		Vector3 castStart = transform.position;
+		float height_off_ground = HeadHeight;
+		if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.0f || Input.GetKey(KeyCode.X))
+			height_off_ground = SitHeight;
+
 		RaycastHit hit;
 		if (Physics.Raycast(castStart, Vector3.down, out hit, 40f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
-			transform.position = new Vector3(transform.position.x, hit.point.y + HeadHeight, transform.position.z);
+			transform.position = new Vector3(transform.position.x, hit.point.y + height_off_ground, transform.position.z);
 		else
-			transform.position = new Vector3(transform.position.x, HeadHeight, transform.position.z);
+			transform.position = new Vector3(transform.position.x, height_off_ground, transform.position.z);
 	}
 
 	Vector2 getLookDirDeltaFromMouse()
@@ -169,6 +178,11 @@ public class PrairieWalkCam : MonoBehaviour
 
 		retDelta.x += Input.GetAxis("Look H") * KeyLookSensitivity;
 		retDelta.y += Input.GetAxis("Look V") * KeyLookSensitivity;
+
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
+			retDelta.x += -1.0f;
+		if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
+			retDelta.x += 1.0f;
 
 		return retDelta;
 	}
@@ -205,6 +219,20 @@ public class PrairieWalkCam : MonoBehaviour
 			teleportTo(5);
 		if (Input.GetKeyDown(KeyCode.Alpha6))
 			teleportTo(6);
+		if (OVRInput.Get(OVRInput.Button.Three) || Input.GetKeyDown(KeyCode.N))
+		{
+			curCameraStop++;
+			if (curCameraStop >= CameraStops.Count)
+				curCameraStop = 0;
+			teleportTo(curCameraStop);
+		}
+		if (OVRInput.Get(OVRInput.Button.Four) || Input.GetKeyDown(KeyCode.B))
+		{
+			curCameraStop--;
+			if (curCameraStop < 0)
+				curCameraStop = CameraStops.Count - 1;
+			teleportTo(curCameraStop);
+		}
 	}
 
 
@@ -251,6 +279,16 @@ public class PrairieWalkCam : MonoBehaviour
 	{
 		float lr = Input.GetAxis("Horizontal");
 		float fb = Input.GetAxis("Vertical");
+
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickLeft))
+			lr = -1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickRight))
+			lr = 1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickUp))
+			fb = 1.0f;
+		if (OVRInput.Get(OVRInput.Button.PrimaryThumbstickDown))
+			fb = -1.0f;
+
 		return new Vector3(lr, 0, fb);
 	}
 }

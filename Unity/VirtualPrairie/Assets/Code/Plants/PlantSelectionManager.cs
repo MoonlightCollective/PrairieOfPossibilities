@@ -143,12 +143,16 @@ public class PlantSelectionManager : MonoBehaviour
 			string newCSV = saveFilePath.Substring(0, saveFilePath.Length - 4);
 			newCSV += "_polar.csv";
 			PrairieGlobals.Instance.LayoutGen.Exporter.ExportBaseDataCSV(newCSV);
-		}
+
+            newCSV = saveFilePath.Substring(0, saveFilePath.Length - 4);
+            newCSV += "_stalks.csv";
+            PrairieGlobals.Instance.LayoutGen.Exporter.ExportStalkDataCSV(newCSV);
+        }
 #else
 		Debug.LogError("CSV export only works from within the editor right now");
 #endif
 
-	}
+    }
 
 	public void NotifyExportClick()
 	{

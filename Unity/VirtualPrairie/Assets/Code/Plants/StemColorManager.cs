@@ -56,6 +56,9 @@ public class StemColorManagerProxy : StemColorManager
 	public override bool HasArmTagID(EArmTagType type, int id)
 	{
 		return _realStem.HasArmTagID(type,id);
+		// int armID = (int)(_globalAzimuth / 10.0f) + 1;
+		// int armID = (int)(_parentFixture.GetAzimuth() / 10.0f) + 1;
+		// return (id == armID);
 	}
 
 	public override bool HasTag(string tagName, bool fuzzyMatch = false)
@@ -66,9 +69,12 @@ public class StemColorManagerProxy : StemColorManager
 	public override int PrimaryArmTagId(EArmTagType type)
 	{
 		return _realStem.PrimaryArmTagId(type);
-	}
+		// int armID = (int)(_parentFixture.  _globalAzimuth / 10.0f) + 1;
+		// int armID = (int)(_parentFixture.GetAzimuth() / 10.0f) + 1;
+		// return armID;
+    }
 
-	public override void ApplyColorToDmx()
+    public override void ApplyColorToDmx()
 	{
 		// we don't really ever want to do this.
 	}
@@ -345,17 +351,26 @@ public class StemColorManager : DmxColorPoint
 
 	public virtual bool HasArmTagID(EArmTagType type, int id)
 	{
-		return _armTags[type].Contains(id);
-	}
 
-	public virtual int PrimaryArmTagId(EArmTagType type)
+		// TODO: make more efficient; store armID at start so we can avoid constantly calculating it every frame for every stem
+
+		return _armTags[type].Contains(id);
+		// int armID = (int)(_globalAzimuth / 10.0f) + 1;
+		// int armID = (int)(_parentFixture.GetAzimuth() / 10.0f) + 1;
+		// return armID == id;
+    }
+
+    public virtual int PrimaryArmTagId(EArmTagType type)
 	{
 		return _primaryArmTags[type];
-	}
+		// int armID = (int)(_globalAzimuth / 10.0f) + 1;
+		// int armID = (int)(_parentFixture.GetAzimuth() / 10.0f) + 1;
+		// return armID;
+    }
 
-	// public bool HasArmTagId(int tagId, bool CW)
+    // public bool HasArmTagId(int tagId, bool CW)
 
-	public void AddTag(PrairieTag newTag)
+    public void AddTag(PrairieTag newTag)
 	{
 		if (!HasTag(newTag.Name))
 		{
@@ -402,7 +417,7 @@ public class StemColorManager : DmxColorPoint
 
 	void addRingTag(string tagName)
 	{
-		Debug.Log($"Adding ring tag {tagName}");
+		// Debug.Log($"Adding ring tag {tagName}");
 		var startDex = tagName.IndexOf("Ring");
 		var ringIdStr = tagName.Substring(startDex+4,tagName.Length-(4+startDex));
 		int id = -1;

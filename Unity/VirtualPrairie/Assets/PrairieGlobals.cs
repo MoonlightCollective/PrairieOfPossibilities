@@ -129,7 +129,7 @@ public class PrairieGlobals : MonoBehaviour
 		s_instance = this;
 	}
 
-	const int kNumArms = 34;
+	const int kNumArms = 36;
 	public int NumArms => kNumArms;
 
 	const int kNumRings = 10;

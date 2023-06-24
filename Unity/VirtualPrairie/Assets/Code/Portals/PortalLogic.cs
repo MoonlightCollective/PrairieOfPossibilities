@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Code.StateTable;
 using UnityEngine;
 using UnityEngine.Events;
+using FMODUnity;
 
 public class PortalLogic : MonoBehaviour
 {
@@ -12,12 +13,16 @@ public class PortalLogic : MonoBehaviour
 	
 	public UnityEvent OnEntryTrigger;
 	public UnityEvent OnExitTrigger;
-	
-	// keeping a list of sensor data - order matters, and helps us determine entry direction.
-	List<EPortalSensorID> _triggeredSensors = new List<EPortalSensorID>();
+
+    FMODUnity.StudioEventEmitter _entrySound;
+    FMODUnity.StudioEventEmitter _exitSound;
+    FMODUnity.StudioEventEmitter _whisperSound;
+
+    // keeping a list of sensor data - order matters, and helps us determine entry direction.
+    List<EPortalSensorID> _triggeredSensors = new List<EPortalSensorID>();
 
 	// an array/list of rgb values for each led light in the portal
-	List<int> _portalLights = new List<int>();
+	// List<int> _portalLights = new List<int>();
 
 	private enum EPortalLogicState
 	{
@@ -38,8 +43,7 @@ public class PortalLogic : MonoBehaviour
 	
 	public void NotifySensorEnter(EPortalSensorID id)
 	{
-		// Debug.Log($"{gameObject.name} - sensor enter!");
-
+		Debug.Log($"{gameObject.name} - sensor enter!");
 		if (!_triggeredSensors.Contains(id))
 		{
 			_triggeredSensors.Add(id);
@@ -49,9 +53,8 @@ public class PortalLogic : MonoBehaviour
 
 	public void NotifySensorExit(EPortalSensorID id)
 	{
-		// Debug.Log($"{gameObject.name} - sensor exit!");
-
-		if (_triggeredSensors.Contains(id))
+        // Debug.Log($"{gameObject.name} - sensor exit!");
+        if (_triggeredSensors.Contains(id))
 		{
 			_triggeredSensors.Remove(id);
 			_stateMachine.DoStateAction(EPortalLogicAction.SensorUpdate);
@@ -66,22 +69,28 @@ public class PortalLogic : MonoBehaviour
 		findRequiredObjects();
 		createStateMachine();
 		_stateMachine.GotoState(EPortalLogicState.Idle);
+		_whisperSound.Play();
 	}
-	
-	public void Update()
+
+    public void Update()
 	{
 		_stateMachine.DoStateAction(EPortalLogicAction.Update);
 	}
+
 	protected void findRequiredObjects()
 	{
-		// find all of our lights
-		
-	}
+		_entrySound = gameObject.transform.Find("EntrySound").GetComponent<FMODUnity.StudioEventEmitter>();
+        _exitSound = gameObject.transform.Find("ExitSound").GetComponent<FMODUnity.StudioEventEmitter>();
+        _whisperSound = gameObject.transform.Find("WhisperSound").GetComponent<FMODUnity.StudioEventEmitter>();
 
-	//=================
-	// Idle State
-	//=================
-	protected void IdleEnter() { }
+        //		_entrySound = GetComponentInChildren<FMODUnity.StudioEventEmitter>();
+        // find all of our lights
+    }
+
+    //=================
+    // Idle State
+    //=================
+    protected void IdleEnter() { }
 	protected void IdleUpdate() { }
 	protected void IdleExit() { }
 	protected void IdleSensorUpdate()
@@ -114,12 +123,14 @@ public class PortalLogic : MonoBehaviour
 	{
 		Debug.Log($"PORTAL {gameObject.name} ENTRY");
 		OnEntryTrigger?.Invoke();
+		_entrySound.Play();
 	}
 
 	protected void doPlayEchoExitEvent()
 	{
 		Debug.Log($"PORTAL {gameObject.name} EXIT");
 		OnExitTrigger?.Invoke();
+		_exitSound.Play();
 	}
 
 	//=================

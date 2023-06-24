@@ -457,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -675,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe7cf2732e22b24b9c88788de720c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DmxMode: 1
+  DmxMode: 2
 --- !u!1 &5009842725031547905
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +824,7 @@ MonoBehaviour:
   SpacingExp: 1.002
   ClearingOffset: 0
   ClearingSize: 30
+  CenterClearingSpacing: 8
 --- !u!114 &5009842725031547961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,6 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8906d93b84baf4827955ad61f6f9480c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NumRings: 10
 --- !u!1 &5898059492655171406
 GameObject:
   m_ObjectHideFlags: 0

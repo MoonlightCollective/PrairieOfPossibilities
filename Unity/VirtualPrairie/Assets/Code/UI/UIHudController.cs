@@ -42,7 +42,7 @@ public class UIHudController : MonoBehaviour
 		FrameSkipSlider.Slider.value = settings.VisualsFrameSkip;
 
 		ArtnetToggle.SetIsOnWithoutNotify(settings.AutoConnectArtNet);
-		_dmxController.DmxMode = settings.AutoConnectArtNet?PrairieDmxController.DmxSendListenMode.Send:PrairieDmxController.DmxSendListenMode.Off;
+		//_dmxController.DmxMode = settings.AutoConnectArtNet?PrairieDmxController.DmxSendListenMode.Send:PrairieDmxController.DmxSendListenMode.Off;
 
 		MqttToggle.SetIsOnWithoutNotify(settings.AutoConnectMqtt);
 		_mqttController.autoConnect = settings.AutoConnectMqtt;
@@ -67,7 +67,7 @@ public class UIHudController : MonoBehaviour
 	public void OnUpdateArtnetVal(bool newVal)
 	{
 		GlobalPlantSettings.Instance.AutoConnectArtNet = newVal;
-		_dmxController.DmxMode = newVal?PrairieDmxController.DmxSendListenMode.Send:PrairieDmxController.DmxSendListenMode.Off;
+		//_dmxController.DmxMode = newVal?PrairieDmxController.DmxSendListenMode.Send:PrairieDmxController.DmxSendListenMode.Off;
 		_dmxController.ReInit();
 		GlobalPlantSettings.Instance.SavePrefs();
 	}

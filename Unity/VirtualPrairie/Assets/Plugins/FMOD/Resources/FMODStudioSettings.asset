@@ -206,9 +206,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SwitchSettingsMigration: 1
   HasSourceProject: 0
-  HasPlatforms: 0
+  HasPlatforms: 1
   sourceProjectPath: 
-  sourceBankPath: Assets/Audio/FModBanks/Desktop
+  sourceBankPath: Assets/Audio/FModBanks
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 1
   ShowBankRefreshWindow: 0
@@ -687,11 +687,11 @@ MonoBehaviour:
       Value: 44100
       HasValue: 1
     BuildDirectory:
-      Value: 
-      HasValue: 0
+      Value: Mobile
+      HasValue: 1
     SpeakerMode:
-      Value: 0
-      HasValue: 0
+      Value: 6
+      HasValue: 1
     VirtualChannelCount:
       Value: 1024
       HasValue: 1

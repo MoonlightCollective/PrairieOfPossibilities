@@ -17,12 +17,33 @@ public class FixtureLayoutImport : FixtureLayoutBase
 		if (!string.IsNullOrEmpty(JsonFilePath))
 		{
 			Debug.Log($"FixtureLayoutImport:GenerateLayout- importing file '{JsonFilePath}'");
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+			// on android, use UnityWebRequest
+			UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(JsonFilePath);
+			www.SendWebRequest();
+			while (!www.downloadHandler.isDone)
+			{
+			}
+			string jsonStr = www.downloadHandler.text;
+#else
+			if (!File.Exists(JsonFilePath))
+			{
+				Debug.LogError($"Unable to find file: {JsonFilePath} - doesn't exist!");
+				return false;
+			}
 			string jsonStr = File.ReadAllText(JsonFilePath);
+#endif
 			if (!string.IsNullOrEmpty(jsonStr))
 			{
 				doFixtureImport(rootObj, jsonStr, fixturePrefab, portalPrefab, boothPrefab);
 				return true;
 			}
+            else
+            {
+				Debug.LogError($"Unable to load file: {JsonFilePath}");
+				return false;
+            }
 		}
 		
 		return false;
