@@ -189,9 +189,11 @@ public class PrairieWalkCam : MonoBehaviour
 
 	void checkForFlyingToggle()
 	{
-		if (Input.GetKeyDown(KeyCode.F))
+		if (Input.GetKeyDown(KeyCode.Q))
 		{
 			isFlying = !isFlying;
+			Debug.Log($"checkForFlyingToggle: isFlying={isFlying}");
+
 		}
 	}
 
