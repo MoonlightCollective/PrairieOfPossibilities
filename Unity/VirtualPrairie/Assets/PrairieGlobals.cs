@@ -17,6 +17,23 @@ public class PrairieGlobals : MonoBehaviour
 		}
 	}
 
+	private SceneLoader _sceneLoader = null;
+	public SceneLoader SceneLoader
+    {
+		get
+        {
+			if (_sceneLoader == null)
+            {
+				_sceneLoader = GameObject.FindObjectOfType<SceneLoader>();
+				if (_sceneLoader == null)
+                {
+					Debug.LogError("Unable to find global scene loader");
+                }
+            }
+			return _sceneLoader;
+        }
+    }
+
 	private FmodMusicPlayer _fmp = null;
 	public FmodMusicPlayer MusicPlayer
 	{

@@ -5,6 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+
+	public List<string> ScenePlaylist;
+	protected static int currentScene = 0;
+
+	public void LoadNextScene()
+    {
+		currentScene = currentScene + 1;
+		if (currentScene >= ScenePlaylist.Count)
+			currentScene = 0;
+		LoadScene(ScenePlaylist[currentScene]);
+    }
+
+	public void LoadPreviousScene()
+    {
+		currentScene = currentScene - 1;
+		if (currentScene < 0)
+			currentScene = ScenePlaylist.Count - 1;
+		LoadScene(ScenePlaylist[currentScene]);
+	}
+
 	public static void LoadScene(string newSceneName)
 	{
 		FmodMusicPlayer fmp = GameObject.FindObjectOfType<FmodMusicPlayer>();

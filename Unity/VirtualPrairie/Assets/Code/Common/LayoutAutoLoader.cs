@@ -12,10 +12,9 @@ public class LayoutAutoLoader : MonoBehaviour
 
 	public bool AutoPlayMusic = true;
 	PrairieMusicManager _musicManager;
+	SceneLoader _sceneLoader;
 
-	public bool DoLoadSceneOnPlaylistEnd = true;
-	[ShowIf("DoLoadSceneOnPlaylistEnd")]
-	public string DestinationScene = "TargetScene";
+	public bool AutoLoadNextScene = true;
 
 	public bool AutoDisplayMode = true;
 	UIMasterController _ui;
@@ -26,13 +25,14 @@ public class LayoutAutoLoader : MonoBehaviour
     {
 		_musicManager = GameObject.FindObjectOfType<PrairieMusicManager>();
 		_ui = GameObject.FindObjectOfType<UIMasterController>();
-
+		_sceneLoader = PrairieGlobals.Instance.SceneLoader;
 		_musicManager.OnPlaylistCompleted.AddListener(()=>NotifyPlaylistEnd());
 
 		if (!AutoLoadAtStartup)
 		{
 			return;
 		}
+
 		var layoutGen = GameObject.FindObjectOfType<FixtureLayoutGen>();
 		string layoutPath = Path.Combine(Application.streamingAssetsPath,LayoutJsonFile);
 		layoutGen.ImportLayout.ClearChildrenFrom(PrairieUtil.GetLayoutRoot());
@@ -51,25 +51,23 @@ public class LayoutAutoLoader : MonoBehaviour
 
     private void Update()
     {
-		if (OVRInput.Get(OVRInput.Button.One) && !string.IsNullOrEmpty(DestinationScene))
+		if (OVRInput.Get(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Period))
 		{
 			// load next scene
-			SceneLoader.LoadScene(DestinationScene);
+			_sceneLoader.LoadNextScene();
 		}
-		if (OVRInput.Get(OVRInput.Button.Two) && !string.IsNullOrEmpty(DestinationScene))
+		if (OVRInput.Get(OVRInput.Button.Two) || Input.GetKeyDown(KeyCode.Comma))
 		{
-			// restart current scene
-			SceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			// load previous scene
+			_sceneLoader.LoadPreviousScene();
 		}
 	}
-
 
 	void NotifyPlaylistEnd()
 	{
-		if (DoLoadSceneOnPlaylistEnd && !string.IsNullOrEmpty(DestinationScene))
+		if (AutoLoadNextScene)
 		{
-			SceneLoader.LoadScene(DestinationScene);
+			_sceneLoader.LoadNextScene();
 		}
 	}
-
 }
