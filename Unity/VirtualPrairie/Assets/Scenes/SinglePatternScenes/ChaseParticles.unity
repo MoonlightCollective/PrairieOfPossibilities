@@ -175,15 +175,20 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
+<<<<<<< HEAD
   ColorizeSettings: {fileID: 11400000, guid: 53e10ad26c24942caab9052ebeda57bd, type: 2}
   ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
+=======
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+>>>>>>> parent of 60b865d (added new ring particle type for ring chases)
     type: 3}
   PoolSize: 30
   ParticleSettings:
     Settings: []
     NeedsRebuild: 1
   SlowInitParticles: 1
-  Ids: 02000000040000000600000008000000
+  ArmIds: 0200000004000000060000000f0000001100000013000000
 --- !u!114 &84103880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,16 +383,21 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
+<<<<<<< HEAD
   ColorizeSettings: {fileID: 11400000, guid: 1911b8fa9c5d84dabb640eec590efb24, type: 2}
   ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
+=======
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+>>>>>>> parent of 60b865d (added new ring particle type for ring chases)
     type: 3}
   PoolSize: 40
   ParticleSettings:
     Settings: []
     NeedsRebuild: 1
   SlowInitParticles: 1
-  StartId: 1
-  EndId: 10
+  StartArm: 14
+  EndArm: 1
   Skip: 1
 --- !u!114 &360393774
 MonoBehaviour:
@@ -1007,7 +1017,7 @@ MonoBehaviour:
         MaxVal: 0
     NeedsRebuild: 1
   SlowInitParticles: 0
-  Skip: 3
+  Skip: 5
   Offset: 0
 --- !u!114 &1009053141
 MonoBehaviour:
@@ -1265,8 +1275,13 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
+<<<<<<< HEAD
   ColorizeSettings: {fileID: 11400000, guid: a8d6851a7d69f4c77970896e1e694f97, type: 2}
   ParticlePrefab: {fileID: 7154542215777383006, guid: f30d065c0ba3b45a5b6e4bbdeb1c88c8,
+=======
+  ColorizeSettings: {fileID: 0}
+  ParticlePrefab: {fileID: 7154542215777383006, guid: dea04caa6e44a472489a479e79c47b74,
+>>>>>>> parent of 60b865d (added new ring particle type for ring chases)
     type: 3}
   PoolSize: 20
   ParticleSettings:
@@ -7528,7 +7543,7 @@ PrefabInstance:
     - target: {fileID: 8836897223174760748, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00024414062
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8922260381779022480, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}

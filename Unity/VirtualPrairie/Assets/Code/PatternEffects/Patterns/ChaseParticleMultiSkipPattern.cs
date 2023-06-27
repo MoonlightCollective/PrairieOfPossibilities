@@ -14,8 +14,8 @@ public class ChaseParticleMultiSkipPattern : ParticlePattern
 		if (!gameObject.activeInHierarchy)
 			return;
 
-		int numRings = PrairieGlobals.Instance.NumRings;
-		for (int i = Offset; i < numRings; i += Skip)
+		int numArms = PrairieGlobals.Instance.NumArms;
+		for (int i = Offset; i < numArms; i += Skip)
 		{
 			var p = _particlePool.NewInstance(true);
 			if (p == null)
@@ -25,7 +25,7 @@ public class ChaseParticleMultiSkipPattern : ParticlePattern
 			}
 
 			// always do slow init, because we are override a setting
-			ParticleSettings.SetIntSetting("Id",i);
+			ParticleSettings.SetIntSetting("ArmId",i);
 			p.InitParticle(ParticleSettings);
 			p.ResetParticle();
 		}
