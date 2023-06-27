@@ -7,22 +7,37 @@ public class SceneLoader : MonoBehaviour
 {
 
 	public List<string> ScenePlaylist;
-	protected static int currentScene = 0;
 
 	public void LoadNextScene()
     {
-		currentScene = currentScene + 1;
-		if (currentScene >= ScenePlaylist.Count)
-			currentScene = 0;
-		LoadScene(ScenePlaylist[currentScene]);
+		string curScene = SceneManager.GetActiveScene().name;
+		int iScene = ScenePlaylist.FindIndex(x => x.Equals (curScene,System.StringComparison.Ordinal));
+		if (iScene < 0)
+        {
+			Debug.LogError("Can't find current scene in scene playlist");
+			return;
+        }
+
+		iScene = iScene + 1;
+		if (iScene >= ScenePlaylist.Count)
+			iScene = 0;
+		LoadScene(ScenePlaylist[iScene]);
     }
 
 	public void LoadPreviousScene()
     {
-		currentScene = currentScene - 1;
-		if (currentScene < 0)
-			currentScene = ScenePlaylist.Count - 1;
-		LoadScene(ScenePlaylist[currentScene]);
+		string curScene = SceneManager.GetActiveScene().name;
+		int iScene = ScenePlaylist.FindIndex(x => x.Equals(curScene, System.StringComparison.Ordinal));
+		if (iScene < 0)
+		{
+			Debug.LogError("Can't find current scene in scene playlist");
+			return;
+		}
+
+		iScene = iScene - 1;
+		if (iScene < 0)
+			iScene = ScenePlaylist.Count - 1;
+		LoadScene(ScenePlaylist[iScene]);
 	}
 
 	public static void LoadScene(string newSceneName)
