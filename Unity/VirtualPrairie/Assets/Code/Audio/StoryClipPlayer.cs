@@ -45,6 +45,14 @@ public class StoryClipPlayer  : MonoBehaviour
         Array.Sort(this.storyClipInfos, byDateComparer);
     }
 
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			StartCoroutine(PlayStoryClip());;
+		}
+	}
+
     // note: using IEnumerator as a retval makes this a coroutine (and can run async over multiple frames)
     public IEnumerator PlayStoryClip()
     {
