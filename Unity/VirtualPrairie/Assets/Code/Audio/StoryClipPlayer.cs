@@ -15,6 +15,8 @@ public class StoryClipPlayer  : MonoBehaviour
 
 	public string StoryClipsAudioPath = "/data/audiopipline/StoryClipsAudioPath";
     public int MostRecentClipsToPlay = 10;
+        public AudioSource audioSource;
+    public float volume=0.5f;
 
     private FileSystemInfo[] storyClipInfos;
     private int lastStoryPlayed = -1;
@@ -43,40 +45,47 @@ public class StoryClipPlayer  : MonoBehaviour
         // sort the fileinfos by time
         IComparer byDateComparer = new sortByDate();
         Array.Sort(this.storyClipInfos, byDateComparer);
+
+        // load in audio source 
+        audioSource = GetComponent<AudioSource>();
     }
 
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			StartCoroutine(PlayStoryClip());;
+			PlayStoryClip();
 		}
 	}
 
     // note: using IEnumerator as a retval makes this a coroutine (and can run async over multiple frames)
-    public IEnumerator PlayStoryClip()
+    public void PlayStoryClip()
     {
-        // play the next clip
+       // play the next clip
         this.lastStoryPlayed += 1;
         Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {this.lastStoryPlayed}, {this.storyClipInfos[this.lastStoryPlayed].FullName}");
 
-        AudioClip storyClip;
+        //string file_path = "/audiopipline/StoryClipsAudioPath/audio.1.wav";
 
-        // open the file
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip($"file://{this.storyClipInfos[this.lastStoryPlayed].FullName}", AudioType.WAV))
-        {
-            yield return www.SendWebRequest();
-            Debug.Log($"www.result = {www.result}");
-            if (www.result == UnityWebRequest.Result.ConnectionError)
-            {
-                Debug.Log(www.error);
-                yield break;
-            }
+        //Debug.Log(Application.persistentDataPath);
 
-            storyClip = DownloadHandlerAudioClip.GetContent(www);
-        }
+        //string path = string.Format ("{0}/{1}", Application.persistentDataPath, file_path);
 
-        Debug.Log($"storyClip = {storyClip.name}, {storyClip.length}");
-    }
-	
+        FMOD.ChannelGroup channelGroup;
+        var res = FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
+        FMOD.Sound sound1;
+        //for(int i = 0; i < this.storyClipInfos.Length; i ++){
+        //    Debug.Log($"storyClipInfos: {this.storyClipInfos[i].FullName}");
+        //}
+        Debug.Log($"createSound({this.storyClipInfos[this.lastStoryPlayed].FullName})");
+        res = FMODUnity.RuntimeManager.CoreSystem.createSound(this.storyClipInfos[this.lastStoryPlayed].FullName, FMOD.MODE.DEFAULT, out sound1);
+        FMOD.Channel channel1;
+        Debug.Log($"playSound())");
+        res = FMODUnity.RuntimeManager.CoreSystem.playSound(sound1, channelGroup, false, out channel1);    
+        //AudioClip audioClip = WavUtility.ToAudioClip (path);
+        //audioSource.clip = audioClip;
+        //audioSource.Play ();
+
+        return;
+    }	
 }
