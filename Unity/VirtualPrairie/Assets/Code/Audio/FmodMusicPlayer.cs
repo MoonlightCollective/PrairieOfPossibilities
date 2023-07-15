@@ -305,6 +305,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				}
 				break;
 			}
+			// timeline markers are in the banks to throw events to the player,
+			// to do things like "a chord just happened, control the choreography"
+			// and also to play story clips.
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
 			{
 				var timelineParam = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
@@ -313,6 +316,15 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				{
 					string pName = timelineParam.name;
 					Debug.Log($"---marker: {pName}");
+
+					// is this a story clip marker?
+					if (pName.Contains("Clip"))
+					{
+						Debug.Log($"---marker: {pName} : calling PlayStoryClip()");
+						playerInstance._scp.PlayStoryClip();
+					}
+
+					// fire the event so the app can change choreography.
 					playerInstance.OnMarkerEvent?.Invoke(timelineParam.name);
 				}
 				break;
@@ -320,11 +332,6 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
 			{
 				Debug.Log("EventCommand:");
-
-				if (playerInstance != null)
-				{
-					playerInstance._scp.PlayStoryClip();
-				}
 
 				/*
 				EventDescription ed;
