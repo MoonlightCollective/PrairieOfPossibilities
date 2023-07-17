@@ -56,7 +56,7 @@ with os.scandir("stage1") as it:
                     newAudio.export(outputFilePath, format="wav") 
                     print ("\tcreated ", outputFilePath )
 
-                    metadata = f'{{ \"masterAudioFile\": \"{entry.name + ".master"}\", \"audioFragmentFile\": \"{outputFile}\", \"segmentLength\": \"{prevSpeechEnd-currentFragmentStart}\" }}'
+                    metadata = f'{{ \"masterAudioFile\": \"{entry.name + ".master"}\", \"audioFragmentFile\": \"{outputFile}\", \"segmentLength\": \"{prevSpeechEnd-currentFragmentStart}\", \"st_mtime\": {entry.stat().st_mtime} }}'
                     print("json:", metadata)
                     with open(outputFilePath + ".json", "w") as outfile:
                         outfile.write(metadata)
@@ -70,5 +70,6 @@ with os.scandir("stage1") as it:
             os.rename(entry.path, "./stage2/" + entry.name + ".master")
 
 
+print ("exiting stage1")
                 
 
