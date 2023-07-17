@@ -44,7 +44,9 @@ public class StoryClipPlayer  : MonoBehaviour
     private List<EmotionBlock> emotionBlocks = new List<EmotionBlock>();
     private int lastEmotionPlayed = -1;
     private int lastUpdateTickCount = 0;
-    const int UPDATE_INTERVAL = 1000 * 60; // every minute
+    const int UPDATE_INTERVAL = 1000 * 30; // every 30s
+
+    private FMOD.Channel storyChannel;
     
 
     private class sortByDate : IComparer<StoryClip>  {
@@ -168,18 +170,29 @@ public class StoryClipPlayer  : MonoBehaviour
         if (storyClip == null)
         {
             Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: no story to play");
+            return;
+        }
+
+        // are we playing a story clip already ?
+        bool isPlaying = false;
+        this.storyChannel.isPlaying(out isPlaying);
+        if (isPlaying)
+        {
+            Debug.Log($"StoryClipPlayer.PlayStoryClip: a clip was already playing ; stopping the previous story clip.");
+            this.storyChannel.stop();
         }
 
         Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
 
         FMOD.ChannelGroup channelGroup;
-        var res = FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
         FMOD.Sound sound1;
+
+        var res = FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
        
         Debug.Log($"createSound({storyClip.FullName})");
         res = FMODUnity.RuntimeManager.CoreSystem.createSound(storyClip.FullName, FMOD.MODE.DEFAULT, out sound1);
-        FMOD.Channel channel1;
+
         Debug.Log($"playSound())");
-        res = FMODUnity.RuntimeManager.CoreSystem.playSound(sound1, channelGroup, false, out channel1);    
+        res = FMODUnity.RuntimeManager.CoreSystem.playSound(sound1, channelGroup, false, out this.storyChannel);
     }	
 }
