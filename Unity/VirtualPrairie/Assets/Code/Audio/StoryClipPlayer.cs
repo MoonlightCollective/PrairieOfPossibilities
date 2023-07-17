@@ -165,6 +165,11 @@ public class StoryClipPlayer  : MonoBehaviour
     {
        // play the next clip
         var storyClip = this.GetNextStory();
+        if (storyClip == null)
+        {
+            Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: no story to play");
+        }
+
         Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
 
         FMOD.ChannelGroup channelGroup;
