@@ -29,7 +29,7 @@ while True:
         for entry in it:
             if not entry.name.startswith('.') and entry.is_file():
                 print("processing:", entry.name)
-                output = stage1(entry.name)
+                output = stage1(entry.path)
                 print ("done processing")
 
                 segment = 1
@@ -51,7 +51,7 @@ while True:
                         # dump out everythign until the last block
                         t1 = currentFragmentStart * 1000 # works  in milliseconds
                         t2 = prevSpeechEnd * 1000
-                        newAudio = AudioSegment.from_wav(entry.name)
+                        newAudio = AudioSegment.from_wav(entry.path)
                         newAudio = newAudio[t1:t2]
                         # exports to a wav file in the current path
                         outputFile = entry.name[:-4] + "." + str(segment) +".wav"
