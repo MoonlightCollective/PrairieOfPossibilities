@@ -575,12 +575,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 1.1380209
-      outSlope: 1.1380209
+      inSlope: -0.008576349
+      outSlope: -0.008576349
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.058028616
+      outWeight: 0.275
+    - serializedVersion: 3
+      time: 0.5105582
+      value: 0.99820507
+      inSlope: -0.0024835507
+      outSlope: -0.0024835507
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.45212775
     - serializedVersion: 3
       time: 1
       value: 0
@@ -964,6 +973,7 @@ MonoBehaviour:
     - {fileID: 1493925787}
     - {fileID: 1483606099}
     - {fileID: 1680816602}
+    - {fileID: 676925190}
     IncludeChildren: 0
   OnMarker: SectionA-Start
   OffMarker: SectionA-Stop
@@ -2208,6 +2218,117 @@ MonoBehaviour:
     - {fileID: 691905865}
   Marker: Chord2
   PerfectMatch: 0
+--- !u!1 &676925190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 676925191}
+  - component: {fileID: 676925193}
+  - component: {fileID: 676925192}
+  m_Layer: 0
+  m_Name: Sparkle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &676925191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676925190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2053630493}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &676925192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676925190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Mult: 0.5
+--- !u!114 &676925193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676925190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466a84a9d96734bc8a7253f10ebda61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: 71773f7b173004c9fb2c16d7675920d4, type: 2}
+  AlphaMode: 1
+  FixedAlpha: 1
+  MinBrightness: 0.5
+  SparkleFrequency:
+    MinVal: 0.5
+    MaxVal: 2
+  SparkleDuration:
+    MinVal: 1
+    MaxVal: 2
+  FlickerShape:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.016666412
+      value: 0.009429932
+      inSlope: 4.0058336
+      outSlope: 4.0058336
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.11016972
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.9868743
+      outSlope: -3.9868743
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1949152
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &678394298
 GameObject:
   m_ObjectHideFlags: 0
@@ -4731,7 +4852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1483606100
 Transform:
   m_ObjectHideFlags: 0
@@ -4927,7 +5048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1493925788
 Transform:
   m_ObjectHideFlags: 0
@@ -4996,12 +5117,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.847
+    LayerAlpha: 0.702
   TimeSettings:
     TimeMult: 0.76
   PointFilter: {fileID: 0}
-  ColorizeSettings: {fileID: 11400000, guid: a65d2404385c446f3bbe8dacd356e015, type: 2}
-  AlphaMode: 0
+  ColorizeSettings: {fileID: 0}
+  AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
     NoiseScale: {x: 40, y: 10, z: 40.5}
@@ -5438,7 +5559,7 @@ MonoBehaviour:
   TriggerTargets:
     IncludeChildren: 1
     Targets:
-    - {fileID: 1847922122}
+    - {fileID: 83330319}
   Marker: ChordA
   PerfectMatch: 1
 --- !u!1 &1652858983
@@ -10296,7 +10417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1680816603
 Transform:
   m_ObjectHideFlags: 0
@@ -11784,6 +11905,7 @@ Transform:
   - {fileID: 157697404}
   - {fileID: 1832728194}
   - {fileID: 414069516}
+  - {fileID: 676925191}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22073,6 +22195,11 @@ PrefabInstance:
         type: 3}
       propertyPath: brokerAddress
       value: localhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080399857032849488, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7048435010081697877, guid: e971f0975231343f3b404f362569294d,
         type: 3}
