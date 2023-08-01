@@ -28,9 +28,9 @@ public class UIFloor extends UI3dComponent {
   protected void onDraw(heronarts.p4lx.ui.UI ui, PGraphics pg) {
 
     float level = 255;
-    // pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
-    // pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
-    // pg.pointLight(level, level, level, 0, 0, 30*FEET);
+    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
+    pg.pointLight(level, level, level, 0, 0, 30*FEET);
 //    pg.ambientLight(255,255,255);
     
     //pg.perspective();

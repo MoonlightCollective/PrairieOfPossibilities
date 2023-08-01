@@ -32,7 +32,7 @@ void settings() {
 }
 
 void setup() {
-//  smooth(8);
+  // smooth(4);
   heronarts.lx.studio.LXStudio.Flags flags = new heronarts.lx.studio.LXStudio.Flags(this);
   flags.useGLPointCloud = true;
   flags.startMultiThreaded = true;
@@ -50,11 +50,15 @@ void initializeUI(final heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXS
 
 void onUIReady(heronarts.lx.studio.LXStudio lx, heronarts.lx.studio.LXStudio.UI ui) {
 
+  field = buildField(lx);
   ui.preview.setRadius(80*FEET).setPhi(-PI/18).setTheta(PI/12);
   ui.preview.setCenter(0, 0, 0);
+  
 
   // Narrow angle lens, for a fuller visualization
   ui.preview.perspective.setValue(30);
+  simulation = new UISimulation(lx);
+  ui.preview.addComponent(simulation);
 
   midiPm = new MidiProgramChangeListener(lx);
   lx.engine.midi.addListener(midiPm);
