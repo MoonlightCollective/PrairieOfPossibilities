@@ -317,7 +317,6 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
 			{
 				Debug.Log("EventCommand:");
-				EventDescription ed;
 				FMOD.Studio.EventInstance inst = new FMOD.Studio.EventInstance(parameterPtr);
 /*				Debug.Log($"instance:{inst.isValid()}");
 				float vol;
