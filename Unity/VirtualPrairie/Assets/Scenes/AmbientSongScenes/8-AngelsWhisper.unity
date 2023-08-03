@@ -10723,7 +10723,7 @@ PrefabInstance:
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 457.00015
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -10733,7 +10733,7 @@ PrefabInstance:
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 243.50008
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -15641,7 +15641,7 @@ MonoBehaviour:
   LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
   AutoPlayMusic: 1
   DoLoadSceneOnPlaylistEnd: 1
-  DestinationScene: 1-ShimmeringBrook
+  DestinationScene: 3-LostInThought
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
@@ -15746,6 +15746,61 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CommonStatic
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[0]
+      value: 1-ShimmeringBrook
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[1]
+      value: 18-LostAmongTheStars
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[2]
+      value: 12-ButterfliesInWind
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[3]
+      value: 8-AngelsWhisper
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[4]
+      value: 3-LostInThought
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[5]
+      value: 10-Andromeda
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[6]
+      value: 14-IntoTheVoid
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[7]
+      value: 9-AboveTheClouds
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[8]
+      value: 16-Rain
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[9]
+      value: 5-BeforeSunrise
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e971f0975231343f3b404f362569294d, type: 3}

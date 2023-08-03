@@ -17,6 +17,23 @@ public class PrairieGlobals : MonoBehaviour
 		}
 	}
 
+	private SceneLoader _sceneLoader = null;
+	public SceneLoader SceneLoader
+    {
+		get
+        {
+			if (_sceneLoader == null)
+            {
+				_sceneLoader = GameObject.FindObjectOfType<SceneLoader>();
+				if (_sceneLoader == null)
+                {
+					Debug.LogError("Unable to find global scene loader");
+                }
+            }
+			return _sceneLoader;
+        }
+    }
+
 	private FmodMusicPlayer _fmp = null;
 	public FmodMusicPlayer MusicPlayer
 	{
@@ -32,23 +49,6 @@ public class PrairieGlobals : MonoBehaviour
 			return _fmp;
 		}
 	}
-
-	private StoryClipPlayer _scp = null;
-	public StoryClipPlayer StoryClipPlayer
-	{
-		get {
-			if (_scp == null)
-			{
-				_scp = GameObject.FindObjectOfType<StoryClipPlayer>();
-				if (_scp == null)
-				{
-					Debug.LogError("Unable to find the global story clip player");
-				}
-			}
-			return _scp;
-		}
-	}
-
 
 	private PrairieMusicManager _musicManager = null;
 	public PrairieMusicManager MusicManager

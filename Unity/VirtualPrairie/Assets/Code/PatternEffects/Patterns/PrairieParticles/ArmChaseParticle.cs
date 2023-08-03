@@ -9,25 +9,28 @@ public class ArmChaseParticle : PrairieParticleBase
 	public float DefaultStartDist = 3.0f;
 	public float DefaultLifetime = 3.0f;
 	public EArmTagType ArmType = EArmTagType.ArmCW;
-	public int DefaultId = 5;
-	public AnimationCurve BrightnessRamp = new AnimationCurve(new Keyframe(0,1),new Keyframe(1,0));
+	public int DefaultArmId = 5;
+	public AnimationCurve BrightnessRamp = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
+	public int DefaultWidth = 2;
 
 	float _curDist;
 	float _lifeTimer;
 	float _len;
 	float _lifeTime;
 	float _speed;
-	int _Id;
+	int _armId;
+	int _width;
 
 	public override void InitParticle(PrairieParticleSettings settings)
 	{
 		base.InitParticle(settings);
 		_lifeTimer = 0f;
-		_lifeTime = settings.GetFloatSetting("Lifetime",DefaultLifetime);
-		_curDist = settings.GetFloatSetting("StartDist",DefaultStartDist);
-		_speed = settings.GetFloatSetting("Speed",DefaultSpeed);
-		_len = settings.GetFloatSetting("Length",DefaultLength);
-		_Id = settings.GetIntSetting("Id",DefaultId);
+		_lifeTime = settings.GetFloatSetting("Lifetime", DefaultLifetime);
+		_curDist = settings.GetFloatSetting("StartDist", DefaultStartDist);
+		_speed = settings.GetFloatSetting("Speed", DefaultSpeed);
+		_len = settings.GetFloatSetting("Length", DefaultLength);
+		_armId = settings.GetIntSetting("ArmId", DefaultArmId);
+		_width = settings.GetIntSetting("Width", DefaultWidth);
 		_isRunning = true;
 	}
 
@@ -37,14 +40,19 @@ public class ArmChaseParticle : PrairieParticleBase
 		_lifeTimer += deltaTime;
 		if (_lifeTimer >= _lifeTime)
 			_isRunning = false;
-		
+
 		_curDist += _speed * deltaTime;
 
 	}
 
 	public override Color ColorForPoint(StemColorManager point)
 	{
-		if (point.PrimaryArmTagId(ArmType) != _Id)
+		int armId = point.PrimaryArmTagId(ArmType);
+		int armDist = Mathf.Abs(armId - _armId);
+		if (armDist > (PrairieGlobals.Instance.NumArms / 2))
+			armDist = PrairieGlobals.Instance.NumArms - armDist;
+
+		if (armDist >= _width)
 		{
 			return new Color(0,0,0,0);
 		}

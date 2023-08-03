@@ -54,7 +54,7 @@ public class RingParticle : PrairieParticleBase
 		_ringSize = DefaultRingSize.RandomVal;
 		_falloff = DefaultFalloff;
 		transform.localPosition = PrairieUtil.XZVector3(PrairieUtil.PolarToCartesianNorm(DefaultPositionRadius.RandomVal,DefaultPositionTheta.RandomVal));
-		_curR = 0f;
+        _curR = 0f;
 		
 		resetParticleMods();
 	}
@@ -77,12 +77,18 @@ public class RingParticle : PrairieParticleBase
 			_isRunning = true;
 			_particleAlpha = UseAlphaCurve?AlphaCurve.Evaluate(a):1.0f;
 		}
-		posXZ = new Vector2(transform.position.x,transform.position.z);
-	}
+        posXZ = new Vector2(transform.position.x, transform.position.z);
+    }
 
-	public override Color ColorForPoint(StemColorManager point)
+    public override Color ColorForPoint(StemColorManager point)
 	{
+		// how far is this point from the expanding ring of this particle?
 		float absDistFromR = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ) - _curR);
+		if (absDistFromR > _falloff)
+			return new Color(0, 0, 0, 0);
+
+		// otherwise we are inside the falloff range on either side of the expanding ring
+
 		// float distFromC = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ));
 		// float distFromR = Mathf.Abs(distFromC - _curR);
 		float normalizedFalloffDist = Mathf.Clamp01(absDistFromR/_falloff);
