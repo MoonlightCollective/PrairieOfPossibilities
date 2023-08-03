@@ -50,23 +50,6 @@ public class PrairieGlobals : MonoBehaviour
 		}
 	}
 
-	private StoryClipPlayer _scp = null;
-	public StoryClipPlayer StoryClipPlayer
-	{
-		get {
-			if (_scp == null)
-			{
-				_scp = GameObject.FindObjectOfType<StoryClipPlayer>();
-				if (_scp == null)
-				{
-					Debug.LogError("Unable to find the global story clip player");
-				}
-			}
-			return _scp;
-		}
-	}
-
-
 	private PrairieMusicManager _musicManager = null;
 	public PrairieMusicManager MusicManager
 	{
