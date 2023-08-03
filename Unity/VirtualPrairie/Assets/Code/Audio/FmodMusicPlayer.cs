@@ -29,6 +29,8 @@ public abstract class PrairieMusicPlayer : MonoBehaviour
 
 public class FmodMusicPlayer : PrairieMusicPlayer
 {
+	private StoryClipPlayer _scp = null;
+
 	EventReference _curEventRef;
 	EventInstance _curEventInstance;
 
@@ -148,6 +150,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		allocateFFTArray();
 		createStateMachine();
 		_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);
+		_scp = GameObject.FindObjectOfType<StoryClipPlayer>();
 	}
 	
 	public void Start()
@@ -302,6 +305,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				}
 				break;
 			}
+			// timeline markers are in the banks to throw events to the player,
+			// to do things like "a chord just happened, control the choreography"
+			// and also to play story clips.
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
 			{
 				var timelineParam = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
@@ -310,6 +316,15 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				{
 					string pName = timelineParam.name;
 					Debug.Log($"---marker: {pName}");
+
+					// is this a story clip marker?
+					if (pName.Contains("Clip"))
+					{
+						Debug.Log($"---marker: {pName} : calling PlayStoryClip()");
+						playerInstance._scp.PlayStoryClip();
+					}
+
+					// fire the event so the app can change choreography.
 					playerInstance.OnMarkerEvent?.Invoke(timelineParam.name);
 				}
 				break;
@@ -317,8 +332,11 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
 			{
 				Debug.Log("EventCommand:");
+
+				/*
+				EventDescription ed;
+
 				FMOD.Studio.EventInstance inst = new FMOD.Studio.EventInstance(parameterPtr);
-/*				Debug.Log($"instance:{inst.isValid()}");
 				float vol;
 				var r = inst.getVolume(out vol);
 				Debug.Log($"vol: {FMOD.Error.String(r)} {vol}");
@@ -327,7 +345,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 				string path = "";
 				r = ed.getPath(out path);
 				Debug.Log($"path: {FMOD.Error.String(r)}");
-				Debug.Log("instance:" + path);*/
+				Debug.Log("instance:" + path);
+				*/
 				break;
 			}
 			case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
@@ -402,8 +421,9 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 			_musicCallback = new FMOD.Studio.EVENT_CALLBACK(eventCallback);
 			_curEventInstance.setUserData(GCHandle.ToIntPtr(_musicCallbackUserDataHandle));
 			_curEventInstance.setCallback(_musicCallback,EVENT_CALLBACK_TYPE.ALL);
+
 			
-			// FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft);
+			// FMODUnity.RuntimeManager.F.createDSPByType(FMOD.DSP_TYPE.FFT, out _fft);
 			// _fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWTYPE, (int)FMOD.DSP_FFT_WINDOW.HANNING);
 			// _fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, _fftWindowSize * 2);
 			//  FMODUnity.RuntimeManager.StudioSystem.flushCommands();
@@ -502,6 +522,8 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	{
 		PLAYBACK_STATE pbs = PLAYBACK_STATE.STOPPED;
 		_curEventInstance.getPlaybackState(out pbs);
+
+
 		if (pbs != PLAYBACK_STATE.PLAYING && pbs != PLAYBACK_STATE.STARTING)
 		{
 			_stateMachine.GotoState(EFmodMusicPlayerState.Stopped);

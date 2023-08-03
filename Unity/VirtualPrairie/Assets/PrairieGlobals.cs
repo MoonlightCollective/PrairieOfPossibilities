@@ -50,7 +50,6 @@ public class PrairieGlobals : MonoBehaviour
 		}
 	}
 
-
 	private PrairieMusicManager _musicManager = null;
 	public PrairieMusicManager MusicManager
 	{
