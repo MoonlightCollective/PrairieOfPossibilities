@@ -25,12 +25,12 @@ public class UIFloor extends UI3dComponent {
   }
 
   @Override
-  protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+  protected void onDraw(heronarts.p4lx.ui.UI ui, PGraphics pg) {
 
     float level = 255;
-    // pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
-    // pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
-    // pg.pointLight(level, level, level, 0, 0, 30*FEET);
+    pg.pointLight(level, level, level, -80*FEET, 30*FEET, -80*FEET);
+    pg.pointLight(level, level, level, 80*FEET, 30*FEET, 80*FEET);
+    pg.pointLight(level, level, level, 0, 0, 30*FEET);
 //    pg.ambientLight(255,255,255);
     
     //pg.perspective();
@@ -221,7 +221,7 @@ public class UILightStemTrio extends UILightStem {
   }
 
   @Override
-  protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+  protected void onDraw(heronarts.p4lx.ui.UI ui, PGraphics pg) {
     LXEngine.Frame frame = ui.lx.getUIFrame();
     int[] colors = frame.getColors();    
     LXPoint p = this.model.getPoint();
@@ -289,7 +289,7 @@ public class UILightStemSingle extends UILightStem {
   }
 
   @Override
-  protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+  protected void onDraw(heronarts.p4lx.ui.UI ui, PGraphics pg) {
     pg.noStroke();
     pg.lights();
     LXEngine.Frame frame = ui.lx.getUIFrame();
@@ -368,7 +368,7 @@ public class UILightBase extends UI3dComponent {
   }
 
   @Override
-  protected void onDraw(heronarts.p3lx.ui.UI ui, PGraphics pg) {
+  protected void onDraw(heronarts.p4lx.ui.UI ui, PGraphics pg) {
     pg.noStroke();
     pg.fill(#101010);
   }

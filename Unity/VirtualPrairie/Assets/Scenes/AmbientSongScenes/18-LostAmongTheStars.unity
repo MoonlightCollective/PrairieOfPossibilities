@@ -1043,7 +1043,7 @@ MonoBehaviour:
         MaxVal: 0
     NeedsRebuild: 1
   SlowInitParticles: 1
-  Ids: 
+  ArmIds: 
 --- !u!114 &437763966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4418,7 +4418,7 @@ MonoBehaviour:
         MaxVal: 0
     NeedsRebuild: 1
   SlowInitParticles: 1
-  Ids: 
+  ArmIds: 
 --- !u!114 &1949392889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11418,8 +11418,7 @@ MonoBehaviour:
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
   AutoPlayMusic: 1
-  DoLoadSceneOnPlaylistEnd: 1
-  DestinationScene: 12-ButterfliesInWind
+  AutoLoadNextScene: 1
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
@@ -11508,6 +11507,11 @@ PrefabInstance:
     - target: {fileID: 2910440432642960547, guid: e971f0975231343f3b404f362569294d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910960629064822744, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3910960629064822744, guid: e971f0975231343f3b404f362569294d,

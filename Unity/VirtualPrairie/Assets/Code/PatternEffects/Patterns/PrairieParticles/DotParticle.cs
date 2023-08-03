@@ -58,7 +58,6 @@ public class DotParticle : PrairieParticleBase
 		base.UpdateParticle(deltaTime,group);
 
 		float a = Mathf.Clamp01(_particleT/_lifetime);
-		_curSize = _size + SizeMultAnim.Evaluate(a);
 		if (a >= 1)
 		{
 			_isRunning = false;
@@ -76,6 +75,9 @@ public class DotParticle : PrairieParticleBase
 	public override Color ColorForPoint(StemColorManager point)
 	{
 		float distFromC = Mathf.Abs(Vector2.Distance(point.XZVect,posXZ));
+		if (distFromC > _curSize)
+			return new Color(0, 0, 0, 0);
+
 		float normalizedFalloffDist = Mathf.Clamp01(distFromC/_curSize);
 		float b = _particleAlpha * Mathf.Clamp01(FalloffCurve.Evaluate(normalizedFalloffDist));
 		return new Color(b,b,b,b);

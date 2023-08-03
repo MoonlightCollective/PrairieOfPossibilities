@@ -159,7 +159,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 794c4971cd0f24433923be555883b28e, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 71773f7b173004c9fb2c16d7675920d4, type: 2}
   ParticlePrefab: {fileID: 1171345508054593859, guid: d7e4b8ea8562e45b7ae289371360c7f0,
     type: 3}
   PoolSize: 30
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290137d499d9c4c22a99774016a9a35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClockDivision: 2
+  ClockDivision: 3
   Clock: {fileID: 1694103768}
   OutEvent:
     m_PersistentCalls:
@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290137d499d9c4c22a99774016a9a35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClockDivision: 2
+  ClockDivision: 3
   Clock: {fileID: 1694103768}
   OutEvent:
     m_PersistentCalls:
@@ -1081,7 +1081,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 794c4971cd0f24433923be555883b28e, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 71773f7b173004c9fb2c16d7675920d4, type: 2}
   ParticlePrefab: {fileID: 1171345508054593859, guid: d7e4b8ea8562e45b7ae289371360c7f0,
     type: 3}
   PoolSize: 30
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1.33
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 71773f7b173004c9fb2c16d7675920d4, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
   AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1.33
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 71773f7b173004c9fb2c16d7675920d4, type: 2}
+  ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
   AlphaMode: 1
   FixedAlpha: 1
   NoiseSettings:
@@ -9350,8 +9350,7 @@ MonoBehaviour:
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
   AutoPlayMusic: 1
-  DoLoadSceneOnPlaylistEnd: 1
-  DestinationScene: 18-LostAmongTheStars
+  AutoLoadNextScene: 1
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:
