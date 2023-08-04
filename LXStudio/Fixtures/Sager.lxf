@@ -1,0 +1,65 @@
+{
+    "label": "Lusio",
+    "comment": "Num Bases 6",
+    "tag":"Sager",
+    "children": [
+        {
+            "type": "7-pixel-base",
+            "x": 0,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 96,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 192,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 288,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 384,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        },
+        {
+            "type": "7-pixel-base",
+            "x": 480,
+            "z": 0,
+            "tags": [
+                "ring0"
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "host": "192.168.1.113",
+            "protocol": "artnet",
+            "byteOrder": "rgb",
+            "universe": 0,            
+            "start": 0,
+            "num": 42
+        }
+    ]
+}
