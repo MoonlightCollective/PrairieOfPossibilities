@@ -266,7 +266,7 @@ public class PrairieWalkCam : MonoBehaviour
 			if (cStop.IsOrtho)
             {
 				Camera.main.orthographic = true;
-				Camera.main.orthographicSize = PrairieUtil.GetLayoutGen().MaxDistFromOrigin;
+				Camera.main.orthographicSize = cStop.orthoSize;
 			}
 			else
             {
