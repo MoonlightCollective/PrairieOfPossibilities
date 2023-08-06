@@ -6,6 +6,7 @@ public class CameraStop : MonoBehaviour
 {
 	public bool IsFlying = false;
 	public bool IsOrtho = false;
+	public float orthoSize = 30;
 
 	[Header("Dynamic Positions")]
 	public Transform FollowObj;
