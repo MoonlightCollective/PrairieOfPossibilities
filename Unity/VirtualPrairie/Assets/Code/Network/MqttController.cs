@@ -17,6 +17,7 @@ using System;
 public class MqttController : M2MqttUnityClient
 {
 	List<MqttEventHandler> _eventHandlers;
+	List<MqttEventHandler> _eventHandlersToDestroy;
 	List<string> _topics = new List<string>();
 	protected UIMqttStatus _statusUI;
 	protected string _praireControlTopic = "praire_control";
@@ -36,10 +37,19 @@ public class MqttController : M2MqttUnityClient
 
 	protected void LoadEventHandlers()
 	{
+		if (_eventHandlersToDestroy != null)
+		{
+			foreach (var meh in _eventHandlersToDestroy)
+			{
+				Destroy(meh);
+			}
+		}
+
 		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
+		_eventHandlersToDestroy = new List<MqttEventHandler>();
 
 		// add our praire control event handler
-		var praireControlEventHandler = new MqttEventHandler();
+		var praireControlEventHandler = gameObject.AddComponent<MqttEventHandler>();
 		praireControlEventHandler.TopicEvents = new List<TopicToEventEntry>();
 		var entry = new TopicToEventEntry();
 		entry.Topic = _praireControlTopic;
@@ -47,6 +57,7 @@ public class MqttController : M2MqttUnityClient
 		entry.OnMessage.AddListener(OnPraireControl);
 		praireControlEventHandler.TopicEvents.Add(entry);
 		_eventHandlers.Add(praireControlEventHandler);
+		_eventHandlersToDestroy.Add(praireControlEventHandler);
 	}
 
 	protected override void Start()
@@ -183,8 +194,12 @@ public class MqttController : M2MqttUnityClient
 		{
 			_layoutAutoLoader.AutoLoadNextScene = false;
 		}
-		else if (message == "resume")
+		else if (message == "next_song")
 		{
+			if (_fmp.IsPlaying())
+			{
+				_pmm.PausePlayback();
+			}
 			_layoutAutoLoader.AutoLoadNextScene = true;
 			_sceneLoader.LoadNextScene();
 		}

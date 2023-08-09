@@ -126,7 +126,7 @@ function App() {
                   <option value="stop">stop</option>
                   <option value="play">play</option>
                   <option value="pause">pause</option>
-                  <option value="resume">resume</option>
+                  <option value="next_song">next_song</option>
                 </select>
                 </tr></table></td><td>
                 <button className="MqttButton" type="submit">praire_control</button>
