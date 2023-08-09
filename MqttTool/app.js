@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 //const connectUrl = "mqtt://73.254.192.189:41799"
-const connectUrl = "mqtt://mqtt:1883"
+const connectUrl = "mqtt://localhost:1883"
 //const connectUrl = "mqtt://127.0.0.1:1883"
 
 console.log('Connecting to:', connectUrl)
@@ -34,11 +34,15 @@ client.on('connect', () => {
   client.subscribe(['booth_session'], () => {
     console.log(`Subscribed to topic 'booth_session'`)
   })
+  client.subscribe(['praire_control'], () => {
+    console.log(`Subscribed to topic 'praire_control'`)
+  })
 })
 
 var portalTopicFeed  = [];
 var boothTopicFeed  = [];
 var boothSessionTopicFeed  = [];
+var praireControlTopicFeed  = [];
 
 client.on('message', (topic, payload) => {
   console.log('Received Message:', topic, payload.toString())
@@ -52,7 +56,10 @@ client.on('message', (topic, payload) => {
     case "booth_session":
       boothSessionTopicFeed.push(JSON.parse(payload.toString()))
       break;      
-  }
+    case "praire_control":
+      praireControlTopicFeed.push(JSON.parse(payload.toString()))
+      break;      
+    }
 })
 
 
@@ -127,6 +134,27 @@ app.get("/mqtt/topic/booth_session", (req, res) => {
   res.send(JSON.stringify(boothSessionTopicFeed));
 });
 
+app.post("/mqtt/topic/praire_control", (req, res) => {
+  console.log("POST /mqtt/topic/praire_control");
+  fieldDict = {  }
+  tagsDict = {  }
+  msgDict = { "name":req.body.message, "fields":fieldDict, "tags":tagsDict, "timestamp":math.floor(Date.now()/1000) }
+  json_object = JSON.stringify(msgDict)
+
+  client.publish("praire_control", json_object, { qos: 0, retain: false }, (error) => {
+    if (error) {
+      console.error(error)
+    }
+  })  
+  console.log("mqtt published:", json_object);
+
+  res.redirect("/");
+});
+
+app.get("/mqtt/topic/praire_control", (req, res) => {
+  console.log("GET /mqtt/topic/praire_control returning", JSON.stringify(praireControlTopicFeed));
+  res.send(JSON.stringify(praireControlTopicFeed));
+});
 
 const PORT = process.env.PORT || 8080;
   

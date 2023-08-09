@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import logo from './logo.svg';
 import './App.css';
 
-
-var jsonVar = {
-  text: "example",
-  number: 1
-};
 
 function App() {
 
   const [topicFeedPortal, setTopicFeedPortal] = useState();
   const [topicFeedBooth, setTopicFeedBooth] = useState();
   const [topicFeedBoothSession, setTopicFeedBoothSession] = useState();
+  const [topicFeedPraireControl, setTopicFeedPraireControl] = useState();
 
   // Function to collect data
   const getApiData = async () => {
@@ -34,6 +30,12 @@ function App() {
     ).then((responseBoothSession) => responseBoothSession.json());
 
     setTopicFeedBoothSession(responseBoothSession);
+
+    const responseBoothPraireControl = await fetch(
+      "/mqtt/topic/praire_control"
+    ).then((responseBoothPraireControl) => responseBoothPraireControl.json());
+
+    setTopicFeedPraireControl(responseBoothPraireControl);
 
   };
 
@@ -115,6 +117,22 @@ function App() {
                 </td></tr></table>
               </form>
             </td>
+          </tr><tr>
+            <td></td>
+            <td>
+              <form action="/mqtt/topic/praire_control" method="post" className="form">
+              <table className="FormTable"><tr><td><table><tr>
+                <select name="message">
+                  <option value="stop">stop</option>
+                  <option value="play">play</option>
+                  <option value="pause">pause</option>
+                  <option value="resume">resume</option>
+                </select>
+                </tr></table></td><td>
+                <button className="MqttButton" type="submit">praire_control</button>
+                </td></tr></table>
+              </form>
+            </td>
           </tr>
           </table>
         </td><td>
@@ -167,6 +185,25 @@ function App() {
             </tr>          
               {topicFeedBoothSession &&
                 topicFeedBoothSession.map((feedItem) => (
+                <tr>
+                  <td>{feedItem.name}</td>
+                  <td>{JSON.stringify(feedItem.fields)}</td>
+                  <td>{JSON.stringify(feedItem.tags)}</td>
+                  <td>{feedItem.timestamp}</td>
+                </tr>
+              ))}
+            </table>
+          </tr><tr>
+            <p>praire_control MQQT feed:</p>
+            <table className="FeedTable">
+            <tr>
+              <th>name</th>
+              <th>fields</th>
+              <th>tags</th>
+              <th>timestamp</th>
+            </tr>          
+              {topicFeedPraireControl &&
+                topicFeedPraireControl.map((feedItem) => (
                 <tr>
                   <td>{feedItem.name}</td>
                   <td>{JSON.stringify(feedItem.fields)}</td>
