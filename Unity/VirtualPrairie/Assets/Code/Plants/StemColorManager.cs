@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 //
 // StemColorManager represents a single DmxPoint that effects one or more light stems (fibers).
@@ -216,9 +217,11 @@ public class StemColorManager : DmxColorPoint
 			this.Universe != -1 &&
 		    this.ChannelStart != -1)
 		{
-			// tell the dmx controller about the color change
-			this.Controller.SetDmxColor(_curColor, this.Host, this.Universe, this.ChannelStart);
-		}
+            // tell the dmx controller about the color change
+            float Brightness = GlobalPlantSettings.Instance.Brightness;
+            Color mainColor = new Color(_curColor.r * Brightness, _curColor.g* Brightness, _curColor.b * Brightness, _curColor.a);
+            this.Controller.SetDmxColor(mainColor, this.Host, this.Universe, this.ChannelStart);
+        }
 	}
 
 	public virtual void Awake()
