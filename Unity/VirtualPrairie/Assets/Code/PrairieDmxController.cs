@@ -51,6 +51,7 @@ public class PrairieDmxController : MonoBehaviour
 	// A mapping of universe to byte array containing the most recently received ArtNet data for that universe.
 	// ArtNet sends a whole universe worth of data in a single packet.
 	Dictionary<string,List<byte[]>> _dataMap = new Dictionary<string,List<byte[]>>();
+	Dictionary<string, bool> _activeList = new Dictionary<string, bool>();
 
 	// startup tasks at runtime. If we want to change layout at runtime, will need to re-jigger this.
 	public void Start()
@@ -185,11 +186,23 @@ public class PrairieDmxController : MonoBehaviour
 					ArtNetDmxPacket packet = new ArtNetDmxPacket();
 					packet.Universe = (short)u;
 					packet.DmxData = host.Value[u];
-
-					IPAddress address = ipFromHostname(host.Key);
-					// Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
-					_artNet.Send(packet, new IPEndPoint(address, ArtNetSocket.Port));
-				}
+					if (_activeList[host.Key])
+					{
+                        try
+                        {
+                            IPAddress address = ipFromHostname(host.Key);
+                            // Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
+                            _artNet.Send(packet, new IPEndPoint(address, ArtNetSocket.Port));
+                        }
+                        catch (System.Exception e)
+                        {
+                            Debug.LogErrorFormat(
+                                "Error sending to host name {0}\n exception={1}",
+                                host.Key, e);
+							_activeList[host.Key] = false;
+                        }
+                    }
+                }
 			}
 		}
 	}
@@ -217,6 +230,8 @@ public class PrairieDmxController : MonoBehaviour
 				_controllerMap[host] = new UniverseMap();
 				// and the data map
 				_dataMap[host] = new List<byte[]>();
+				// and the active list -- assume all hostnames are valid to start
+				_activeList[host] = true;
 			}
 			UniverseMap universeMap = _controllerMap[host];
 
