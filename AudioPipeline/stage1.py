@@ -89,7 +89,6 @@ while True:
                             totalTime = 0.0
                         elif(fragmentIndex == len(fragments)-1 and totalTime > minFragmentTime):
                             # grab the tail 
-                            print("trying route 3")
                             exportAudio(segment, entry, totalTime, currentFragmentStart)
                             print("\tsegment length 3 = ", speech.end-currentFragmentStart)
 
@@ -102,7 +101,7 @@ while True:
                     print (e)
                 # all done processing it, move the master file to the next stage
                 os.rename(entry.path, "./stage2/" + entry.name + ".master")
-
+                
                 print ("done processing")
 
     print ("sleeping 10s")
