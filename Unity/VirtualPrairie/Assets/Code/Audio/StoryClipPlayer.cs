@@ -178,8 +178,9 @@ public class StoryClipPlayer  : MonoBehaviour
         this.storyChannel.isPlaying(out isPlaying);
         if (isPlaying)
         {
-            Debug.Log($"StoryClipPlayer.PlayStoryClip: a clip was already playing ; stopping the previous story clip.");
-            this.storyChannel.stop();
+            Debug.Log($"StoryClipPlayer.PlayStoryClip: a clip was already playing ; ignoring this request.");
+            // this.storyChannel.stop();
+            return;
         }
 
         Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
