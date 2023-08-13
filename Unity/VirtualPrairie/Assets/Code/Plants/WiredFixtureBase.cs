@@ -36,7 +36,7 @@ public class WiredFixtureBase : MonoBehaviour
 		if (transform.hasChanged)
 		{
 			_azimuth = 180.0f +  Mathf.Atan2(transform.position.z, transform.position.x) * Mathf.Rad2Deg;
-			Debug.Log("fixture:" + FixtureId + " azimuth:" + _azimuth);
+			// Debug.Log("fixture:" + FixtureId + " azimuth:" + _azimuth);
 			transform.hasChanged = false;
 		}
 	}

@@ -12,7 +12,8 @@ public class LayoutAutoLoader : MonoBehaviour
 
 	public bool AutoPlayMusic = true;
 	PrairieMusicManager _musicManager;
-	SceneLoader _sceneLoader;
+    FmodMusicPlayer _fmp;
+    SceneLoader _sceneLoader;
 
 	public bool AutoLoadNextScene = true;
 
@@ -24,7 +25,8 @@ public class LayoutAutoLoader : MonoBehaviour
     void Start()
     {
 		_musicManager = GameObject.FindObjectOfType<PrairieMusicManager>();
-		_ui = GameObject.FindObjectOfType<UIMasterController>();
+        _fmp = PrairieGlobals.Instance.MusicPlayer;
+        _ui = GameObject.FindObjectOfType<UIMasterController>();
 		_sceneLoader = PrairieGlobals.Instance.SceneLoader;
 		_musicManager.OnPlaylistCompleted.AddListener(()=>NotifyPlaylistEnd());
 
@@ -61,9 +63,23 @@ public class LayoutAutoLoader : MonoBehaviour
 			// load previous scene
 			_sceneLoader.LoadPreviousScene();
 		}
-	}
+		if (Input.GetKeyDown(KeyCode.Equals))
+		{
+			if (_fmp.IsPlaying())
+			{
+				_fmp.SkipBySeconds(10);
+			}
+		}
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            if (_fmp.IsPlaying())
+            {
+                _fmp.SkipBySeconds(-10);
+            }
+        }
+    }
 
-	void NotifyPlaylistEnd()
+    void NotifyPlaylistEnd()
 	{
 		if (AutoLoadNextScene)
 		{

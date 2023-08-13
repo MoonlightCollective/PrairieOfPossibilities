@@ -39,6 +39,7 @@ Transform:
   - {fileID: 1517319422697340416}
   - {fileID: 1517319422178466376}
   - {fileID: 919170611883707161}
+  - {fileID: 4613429306788270212}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -87,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScenePlaylist:
+  - 19-SadLogic
   - 1-ShimmeringBrook
   - 18-LostAmongTheStars
   - 12-ButterfliesInWind
@@ -304,7 +306,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.1
   m_Range: 200
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -522,7 +524,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.1
   m_Range: 200
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -910,8 +912,8 @@ MonoBehaviour:
   StemAlpha: 1
   GlowIntensity: 3.4
   GroundGlowAlpha: 0.02
-  AutoConnectMqtt: 1
-  AutoConnectArtNet: 1
+  AutoConnectMqtt: 0
+  AutoConnectArtNet: 0
   VisualsFrameSkip: 0
   DebugRainbow: 0
   DebugRainbowCycleTime: 6.88
@@ -1008,6 +1010,50 @@ MonoBehaviour:
   - CentralClearing
   - BoothClearing
   Tags: []
+--- !u!1 &7611232721444876607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4613429306788270212}
+  - component: {fileID: 615671118153698180}
+  m_Layer: 0
+  m_Name: StoryClipPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4613429306788270212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7611232721444876607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5604022071611942211}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615671118153698180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7611232721444876607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e8a3a51636c55438b5c6b5d53e2dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8497183583891624377
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,18 +17,56 @@ using System;
 public class MqttController : M2MqttUnityClient
 {
 	List<MqttEventHandler> _eventHandlers;
+	List<MqttEventHandler> _eventHandlersToDestroy;
 	List<string> _topics = new List<string>();
 	protected UIMqttStatus _statusUI;
+	protected string _praireControlTopic = "praire_control";
+	FmodMusicPlayer _fmp;
+	PrairieMusicManager _pmm;
+    SceneLoader _sceneLoader;
+	LayoutAutoLoader _layoutAutoLoader;
+
 
 	protected override void Awake()
 	{
-		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
+		LoadEventHandlers();
+
 		_statusUI = GameObject.FindObjectOfType<UIMqttStatus>();
 		base.Awake();
 	}
 
+	protected void LoadEventHandlers()
+	{
+		if (_eventHandlersToDestroy != null)
+		{
+			foreach (var meh in _eventHandlersToDestroy)
+			{
+				Destroy(meh);
+			}
+		}
+
+		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
+		_eventHandlersToDestroy = new List<MqttEventHandler>();
+
+		// add our praire control event handler
+		var praireControlEventHandler = gameObject.AddComponent<MqttEventHandler>();
+		praireControlEventHandler.TopicEvents = new List<TopicToEventEntry>();
+		var entry = new TopicToEventEntry();
+		entry.Topic = _praireControlTopic;
+		entry.OnMessage = new UnityEvent<string,Dictionary<string,object>>();
+		entry.OnMessage.AddListener(OnPraireControl);
+		praireControlEventHandler.TopicEvents.Add(entry);
+		_eventHandlers.Add(praireControlEventHandler);
+		_eventHandlersToDestroy.Add(praireControlEventHandler);
+	}
+
 	protected override void Start()
 	{
+        _fmp = PrairieGlobals.Instance.MusicPlayer;
+		_pmm = PrairieGlobals.Instance.MusicManager;
+		_sceneLoader = PrairieGlobals.Instance.SceneLoader;
+		_layoutAutoLoader = GameObject.FindObjectOfType<LayoutAutoLoader>();
+
 		autoConnect = GlobalPlantSettings.Instance.AutoConnectMqtt;
 		base.Start();
 		if (!autoConnect)
@@ -47,7 +85,7 @@ public class MqttController : M2MqttUnityClient
 	protected override void SubscribeTopics()
 	{
 		base.SubscribeTopics();
-		_eventHandlers = new List<MqttEventHandler>(GameObject.FindObjectsOfType<MqttEventHandler>());
+		LoadEventHandlers();
 		_topics = new List<string>();
 		foreach (var meh in _eventHandlers)
 		{
@@ -132,6 +170,39 @@ public class MqttController : M2MqttUnityClient
 		else
 			DebugLog($"Ignoring: {topic}/{debugStr}");
 
+	}
+
+	protected void OnPraireControl(string message, Dictionary<string,object> d)
+	{
+		DebugLog($"OnPraireControl message:{message}");
+
+		if (message == "play")
+		{
+			if (!_fmp.IsPlaying())
+			{
+				_pmm.StartPlayback();
+			}
+		}
+		else if (message == "stop")
+		{
+			if (_fmp.IsPlaying())
+			{
+				_pmm.PausePlayback();
+			}
+		}
+		else if (message == "pause")
+		{
+			_layoutAutoLoader.AutoLoadNextScene = false;
+		}
+		else if (message == "next_song")
+		{
+			if (_fmp.IsPlaying())
+			{
+				_pmm.PausePlayback();
+			}
+			_layoutAutoLoader.AutoLoadNextScene = true;
+			_sceneLoader.LoadNextScene();
+		}
 	}
 
 	protected override void DebugLog(string dbgStr)
