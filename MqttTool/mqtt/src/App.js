@@ -6,37 +6,15 @@ import './App.css';
 
 function App() {
 
-  const [topicFeedPortal, setTopicFeedPortal] = useState();
-  const [topicFeedBooth, setTopicFeedBooth] = useState();
-  const [topicFeedBoothSession, setTopicFeedBoothSession] = useState();
-  const [topicFeedPraireControl, setTopicFeedPraireControl] = useState();
+  const [mqttFeed, setMqttFeed] = useState();
 
   // Function to collect data
   const getApiData = async () => {
-    const responsePortal = await fetch(
-      "/mqtt/topic/portal"
-    ).then((responsePortal) => responsePortal.json());
+    const responseFeed = await fetch(
+      "/mqtt/topics"
+    ).then((mqttFeed) => mqttFeed.json());
 
-    setTopicFeedPortal(responsePortal);
-
-    const responseBooth = await fetch(
-      "/mqtt/topic/booth"
-    ).then((responseBooth) => responseBooth.json());
-
-    setTopicFeedBooth(responseBooth);
-
-    const responseBoothSession = await fetch(
-      "/mqtt/topic/booth_session"
-    ).then((responseBoothSession) => responseBoothSession.json());
-
-    setTopicFeedBoothSession(responseBoothSession);
-
-    const responseBoothPraireControl = await fetch(
-      "/mqtt/topic/praire_control"
-    ).then((responseBoothPraireControl) => responseBoothPraireControl.json());
-
-    setTopicFeedPraireControl(responseBoothPraireControl);
-
+    setMqttFeed(responseFeed);
   };
 
   useEffect(() => {
@@ -137,74 +115,19 @@ function App() {
           </table>
         </td><td>
           <table><tr>
-            <p>portal MQQT feed:</p>
+            <p>MQQT feed:</p>
             <table className="FeedTable">
             <tr>
+              <th>topic</th>
               <th>name</th>
               <th>fields</th>
               <th>tags</th>
               <th>timestamp</th>
             </tr>          
-              {topicFeedPortal &&
-                topicFeedPortal.map((feedItem) => (
+              {mqttFeed &&
+                mqttFeed.map((feedItem) => (
                 <tr>
-                  <td>{feedItem.name}</td>
-                  <td>{JSON.stringify(feedItem.fields)}</td>
-                  <td>{JSON.stringify(feedItem.tags)}</td>
-                  <td>{feedItem.timestamp}</td>
-                </tr>
-              ))}
-            </table>
-          </tr><tr>
-            <p>booth MQQT feed:</p>
-            <table className="FeedTable">
-            <tr>
-              <th>name</th>
-              <th>fields</th>
-              <th>tags</th>
-              <th>timestamp</th>
-            </tr>          
-              {topicFeedBooth &&
-                topicFeedBooth.map((feedItem) => (
-                <tr>
-                  <td>{feedItem.name}</td>
-                  <td>{JSON.stringify(feedItem.fields)}</td>
-                  <td>{JSON.stringify(feedItem.tags)}</td>
-                  <td>{feedItem.timestamp}</td>
-                </tr>
-              ))}
-            </table>
-          </tr><tr>
-            <p>booth_session MQQT feed:</p>
-            <table className="FeedTable">
-            <tr>
-              <th>name</th>
-              <th>fields</th>
-              <th>tags</th>
-              <th>timestamp</th>
-            </tr>          
-              {topicFeedBoothSession &&
-                topicFeedBoothSession.map((feedItem) => (
-                <tr>
-                  <td>{feedItem.name}</td>
-                  <td>{JSON.stringify(feedItem.fields)}</td>
-                  <td>{JSON.stringify(feedItem.tags)}</td>
-                  <td>{feedItem.timestamp}</td>
-                </tr>
-              ))}
-            </table>
-          </tr><tr>
-            <p>praire_control MQQT feed:</p>
-            <table className="FeedTable">
-            <tr>
-              <th>name</th>
-              <th>fields</th>
-              <th>tags</th>
-              <th>timestamp</th>
-            </tr>          
-              {topicFeedPraireControl &&
-                topicFeedPraireControl.map((feedItem) => (
-                <tr>
+                  <td>{feedItem.topic}</td>
                   <td>{feedItem.name}</td>
                   <td>{JSON.stringify(feedItem.fields)}</td>
                   <td>{JSON.stringify(feedItem.tags)}</td>

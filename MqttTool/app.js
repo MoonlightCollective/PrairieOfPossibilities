@@ -39,25 +39,29 @@ client.on('connect', () => {
   })
 })
 
-var portalTopicFeed  = [];
-var boothTopicFeed  = [];
-var boothSessionTopicFeed  = [];
-var praireControlTopicFeed  = [];
+var mqttFeed  = [];
 
 client.on('message', (topic, payload) => {
   console.log('Received Message:', topic, payload.toString())
+  item = JSON.parse(payload.toString())
+  d = new Date(item.timestamp*1000)
+  item.timestamp = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
   switch (topic) {
     case "portal":
-      portalTopicFeed.push(JSON.parse(payload.toString()))
+      item.topic = "portal"
+      mqttFeed.push(item)
       break;
     case "booth":
-      boothTopicFeed.push(JSON.parse(payload.toString()))
+      item.topic = "booth"
+      mqttFeed.push(item)
       break;
     case "booth_session":
-      boothSessionTopicFeed.push(JSON.parse(payload.toString()))
+      item.topic = "booth_session"
+      mqttFeed.push(item)
       break;      
     case "praire_control":
-      praireControlTopicFeed.push(JSON.parse(payload.toString()))
+      item.topic = "praire_control"
+      mqttFeed.push(item)
       break;      
     }
 })
@@ -65,6 +69,11 @@ client.on('message', (topic, payload) => {
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.get("/mqtt/topics", (req, res) => {
+  console.log("GET /mqtt/topics returning", JSON.stringify(mqttFeed));
+  res.send(JSON.stringify(mqttFeed));
 });
 
 app.post("/mqtt/topic/portal", (req, res) => {
@@ -84,11 +93,6 @@ app.post("/mqtt/topic/portal", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/mqtt/topic/portal", (req, res) => {
-  console.log("GET /mqtt/topic/portal returning", JSON.stringify(portalTopicFeed));
-  res.send(JSON.stringify(portalTopicFeed));
-});
-
 app.post("/mqtt/topic/booth", (req, res) => {
   console.log("POST /mqtt/topic/booth");
   fieldDict = { "sender":req.body.sender, "state":req.body.state }
@@ -105,12 +109,6 @@ app.post("/mqtt/topic/booth", (req, res) => {
 
   res.redirect("/");
 });
-
-app.get("/mqtt/topic/booth", (req, res) => {
-  console.log("GET /mqtt/topic/booth returning", JSON.stringify(boothTopicFeed));
-  res.send(JSON.stringify(boothTopicFeed));
-});
-
 
 app.post("/mqtt/topic/booth_session", (req, res) => {
   console.log("POST /mqtt/topic/booth_session");
@@ -129,11 +127,6 @@ app.post("/mqtt/topic/booth_session", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/mqtt/topic/booth_session", (req, res) => {
-  console.log("GET /mqtt/topic/booth_session returning", JSON.stringify(boothSessionTopicFeed));
-  res.send(JSON.stringify(boothSessionTopicFeed));
-});
-
 app.post("/mqtt/topic/praire_control", (req, res) => {
   console.log("POST /mqtt/topic/praire_control");
   fieldDict = {  }
@@ -149,11 +142,6 @@ app.post("/mqtt/topic/praire_control", (req, res) => {
   console.log("mqtt published:", json_object);
 
   res.redirect("/");
-});
-
-app.get("/mqtt/topic/praire_control", (req, res) => {
-  console.log("GET /mqtt/topic/praire_control returning", JSON.stringify(praireControlTopicFeed));
-  res.send(JSON.stringify(praireControlTopicFeed));
 });
 
 const PORT = process.env.PORT || 8080;
