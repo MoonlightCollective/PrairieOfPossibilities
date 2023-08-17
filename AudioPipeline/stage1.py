@@ -14,6 +14,9 @@ def exportAudio(segment, entry, prevSpeechEnd, currentFragmentStart):
     # dump out everythign until the last block
     t1 = currentFragmentStart * 1000 # works  in milliseconds
     t2 = prevSpeechEnd * 1000
+
+    os.system("normalize " + entry.path)
+
     newAudio = AudioSegment.from_wav(entry.path)
     newAudio = newAudio[t1:t2]
 
