@@ -1,4 +1,5 @@
 #!/bin/zsh
+cp /Users/moonlight/Documents/GitHub/PraireOfPossibilities/AudioPipeline/stage1.py /Users/moonlight/Documents/ContainerData/stage1.py
 cd /Users/moonlight/Documents/ContainerData/
 conda run --live-stream -n pyannote python ./stage1.py
 #conda activate pyannote

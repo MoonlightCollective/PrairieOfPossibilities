@@ -1,5 +1,5 @@
 #!/bin/zsh
-cd /Users/moonlight/GitHub/PraireOfPossibilites/MqttTool/
+cd /Users/moonlight/Documents/GitHub/PraireOfPossibilities/MqttTool/
 npm run dev
 
 #on run {input, parameters}
