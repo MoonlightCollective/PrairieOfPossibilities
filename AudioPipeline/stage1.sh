@@ -1,2 +1,5 @@
-#!/bin/bash
-python stage0.py
+#!/bin/zsh
+cd /Users/moonlight/Documents/ContainerData/
+conda run --live-stream -n pyannote python ./stage1.py
+#conda activate pyannote
+#python stage1.py
