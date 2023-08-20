@@ -1,0 +1,23 @@
+on run {input, parameters}
+	tell application "Terminal" to activate
+	tell application "System Events" to keystroke "t" using {command down}
+	tell application "Terminal" to do script "/Users/moonlight/Documents/GitHub/PraireOfPossibilities/AudioPipeline/stage1.sh" in front window
+	delay 5
+	
+	tell application "System Events" to keystroke "t" using {command down}
+	tell application "Terminal" to do script "/Users/moonlight/Documents/GitHub/PraireOfPossibilities/AudioPipeline/stage2.sh" in front window
+	
+	delay 5
+	tell application "System Events" to keystroke "t" using {command down}
+	tell application "Terminal" to do script "/Users/moonlight/Documents/GitHub/PraireOfPossibilities/MqttTool/backend.sh" in front window
+	
+	delay 5
+	tell application "System Events" to keystroke "t" using {command down}
+	tell application "Terminal" to do script "/Users/moonlight/Documents/GitHub/PraireOfPossibilities/MqttTool/mqtt/frontend.sh" in front window
+	
+	delay 5
+	tell application "Terminal" to activate
+	tell application "System Events" to keystroke "t" using {command down}
+	
+	return input
+end run
