@@ -51,16 +51,20 @@ while True:
         for entry in it:
             if not entry.name.startswith('.') and entry.is_file():
                 print("processing:", entry.name)
+                fragmentIndex = 0
                 try:
                     output = stage1(entry.path)
                     segment = 1
-                    minFragmentTime = 4.0
-                    maxFragmentTime = 20.0
+                    minFragmentTime = 5.0
+                    maxFragmentTime = 15.0
+                    throwAwayMaxFragmentTime = 20.0
                     totalTime = 0.0
                     currentFragmentStart = 0.0
                     prevSpeechEnd = 0.0
-                    fragmentIndex = 0
+                    unwrittenFragments = 0
                     fragments = output.get_timeline().support(1.0)
+                    print("fragments:" + str(fragments))
+
                     # find speech fragments and group until > 20 seconds of speech 
                     for speech in fragments:
                         # active speech between speech.start and speech.end
@@ -70,15 +74,37 @@ while True:
                         # skip any blank pause at the beginning
                         if currentFragmentStart == 0.0:
                             currentFragmentStart = speech.start
+
                         totalTime = speech.end - currentFragmentStart
 
+                        #print("fragmentIndex:" + str(fragmentIndex) + ",prevSpeechEnd:" + str(prevSpeechEnd) + ",speech.end:" + str(speech.end) + ",currentFragmentStart:" + str(currentFragmentStart) + ",totalTime:"+ str(totalTime))
+
+                        # does this fragment put us over the max? if so , dump what we have now and start over
+                        if totalTime > maxFragmentTime and unwrittenFragments > 0:
+
+                            exportAudio(segment, entry, prevSpeechEnd, currentFragmentStart)
+                            print("\tsegment length 0 = ", prevSpeechEnd-currentFragmentStart)
+
+                            segment += 1
+                            unwrittenFragments = 0
+                            currentFragmentStart = speech.start
+                            totalTime = speech.end - currentFragmentStart
+
+                        # are we over the total throw away limit?
+                        if totalTime > throwAwayMaxFragmentTime:
+                            print("\tsegment length -1, throwing away = ", speech.end-currentFragmentStart)
+                            unwrittenFragments = 0
+                            currentFragmentStart = 0.0
+                            continue
+
                         # are we in the sweet spot? (between 4 - 20 sec)
-                        if totalTime > minFragmentTime and totalTime < maxFragmentTime:
+                        if totalTime > minFragmentTime or totalTime > maxFragmentTime:
 
                             exportAudio(segment, entry, speech.end, currentFragmentStart)
                             print("\tsegment length 1 = ", speech.end-currentFragmentStart)
 
                             segment += 1
+                            unwrittenFragments = 0
                             currentFragmentStart = 0.0
                             totalTime = 0.0
                         elif(totalTime > maxFragmentTime and prevSpeechEnd == 0):
@@ -88,6 +114,7 @@ while True:
                             print("\tsegment length 2 = ", totalTime)
 
                             segment += 1
+                            unwrittenFragments = 0
                             currentFragmentStart = 0.0
                             totalTime = 0.0
                         elif(fragmentIndex == len(fragments)-1 and totalTime > minFragmentTime):
@@ -95,14 +122,21 @@ while True:
                             exportAudio(segment, entry, totalTime, currentFragmentStart)
                             print("\tsegment length 3 = ", speech.end-currentFragmentStart)
 
+                            segment += 1
+                            unwrittenFragments = 0
+                        else:
+                            unwrittenFragments += 1
+
                         # remember this speech block
                         prevSpeechEnd = speech.end 
                         fragmentIndex += 1 
+                    print("len(fragments):" + str(len(fragments)) + ",segment:" + str(segment) + ",unwrittenFragments:" + str(unwrittenFragments) + ",totalTime:"+ str(prevSpeechEnd))
 
                 except Exception as e: 
                     print ("hit an error, ignoring")
                     print (e)
                 # all done processing it, move the master file to the next stage
+                print("found " + str(fragmentIndex) + " fragments")
                 os.rename(entry.path, "./stage2/" + entry.name + ".master")
                 
                 print ("done processing")

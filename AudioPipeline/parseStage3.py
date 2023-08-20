@@ -13,7 +13,7 @@ with os.scandir(".") as it:
                 json_object = json.load(inputfile)
 
             #metadata = f'{{ \"audioFile\": \"{entry.name}\", \"text\": \"{transcription[0]}\",\"classifier\": {json.dumps(prediction[0])} }}'
-            print(entry.name[:-5], ",", int(float(json_object["segmentLength"])))
+            print(entry.name[:-5], ",", int(float(json_object["segmentLength"])), ",", json_object["text"])
 
 print ("done processing")
 
