@@ -30,12 +30,16 @@ while True:
                 # use a try block, sometimes the audio files are too small
                 # (0 data) and loading them fails
                 try:
+                    print("lb.load")
                     data, samplerate = lb.load(entry.path, sr = 16000)
                     # tokenize 
+                    print("processor")
                     input_values = processor(data, sampling_rate=samplerate, return_tensors="pt", padding="longest").input_values
                     # retrieve logits
+                    print("model")
                     logits = model(input_values).logits
                     # take argmax and decode
+                    print("torch.argmax")
                     predicted_ids = torch.argmax(logits, dim=-1)
                     print ("running speech to text...")
                     transcription = processor.batch_decode(predicted_ids)

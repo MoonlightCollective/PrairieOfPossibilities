@@ -1,7 +1,12 @@
 #!/bin/zsh
 cp /Users/moonlight/Documents/GitHub/PraireOfPossibilities/AudioPipeline/stage2.py /Users/moonlight/Documents/ContainerData/stage2.py
 cd /Users/moonlight/Documents/ContainerData/
-conda run --live-stream -n pyannote python ./stage2.py
+while true
+do
+  conda run --live-stream -n pyannote python ./stage2.py
+  echo "restarting stage2"
+done
+
 #conda activate pyannote
 #python stage1.py
 
