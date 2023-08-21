@@ -55,7 +55,7 @@ while True:
                 try:
                     output = stage1(entry.path)
                     segment = 1
-                    minFragmentTime = 5.0
+                    minFragmentTime = 4.0
                     maxFragmentTime = 15.0
                     throwAwayMaxFragmentTime = 20.0
                     totalTime = 0.0

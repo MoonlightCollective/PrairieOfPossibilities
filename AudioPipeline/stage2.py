@@ -60,8 +60,17 @@ while True:
                     with open(outfilePath + ".json", "w") as outfile:
                         outfile.write(json.dumps(json_object))
 
-                    # and move the audio file
-                    os.rename(entry.path, outfilePath)
+                    fadeInOut = True
+                    if (fadeInOut):
+                        # or fade/in fade out
+                        fadeInTime = 0.1
+                        fadeOutTime = 0.1
+                        fadeStartTime = round(float(json_object["segmentLength"])-fadeOutTime,2)
+                        os.system("ffmpeg -y -i " + entry.path + " -af \"afade=t=in:st=0:d=" + str(fadeInTime) + ",afade=t=out:st=" + str(fadeStartTime) + ":d=" + str(fadeOutTime) + "\" " + outfilePath)
+                        os.remove(entry.path)
+                    else:
+                        # and move the audio file
+                        os.rename(entry.path, outfilePath)
 
                 except Exception as e: 
                     print ("hit an error, ignoring")
