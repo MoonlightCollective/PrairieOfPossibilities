@@ -69,7 +69,7 @@ public class PortalLogic : MonoBehaviour
 		findRequiredObjects();
 		createStateMachine();
 		_stateMachine.GotoState(EPortalLogicState.Idle);
-		_whisperSound.Play();
+		// _whisperSound.Play();
 	}
 
     public void Update()
