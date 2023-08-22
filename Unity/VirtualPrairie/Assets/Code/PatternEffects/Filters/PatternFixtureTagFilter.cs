@@ -14,7 +14,8 @@ public enum EFixtureFilterOpMode
 public class PatternFixtureTagFilter : PatternPointFilterBase
 {
 	public bool PerfectMatch = true;
-	public EFixtureFilterOpMode OperationMode;
+    public bool Invert = false;
+    public EFixtureFilterOpMode OperationMode;
 	public List<string> RequiredTags;
 
 	public override bool AllowPoint(StemColorManager point)
@@ -22,15 +23,21 @@ public class PatternFixtureTagFilter : PatternPointFilterBase
 		if (RequiredTags.Count < 1)
 			return true;
 
+		bool result = true;
 		switch(OperationMode)
 		{
 			case EFixtureFilterOpMode.Any:
-				return doAnyCheck(point);
+				result = doAnyCheck(point);
+				break;
 			case EFixtureFilterOpMode.All:
-				return doAllCheck(point);
+				result = doAllCheck(point);
+				break;
 		}
-		
-		return true;
+
+		if (Invert)
+			return !result;
+		else
+			return result;
 	}
 
 	bool doAllCheck(StemColorManager point)
