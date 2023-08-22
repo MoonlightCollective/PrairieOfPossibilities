@@ -643,7 +643,7 @@ MonoBehaviour:
   isEncrypted: 0
   connectionDelay: 200
   timeoutOnConnection: 300
-  autoConnect: 0
+  autoConnect: 1
   mqttUserName: 
   mqttPassword: 
 --- !u!1 &5009842724972525127
@@ -912,7 +912,7 @@ MonoBehaviour:
   StemAlpha: 1
   GlowIntensity: 3.4
   GroundGlowAlpha: 0.02
-  AutoConnectMqtt: 0
+  AutoConnectMqtt: 1
   AutoConnectArtNet: 1
   VisualsFrameSkip: 0
   DebugRainbow: 0
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e8a3a51636c55438b5c6b5d53e2dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoryClipsAudioPath: /ContainerData/stage3
+  StoryClipsAudioPath: /Users/moonlight/Documents/ContainerData/stage3
   MostRecentClipsToPlay: 10
   volume: 0.5
 --- !u!1 &8497183583891624377
