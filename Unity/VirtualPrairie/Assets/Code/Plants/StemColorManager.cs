@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+// using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 //
 // StemColorManager represents a single DmxPoint that effects one or more light stems (fibers).
