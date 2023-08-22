@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe7cf2732e22b24b9c88788de720c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DmxMode: 2
+  DmxMode: 1
 --- !u!1 &5009842725031547905
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
   GlowIntensity: 3.4
   GroundGlowAlpha: 0.02
   AutoConnectMqtt: 0
-  AutoConnectArtNet: 0
+  AutoConnectArtNet: 1
   VisualsFrameSkip: 0
   DebugRainbow: 0
   DebugRainbowCycleTime: 6.88
@@ -1054,6 +1054,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e8a3a51636c55438b5c6b5d53e2dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StoryClipsAudioPath: /ContainerData/stage3
+  MostRecentClipsToPlay: 10
+  volume: 0.5
 --- !u!1 &8497183583891624377
 GameObject:
   m_ObjectHideFlags: 0
