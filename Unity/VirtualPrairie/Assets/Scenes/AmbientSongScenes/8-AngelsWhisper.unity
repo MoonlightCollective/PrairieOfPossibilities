@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031313049, g: 0.0061682523, b: 0.014192762, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3051,8 +3051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374819718}
   - component: {fileID: 1374819719}
-  - component: {fileID: 1374819725}
-  - component: {fileID: 1374819724}
+  - component: {fileID: 1374819728}
   - component: {fileID: 1374819721}
   - component: {fileID: 1374819726}
   - component: {fileID: 1374819720}
@@ -3139,44 +3138,6 @@ MonoBehaviour:
   OffMarker: Ping
   PerfectMatch: 1
   SendOffWithMusicStop: 1
---- !u!114 &1374819724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374819717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Trigger
-  TriggerTargets:
-    IncludeChildren: 1
-    Targets:
-    - {fileID: 1158131297}
-  Marker: Swell D
-  PerfectMatch: 1
---- !u!114 &1374819725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1374819717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d017f4cbe2c534cd0be2b367ed34cae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Trigger
-  TriggerTargets:
-    IncludeChildren: 1
-    Targets:
-    - {fileID: 1158131297}
-  Marker: Swell B
-  PerfectMatch: 1
 --- !u!114 &1374819726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3217,6 +3178,26 @@ MonoBehaviour:
   OffMarker: FadeOut
   PerfectMatch: 1
   SendOffWithMusicStop: 1
+--- !u!114 &1374819728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374819717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603f79e90d0444c02ae0b6d06018307e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GateTargets:
+    Targets:
+    - {fileID: 1438584270}
+    IncludeChildren: 0
+  OnMarker: Swell B
+  OffMarker: Swell D
+  PerfectMatch: 1
+  SendOffWithMusicStop: 1
 --- !u!1 &1438584270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3227,14 +3208,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1438584271}
   - component: {fileID: 1438584273}
-  - component: {fileID: 1438584272}
+  - component: {fileID: 1438584274}
+  - component: {fileID: 1438584275}
   m_Layer: 0
   m_Name: P2-SpinSpot-MP4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1438584271
 Transform:
   m_ObjectHideFlags: 0
@@ -3256,21 +3238,6 @@ Transform:
   m_Father: {fileID: 896058323}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1438584272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438584270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef74ff4fe1f84fe4a442030d1284ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GroupSettings:
-    Enabled: 1
-    GroupAlpha: 1
 --- !u!114 &1438584273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3315,6 +3282,50 @@ MonoBehaviour:
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &1438584274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438584270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 1
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Mult: 1
+--- !u!114 &1438584275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438584270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88310e811974c5581d7aa860e01bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 1
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
 --- !u!1 &1449217005
 GameObject:
   m_ObjectHideFlags: 0
@@ -10723,7 +10734,7 @@ PrefabInstance:
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 457.00015
       objectReference: {fileID: 0}
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -10733,7 +10744,7 @@ PrefabInstance:
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 243.50008
       objectReference: {fileID: 0}
     - target: {fileID: 1955358697813108367, guid: 69cd4de30e7df4516bdce9c43e9bff61,
         type: 3}
@@ -15640,8 +15651,7 @@ MonoBehaviour:
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
   AutoPlayMusic: 1
-  DoLoadSceneOnPlaylistEnd: 1
-  DestinationScene: 3-LostInThought
+  AutoLoadNextScene: 1
   AutoDisplayMode: 0
 --- !u!1 &8080116411538338766
 GameObject:

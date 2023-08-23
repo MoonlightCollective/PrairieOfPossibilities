@@ -123,6 +123,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &37543159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 37543160}
+  - component: {fileID: 37543162}
+  m_Layer: 0
+  m_Name: Background spin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &37543160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37543159}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641815840}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &37543162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37543159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff50d822691d841f589e9ab53f1b933a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendSettings:
+    BlendMode: 1
+    LayerAlpha: 0.2
+  TimeSettings:
+    TimeMult: 1
+  PointFilter: {fileID: 0}
+  ColorizeSettings: {fileID: 11400000, guid: 6bf11dc5b0942426fb1f6952de604fbe, type: 2}
+  AlphaMode: 0
+  FixedAlpha: 1
+  Speed: 0.4
+  Falloff: 0.625
+  MinBright: 0
+  MaxBright: 1
+  UseRandomOffset: 1
 --- !u!1 &87213622
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 111114726}
   - component: {fileID: 111114728}
-  - component: {fileID: 111114727}
+  - component: {fileID: 111114729}
   m_Layer: 0
   m_Name: SG-NoiseOnly-P1,2
   m_TagString: Untagged
@@ -266,32 +324,6 @@ Transform:
   m_Father: {fileID: 2020060356}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &111114727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111114725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b67a71d475c427a92e03efc4c0885b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlphaEnv:
-    attack: 1
-    decay: 0
-    sustain: 1
-    release: 2
-    attackEase: 0
-    decayEase: 0
-    releaseEase: 0
-    interrupt: 0
-    retrigger: 1
-    time: 0
-    curSegTime: 0
-    curSegment: 0
-  Mult: 1
 --- !u!114 &111114728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +342,32 @@ MonoBehaviour:
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
+--- !u!114 &111114729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111114725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b56f4cf3cab2408cba69c2bcf5c5fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaEnv:
+    attack: 1
+    decay: 0
+    sustain: 1
+    release: 5
+    attackEase: 0
+    decayEase: 0
+    releaseEase: 0
+    interrupt: 0
+    retrigger: 1
+    time: 0
+    curSegTime: 0
+    curSegment: 0
+  Multiplier: 1
 --- !u!1 &195301414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,9 +1367,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: -3.2
-    MotionSpeedY: 3.2
-    MotionSpeedZ: -0.8
+    MotionSpeedX: 0
+    MotionSpeedY: 3
+    MotionSpeedZ: 0
 --- !u!1 &896058322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +1981,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1831472934}
+  - {fileID: 37543160}
   m_Father: {fileID: 2020060356}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2181,9 +2240,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: -3.2
-    MotionSpeedY: 3.2
-    MotionSpeedZ: -0.8
+    MotionSpeedX: 0
+    MotionSpeedY: 3
+    MotionSpeedZ: 0
 --- !u!114 &1781635651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2257,15 +2316,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.747
+    LayerAlpha: 1
   TimeSettings:
     TimeMult: 1.33
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
-  ColorizeSettings: {fileID: 11400000, guid: 15f013bfa70284c20b21336231789e1c, type: 2}
-  AlphaMode: 1
+  ColorizeSettings: {fileID: 11400000, guid: b41e003328eea4329928e5228bd147ee, type: 2}
+  AlphaMode: 0
   FixedAlpha: 1
   NoiseSettings:
-    NoiseScale: {x: 70, y: 80, z: 70}
+    NoiseScale: {x: 50, y: 50, z: 50}
     InitialOffsets: {x: 0, y: 20, z: 0}
     BrightnessCurve:
       serializedVersion: 2
@@ -2291,9 +2350,9 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    MotionSpeedX: -1.2
-    MotionSpeedY: -0.1
-    MotionSpeedZ: -0.8
+    MotionSpeedX: 0
+    MotionSpeedY: 2.5
+    MotionSpeedZ: 0
 --- !u!1 &1924444006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,7 +2540,7 @@ MonoBehaviour:
     TimeMult: 1.33
   PointFilter: {fileID: 11400000, guid: ce34a0a2f263046369e4ddcb2be03a45, type: 2}
   ColorizeSettings: {fileID: 11400000, guid: 49794912dbfd14b06b5de101d7da6b1b, type: 2}
-  AlphaMode: 1
+  AlphaMode: 0
   FixedAlpha: 1
   NoiseSettings:
     NoiseScale: {x: 70, y: 80, z: 70}
