@@ -105,6 +105,27 @@ public class StoryClipPlayer  : MonoBehaviour
             clipCount += 1;
         }
 
+        // grab everything not including tonight
+        // what time is it now?
+        var localNow = DateTimeOffset.Now;
+        DateTimeOffset endDateTime;
+        // is it before noon?
+        if (localNow.Hour < 12)
+        {
+            // end at yesterday noon
+            endDateTime = localNow.AddDays(-1);
+            endDateTime = new DateTime(endDateTime.Year, endDateTime.Month, endDateTime.Day, 12, 0, 0, 0, DateKind.Local);
+        }
+        else
+        {
+            // end at today noon
+            endDateTime = localNow;
+            endDateTime = new DateTime(endDateTime.Year, endDateTime.Month, endDateTime.Day, 12, 0, 0, 0, DateKind.Local);
+        }
+
+        //DateTime (1970, 1, 1, 0, 0, 0, 0, 0, DateTimeKind.Utc);
+        var endUnixTime = endDateTime.FromUnixTimeSeconds()
+
         // sort the objects by time
         IComparer<StoryClip> byDateComparer = new sortByDate();
         foreach (var block in newBlocks)
@@ -153,14 +174,9 @@ public class StoryClipPlayer  : MonoBehaviour
             return null;
         }
 
-        // did we overflow the list?
-        this.emotionBlocks[this.lastEmotionPlayed].LastClipPlayed += 1;
-        if (this.emotionBlocks[this.lastEmotionPlayed].LastClipPlayed >= this.emotionBlocks[this.lastEmotionPlayed].StoryClips.Count)
-        {
-            this.emotionBlocks[this.lastEmotionPlayed].LastClipPlayed = 0;
-        }
-
-        return this.emotionBlocks[this.lastEmotionPlayed].StoryClips[this.emotionBlocks[this.lastEmotionPlayed].LastClipPlayed];
+        System.Random rnd = new System.Random();
+        int clipToPlay = rnd.Next(0, this.emotionBlocks[this.lastEmotionPlayed].StoryClips.Count);
+        return this.emotionBlocks[this.lastEmotionPlayed].StoryClips[clipToPlay];
     }
 
     public void PlayStoryClip()

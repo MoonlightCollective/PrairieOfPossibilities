@@ -37,6 +37,9 @@ client.on('connect', () => {
   client.subscribe(['praire_control'], () => {
     console.log(`Subscribed to topic 'praire_control'`)
   })
+  client.subscribe(['prairie_staff'], () => {
+    console.log(`Subscribed to topic 'prairie_staff'`)
+  })
 })
 
 var mqttFeed  = [];
@@ -63,7 +66,11 @@ client.on('message', (topic, payload) => {
       item.topic = "praire_control"
       mqttFeed.push(item)
       break;      
-    }
+    case "prairie_staff":
+        item.topic = "prairie_staff"
+        mqttFeed.push(item)
+        break;      
+      }
 })
 
 

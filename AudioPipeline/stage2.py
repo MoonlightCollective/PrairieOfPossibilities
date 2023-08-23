@@ -60,7 +60,7 @@ while True:
                     with open(outfilePath + ".json", "w") as outfile:
                         outfile.write(json.dumps(json_object))
 
-                    fadeInOut = True
+                    fadeInOut = False
                     if (fadeInOut):
                         # or fade/in fade out
                         fadeInTime = 0.1
