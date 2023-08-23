@@ -124,7 +124,7 @@ public class StoryClipPlayer  : MonoBehaviour
         }
 
         //DateTime (1970, 1, 1, 0, 0, 0, 0, 0, DateTimeKind.Utc);
-        var endUnixTime = endDateTime.FromUnixTimeSeconds()
+        var endUnixTime = endDateTime.FromUnixTimeSeconds();
 
         // sort the objects by time
         IComparer<StoryClip> byDateComparer = new sortByDate();
