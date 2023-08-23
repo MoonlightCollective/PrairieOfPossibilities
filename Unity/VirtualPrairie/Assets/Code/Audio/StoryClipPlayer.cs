@@ -107,7 +107,7 @@ public class StoryClipPlayer  : MonoBehaviour
 
         // grab everything not including tonight
         // what time is it now?
-        var localNow = DateTimeOffset.Now;
+/*        var localNow = DateTimeOffset.Now;
         DateTimeOffset endDateTime;
         // is it before noon?
         if (localNow.Hour < 12)
@@ -125,7 +125,7 @@ public class StoryClipPlayer  : MonoBehaviour
 
         //DateTime (1970, 1, 1, 0, 0, 0, 0, 0, DateTimeKind.Utc);
         var endUnixTime = endDateTime.FromUnixTimeSeconds();
-
+*/
         // sort the objects by time
         IComparer<StoryClip> byDateComparer = new sortByDate();
         foreach (var block in newBlocks)
