@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11703,6 +11703,11 @@ PrefabInstance:
         type: 3}
       propertyPath: brokerAddress
       value: localhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009842724972525121, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: DmxMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7048435010081697877, guid: e971f0975231343f3b404f362569294d,
         type: 3}
