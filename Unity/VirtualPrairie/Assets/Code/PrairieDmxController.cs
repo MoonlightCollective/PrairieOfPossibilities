@@ -10,6 +10,8 @@ using System;
 // Using dictionaries, because we may not have contguous ranges of devices in a universe, or contiguous universes
 // themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
 using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections.Generic.Dictionary<int,DmxColorPoint>>;
+using System.Reflection;
+using UnityEditor.Sprites;
 
 
 // PrairieDmxController is mostly a copy of the receiving parts of the DmxController from the Artnet.Unity package 
@@ -26,7 +28,9 @@ public class PrairieDmxController : MonoBehaviour
 	public static int ChannelsPerUniverse = 512;
 	public static int MaxFixturesPerUniverse = 24;
 	public static int MaxChannelsPerUniverse = 504;		// 24 * ChannelsPerFixture = 504 total channels.
-	public static int MaxChannelStartPerUniverse = 484;	// 504 total channels.  which means fixture#24 has a start of 484 (484,w/ 21 channels is 484-504)
+	public static int MaxChannelStartPerUniverse = 484; // 504 total channels.  which means fixture#24 has a start of 484 (484,w/ 21 channels is 484-504)
+	public static float PowerPerChannel = 0.7f; // watts used per color channel
+	public static int PowerPerGenerator = 2400; // max watts each generator can put out (used to cap brightness)
 
 	// We support 2 main modes for DMX
 	// 	Listen: in this mode the prairie acts as a dmx controller, and listens for dmx events.
@@ -48,10 +52,16 @@ public class PrairieDmxController : MonoBehaviour
 	// A mapping from controllers to universes
 	Dictionary<string,UniverseMap> _controllerMap  = new Dictionary<string,UniverseMap>();
 
+	// Mapping to generators
+	List<int> _generatorList = new List<int>();
+
 	// A mapping of universe to byte array containing the most recently received ArtNet data for that universe.
 	// ArtNet sends a whole universe worth of data in a single packet.
 	Dictionary<string,List<byte[]>> _dataMap = new Dictionary<string,List<byte[]>>();
 	Dictionary<string, bool> _activeList = new Dictionary<string, bool>();
+
+	// keep track of which host is on which generator
+	Dictionary<string, int> _genMap = new Dictionary<string, int>();
 
 	// startup tasks at runtime. If we want to change layout at runtime, will need to re-jigger this.
 	public void Start()
@@ -165,7 +175,7 @@ public class PrairieDmxController : MonoBehaviour
 						{
 							// grab a reference to the one Point worth of channel data (without copying it) and send it 
 							// along to the point device so it can change its color accordingly.
-							ArraySegment<byte> dataSeg = new ArraySegment<byte>( _dataMap[localhost][u], c, ChannelsPerPoint);
+							ArraySegment<byte> dataSeg = new ArraySegment<byte>(_dataMap[localhost][u], c, ChannelsPerPoint);
 
 							// look it up in the map based on channelStart
 							if (universeMap[u].ContainsKey(c))
@@ -174,19 +184,70 @@ public class PrairieDmxController : MonoBehaviour
 							}
 						}
 					}
-				} 
+				}
 			}
 		}
 		else if (this.DmxMode == DmxSendListenMode.Send)
 		{
+			// need to calculate total power consumption
+			// if the power is too high, dim it
+			// how many generators do we have?
+			int numGenerators = _generatorList.Count;
+			float dimFactor = 1.0f;
+
+			List<float> genPower = new List<float>();
+			for (int i = 0; i < numGenerators; i++)
+			{
+				genPower.Add(0);
+			}
+
+			// go through every point, add up power used per generator
 			foreach (var host in _dataMap)
+			{
+				int gen = _genMap[host.Key] - 1;
+				float power = 0;
+
+				for (int u = 0; u < host.Value.Count; ++u)
+				{
+					byte[] dmxData = host.Value[u];
+					for (int i = 0; i < dmxData.Length; i++)
+					{
+						power += (byte)(dmxData[i]) * PowerPerChannel / 255.0f;
+					}
+				}
+                genPower[gen] += power;
+//                Debug.Log($"adding power {power} from host ({host})");
+            }
+
+            // now see if we're using too much power, and if so, set calibration factor
+            for (int i = 0; i < numGenerators; i++)
+            {
+                if (genPower[i] > PowerPerGenerator)
+				{
+					float factor = PowerPerGenerator / genPower[i];
+					dimFactor = Math.Min(factor, dimFactor);
+                    Debug.Log($"Applying dimming factor: {dimFactor} total power: {genPower[i]}");
+                }
+            }
+
+            foreach (var host in _dataMap)
 			{
 				for (int u = 0; u < host.Value.Count; ++u)
 				{
 					ArtNetDmxPacket packet = new ArtNetDmxPacket();
-					packet.Universe = (short)u;
+                    packet.Universe = (short)u;
 					packet.DmxData = host.Value[u];
-					if (_activeList[host.Key])
+
+					// apply dim factor before sending
+					if (dimFactor < 1.0f)
+					{
+                        for (int i = 0; i < packet.DmxData.Length; i++)
+                        {
+							packet.DmxData[i] = (byte)(packet.DmxData[i] * dimFactor);
+                        }
+                    }
+
+                    if (_activeList[host.Key])
 					{
                         try
                         {
@@ -216,12 +277,27 @@ public class PrairieDmxController : MonoBehaviour
 		// clear the maps
 		_controllerMap.Clear();
 		_dataMap.Clear();
+		_generatorList.Clear();
 
 		// THIS IS SLOW. Only perform this at startup, or if the layout has changed.
-		DmxColorPoint[] colorPoints = GameObject.FindObjectsOfType<DmxColorPoint>();
-		foreach (var colorPoint in colorPoints)
+		DmxColorPoint[] colorPoints = PrairieUtil.GetLayoutRoot().GetComponentsInChildren<DmxColorPoint>();
+
+		// FindObjectsOfType<DmxColorPoint>();
+        Debug.Log($"found {colorPoints.Length} color points");
+        foreach (var colorPoint in colorPoints)
 		{
 			string host = colorPoint.Host;
+            int generator = colorPoint.Generator;
+			if (generator == -1)
+			{
+				Debug.LogError($"Invalid generator number for host: {host} and Universe: {colorPoint.Universe}");
+			}
+			else if (!_generatorList.Contains(generator))
+			{
+				Debug.Log($"adding Generator:{generator}");
+				_generatorList.Add(generator);
+			}
+
 			// find the universe map for this controller
  			if (!_controllerMap.ContainsKey(host))
 			{
@@ -232,6 +308,8 @@ public class PrairieDmxController : MonoBehaviour
 				_dataMap[host] = new List<byte[]>();
 				// and the active list -- assume all hostnames are valid to start
 				_activeList[host] = true;
+				Debug.Log($"Adding gen {generator} to host {host}");
+				_genMap[host] = generator;
 			}
 			UniverseMap universeMap = _controllerMap[host];
 

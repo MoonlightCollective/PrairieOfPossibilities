@@ -174,6 +174,7 @@ public class PlantColorManager : WiredFixtureBase
 		{
 			stem.Host = path.ArtnetHost;
 			stem.Universe = path.Universe;
+			stem.Generator = path.Generator;
 			stem.ChannelStart = stemChannelStart;
 			// jump to the next set of channels
 			stemChannelStart += PrairieDmxController.ChannelsPerPoint;

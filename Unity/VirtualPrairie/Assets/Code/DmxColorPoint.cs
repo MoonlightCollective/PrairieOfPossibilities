@@ -15,4 +15,6 @@ public abstract class DmxColorPoint : MonoBehaviour
 	public int Universe = -1;
 	// the channel this point starts at (universe local)
 	public int ChannelStart = -1;
+	// the generator this point is assigned to
+	public int Generator = -1;
 }

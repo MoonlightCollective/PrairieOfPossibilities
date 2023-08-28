@@ -69,7 +69,8 @@ public class FixtureLayoutExporter : MonoBehaviour
 		data.wirePaths = wirePathData;
 		data.portals = portalData;
 		data.booths = boothData;
-		
+
+		// TODO: add generator export
 		return data;
 	}
 

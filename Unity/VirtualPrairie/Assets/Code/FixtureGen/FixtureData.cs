@@ -58,6 +58,7 @@ class WirePathData
 	public string artnetHost;
 	public int universe;
 	public int channelStart;
+	public int generator;
 	public List<WirePathItemData> items;
 }
 

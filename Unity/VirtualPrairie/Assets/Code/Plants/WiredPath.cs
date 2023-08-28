@@ -7,6 +7,7 @@ public class WiredPath : MonoBehaviour
 	public string PathId = "Path";
 	public string ArtnetHost = "127.0.0.1";
 	public int Universe = 1;
+	public int Generator = 1; // which generator this path is assigned to; used for power calculations
 	// -1 means for the auto channel logic to take over.
 	// if you set a value other than -1, it will use that number
 	public int ChannelStart = -1;

@@ -64,7 +64,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 	{
 		// built our JSON structures
 		var fixtureData = JsonConvert.DeserializeObject<FixtureData>(fixtureStr);
-		Debug.Log($"FixtureLayoutImport:GenerateLayout- children.Count={fixtureData.children.Count}");
+		Debug.Log($"FixtureLayoutImport:GenerateLayout - fixtures: {fixtureData.children.Count} wire paths: {fixtureData.wirePaths.Count}");
 
 		// clear the current scene layout
 		ClearChildrenFrom(rootObj);
@@ -147,6 +147,7 @@ public class FixtureLayoutImport : FixtureLayoutBase
 					newPath.ArtnetHost = pathData.artnetHost;
 					newPath.Universe = pathData.universe;
 					newPath.ChannelStart = pathData.channelStart;
+					newPath.Generator = pathData.generator; // TODO: handle old jsons without generator info
 					if (newPath.ChannelStart > 0)
 					{
 						// that path has a channel start !  use this channel as our new auto channel start to keep things running.
