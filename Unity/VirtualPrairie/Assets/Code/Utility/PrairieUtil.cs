@@ -129,6 +129,11 @@ public class PrairieUtil
 		return (GameObject.FindObjectOfType<FixtureLayoutGen>());
     }
 
+	public static PrairieDmxController GetPrairieDmxController()
+	{
+		return (GameObject.FindObjectOfType<PrairieDmxController>());
+	}
+
 	public static void ClearChildrenFrom(GameObject rootObj)
 	{
 		// Clear existing layout if there is one.

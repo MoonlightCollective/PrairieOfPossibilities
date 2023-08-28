@@ -25,7 +25,7 @@ public class MqttController : M2MqttUnityClient
 	PrairieMusicManager _pmm;
     SceneLoader _sceneLoader;
 	LayoutAutoLoader _layoutAutoLoader;
-
+	PrairieDmxController _prairieDmxController;
 
 	protected override void Awake()
 	{
@@ -181,6 +181,7 @@ public class MqttController : M2MqttUnityClient
 			if (!_fmp.IsPlaying())
 			{
 				_pmm.StartPlayback();
+				_prairieDmxController.DmxMode = PrairieDmxController.DmxSendListenMode.Send;
 			}
 		}
 		else if (message == "stop")
@@ -188,8 +189,9 @@ public class MqttController : M2MqttUnityClient
 			if (_fmp.IsPlaying())
 			{
 				_pmm.PausePlayback();
-			}
-		}
+                _prairieDmxController.DmxMode = PrairieDmxController.DmxSendListenMode.Off;
+            }
+        }
 		else if (message == "pause")
 		{
 			_layoutAutoLoader.AutoLoadNextScene = false;

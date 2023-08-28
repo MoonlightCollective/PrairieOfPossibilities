@@ -55,7 +55,7 @@ public class GlobalPlantSettings : MonoBehaviour
 
 	public void LoadFromPrefs()
 	{
-		Brightness = PlayerPrefs.GetFloat("Brightness",.5f);
+		Brightness = PlayerPrefs.GetFloat("Brightness",1.0f);
 		GlowIntensity = PlayerPrefs.GetFloat("GlowIntensity",1.9f);
 		StemAlpha = PlayerPrefs.GetFloat("StemAlpha",.25f);
 

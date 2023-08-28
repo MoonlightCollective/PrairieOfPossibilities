@@ -30,7 +30,7 @@ public class PrairieDmxController : MonoBehaviour
 	public static int MaxChannelsPerUniverse = 504;		// 24 * ChannelsPerFixture = 504 total channels.
 	public static int MaxChannelStartPerUniverse = 484; // 504 total channels.  which means fixture#24 has a start of 484 (484,w/ 21 channels is 484-504)
 	public static float PowerPerChannel = 0.7f; // watts used per color channel
-	public static int PowerPerGenerator = 2400; // max watts each generator can put out (used to cap brightness)
+	public static int PowerPerGenerator = 2000; // max watts each generator can put out (used to cap brightness)
 
 	// We support 2 main modes for DMX
 	// 	Listen: in this mode the prairie acts as a dmx controller, and listens for dmx events.
