@@ -111,6 +111,19 @@ function App() {
                 </td></tr></table>
               </form>
             </td>
+            </tr><tr>
+            <td></td>
+            <td>
+              <form action="/mqtt/topic/prairie_staff" method="post" className="form">
+              <table className="FormTable"><tr><td><table><tr>
+                <select name="tagId">
+                  <option value="04 24 FC 89 78 00 00">04 24 FC 89 78 00 00</option>
+                </select>
+                </tr></table></td><td>
+                <button className="MqttButton" type="submit">prairie_staff</button>
+                </td></tr></table>
+              </form>
+            </td>
           </tr>
           </table>
         </td><td>

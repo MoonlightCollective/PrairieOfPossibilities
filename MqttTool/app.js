@@ -151,6 +151,23 @@ app.post("/mqtt/topic/praire_control", (req, res) => {
   res.redirect("/");
 });
 
+app.post("/mqtt/topic/prairie_staff", (req, res) => {
+  console.log("POST /mqtt/topic/prairie_staff");
+  fieldDict = { "tagId":req.body.tagId }
+  tagsDict = {  }
+  msgDict = { "name":"tagRead", "fields":fieldDict, "tags":tagsDict, "timestamp":math.floor(Date.now()/1000) }
+  json_object = JSON.stringify(msgDict)
+
+  client.publish("prairie_staff", json_object, { qos: 0, retain: false }, (error) => {
+    if (error) {
+      console.error(error)
+    }
+  })  
+  console.log("mqtt published:", json_object);
+
+  res.redirect("/");
+});
+
 const PORT = process.env.PORT || 8081;
   
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
