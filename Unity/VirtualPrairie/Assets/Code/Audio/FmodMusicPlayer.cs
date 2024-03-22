@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using Assets.Code.StateTable;
 using FMODUnity;
 using FMOD.Studio;
@@ -334,12 +334,13 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 						Debug.Log($"---marker: {pName} : ringing a phone");
 						// ring a phone
 						// get a random number 
-						var storyNum = Random.Range(1,10);
-						var callPathName = "~//callStory" + storyNum + ".call"
+						var storyNum = UnityEngine.Random.Range(1,10);
+						var callPathName = "~//callStory" + storyNum + ".call";
 						// copy the call file to the pbx
-						var cmdLine = "sshpass -p \"raspberry\" scp " + callFilePath + " root@168.169.0.219:/var/spool/asterisk/outgoing")
-                "
-						Process.Start();
+						var cmdLine = "sshpass -p \"raspberry\" scp " + callPathName + " root@168.169.0.219:/var/spool/asterisk/outgoing";
+// TODO: fix --- not sure what's supposed to happen here
+//							)
+//						Process.Start();
 					}
 
 					// fire the event so the app can change choreography.
