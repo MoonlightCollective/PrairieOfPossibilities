@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <textarea id="jsonOutput" style="width: 100%; height: 80%;"></textarea>
+  <button id="copyButton">Copy to Clipboard</button>
+  <button id="downloadButton">Download JSON</button>
+
+  <script>
+    // Receive the JSON data from the plugin code
+    window.onmessage = (event) => {
+      const jsonData = event.data.pluginMessage;
+      document.getElementById('jsonOutput').value = jsonData;
+    };
+
+    // Copy JSON to clipboard
+    document.getElementById('copyButton').onclick = () => {
+      const jsonOutput = document.getElementById('jsonOutput');
+      jsonOutput.select();
+      document.execCommand('copy');
+    };
+
+    // Download JSON as a file
+    document.getElementById('downloadButton').onclick = () => {
+      const jsonData = document.getElementById('jsonOutput').value;
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'figma_document.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+  </script>
+</body>
+</html>
