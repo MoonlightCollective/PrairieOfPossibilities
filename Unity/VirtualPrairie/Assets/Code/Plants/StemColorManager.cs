@@ -217,8 +217,8 @@ public class StemColorManager : DmxColorPoint
 			this.Universe != -1 &&
 		    this.ChannelStart != -1)
 		{
-            // tell the dmx controller about the color change
-            float Brightness = GlobalPlantSettings.Instance.Brightness;
+			// tell the dmx controller about the color change
+			float Brightness = Math.Min(GlobalPlantSettings.Instance.Brightness, 1.0f);
             Color mainColor = new Color(_curColor.r * Brightness, _curColor.g* Brightness, _curColor.b * Brightness, _curColor.a);
             this.Controller.SetDmxColor(mainColor, this.Host, this.Universe, this.ChannelStart);
         }
