@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -47995,6 +47995,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5826687729349890508, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6443828366728745587, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
         type: 3}
       propertyPath: m_Name
@@ -48070,6 +48075,11 @@ PrefabInstance:
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 343
       objectReference: {fileID: 0}
+    - target: {fileID: 6443828366728745599, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1d6aa21496e41339c08e51fc1a7c99, type: 3}
 --- !u!4 &6922065703739011426
@@ -48100,7 +48110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
-  LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
+  LayoutJsonFile: Fixtures/IgniteBroward-paths.json
   AutoPlayMusic: 1
   AutoLoadNextScene: 1
   AutoDisplayMode: 0
