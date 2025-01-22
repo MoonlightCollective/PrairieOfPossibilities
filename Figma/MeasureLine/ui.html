@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Measure Line Distance</h3>
+    <button id="measure">Measure</button>
+    <p id="result"></p>
+    <script>
+      const measureButton = document.getElementById('measure');
+      const resultParagraph = document.getElementById('result');
+
+      measureButton.addEventListener('click', () => {
+        parent.postMessage({ pluginMessage: { type: 'measure-line' } }, '*');
+      });
+
+      window.onmessage = (event) => {
+        const msg = event.data.pluginMessage;
+
+        if (msg.type === 'result') {
+          resultParagraph.innerText = `Total Distance: ${msg.distance.toFixed(2)}`;
+        } else if (msg.type === 'error') {
+          resultParagraph.innerText = `Error: ${msg.message}`;
+        }
+      };
+    </script>
+  </body>
+</html>
