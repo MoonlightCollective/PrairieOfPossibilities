@@ -11,7 +11,7 @@ using System;
 // themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
 using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections.Generic.Dictionary<int,DmxColorPoint>>;
 using System.Reflection;
-using UnityEditor.Sprites;
+//using UnityEditor.Sprites;
 
 
 // PrairieDmxController is mostly a copy of the receiving parts of the DmxController from the Artnet.Unity package 
@@ -192,43 +192,43 @@ public class PrairieDmxController : MonoBehaviour
 			// need to calculate total power consumption
 			// if the power is too high, dim it
 			// how many generators do we have?
-			int numGenerators = _generatorList.Count;
+//			int numGenerators = _generatorList.Count;
 			float dimFactor = 1.0f;
 
-			List<float> genPower = new List<float>();
-			for (int i = 0; i < numGenerators; i++)
-			{
-				genPower.Add(0);
-			}
+//			List<float> genPower = new List<float>();
+//			for (int i = 0; i < numGenerators; i++)
+//			{
+//				genPower.Add(0);
+//			}
 
-			// go through every point, add up power used per generator
-			foreach (var host in _dataMap)
-			{
-				int gen = _genMap[host.Key] - 1;
-				float power = 0;
+//			// go through every point, add up power used per generator
+//			foreach (var host in _dataMap)
+//			{
+//				int gen = _genMap[host.Key] - 1;
+//				float power = 0;
 
-				for (int u = 0; u < host.Value.Count; ++u)
-				{
-					byte[] dmxData = host.Value[u];
-					for (int i = 0; i < dmxData.Length; i++)
-					{
-						power += (byte)(dmxData[i]) * PowerPerChannel / 255.0f;
-					}
-				}
-                genPower[gen] += power;
-//                Debug.Log($"adding power {power} from host ({host})");
-            }
+//				for (int u = 0; u < host.Value.Count; ++u)
+//				{
+//					byte[] dmxData = host.Value[u];
+//					for (int i = 0; i < dmxData.Length; i++)
+//					{
+//						power += (byte)(dmxData[i]) * PowerPerChannel / 255.0f;
+//					}
+//				}
+//                genPower[gen] += power;
+////                Debug.Log($"adding power {power} from host ({host})");
+//            }
 
-            // now see if we're using too much power, and if so, set calibration factor
-            for (int i = 0; i < numGenerators; i++)
-            {
-                if (genPower[i] > PowerPerGenerator)
-				{
-					float factor = PowerPerGenerator / genPower[i];
-					dimFactor = Math.Min(factor, dimFactor);
-                    Debug.Log($"Applying dimming factor: {dimFactor} total power: {genPower[i]}");
-                }
-            }
+//            // now see if we're using too much power, and if so, set calibration factor
+//            for (int i = 0; i < numGenerators; i++)
+//            {
+//                if (genPower[i] > PowerPerGenerator)
+//				{
+//					float factor = PowerPerGenerator / genPower[i];
+//					dimFactor = Math.Min(factor, dimFactor);
+//                    Debug.Log($"Applying dimming factor: {dimFactor} total power: {genPower[i]}");
+//                }
+//            }
 
             foreach (var host in _dataMap)
 			{
@@ -239,20 +239,20 @@ public class PrairieDmxController : MonoBehaviour
 					packet.DmxData = host.Value[u];
 
 					// apply dim factor before sending
-					if (dimFactor < 1.0f)
-					{
-                        for (int i = 0; i < packet.DmxData.Length; i++)
-                        {
-							packet.DmxData[i] = (byte)(packet.DmxData[i] * dimFactor);
-                        }
-                    }
+					//if (dimFactor < 1.0f)
+					//{
+     //                   for (int i = 0; i < packet.DmxData.Length; i++)
+     //                   {
+					//		packet.DmxData[i] = (byte)(packet.DmxData[i] * dimFactor);
+     //                   }
+     //               }
 
                     if (_activeList[host.Key])
 					{
                         try
                         {
                             IPAddress address = ipFromHostname(host.Key);
-                            // Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe}");
+                            // Debug.Log($"Sending artnet/dmx.  host:{host.Key} u:{packet.Universe} rgb:{packet.DmxData[0]},{packet.DmxData[1]},{packet.DmxData[2]}");
                             _artNet.Send(packet, new IPEndPoint(address, ArtNetSocket.Port));
                         }
                         catch (System.Exception e)
