@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1033,7 +1033,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-11359562
+  m_Name: pb_Mesh-12949078
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35594,7 +35594,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-11359576
+  m_Name: pb_Mesh-12949092
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -47976,12 +47976,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3007241928765683139, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4215812131982846834, guid: 24f9ba5f3b23e45219658ada6effbcb8,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 204870736}
+    - target: {fileID: 7280583251897326092, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7387844321868983394, guid: 24f9ba5f3b23e45219658ada6effbcb8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1707801753}
+    - target: {fileID: 7840671993346640354, guid: 24f9ba5f3b23e45219658ada6effbcb8,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -47995,6 +48010,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5826687729349890508, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6443828366728745587, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
         type: 3}
       propertyPath: m_Name
@@ -48070,6 +48090,11 @@ PrefabInstance:
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 343
       objectReference: {fileID: 0}
+    - target: {fileID: 6443828366728745599, guid: 7a1d6aa21496e41339c08e51fc1a7c99,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1d6aa21496e41339c08e51fc1a7c99, type: 3}
 --- !u!4 &6922065703739011426
@@ -48100,7 +48125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
-  LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
+  LayoutJsonFile: Fixtures/LoveBurn2.json
   AutoPlayMusic: 1
   AutoLoadNextScene: 1
   AutoDisplayMode: 0
