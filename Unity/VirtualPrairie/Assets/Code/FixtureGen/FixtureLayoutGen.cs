@@ -169,6 +169,7 @@ public class FixtureLayoutGen : MonoBehaviour
 		Debug.Log("SaveLayoutSettings");
 		_gridLayout.SaveSettings();
 		_ringLayout.SaveSettings();
+		_sunflowerLayout.SaveSettings();
 	}
 
 	public void LoadLayoutSettings()
@@ -179,7 +180,7 @@ public class FixtureLayoutGen : MonoBehaviour
 		_sunflowerLayout = GetComponent<FixtureLayoutSunflower>();
 		_gridLayout.LoadSettings();
 		_ringLayout.LoadSettings();
-		_sunflowerLayout?.LoadSettings();
+		_sunflowerLayout.LoadSettings();
 	}
 
 	void updateLayoutStats()
