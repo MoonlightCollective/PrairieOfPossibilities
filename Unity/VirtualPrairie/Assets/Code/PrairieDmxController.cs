@@ -11,7 +11,7 @@ using System;
 // themselves. Might speed things up if we used lists or arrays instead and just skipped unused elements.
 using UniverseMap = System.Collections.Generic.Dictionary<int,System.Collections.Generic.Dictionary<int,DmxColorPoint>>;
 using System.Reflection;
-using UnityEditor.Sprites;
+// using UnityEditor.Sprites;
 
 
 // PrairieDmxController is mostly a copy of the receiving parts of the DmxController from the Artnet.Unity package 
