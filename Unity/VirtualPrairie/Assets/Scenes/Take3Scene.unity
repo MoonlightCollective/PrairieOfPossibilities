@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10594,11 +10594,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicEvents:
   - Guid:
-      Data1: 2082498053
-      Data2: 1319716379
-      Data3: 1085209756
-      Data4: -298133033
-    Path: event:/Music/BeatLoop65
+      Data1: -1296113398
+      Data2: 1225482723
+      Data3: -2117460310
+      Data4: -1561892072
+    Path: event:/Music/Y3K (room service)
 --- !u!1 &598757299
 GameObject:
   m_ObjectHideFlags: 0
@@ -43514,9 +43514,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
   LayoutJsonFile: Fixtures/RoomService.json
-  AutoPlayMusic: 0
-  AutoLoadNextScene: 0
-  AutoDisplayMode: 0
+  AutoPlayMusic: 1
+  AutoLoadNextScene: 1
+  AutoDisplayMode: 1
 --- !u!1 &8080116411538338766
 GameObject:
   m_ObjectHideFlags: 0
@@ -43616,10 +43616,70 @@ PrefabInstance:
       propertyPath: brokerAddress
       value: localhost
       objectReference: {fileID: 0}
+    - target: {fileID: 5009842724972525121, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: DmxMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7048435010081697877, guid: e971f0975231343f3b404f362569294d,
         type: 3}
       propertyPath: m_Name
       value: CommonStatic
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[0]
+      value: Take3Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[1]
+      value: 18-LostAmongTheStars
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[2]
+      value: 12-ButterfliesInWind
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[3]
+      value: 8-AngelsWhisper
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[4]
+      value: 3-LostInThought
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[5]
+      value: 10-Andromeda
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[6]
+      value: 14-IntoTheVoid
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[7]
+      value: 16-Rain
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[8]
+      value: 5-BeforeSunrise
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511288905564285654, guid: e971f0975231343f3b404f362569294d,
+        type: 3}
+      propertyPath: ScenePlaylist.Array.data[9]
+      value: 9-AboveTheClouds
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e971f0975231343f3b404f362569294d, type: 3}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Assets.Code.StateTable;
@@ -47,6 +48,7 @@ public class StoryClipPlayer  : MonoBehaviour
     const int UPDATE_INTERVAL = 1000 * 30; // every 30s
 
     private FMOD.Channel storyChannel;
+    private System.Random rnd = new System.Random();
     
 
     private class sortByDate : IComparer<StoryClip>  {
@@ -62,12 +64,12 @@ public class StoryClipPlayer  : MonoBehaviour
 
     private void UpdateStoryClips()
     {
-        Debug.Log($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
+        UnityEngine.Debug.Log($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
 
         FileSystemInfo[] storyClipInfos;
         if (!Directory.Exists(this.StoryClipsAudioPath))
         {
-            Debug.LogWarning($"StoryClipPlayer.Start: the path {this.StoryClipsAudioPath} doesnt exist");
+            UnityEngine.Debug.LogWarning($"StoryClipPlayer.Start: the path {this.StoryClipsAudioPath} doesnt exist");
             return;
         }
 
@@ -75,7 +77,7 @@ public class StoryClipPlayer  : MonoBehaviour
         DirectoryInfo dir = new DirectoryInfo(this.StoryClipsAudioPath);
         storyClipInfos = dir.GetFileSystemInfos("*.json");
 
-        Debug.Log($"found {storyClipInfos.Length} files in the storyclip folder");
+        UnityEngine.Debug.Log($"found {storyClipInfos.Length} files in the storyclip folder");
 
         var newBlocks = new List<EmotionBlock>();
         int clipCount = 0;
@@ -86,7 +88,7 @@ public class StoryClipPlayer  : MonoBehaviour
             string jsonStr = File.ReadAllText(info.FullName);
             if (string.IsNullOrEmpty(jsonStr))
             {
-                Debug.LogError($"No metadata found for story clip:{info.FullName}");
+                UnityEngine.Debug.LogError($"No metadata found for story clip:{info.FullName}");
                 return;
             }
 
@@ -133,7 +135,7 @@ public class StoryClipPlayer  : MonoBehaviour
             block.StoryClips.Sort(byDateComparer);
         }
 
-        Debug.Log($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
+        UnityEngine.Debug.Log($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
         this.emotionBlocks = newBlocks;
     }
 
@@ -148,13 +150,38 @@ public class StoryClipPlayer  : MonoBehaviour
 		{
 			PlayStoryClip();
 		}
-	}
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            CallPhone();
+        }
+    }
+
+    // ring a phone
+    public void CallPhone()
+    {
+        // get a random number 
+        var storyNum = UnityEngine.Random.Range(1,10);
+        var phoneNum = UnityEngine.Random.Range(2000,2003);
+        var callFileName = "/Users/moonlight/Documents/ContainerData/callPhone.call";
+        // write the file out
+        StreamWriter writer = new StreamWriter(callFileName, false);  // false == overwrite
+        writer.WriteLine($"Channel: Local/{phoneNum}@from-internal");
+        writer.WriteLine($"Application: Playback");
+        writer.WriteLine($"Data:/var/lib/asterisk/sounds/recordings/archive/story_{storyNum}");
+        writer.Close();
+
+        // copy the call file to the pbx
+        var cmdLine = $"-p \"raspberry\" scp {callFileName} root@192.168.0.219:/var/spool/asterisk/outgoing";
+
+        UnityEngine.Debug.Log($"Process.Start(sshpass, {cmdLine})");
+        Process.Start("/opt/homebrew/bin/sshpass", cmdLine);
+    }
 
     private StoryClip GetNextStory()
     {
         if (this.emotionBlocks == null || this.emotionBlocks.Count == 0)
         {
-            Debug.LogWarning($"StoryClipPlayer.GetNextStory: no story to return");
+            UnityEngine.Debug.LogWarning($"StoryClipPlayer.GetNextStory: no story to return");
             return null;
         }
 
@@ -170,11 +197,10 @@ public class StoryClipPlayer  : MonoBehaviour
         if (this.emotionBlocks[this.lastEmotionPlayed].StoryClips == null || 
             this.emotionBlocks[this.lastEmotionPlayed].StoryClips.Count == 0)
         {
-            Debug.LogWarning($"StoryClipPlayer.GetNextStory: no story to return in emotion {this.emotionBlocks[this.lastEmotionPlayed].Emotion} ");
+            UnityEngine.Debug.LogWarning($"StoryClipPlayer.GetNextStory: no story to return in emotion {this.emotionBlocks[this.lastEmotionPlayed].Emotion} ");
             return null;
         }
 
-        System.Random rnd = new System.Random();
         int clipToPlay = rnd.Next(0, this.emotionBlocks[this.lastEmotionPlayed].StoryClips.Count);
         return this.emotionBlocks[this.lastEmotionPlayed].StoryClips[clipToPlay];
     }
@@ -185,7 +211,7 @@ public class StoryClipPlayer  : MonoBehaviour
         var storyClip = this.GetNextStory();
         if (storyClip == null)
         {
-            Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: no story to play");
+            UnityEngine.Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: no story to play");
             return;
         }
 
@@ -194,22 +220,22 @@ public class StoryClipPlayer  : MonoBehaviour
         this.storyChannel.isPlaying(out isPlaying);
         if (isPlaying)
         {
-            Debug.Log($"StoryClipPlayer.PlayStoryClip: a clip was already playing ; ignoring this request.");
+            UnityEngine.Debug.Log($"StoryClipPlayer.PlayStoryClip: a clip was already playing ; ignoring this request.");
             // this.storyChannel.stop();
             return;
         }
 
-        Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
+        UnityEngine.Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
 
         FMOD.ChannelGroup channelGroup;
         FMOD.Sound sound1;
 
         var res = FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
        
-        Debug.Log($"createSound({storyClip.FullName})");
+        UnityEngine.Debug.Log($"createSound({storyClip.FullName})");
         res = FMODUnity.RuntimeManager.CoreSystem.createSound(storyClip.FullName, FMOD.MODE.DEFAULT, out sound1);
 
-        Debug.Log($"playSound())");
+        UnityEngine.Debug.Log($"playSound())");
         res = FMODUnity.RuntimeManager.CoreSystem.playSound(sound1, channelGroup, false, out this.storyChannel);
     }	
 }

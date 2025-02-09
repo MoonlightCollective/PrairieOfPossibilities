@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Assets.Code.StateTable;
 using FMODUnity;
 using FMOD.Studio;
@@ -33,7 +32,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 	private StoryClipPlayer _scp = null;
 
 	EventReference _curEventRef;
-	EventInstance _curEventInstance;
+	FMOD.Studio.EventInstance _curEventInstance;
 
 	private FMOD.Studio.EVENT_CALLBACK _musicCallback;
 	private GCHandle _musicCallbackUserDataHandle;
@@ -233,7 +232,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 		_lastTimelinePosSec = 0;
 	}
 
-	protected EventInstance createNewFmodEventInstance(EventReference eventRef)
+	protected FMOD.Studio.EventInstance createNewFmodEventInstance(EventReference eventRef)
 	{
 		EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(eventRef);
 		return inst;
@@ -332,14 +331,7 @@ public class FmodMusicPlayer : PrairieMusicPlayer
 					else if (pName.Contains("Ring"))
 					{
 						Debug.Log($"---marker: {pName} : ringing a phone");
-						// ring a phone
-						// get a random number 
-						var storyNum = Random.Range(1,10);
-						var callPathName = "~//callStory" + storyNum + ".call"
-						// copy the call file to the pbx
-						var cmdLine = "sshpass -p \"raspberry\" scp " + callFilePath + " root@168.169.0.219:/var/spool/asterisk/outgoing")
-                "
-						Process.Start();
+						playerInstance._scp.CallPhone();
 					}
 
 					// fire the event so the app can change choreography.
