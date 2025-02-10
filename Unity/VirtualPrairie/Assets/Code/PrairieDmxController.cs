@@ -257,10 +257,8 @@ public class PrairieDmxController : MonoBehaviour
                         }
                         catch (System.Exception e)
                         {
-                            Debug.LogErrorFormat(
-                                "Error sending to host name {0}\n exception={1}",
-                                host.Key, e);
-							_activeList[host.Key] = false;
+                            // Debug.LogErrorFormat("Error sending to host name {0}\n exception={1}",host.Key, e);
+							// _activeList[host.Key] = false;
                         }
                     }
                 }
