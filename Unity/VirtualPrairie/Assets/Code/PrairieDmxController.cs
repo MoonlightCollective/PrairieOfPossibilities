@@ -204,7 +204,7 @@ public class PrairieDmxController : MonoBehaviour
 			// go through every point, add up power used per generator
 			foreach (var host in _dataMap)
 			{
-				int gen = _genMap[host.Key] - 1;
+				int gen = _genMap[host.Key];
 				float power = 0;
 
 				for (int u = 0; u < host.Value.Count; ++u)

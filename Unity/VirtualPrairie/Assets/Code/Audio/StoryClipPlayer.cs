@@ -60,11 +60,12 @@ public class StoryClipPlayer  : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateStoryClips();
     }
 
     private void UpdateStoryClips()
     {
-        UnityEngine.Debug.Log($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
+        Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
 
         FileSystemInfo[] storyClipInfos;
         if (!Directory.Exists(this.StoryClipsAudioPath))
@@ -77,7 +78,7 @@ public class StoryClipPlayer  : MonoBehaviour
         DirectoryInfo dir = new DirectoryInfo(this.StoryClipsAudioPath);
         storyClipInfos = dir.GetFileSystemInfos("*.json");
 
-        UnityEngine.Debug.Log($"found {storyClipInfos.Length} files in the storyclip folder");
+        Debug.LogWarning($"found {storyClipInfos.Length} files in the storyclip folder");
 
         var newBlocks = new List<EmotionBlock>();
         int clipCount = 0;
@@ -88,7 +89,7 @@ public class StoryClipPlayer  : MonoBehaviour
             string jsonStr = File.ReadAllText(info.FullName);
             if (string.IsNullOrEmpty(jsonStr))
             {
-                UnityEngine.Debug.LogError($"No metadata found for story clip:{info.FullName}");
+                Debug.LogWarning($"No metadata found for story clip:{info.FullName}");
                 return;
             }
 
@@ -135,7 +136,7 @@ public class StoryClipPlayer  : MonoBehaviour
             block.StoryClips.Sort(byDateComparer);
         }
 
-        UnityEngine.Debug.Log($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
+        Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
         this.emotionBlocks = newBlocks;
     }
 
@@ -225,7 +226,7 @@ public class StoryClipPlayer  : MonoBehaviour
             return;
         }
 
-        UnityEngine.Debug.Log($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
+        Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
 
         FMOD.ChannelGroup channelGroup;
         FMOD.Sound sound1;

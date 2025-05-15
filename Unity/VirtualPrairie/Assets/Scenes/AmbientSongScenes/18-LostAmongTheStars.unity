@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031027975, g: 0.006185299, b: 0.014185382, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031114067, g: 0.00618714, b: 0.014234985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.219
+    LayerAlpha: 0.609
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
@@ -404,7 +404,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.5
+  Multiplier: 0.7
 --- !u!114 &198510131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +802,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Mult: 0.39
+  Mult: 0.8
 --- !u!114 &414018813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.5
+  Multiplier: 0.7
 --- !u!114 &719667821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,7 +2129,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.5
+  Multiplier: 0.7
 --- !u!114 &935383166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2433,7 +2433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendSettings:
     BlendMode: 1
-    LayerAlpha: 0.5
+    LayerAlpha: 0.881
   TimeSettings:
     TimeMult: 1
   PointFilter: {fileID: 0}
@@ -3521,7 +3521,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Mult: 0.6
+  Mult: 0.8
 --- !u!114 &1558435618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3875,7 +3875,7 @@ MonoBehaviour:
     time: 0
     curSegTime: 0
     curSegment: 0
-  Multiplier: 0.5
+  Multiplier: 0.7
 --- !u!114 &1738138485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4103,8 +4103,8 @@ MonoBehaviour:
       FloatValue: 0
       IntValue: 0
       FloatRangeValue:
-        MinVal: 10
-        MaxVal: 40
+        MinVal: 0
+        MaxVal: 25
     NeedsRebuild: 1
   SlowInitParticles: 1
 --- !u!1 &1856840128
@@ -11596,7 +11596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoadAtStartup: 1
-  LayoutJsonFile: Fixtures/2023_Rings_8.5ft_c44_tags.json
+  LayoutJsonFile: Fixtures/LoveBurn2.json
   AutoPlayMusic: 1
   AutoLoadNextScene: 1
   AutoDisplayMode: 0

@@ -260,11 +260,18 @@ public class UILayoutSettingsController : MonoBehaviour
 		SunflowerClearingOffsetSlider.Slider.SetValueWithoutNotify(fls.ClearingOffset);
 		SunflowerClearingSizeSlider.Slider.SetValueWithoutNotify(fls.ClearingSize);
 
-		UILabelSlider[] sliders = GetComponentsInChildren<UILabelSlider>();
-		foreach (var s in sliders)
+		UILabelSlider[] labelSliders = GetComponentsInChildren<UILabelSlider>();
+		foreach (var s in labelSliders)
 		{
 			s.OnUpdateValue(s.Slider.value);
 		}
+		
+		Slider[] sliders = GetComponentsInChildren<Slider>();
+		foreach (var s in sliders)
+		{
+			s.onValueChanged.AddListener(SliderChanged);
+		}
+
 
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 	}
