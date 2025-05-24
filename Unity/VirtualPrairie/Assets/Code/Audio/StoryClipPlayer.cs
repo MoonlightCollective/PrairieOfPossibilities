@@ -65,7 +65,7 @@ public class StoryClipPlayer  : MonoBehaviour
 
     private void UpdateStoryClips()
     {
-        Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
+        UnityEngine.Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loading fresh the story clips");
 
         FileSystemInfo[] storyClipInfos;
         if (!Directory.Exists(this.StoryClipsAudioPath))
@@ -78,7 +78,7 @@ public class StoryClipPlayer  : MonoBehaviour
         DirectoryInfo dir = new DirectoryInfo(this.StoryClipsAudioPath);
         storyClipInfos = dir.GetFileSystemInfos("*.json");
 
-        Debug.LogWarning($"found {storyClipInfos.Length} files in the storyclip folder");
+        UnityEngine.Debug.LogWarning($"found {storyClipInfos.Length} files in the storyclip folder");
 
         var newBlocks = new List<EmotionBlock>();
         int clipCount = 0;
@@ -89,7 +89,7 @@ public class StoryClipPlayer  : MonoBehaviour
             string jsonStr = File.ReadAllText(info.FullName);
             if (string.IsNullOrEmpty(jsonStr))
             {
-                Debug.LogWarning($"No metadata found for story clip:{info.FullName}");
+                UnityEngine.Debug.LogWarning($"No metadata found for story clip:{info.FullName}");
                 return;
             }
 
@@ -136,7 +136,7 @@ public class StoryClipPlayer  : MonoBehaviour
             block.StoryClips.Sort(byDateComparer);
         }
 
-        Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
+        UnityEngine.Debug.LogWarning($"StoryClipPlayer.UpdateStoryClips: loaded {clipCount} clips across {newBlocks.Count} emotions");
         this.emotionBlocks = newBlocks;
     }
 
@@ -226,7 +226,7 @@ public class StoryClipPlayer  : MonoBehaviour
             return;
         }
 
-        Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
+        UnityEngine.Debug.LogWarning($"StoryClipPlayer.PlayStoryClip: playing story clip {storyClip.classifier[0].label}, {storyClip.FullName}");
 
         FMOD.ChannelGroup channelGroup;
         FMOD.Sound sound1;
