@@ -127,6 +127,14 @@ public class PlantSelectionManager : MonoBehaviour
 		{
 			WiredPathManager.Instance.AddPath(_workingPath);
 		}
+		else
+		{
+			// if we are already in the path manager, we need to remove the old one and add the new one.
+			// this is a bit of a hack, but it works for now.
+			//WiredPathManager.Instance.RemovePath(_workingPath);
+			//WiredPathManager.Instance.AddPath(_workingPath);			
+			// TODO -- refresh 
+		}
 		_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
 
 		// regardless, now that we apply the info, deselect the path and start a new path.
@@ -385,21 +393,9 @@ public class PlantSelectionManager : MonoBehaviour
 
 	protected void startNewWire()
 	{
-		// Debug.Log("startNewWire");
-		if (_workingPath != null)
-		{
-			_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
-
-			if (!_pathManager.PathExists(_workingPath))
-			{
-				// doesn't already exist, use current path as a scratch path.
-				// but clear it out.
-				_workingPath.ClearPath();
-				return;
-			}
-		}
+		// if path already exists, clear it out
+		_workingPath = null;
 		_workingPath = WiredPathManager.NewPathInstance();
-		_workingPath.PathId = WiredPathManager.Instance.NextPathName();
 		_workingPath.SetVisibility(WiredPath.EPathVisState.Active);
 		updatePathTotalsText();
 	}
@@ -501,7 +497,6 @@ public class PlantSelectionManager : MonoBehaviour
 			{
 				Debug.Log("creating a new path");
 				_workingPath = WiredPathManager.NewPathInstance();
-				_workingPath.PathId = _pathManager.NextPathName();
 				_workingPath.SetVisibility(WiredPath.EPathVisState.Visible);
 			}
 			_workingPath.AddFixture(wiredFixture);

@@ -20,16 +20,30 @@ public class WiredPathManager : MonoBehaviour
 	public List<WiredPath> Paths = new List<WiredPath>();
 	public GameObject WiredPathFab;
 	GameObject _rootObj;
+	int nextIP = 220;
+	int nextUniverse = 1;
+	int nextPath = 0;
+
 
 	public static WiredPath NewPathInstance()
 	{
 		GameObject go = GameObject.Instantiate(Instance.WiredPathFab);
-		return go.GetComponent<WiredPath>();
-	}
-
-	public string NextPathName()
-	{
-		return $"Path{Paths.Count.ToString()}";
+		WiredPath newPath = go.GetComponent<WiredPath>();
+		newPath.PathId = Instance.nextPath.ToString();
+		Instance.nextPath += 1;
+		
+		newPath.ArtnetHost = "192.168.0." + Instance.nextIP.ToString();
+		newPath.Universe = Instance.nextUniverse;
+		if (Instance.nextUniverse >= 4)
+		{
+			Instance.nextUniverse = 1;
+			Instance.nextIP += 1;
+		}
+		else
+		{
+			Instance.nextUniverse += 1;
+		}
+		return newPath;
 	}
 
 	void Awake()
@@ -64,6 +78,9 @@ public class WiredPathManager : MonoBehaviour
 			GameObject.Destroy(child.gameObject);
 		}
 		_rootObj.transform.DetachChildren();
+		nextIP = 220;
+		nextUniverse = 1;
+		nextPath = 0;
 	}
 
 	public void NotifyNewLayout()
