@@ -107,12 +107,12 @@ public abstract class FixtureLayoutBase : MonoBehaviour
 			pcm.PointRangeMin = pcm.PlantId * PrairieDmxController.PointsPerFixture;
 			pcm.PointRangeMax = pcm.PointRangeMin + PrairieDmxController.PointsPerFixture;
 
-			// set arm tag based on new position
-			int armID = (int)((azimuth + 180.0f) / 10.0f) + 1;
-			string armTag = "CWArm" + armID;
-			pcm.AddFixtureTag(armTag);
-			armTag = "CCWArm" + armID;
-			pcm.AddFixtureTag(armTag);
+			// set arm tag based on new position -- only needed if not set in fixtures file
+//			int armID = (int)((azimuth + 180.0f) / 10.0f) + 1;
+//			string armTag = "CWArm" + armID;
+//			pcm.AddFixtureTag(armTag);
+//			armTag = "CCWArm" + armID;
+//			pcm.AddFixtureTag(armTag);
 		}
 		else
 		{
